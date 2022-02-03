@@ -1,6 +1,6 @@
 package domain.models.domainmodel
 
-import support.Repository
+import domain.Repository
 
 trait DomainModelRepository extends Repository[DomainModel] {
 

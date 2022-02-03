@@ -1,7 +1,8 @@
 package controllers
 
+import domain.models.project.ProjectRepository
+import interfaces.viewmodels.project.ProjectViewModel
 import play.api.mvc._
-import viewmodels.project.ProjectViewModel
 
 import javax.inject._
 
@@ -10,10 +11,14 @@ import javax.inject._
  * application's home page.
  */
 @Singleton
-class HomeController @Inject() (cc: ControllerComponents) extends AbstractController(cc) {
+class HomeController @Inject() (
+    cc: ControllerComponents,
+    projectRepository: ProjectRepository
+) extends AbstractController(cc) {
 
   def index: Action[AnyContent] = Action {
-    val vm1 = ProjectViewModel(java.util.UUID.randomUUID(), "図書館プロジェクト", "図書館で色々頑張る")
-    Ok(views.html.index(Seq(vm1)))
+    val projects          = projectRepository.all
+    val projectViewModels = projects.map(ProjectViewModel.from)
+    Ok(views.html.index(projectViewModels))
   }
 }

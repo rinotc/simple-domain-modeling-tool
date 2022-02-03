@@ -5,6 +5,8 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 
+GET     /projects/add               controllers.AddProjectController.addProjectFormPage()
+POST    /projects                   controllers.AddProjectController.addProject()
 GET     /projects/:id               controllers.ProjectController.getProject(id: String)
 
 # Map static resources from the /public folder to the /assets URL path

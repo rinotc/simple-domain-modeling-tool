@@ -1,6 +1,6 @@
 package domain.models.domainmodel
 
-import support.EntityId
+import domain.EntityId
 
 import java.util.UUID
 

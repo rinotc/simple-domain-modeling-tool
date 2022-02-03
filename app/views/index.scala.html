@@ -1,5 +1,4 @@
-@import viewmodels.project.ProjectViewModel
-
+@import interfaces.viewmodels.project.ProjectViewModel
 @(projects: Seq[ProjectViewModel])
 
 @main("Top") {
@@ -8,21 +7,23 @@
       <div class="container">
         <h1 class="display-4">ようこそ！</h1>
         <p>これはシンプルなドメインモデリングのためのツールです。まずはプロジェクトを作りましょう！</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">＋ プロジェクト作成</a>
+        <a class="btn btn-primary btn-lg" href="@routes.AddProjectController.addProjectFormPage()" role="button">＋ プロジェクト作成</a>
       </div>
     </div>
 
-    <h2 class="display-6">プロジェクト一覧</h2>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th scope="col">プロジェクト名</th>
-            <th scope="col">プロジェクト概要</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
+    <div class="container">
+      <h2 class="display-6">プロジェクト一覧</h2>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">プロジェクト名</th>
+              <th scope="col">プロジェクト概要</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
           @for(project <- projects) {
             <tr>
               <td>@{project.name}</td>
@@ -30,8 +31,9 @@
               <td><a href="@routes.ProjectController.getProject(project.id.toString)">詳細</a></td>
             </tr>
           }
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
   </main>
 }

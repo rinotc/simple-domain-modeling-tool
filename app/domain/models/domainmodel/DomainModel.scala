@@ -1,8 +1,8 @@
 package domain.models.domainmodel
 
 import domain.models.project.ProjectId
+import domain.{Aggregate, Entity}
 import play.twirl.api.Html
-import support.{Aggregate, Entity}
 
 final class DomainModel(
     val id: DomainModelId,

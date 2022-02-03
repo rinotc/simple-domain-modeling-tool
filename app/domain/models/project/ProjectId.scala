@@ -1,6 +1,6 @@
 package domain.models.project
 
-import support.EntityId
+import domain.EntityId
 
 import java.util.UUID
 

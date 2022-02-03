@@ -1,6 +1,8 @@
 package domain.models.project
 
-import support.{Aggregate, Entity}
+import domain.{Aggregate, Entity}
+
+import java.util.UUID
 
 /**
  * プロジェクト
@@ -9,7 +11,7 @@ import support.{Aggregate, Entity}
  * @param name プロジェクト名称
  * @param overview    プロジェクト概要
  */
-final class Project(
+final class Project private (
     val id: ProjectId,
     val name: String,
     val overview: String
@@ -28,4 +30,10 @@ final class Project(
       name: String = this.name,
       overview: String = this.overview
   ): Project = new Project(this.id, name, overview)
+}
+
+object Project {
+  def reconstruct(id: ProjectId, name: String, overview: String) = new Project(id, name, overview)
+
+  def create(name: String, overview: String) = new Project(ProjectId(UUID.randomUUID()), name, overview)
 }
