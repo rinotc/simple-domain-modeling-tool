@@ -8,7 +8,7 @@ import java.util.UUID
 class ProjectScalikeJdbcRepository extends ProjectRepository with SQLInterpolation {
 
   override def findById(id: ProjectId): Option[Project] = DB readOnly { implicit session =>
-    sql"""select * from main.public."project" where ${id.value}"""
+    sql"""select * from main.public."project" where project_id = ${id.value}"""
       .map(reconstructProjectFromResultSet)
       .single()
       .apply()

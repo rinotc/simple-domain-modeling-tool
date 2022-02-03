@@ -1,0 +1,12 @@
+@import interfaces.forms.project.AddProjectForm
+
+@(addForm: Form[AddProjectForm.Data])(implicit request: MessagesRequestHeader)
+
+@main("プロジェクト追加") {
+  @helper.form(action=routes.AddProjectController.addProject()) {
+    @helper.CSRF.formField
+    @helper.inputText(addForm("name"))
+    @helper.inputText(addForm("overview"))
+    <button>プロジェクト追加</button>
+  }
+}

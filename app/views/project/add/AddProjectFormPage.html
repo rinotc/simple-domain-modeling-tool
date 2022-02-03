@@ -1,8 +1,0 @@
-@import interfaces.forms.project.AddProjectForm
-
-@(addForm: Form[AddProjectForm.Data])
-
-@main("プロジェクト追加") {
-  @routes.
-  @helper.form(action=routes.ProjectController())
-}
