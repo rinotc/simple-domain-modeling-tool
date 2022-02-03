@@ -1,7 +1,7 @@
-package controllers
+package interfaces.controllers
 
+import interfaces.viewmodels.project.ProjectViewModel
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
-import viewmodels.project.ProjectViewModel
 
 import java.util.UUID
 import javax.inject.Inject

@@ -1,6 +1,9 @@
 package modules
 
 import com.google.inject.AbstractModule
+import domain.models.project.ProjectRepository
+import infrastructure.domain.repository.project.ProjectScalikeJdbcRepository
+import net.codingwell.scalaguice.ScalaModule
 
 /**
  * This class is a Guice module that tells Guice how to bind several
@@ -12,8 +15,9 @@ import com.google.inject.AbstractModule
  * adding `play.modules.enabled` settings to the `application.conf`
  * configuration file.
  */
-class Module extends AbstractModule {
+class Module extends AbstractModule with ScalaModule {
 
-  override def configure(): Unit = {}
-
+  override def configure(): Unit = {
+    bind[ProjectRepository].to[ProjectScalikeJdbcRepository]
+  }
 }

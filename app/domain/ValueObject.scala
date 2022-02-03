@@ -1,3 +1,3 @@
-package support
+package domain
 
 trait ValueObject

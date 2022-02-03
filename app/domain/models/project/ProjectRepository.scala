@@ -1,6 +1,6 @@
 package domain.models.project
 
-import support.Repository
+import domain.Repository
 
 trait ProjectRepository extends Repository[Project] {
 

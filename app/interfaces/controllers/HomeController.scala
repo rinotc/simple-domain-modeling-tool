@@ -1,7 +1,7 @@
-package controllers
+package interfaces.controllers
 
+import interfaces.viewmodels.project.ProjectViewModel
 import play.api.mvc._
-import viewmodels.project.ProjectViewModel
 
 import javax.inject._
 

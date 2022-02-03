@@ -1,7 +1,7 @@
-@import viewmodels.project.ProjectViewModel
+@import interfaces.viewmodels.project.ProjectViewModel
 
 @(project: ProjectViewModel)
 
-@main(s"Project: ${project.name}") {
-  <h1>@{project.name}</h1>
-}
+  @main(s"Project: ${project.name}") {
+    <h1>@{project.name}</h1>
+  }

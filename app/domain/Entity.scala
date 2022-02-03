@@ -1,4 +1,4 @@
-package support
+package domain
 
 trait Entity[ID <: EntityId[_]] {
   val id: ID

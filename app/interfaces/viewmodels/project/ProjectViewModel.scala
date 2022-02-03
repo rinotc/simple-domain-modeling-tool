@@ -1,6 +1,4 @@
-package viewmodels.project
-
-import domain.models.project.ProjectId
+package interfaces.viewmodels.project
 
 import java.util.UUID
 
