@@ -1,0 +1,24 @@
+package controllers
+
+import domain.models.project.ProjectRepository
+import interfaces.viewmodels.project.ProjectViewModel
+import play.api.mvc._
+
+import javax.inject._
+
+/**
+ * This controller creates an `Action` to handle HTTP requests to the
+ * application's home page.
+ */
+@Singleton
+class HomeController @Inject() (
+    cc: ControllerComponents,
+    projectRepository: ProjectRepository
+) extends AbstractController(cc) {
+
+  def index: Action[AnyContent] = Action {
+    val projects          = projectRepository.all
+    val projectViewModels = projects.map(ProjectViewModel.from)
+    Ok(views.html.index(projectViewModels))
+  }
+}

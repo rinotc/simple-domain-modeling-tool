@@ -1,7 +1,7 @@
 package infrastructure.domain.repository.project
 
 import domain.models.project.{Project, ProjectId, ProjectRepository}
-import scalikejdbc.{DB, SQLInterpolation}
+import scalikejdbc.{DB, SQLInterpolation, WrappedResultSet}
 
 import java.util.UUID
 
@@ -9,16 +9,23 @@ class ProjectScalikeJdbcRepository extends ProjectRepository with SQLInterpolati
 
   override def findById(id: ProjectId): Option[Project] = DB readOnly { implicit session =>
     sql"""select * from main.public."project" where ${id.value}"""
-      .map { rs =>
-        Project.reconstruct(
-          id = ProjectId(UUID.fromString(rs.string("project_id"))),
-          name = rs.string("project_name"),
-          overview = rs.string("project_overview")
-        )
-      }
+      .map(reconstructProjectFromResultSet)
       .single()
       .apply()
   }
+
+  override def all: Seq[Project] = DB readOnly { implicit session =>
+    sql"""select * from main.public."project""""
+      .map(reconstructProjectFromResultSet)
+      .list()
+      .apply()
+  }
+
+  private def reconstructProjectFromResultSet(rs: WrappedResultSet) = Project.reconstruct(
+    id = ProjectId(UUID.fromString(rs.string("project_id"))),
+    name = rs.string("project_name"),
+    overview = rs.string("project_overview")
+  )
 
   override def insert(project: Project): Unit = {
     DB localTx { implicit session =>

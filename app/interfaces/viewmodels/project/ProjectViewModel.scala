@@ -1,5 +1,7 @@
 package interfaces.viewmodels.project
 
+import domain.models.project.Project
+
 import java.util.UUID
 
 /**
@@ -13,3 +15,13 @@ case class ProjectViewModel(
     name: String,
     overview: String
 )
+
+object ProjectViewModel {
+  def from(project: Project): ProjectViewModel = {
+    ProjectViewModel(
+      id = project.id.value,
+      name = project.name,
+      overview = project.overview
+    )
+  }
+}

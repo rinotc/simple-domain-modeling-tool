@@ -2,6 +2,8 @@ package domain.models.project
 
 import domain.{Aggregate, Entity}
 
+import java.util.UUID
+
 /**
  * プロジェクト
  *
@@ -32,4 +34,6 @@ final class Project private (
 
 object Project {
   def reconstruct(id: ProjectId, name: String, overview: String) = new Project(id, name, overview)
+
+  def create(name: String, overview: String) = new Project(ProjectId(UUID.randomUUID()), name, overview)
 }
