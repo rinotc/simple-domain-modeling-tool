@@ -1,7 +1,9 @@
 package modules
 
 import com.google.inject.AbstractModule
+import domain.models.domainmodel.DomainModelRepository
 import domain.models.project.ProjectRepository
+import infrastructure.domain.repository.domainmodel.DomainModelScalikeJdbcRepository
 import infrastructure.domain.repository.project.ProjectScalikeJdbcRepository
 import net.codingwell.scalaguice.ScalaModule
 
@@ -19,5 +21,6 @@ class Module extends AbstractModule with ScalaModule {
 
   override def configure(): Unit = {
     bind[ProjectRepository].to[ProjectScalikeJdbcRepository]
+    bind[DomainModelRepository].to[DomainModelScalikeJdbcRepository]
   }
 }

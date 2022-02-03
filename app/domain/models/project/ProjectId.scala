@@ -21,4 +21,6 @@ object ProjectId {
   def apply(value: UUID): ProjectId = new ProjectId(value)
 
   def fromString(value: String): ProjectId = apply(UUID.fromString(value))
+
+  def generate: ProjectId = apply(UUID.randomUUID())
 }

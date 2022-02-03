@@ -15,3 +15,12 @@ final class DomainModelId(val value: UUID) extends EntityId[UUID] {
 
   override def toString = s"DomainModelId($value)"
 }
+
+object DomainModelId {
+
+  def apply(value: UUID): DomainModelId = new DomainModelId(value)
+
+  def fromString(value: String): DomainModelId = apply(UUID.fromString(value))
+
+  def generate: DomainModelId = apply(UUID.randomUUID())
+}
