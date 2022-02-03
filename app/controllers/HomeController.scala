@@ -1,7 +1,9 @@
 package controllers
 
-import javax.inject._
 import play.api.mvc._
+import support.project.ProjectViewModel
+
+import javax.inject._
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -11,6 +13,7 @@ import play.api.mvc._
 class HomeController @Inject() (cc: ControllerComponents) extends AbstractController(cc) {
 
   def index: Action[AnyContent] = Action {
-    Ok(views.html.index())
+    val vm1 = ProjectViewModel(java.util.UUID.randomUUID(), "図書館プロジェクト", "図書館で色々頑張る")
+    Ok(views.html.index(Seq(vm1)))
   }
 }
