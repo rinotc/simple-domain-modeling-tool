@@ -1,7 +1,6 @@
 package controllers
 
 import domain.models.project.ProjectRepository
-import interfaces.viewmodels.project.ProjectViewModel
 import play.api.mvc._
 
 import javax.inject._
@@ -17,8 +16,7 @@ class HomeController @Inject() (
 ) extends AbstractController(cc) {
 
   def index: Action[AnyContent] = Action {
-    val projects          = projectRepository.all
-    val projectViewModels = projects.map(ProjectViewModel.from)
-    Ok(views.html.index(projectViewModels))
+    val projects = projectRepository.all
+    Ok(views.html.index(projects))
   }
 }
