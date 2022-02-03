@@ -1,5 +1,6 @@
 package controllers
 
+import domain.models.domainmodel.DomainModel
 import domain.models.project.{ProjectId, ProjectRepository}
 import interfaces.viewmodels.project.ProjectViewModel
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
@@ -17,7 +18,7 @@ class ProjectController @Inject() (
       case None => NotFound(views.html.error.NotFound())
       case Some(project) =>
         val vm = ProjectViewModel.from(project)
-        Ok(views.html.project.ProjectTopPage(vm))
+        Ok(views.html.project.ProjectTopPage(vm, Seq.empty[DomainModel]))
     }
   }
 }

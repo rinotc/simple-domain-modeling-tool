@@ -11,17 +11,19 @@
       </div>
     </div>
 
-    <h2 class="display-6">プロジェクト一覧</h2>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th scope="col">プロジェクト名</th>
-            <th scope="col">プロジェクト概要</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
+    <div class="container">
+      <h2 class="display-6">プロジェクト一覧</h2>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">プロジェクト名</th>
+              <th scope="col">プロジェクト概要</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
           @for(project <- projects) {
             <tr>
               <td>@{project.name}</td>
@@ -29,8 +31,9 @@
               <td><a href="@routes.ProjectController.getProject(project.id.toString)">詳細</a></td>
             </tr>
           }
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
   </main>
 }

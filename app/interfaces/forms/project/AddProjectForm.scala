@@ -12,7 +12,7 @@ object AddProjectForm {
 
   val form: Form[Data] = Form(
     mapping(
-      "name"     -> text,
+      "name"     -> nonEmptyText(maxLength = 100),
       "overview" -> text
     )(Data.apply)(Data.unapply)
   )
