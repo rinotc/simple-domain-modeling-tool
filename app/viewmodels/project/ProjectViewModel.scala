@@ -1,4 +1,4 @@
-package support.project
+package viewmodels.project
 
 import domain.models.project.ProjectId
 
