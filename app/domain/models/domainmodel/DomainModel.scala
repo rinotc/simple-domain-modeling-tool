@@ -2,16 +2,43 @@ package domain.models.domainmodel
 
 import domain.models.project.ProjectId
 import domain.{Aggregate, Entity}
-import play.twirl.api.Html
+import laika.api.Transformer
+import laika.format.{HTML, Markdown}
+import laika.markdown.github.GitHubFlavor
 
+/**
+ * ドメインモデル
+ *
+ * @param id              ドメインモデルID
+ * @param projectId       プロジェクトID
+ * @param japaneseName    日本語名
+ * @param englishName     英語名
+ * @param specificationMD 仕様（Markdown）
+ */
 final class DomainModel private (
     val id: DomainModelId,
     val projectId: ProjectId,
     val japaneseName: String,
     val englishName: String,
-    val specification: String
+    val specificationMD: String
 ) extends Entity[DomainModelId]
     with Aggregate {
+
+  /**
+   * Markdownで書かれた仕様をHTMLに変換する
+   */
+  def specificationToHtml: String = {
+    val transformer = Transformer
+      .from(Markdown)
+      .to(HTML)
+      .using(GitHubFlavor)
+      .build
+
+    transformer.transform(specificationMD).left.map(_.toString) match {
+      case Left(value)  => value
+      case Right(value) => value
+    }
+  }
 
   def changeJapaneseName(name: String): DomainModel = copy(japaneseName = name)
 
@@ -22,12 +49,12 @@ final class DomainModel private (
   override def canEqual(that: Any): Boolean = that.isInstanceOf[DomainModel]
 
   override def toString =
-    s"DomainModel(id=$id, domainModelJapaneseName=$japaneseName, domainModelEnglishName=$englishName, specification=$specification)"
+    s"DomainModel(id=$id, domainModelJapaneseName=$japaneseName, domainModelEnglishName=$englishName, specification=$specificationMD)"
 
   private def copy(
       japaneseName: String = this.japaneseName,
       englishName: String = this.englishName,
-      specification: String = this.specification
+      specification: String = this.specificationMD
   ): DomainModel = new DomainModel(this.id, this.projectId, japaneseName, englishName, specification)
 }
 
@@ -46,7 +73,7 @@ object DomainModel {
       projectId = projectId,
       japaneseName = japaneseName,
       englishName = englishName,
-      specification = specification
+      specificationMD = specification
     )
   }
 }
