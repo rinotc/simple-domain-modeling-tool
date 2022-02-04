@@ -27,7 +27,7 @@
           <tr>
             <td>@{model.japaneseName}</td>
             <td>@{model.englishName}</td>
-            <td><a href="@routes.DomainModelController.findByEnglishName(model.englishName, project.alias.value)">仕様</a></td>
+            <td><a href="@routes.DomainModelController.findByEnglishName(project.alias.value, model.englishName)">仕様</a></td>
           </tr>
         }
         </tbody>
