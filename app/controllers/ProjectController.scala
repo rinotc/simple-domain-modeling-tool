@@ -1,15 +1,15 @@
 package controllers
 
-import domain.models.domainmodel.DomainModel
+import domain.models.domainmodel.{DomainModel, DomainModelRepository}
 import domain.models.project.{ProjectId, ProjectRepository}
-import interfaces.viewmodels.project.ProjectViewModel
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 
 import javax.inject.Inject
 
 class ProjectController @Inject() (
     cc: MessagesControllerComponents,
-    projectRepository: ProjectRepository
+    projectRepository: ProjectRepository,
+    domainModelRepository: DomainModelRepository
 ) extends MessagesAbstractController(cc) {
 
   def getProject(id: String): Action[AnyContent] = Action { implicit request =>
@@ -17,8 +17,8 @@ class ProjectController @Inject() (
     projectRepository.findById(projectId) match {
       case None => NotFound(views.html.error.NotFound())
       case Some(project) =>
-        val vm = ProjectViewModel.from(project)
-        Ok(views.html.project.ProjectTopPage(vm, Seq.empty[DomainModel]))
+        val domainModels = domainModelRepository.listBy(project.id)
+        Ok(views.html.project.ProjectTopPage(project, domainModels))
     }
   }
 }

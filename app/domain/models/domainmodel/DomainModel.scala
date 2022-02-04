@@ -4,12 +4,12 @@ import domain.models.project.ProjectId
 import domain.{Aggregate, Entity}
 import play.twirl.api.Html
 
-final class DomainModel(
+final class DomainModel private (
     val id: DomainModelId,
     val projectId: ProjectId,
     val japaneseName: String,
     val englishName: String,
-    val specification: Html
+    val specification: String
 ) extends Entity[DomainModelId]
     with Aggregate {
 
@@ -17,7 +17,7 @@ final class DomainModel(
 
   def changeEnglishName(name: String): DomainModel = copy(englishName = name)
 
-  def changeSpecification(specification: Html): DomainModel = copy(specification = specification)
+  def changeSpecification(specification: String): DomainModel = copy(specification = specification)
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[DomainModel]
 
@@ -27,6 +27,26 @@ final class DomainModel(
   private def copy(
       japaneseName: String = this.japaneseName,
       englishName: String = this.englishName,
-      specification: Html = this.specification
+      specification: String = this.specification
   ): DomainModel = new DomainModel(this.id, this.projectId, japaneseName, englishName, specification)
+}
+
+object DomainModel {
+  def reconstruct(
+      id: DomainModelId,
+      projectId: ProjectId,
+      japaneseName: String,
+      englishName: String,
+      specification: String
+  ): DomainModel = new DomainModel(id, projectId, japaneseName, englishName, specification)
+
+  def create(projectId: ProjectId, japaneseName: String, englishName: String, specification: String): DomainModel = {
+    new DomainModel(
+      id = DomainModelId.generate,
+      projectId = projectId,
+      japaneseName = japaneseName,
+      englishName = englishName,
+      specification = specification
+    )
+  }
 }

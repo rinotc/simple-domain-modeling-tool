@@ -1,5 +1,6 @@
-@import interfaces.viewmodels.project.ProjectViewModel
-@(projects: Seq[ProjectViewModel])
+@import domain.models.project.Project
+
+@(projects: Seq[Project])
 
 @main("Top") {
   <main>
@@ -28,7 +29,7 @@
             <tr>
               <td>@{project.name}</td>
               <td>@{project.overview}</td>
-              <td><a href="@routes.ProjectController.getProject(project.id.toString)">詳細</a></td>
+              <td><a href="@routes.ProjectController.getProject(project.id.asString)">詳細</a></td>
             </tr>
           }
           </tbody>

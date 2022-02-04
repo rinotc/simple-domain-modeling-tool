@@ -1,0 +1,16 @@
+@import interfaces.forms.domainmodel.AddDomainModelForm
+@import domain.models.project.ProjectId
+
+@(addForm: Form[AddDomainModelForm.Data], projectId: ProjectId)(implicit request: MessagesRequestHeader)
+
+@main("ドメインモデルの追加") {
+  <div class="container">
+  @helper.form(action = routes.AddDomainModelController.addDomainModel(projectId.asString)) {
+    @helper.CSRF.formField
+    @helper.inputText(addForm("japaneseName"), Symbol("class") -> "form-control")
+    @helper.inputText(addForm("englishName"), Symbol("class") -> "form-control")
+    @helper.textarea(addForm("specification"), Symbol("class") -> "form-control", Symbol("rows") -> 50)
+    <button type="submit" class="btn btn-primary">ドメインモデル追加</button>
+  }
+  </div>
+}
