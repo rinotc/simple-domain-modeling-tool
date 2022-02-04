@@ -7,6 +7,7 @@
   @helper.form(action=routes.AddProjectController.addProject()) {
     @helper.CSRF.formField
     @helper.inputText(addForm("name"), Symbol("class") -> "form-control")
+    @helper.inputText(addForm("alias"), Symbol("class") -> "form-control")
     @helper.textarea(addForm("overview"), Symbol("class") -> "form-control")
     <button type="submit" class="btn btn-primary">プロジェクト追加</button>
   }

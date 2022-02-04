@@ -29,7 +29,7 @@
             <tr>
               <td>@{project.name}</td>
               <td>@{project.overview}</td>
-              <td><a href="@routes.ProjectController.getProject(project.id.asString)">詳細</a></td>
+              <td><a href="@routes.ProjectController.findByProjectAlias(project.alias.value)">詳細</a></td>
             </tr>
           }
           </tbody>

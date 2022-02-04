@@ -1,13 +1,13 @@
+@import domain.models.project.Project
 @import interfaces.forms.domainmodel.AddDomainModelForm
-@import domain.models.project.ProjectId
 
-@(addForm: Form[AddDomainModelForm.Data], projectId: ProjectId)(implicit request: MessagesRequestHeader)
+@(addForm: Form[AddDomainModelForm.Data], project: Project)(implicit request: MessagesRequestHeader)
 
 @main("ドメインモデルの追加") {
   <div class="container">
     <h2 class="display-6">ドメインモデルの追加</h2>
-    <p><a href="@routes.ProjectController.getProject(projectId.asString)">戻る</a></p>
-    @helper.form(action = routes.AddDomainModelController.addDomainModel(projectId.asString)) {
+    <p><a href="@routes.ProjectController.findByProjectAlias(project.alias.value)">戻る</a></p>
+    @helper.form(action = routes.AddDomainModelController.addDomainModel(project.alias.value)) {
       @helper.CSRF.formField
       @helper.inputText(addForm("japaneseName"), Symbol("class") -> "form-control")
       @helper.inputText(addForm("englishName"), Symbol("class") -> "form-control")

@@ -1,7 +1,7 @@
 package controllers
 
 import domain.models.domainmodel.{DomainModel, DomainModelRepository}
-import domain.models.project.{ProjectId, ProjectRepository}
+import domain.models.project.{ProjectAlias, ProjectId, ProjectRepository}
 import interfaces.forms.domainmodel.AddDomainModelForm
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 
@@ -13,22 +13,24 @@ class AddDomainModelController @Inject() (
     domainModelRepository: DomainModelRepository
 ) extends MessagesAbstractController(cc) {
 
-  def addDomainModelFormPage(projectId: String): Action[AnyContent] = Action { implicit request =>
-    projectRepository.findById(ProjectId.fromString(projectId)) match {
+  def addDomainModelFormPage(projectAlias: String): Action[AnyContent] = Action { implicit request =>
+    val alias = ProjectAlias(projectAlias)
+
+    projectRepository.findByAlias(alias) match {
       case None => NotFound(views.html.error.NotFound())
       case Some(project) =>
         val form = AddDomainModelForm.form
-        Ok(views.html.domainmodel.add.AddDomainModelFormPage(form, project.id))
+        Ok(views.html.domainmodel.add.AddDomainModelFormPage(form, project))
     }
   }
 
-  def addDomainModel(projectIdStr: String): Action[AnyContent] = Action { implicit request =>
+  def addDomainModel(projectAlias: String): Action[AnyContent] = Action { implicit request =>
     val form = AddDomainModelForm.form.bindFromRequest()
     val data = form.get
 
-    val projectId = ProjectId.fromString(projectIdStr)
+    val alias = ProjectAlias(projectAlias)
 
-    projectRepository.findById(projectId) match {
+    projectRepository.findByAlias(alias) match {
       case None => NotFound(views.html.error.NotFound())
       case Some(project) =>
         val newDomainModel = DomainModel.create(
@@ -38,7 +40,7 @@ class AddDomainModelController @Inject() (
           specification = data.specification
         )
         domainModelRepository.insert(newDomainModel)
-        Redirect(controllers.routes.ProjectController.getProject(project.id.value.toString))
+        Redirect(controllers.routes.ProjectController.findByProjectAlias(project.alias.value))
     }
   }
 }

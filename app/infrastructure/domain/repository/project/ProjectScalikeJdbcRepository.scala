@@ -1,6 +1,6 @@
 package infrastructure.domain.repository.project
 
-import domain.models.project.{Project, ProjectId, ProjectRepository}
+import domain.models.project.{Project, ProjectAlias, ProjectId, ProjectRepository}
 import scalikejdbc.{DB, SQLInterpolation, WrappedResultSet}
 
 import java.util.UUID
@@ -14,6 +14,13 @@ class ProjectScalikeJdbcRepository extends ProjectRepository with SQLInterpolati
       .apply()
   }
 
+  override def findByAlias(alias: ProjectAlias): Option[Project] = DB readOnly { implicit session =>
+    sql"""select * from main.public."project" where project_alias = ${alias.value}"""
+      .map(reconstructProjectFromResultSet)
+      .single()
+      .apply()
+  }
+
   override def all: Seq[Project] = DB readOnly { implicit session =>
     sql"""select * from main.public."project""""
       .map(reconstructProjectFromResultSet)
@@ -21,8 +28,9 @@ class ProjectScalikeJdbcRepository extends ProjectRepository with SQLInterpolati
       .apply()
   }
 
-  private def reconstructProjectFromResultSet(rs: WrappedResultSet) = Project.reconstruct(
+  private def reconstructProjectFromResultSet(rs: WrappedResultSet): Project = Project.reconstruct(
     id = ProjectId(UUID.fromString(rs.string("project_id"))),
+    alias = ProjectAlias(rs.string("project_alias")),
     name = rs.string("project_name"),
     overview = rs.string("project_overview")
   )
@@ -30,8 +38,8 @@ class ProjectScalikeJdbcRepository extends ProjectRepository with SQLInterpolati
   override def insert(project: Project): Unit = {
     DB localTx { implicit session =>
       sql"""
-           insert into main.public."project" (project_id, project_name, project_overview) 
-           values (${project.id.value}, ${project.name}, ${project.overview})
+           insert into main.public."project" (project_id, project_alias, project_name, project_overview) 
+           values (${project.id.value}, ${project.alias.value},${project.name}, ${project.overview})
          """
         .update()
         .apply()
@@ -42,7 +50,8 @@ class ProjectScalikeJdbcRepository extends ProjectRepository with SQLInterpolati
     DB localTx { implicit session =>
       sql"""
             update main.public."project" 
-            set project_name = ${project.name},
+            set project_alias = ${project.alias},
+                project_name = ${project.name},
                 project_overview = ${project.overview}
             where project_id = ${project.id.value}
          """

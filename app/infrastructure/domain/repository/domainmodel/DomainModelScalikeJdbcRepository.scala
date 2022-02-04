@@ -13,6 +13,14 @@ class DomainModelScalikeJdbcRepository extends DomainModelRepository with SQLInt
       .apply()
   }
 
+  override def findByEnglishName(englishName: String, projectId: ProjectId): Option[DomainModel] = DB readOnly {
+    implicit session =>
+      sql"""select * from main.public."domain_model" where english_name = $englishName and project_id = ${projectId.value}"""
+        .map(reconstructDomainModelFromResultSet)
+        .single()
+        .apply()
+  }
+
   override def listBy(projectId: ProjectId): Seq[DomainModel] = DB readOnly { implicit session =>
     sql"""select * from main.public."domain_model" where project_id = ${projectId.value}"""
       .map(reconstructDomainModelFromResultSet)
