@@ -33,7 +33,7 @@ class DomainModelScalikeJdbcRepository extends DomainModelRepository with SQLInt
   override def insert(model: DomainModel): Unit = DB localTx { implicit session =>
     sql"""
         insert into main.public."domain_model" (domain_model_id, project_id, japanese_name, english_name, specification)
-        values (${model.id.value}, ${model.projectId.value}, ${model.japaneseName}, ${model.englishName}, ${model.specification})
+        values (${model.id.value}, ${model.projectId.value}, ${model.japaneseName}, ${model.englishName}, ${model.specificationMD})
        """
       .update()
       .apply()
@@ -44,7 +44,7 @@ class DomainModelScalikeJdbcRepository extends DomainModelRepository with SQLInt
         update main.public."domain_model"
         set japanese_name = ${model.japaneseName},
             english_name = ${model.englishName},
-            specification = ${model.specification}
+            specification = ${model.specificationMD}
         where domain_model_id = ${model.id.value}
        """
       .update()
