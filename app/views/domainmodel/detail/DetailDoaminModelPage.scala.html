@@ -1,0 +1,24 @@
+@import domain.models.domainmodel.DomainModel
+@import domain.models.project.Project
+
+@(model: DomainModel, project: Project)
+
+@main("ドメインモデル詳細") {
+  <div class="container">
+    <h3 class="display-6">@{project.name}</h3>
+    <dl>
+      <dt>日本語名</dt>
+      <dd>@{model.japaneseName}</dd>
+      <dt>English Name</dt>
+      <dd>@{model.englishName}</dd>
+      <dt>仕様</dt>
+      <dd>
+        @Html(model.specification)
+      </dd>
+    </dl>
+
+    <p>
+      <a href="@routes.ProjectController.getProject(project.id.asString)">プロジェクトに戻る</a>
+    </p>
+  </div>
+}

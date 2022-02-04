@@ -6,7 +6,6 @@ object AddDomainModelForm {
   import play.api.data._
 
   case class Data(
-      projectId: String,
       japaneseName: String,
       englishName: String,
       specification: String
@@ -14,7 +13,6 @@ object AddDomainModelForm {
 
   val form: Form[Data] = Form(
     mapping(
-      "projectId"     -> nonEmptyText,
       "japaneseName"  -> nonEmptyText,
       "englishName"   -> nonEmptyText,
       "specification" -> nonEmptyText

@@ -6,6 +6,8 @@ import java.util.UUID
 
 final class ProjectId(val value: UUID) extends EntityId[UUID] {
 
+  def asString: String = value.toString
+
   override def equals(other: Any): Boolean = other match {
     case that: ProjectId => value == that.value
     case _               => false

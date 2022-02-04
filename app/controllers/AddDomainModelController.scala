@@ -22,11 +22,11 @@ class AddDomainModelController @Inject() (
     }
   }
 
-  def addDomainModel(): Action[AnyContent] = Action { implicit request =>
+  def addDomainModel(projectIdStr: String): Action[AnyContent] = Action { implicit request =>
     val form = AddDomainModelForm.form.bindFromRequest()
     val data = form.get
 
-    val projectId = ProjectId.fromString(data.projectId)
+    val projectId = ProjectId.fromString(projectIdStr)
 
     projectRepository.findById(projectId) match {
       case None => NotFound(views.html.error.NotFound())
@@ -38,7 +38,7 @@ class AddDomainModelController @Inject() (
           specification = data.specification
         )
         domainModelRepository.insert(newDomainModel)
-        Redirect(routes.ProjectController.getProject(project.id.value.toString))
+        Redirect(controllers.routes.ProjectController.getProject(project.id.value.toString))
     }
   }
 }

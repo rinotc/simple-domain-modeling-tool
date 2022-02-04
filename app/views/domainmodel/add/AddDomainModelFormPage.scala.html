@@ -5,15 +5,12 @@
 
 @main("ドメインモデルの追加") {
   <div class="container">
-  @helper.form(action = routes.AddProjectController.addProject()) {
+  @helper.form(action = routes.AddDomainModelController.addDomainModel(projectId.asString)) {
     @helper.CSRF.formField
-    @helper.input(addForm("projectId")) { (id, name, value, args) =>
-      <input type="hidden" id="@id" name="@name" value="@{projectId.value}">
-    }
     @helper.inputText(addForm("japaneseName"), Symbol("class") -> "form-control")
     @helper.inputText(addForm("englishName"), Symbol("class") -> "form-control")
-    @helper.textarea(addForm("specification"), Symbol("class") -> "form-control")
-    <button type="submit" class="btn btn-primary">プロジェクト追加</button>
+    @helper.textarea(addForm("specification"), Symbol("class") -> "form-control", Symbol("rows") -> 50)
+    <button type="submit" class="btn btn-primary">ドメインモデル追加</button>
   }
   </div>
 }
