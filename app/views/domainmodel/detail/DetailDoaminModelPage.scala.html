@@ -3,7 +3,7 @@
 
 @(model: DomainModel, project: Project)
 
-@main("ドメインモデル詳細") {
+@main("ドメインモデル詳細", Some(project)) {
   <div class="container">
     <h3 class="display-6">@{project.name}</h3>
     <dl>

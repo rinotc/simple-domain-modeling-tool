@@ -1,6 +1,6 @@
 package controllers
 
-import domain.models.domainmodel.{DomainModel, DomainModelRepository}
+import domain.models.domainmodel.DomainModelRepository
 import domain.models.project.{ProjectId, ProjectRepository}
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 

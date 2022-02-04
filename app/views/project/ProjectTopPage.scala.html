@@ -3,7 +3,7 @@
 
 @(project: Project, domainModels: Seq[DomainModel])
 
-@main(s"Project: ${project.name}") {
+@main(s"Project: ${project.name}", Some(project)) {
   <div class="bg-light p-3 p-sm-5 mb-4">
     <div class="container">
       <h1 class="display-4">@{project.name}</h1>
