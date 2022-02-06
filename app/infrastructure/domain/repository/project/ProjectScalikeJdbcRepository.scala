@@ -62,11 +62,8 @@ class ProjectScalikeJdbcRepository extends ProjectRepository with SQLInterpolati
 
   override def delete(id: ProjectId): Unit = {
     DB localTx { implicit session =>
-      sql"""
-            delete from main.public."project" where project_id = ${id.value}
-         """
-        .update()
-        .apply()
+      sql"""delete from main.public."project" where project_id = ${id.value}""".update().apply()
+      sql"""delete from main.public."domain_model" where project_id = ${id.value}""".update().apply()
     }
   }
 }
