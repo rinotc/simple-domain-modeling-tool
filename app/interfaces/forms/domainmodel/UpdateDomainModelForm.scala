@@ -1,6 +1,8 @@
 package interfaces.forms.domainmodel
 
-object AddDomainModelForm {
+import domain.models.domainmodel.DomainModel
+
+object UpdateDomainModelForm {
 
   import play.api.data.Forms._
   import play.api.data._
@@ -11,12 +13,21 @@ object AddDomainModelForm {
       specification: String
   )
 
-  //noinspection DuplicatedCode
-  val form: Form[Data] = Form(
+  def form: Form[Data] = Form(
     mapping(
       "japaneseName"  -> nonEmptyText,
       "englishName"   -> nonEmptyText,
       "specification" -> nonEmptyText
     )(Data.apply)(Data.unapply)
   )
+
+  def formFill(model: DomainModel): Form[Data] = {
+    val data = Data(
+      model.japaneseName,
+      model.englishName,
+      model.specificationMD
+    )
+
+    form.fill(data)
+  }
 }
