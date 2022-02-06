@@ -1,11 +1,15 @@
 @import domain.models.domainmodel.DomainModel
 @import domain.models.project.Project
 
-@(model: DomainModel, project: Project)
+@(model: DomainModel, project: Project)(implicit request: MessagesRequestHeader)
 
 @main("ドメインモデル詳細", Some(project)) {
   <div class="container">
     <h3 class="display-6">@{project.name}</h3>
+    <p>
+      <a href="@routes.ProjectController.findByProjectAlias(project.alias.value)">プロジェクトに戻る</a>
+    </p>
+
     <dl>
       <dt>日本語名</dt>
       <dd>@{model.japaneseName}</dd>
@@ -17,8 +21,9 @@
       </dd>
     </dl>
 
-    <p>
-      <a href="@routes.ProjectController.findByProjectAlias(project.alias.value)">プロジェクトに戻る</a>
-    </p>
+    @helper.form(action = routes.DeleteDomainModelController.deleteDomainModel(project.alias.value, model.id.asString)) {
+      @helper.CSRF.formField
+      <button type="submit" class="btn btn-danger">削除する</button>
+    }
   </div>
 }

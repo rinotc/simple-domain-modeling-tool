@@ -1,7 +1,6 @@
 package controllers
 
-import domain.models.domainmodel.{DomainModel, DomainModelRepository}
-import domain.models.project.{ProjectAlias, ProjectId, ProjectRepository}
+import domain.models.project.{ProjectAlias, ProjectRepository}
 import domain.usecases.domainmodel.add.{AddDomainModelInput, AddDomainModelOutput, AddDomainModelUseCase}
 import interfaces.forms.domainmodel.AddDomainModelForm
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}

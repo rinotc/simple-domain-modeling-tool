@@ -12,6 +12,7 @@ GET         /projects/:projectAlias                                   controller
 POST        /projects/:projectAlias/domain-models                     controllers.AddDomainModelController.addDomainModel(projectAlias: String)
 GET         /projects/:projectAlias/domain-models/add                 controllers.AddDomainModelController.addDomainModelFormPage(projectAlias: String)
 GET         /projects/:projectAlias/domain-models/:englishName        controllers.DomainModelController.findByEnglishName(projectAlias: String, englishName: String)
+POST        /projects/:projectAlias/domain-models/:id/delete          controllers.DeleteDomainModelController.deleteDomainModel(projectAlias: String, id: String)
 
 
 # Map static resources from the /public folder to the /assets URL path
