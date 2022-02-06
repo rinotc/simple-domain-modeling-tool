@@ -2,13 +2,16 @@ package modules
 
 import com.google.inject.AbstractModule
 import domain.application.interactors.domainmodel.add.AddDomainModelInteractor
+import domain.application.interactors.domainmodel.udpate.UpdateDomainModelInteractor
 import domain.application.interactors.project.add.AddProjectInteractor
-import domain.models.domainmodel.DomainModelRepository
+import domain.models.domainmodel.{DomainModelRepository, DomainModelValidator}
 import domain.models.project.ProjectRepository
 import domain.usecases.domainmodel.add.AddDomainModelUseCase
+import domain.usecases.domainmodel.udpate.UpdateDomainModelUseCase
 import domain.usecases.project.add.AddProjectUseCase
 import infrastructure.domain.repository.domainmodel.DomainModelScalikeJdbcRepository
 import infrastructure.domain.repository.project.ProjectScalikeJdbcRepository
+import infrastructure.domain.service.DomainModelScalikeJdbcValidator
 import net.codingwell.scalaguice.ScalaModule
 
 /**
@@ -29,5 +32,8 @@ class Module extends AbstractModule with ScalaModule {
 
     bind[AddProjectUseCase].to[AddProjectInteractor]
     bind[AddDomainModelUseCase].to[AddDomainModelInteractor]
+
+    bind[UpdateDomainModelUseCase].to[UpdateDomainModelInteractor]
+    bind[DomainModelValidator].to[DomainModelScalikeJdbcValidator]
   }
 }

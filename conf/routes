@@ -3,17 +3,19 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET         /                                                         controllers.HomeController.index
+GET         /                                                                controllers.HomeController.index
 
-POST        /projects                                                 controllers.AddProjectController.addProject()
-GET         /projects/add                                             controllers.AddProjectController.addProjectFormPage()
-GET         /projects/:projectAlias                                   controllers.ProjectController.findByProjectAlias(projectAlias: String)
+POST        /projects                                                        controllers.AddProjectController.addProject()
+GET         /projects/add                                                    controllers.AddProjectController.addProjectFormPage()
+GET         /projects/:projectAlias                                          controllers.ProjectController.findByProjectAlias(projectAlias: String)
 
-POST        /projects/:projectAlias/domain-models                     controllers.AddDomainModelController.addDomainModel(projectAlias: String)
-GET         /projects/:projectAlias/domain-models/add                 controllers.AddDomainModelController.addDomainModelFormPage(projectAlias: String)
-GET         /projects/:projectAlias/domain-models/:englishName        controllers.DomainModelController.findByEnglishName(projectAlias: String, englishName: String)
-POST        /projects/:projectAlias/domain-models/:id/delete          controllers.DeleteDomainModelController.deleteDomainModel(projectAlias: String, id: String)
+POST        /projects/:projectAlias/domain-models                            controllers.AddDomainModelController.addDomainModel(projectAlias: String)
+GET         /projects/:projectAlias/domain-models/add                        controllers.AddDomainModelController.addDomainModelFormPage(projectAlias: String)
+GET         /projects/:projectAlias/domain-models/:englishName               controllers.DomainModelController.findByEnglishName(projectAlias: String, englishName: String)
+GET         /projects/:projectAlias/domain-models/:englishName/udpate        controllers.UpdateDomainModelController.updateDomainModelFormPage(projectAlias: String, englishName: String)
+POST        /projects/:projectAlias/domain-models/:englishName               controllers.UpdateDomainModelController.updateDomainModel(projectAlias: String, englishName: String)
+POST        /projects/:projectAlias/domain-models/:id/delete                 controllers.DeleteDomainModelController.deleteDomainModel(projectAlias: String, id: String)
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                                             controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                                                    controllers.Assets.versioned(path="/public", file: Asset)
