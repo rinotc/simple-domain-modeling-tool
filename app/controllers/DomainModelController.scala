@@ -1,7 +1,7 @@
 package controllers
 
-import domain.models.domainmodel.{DomainModelId, DomainModelRepository}
-import domain.models.project.{ProjectId, ProjectRepository}
+import domain.models.domainmodel.DomainModelRepository
+import domain.models.project.{ProjectAlias, ProjectRepository}
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 
 import javax.inject.Inject
@@ -12,13 +12,11 @@ class DomainModelController @Inject() (
     domainModelRepository: DomainModelRepository
 ) extends MessagesAbstractController(cc) {
 
-  def findById(domainModelIdStr: String, projectIdStr: String): Action[AnyContent] = Action { implicit request =>
-    val domainModelId = DomainModelId.fromString(domainModelIdStr)
-    val projectId     = ProjectId.fromString(projectIdStr)
-
+  def findByEnglishName(projectAlias: String, englishName: String): Action[AnyContent] = Action { implicit request =>
+    val alias = ProjectAlias(projectAlias)
     val maybeResult = for {
-      project     <- projectRepository.findById(projectId)
-      domainModel <- domainModelRepository.findById(domainModelId)
+      project     <- projectRepository.findByAlias(alias)
+      domainModel <- domainModelRepository.findByEnglishName(englishName, project.id)
     } yield {
       Ok(views.html.domainmodel.detail.DetailDoaminModelPage(domainModel, project))
     }

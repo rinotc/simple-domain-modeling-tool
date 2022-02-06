@@ -3,7 +3,7 @@
 @(title: String, maybeProject: Option[Project] = None)(content: Html)
 
 @projectName = @{maybeProject.map(_.name).getOrElse("")}
-@maybeProjectIdString = @{maybeProject.map(_.id.asString)}
+@maybeProjectAlias = @{maybeProject.map(_.alias.value)}
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -22,9 +22,9 @@
       </div>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          @if(maybeProjectIdString.isDefined) {
+          @if(maybeProjectAlias.isDefined) {
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="@routes.ProjectController.getProject(maybeProjectIdString.get)">@projectName</a>
+              <a class="nav-link active" aria-current="page" href="@routes.ProjectController.findByProjectAlias(maybeProjectAlias.get)">@projectName</a>
             </li>
           }
         </ul>

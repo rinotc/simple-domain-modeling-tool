@@ -1,7 +1,8 @@
 package controllers
 
 import domain.models.domainmodel.{DomainModel, DomainModelRepository}
-import domain.models.project.{ProjectId, ProjectRepository}
+import domain.models.project.{ProjectAlias, ProjectId, ProjectRepository}
+import domain.usecases.domainmodel.add.{AddDomainModelInput, AddDomainModelOutput, AddDomainModelUseCase}
 import interfaces.forms.domainmodel.AddDomainModelForm
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 
@@ -10,35 +11,41 @@ import javax.inject.Inject
 class AddDomainModelController @Inject() (
     cc: MessagesControllerComponents,
     projectRepository: ProjectRepository,
-    domainModelRepository: DomainModelRepository
+    addDomainModelUseCase: AddDomainModelUseCase
 ) extends MessagesAbstractController(cc) {
 
-  def addDomainModelFormPage(projectId: String): Action[AnyContent] = Action { implicit request =>
-    projectRepository.findById(ProjectId.fromString(projectId)) match {
+  def addDomainModelFormPage(projectAlias: String): Action[AnyContent] = Action { implicit request =>
+    val alias = ProjectAlias(projectAlias)
+
+    projectRepository.findByAlias(alias) match {
       case None => NotFound(views.html.error.NotFound())
       case Some(project) =>
         val form = AddDomainModelForm.form
-        Ok(views.html.domainmodel.add.AddDomainModelFormPage(form, project.id))
+        Ok(views.html.domainmodel.add.AddDomainModelFormPage(form, project))
     }
   }
 
-  def addDomainModel(projectIdStr: String): Action[AnyContent] = Action { implicit request =>
+  def addDomainModel(projectAlias: String): Action[AnyContent] = Action { implicit request =>
     val form = AddDomainModelForm.form.bindFromRequest()
     val data = form.get
 
-    val projectId = ProjectId.fromString(projectIdStr)
+    val alias = ProjectAlias(projectAlias)
 
-    projectRepository.findById(projectId) match {
-      case None => NotFound(views.html.error.NotFound())
-      case Some(project) =>
-        val newDomainModel = DomainModel.create(
-          projectId = project.id,
-          japaneseName = data.japaneseName,
-          englishName = data.englishName,
-          specification = data.specification
-        )
-        domainModelRepository.insert(newDomainModel)
-        Redirect(controllers.routes.ProjectController.getProject(project.id.value.toString))
+    val input = AddDomainModelInput(
+      projectAlias = alias,
+      japaneseName = data.japaneseName,
+      englishName = data.englishName,
+      specification = data.specification
+    )
+
+    addDomainModelUseCase.handle(input) match {
+      case AddDomainModelOutput.NoSuchProject(projectAlias) =>
+        NotFound(views.html.error.NotFound(s"project alias $projectAlias is not found"))
+      case AddDomainModelOutput.ConflictEnglishName(englishName) =>
+        Conflict(views.html.error.Conflict(s"englishName: $englishName is conflicted"))
+      case AddDomainModelOutput.Success(newDomainModel) =>
+        Redirect(controllers.routes.DomainModelController.findByEnglishName(projectAlias, newDomainModel.englishName))
+
     }
   }
 }

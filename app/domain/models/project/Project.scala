@@ -13,6 +13,7 @@ import java.util.UUID
  */
 final class Project private (
     val id: ProjectId,
+    val alias: ProjectAlias,
     val name: String,
     val overview: String
 ) extends Entity[ProjectId]
@@ -27,13 +28,16 @@ final class Project private (
   override def toString = s"Project(id=$id, projectName=$name)"
 
   private def copy(
+      alias: ProjectAlias = this.alias,
       name: String = this.name,
       overview: String = this.overview
-  ): Project = new Project(this.id, name, overview)
+  ): Project = new Project(this.id, alias, name, overview)
 }
 
 object Project {
-  def reconstruct(id: ProjectId, name: String, overview: String) = new Project(id, name, overview)
+  def reconstruct(id: ProjectId, alias: ProjectAlias, name: String, overview: String) =
+    new Project(id, alias, name, overview)
 
-  def create(name: String, overview: String) = new Project(ProjectId.generate, name, overview)
+  def create(alias: ProjectAlias, name: String, overview: String) =
+    new Project(ProjectId.generate, alias, name, overview)
 }

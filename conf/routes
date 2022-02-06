@@ -3,16 +3,16 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET         /                                             controllers.HomeController.index
+GET         /                                                         controllers.HomeController.index
 
-POST        /projects                                     controllers.AddProjectController.addProject()
-GET         /projects/add                                 controllers.AddProjectController.addProjectFormPage()
-GET         /projects/:id                                 controllers.ProjectController.getProject(id: String)
+POST        /projects                                                 controllers.AddProjectController.addProject()
+GET         /projects/add                                             controllers.AddProjectController.addProjectFormPage()
+GET         /projects/:projectAlias                                   controllers.ProjectController.findByProjectAlias(projectAlias: String)
 
-POST        /projects/:projectId/domain-models            controllers.AddDomainModelController.addDomainModel(projectId: String)
-GET         /projects/:projectId/domain-models/add        controllers.AddDomainModelController.addDomainModelFormPage(projectId: String)
-GET         /projects/:projectId/domain-models/:id        controllers.DomainModelController.findById(id: String, projectId: String)
+POST        /projects/:projectAlias/domain-models                     controllers.AddDomainModelController.addDomainModel(projectAlias: String)
+GET         /projects/:projectAlias/domain-models/add                 controllers.AddDomainModelController.addDomainModelFormPage(projectAlias: String)
+GET         /projects/:projectAlias/domain-models/:englishName        controllers.DomainModelController.findByEnglishName(projectAlias: String, englishName: String)
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                                 controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                                             controllers.Assets.versioned(path="/public", file: Asset)
