@@ -2,20 +2,19 @@
 @import interfaces.forms.domainmodel.UpdateDomainModelForm
 @import domain.models.domainmodel.DomainModel
 
-@(addForm: Form[UpdateDomainModelForm.Data], project: Project, model: DomainModel)(implicit request: MessagesRequestHeader)
+@(updateForm: Form[UpdateDomainModelForm.Data], project: Project, model: DomainModel)(implicit request: MessagesRequestHeader)
 
-@main("ドメインモデルの追加") {
+@main("ドメインモデルの編集") {
 <div class="container">
-  <h2 class="display-6">ドメインモデルの追加</h2>
+  <h2 class="display-6">ドメインモデルの編集</h2>
   <p><a href="@routes.ProjectController.findByProjectAlias(project.alias.value)">戻る</a></p>
   @helper.form(action = routes.UpdateDomainModelController.updateDomainModel(project.alias.value, model.englishName)) {
   @helper.CSRF.formField
-  @helper.inputText(addForm("japaneseName"), Symbol("class") -> "form-control")
-  @helper.inputText(addForm("englishName"), Symbol("class") -> "form-control")
-  @helper.input(addForm("specification")) { (id, name, value, args) =>
-  <p>Markdownで記述する</p>
-  <textarea id="@id" name="@name" value="@value" class="form-control" rows="50"></textarea>
-  }
+  @helper.inputText(updateForm("japaneseName"), Symbol("class") -> "form-control")
+  @helper.inputText(updateForm("englishName"), Symbol("class") -> "form-control")
+
+  <p>※次のspecification は Markdownで記述できます。</p>
+  @helper.textarea(updateForm("specification"), Symbol("class") -> "form-control", Symbol("rows") -> "25")
   <button type="submit" class="btn btn-success">ドメインモデル更新</button>
   }
 </div>
