@@ -11,10 +11,8 @@
       @helper.CSRF.formField
       @helper.inputText(addForm("japaneseName"), Symbol("class") -> "form-control")
       @helper.inputText(addForm("englishName"), Symbol("class") -> "form-control")
-      @helper.input(addForm("specification")) { (id, name, value, args) =>
-        <p>Markdownで記述する</p>
-        <textarea id="@id" name="@name" value="@value" class="form-control" rows="50"></textarea>
-      }
+      <p>※次のspecificationはMarkdownで記述できます。</p>
+      @helper.textarea(addForm("specification"), Symbol("class") -> "form-control", Symbol("rows") -> "25")
       <button type="submit" class="btn btn-primary">ドメインモデル追加</button>
     }
   </div>
