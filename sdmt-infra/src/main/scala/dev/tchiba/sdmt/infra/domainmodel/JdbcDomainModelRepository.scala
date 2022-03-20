@@ -1,10 +1,10 @@
-package infrastructure.domain.repository.domainmodel
+package dev.tchiba.sdmt.infra.domainmodel
 
-import domain.models.domainmodel.{DomainModel, DomainModelId, DomainModelRepository}
-import domain.models.project.ProjectId
+import dev.tchiba.sdmt.core.models.domainmodel.{DomainModel, DomainModelId, DomainModelRepository}
+import dev.tchiba.sdmt.core.models.project.ProjectId
 import scalikejdbc.{DB, SQLInterpolation, WrappedResultSet}
 
-class DomainModelScalikeJdbcRepository extends DomainModelRepository with SQLInterpolation {
+class JdbcDomainModelRepository extends DomainModelRepository with SQLInterpolation {
 
   override def findById(id: DomainModelId): Option[DomainModel] = DB readOnly { implicit session =>
     sql"""select * from main.public."domain_model" where domain_model_id = ${id.asString}"""

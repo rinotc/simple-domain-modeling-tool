@@ -1,6 +1,7 @@
-@import domain.models.project.Project
 @import interfaces.forms.domainmodel.UpdateDomainModelForm
-@import domain.models.domainmodel.DomainModel
+
+@import dev.tchiba.sdmt.core.models.project.Project
+@import dev.tchiba.sdmt.core.models.domainmodel.DomainModel
 
 @(updateForm: Form[UpdateDomainModelForm.Data], project: Project, model: DomainModel)(implicit request: MessagesRequestHeader)
 

@@ -1,11 +1,11 @@
-package infrastructure.domain.repository.project
+package dev.tchiba.sdmt.infra.project
 
-import domain.models.project.{Project, ProjectAlias, ProjectId, ProjectRepository}
+import dev.tchiba.sdmt.core.models.project.{Project, ProjectAlias, ProjectId, ProjectRepository}
 import scalikejdbc.{DB, SQLInterpolation, WrappedResultSet}
 
 import java.util.UUID
 
-class ProjectScalikeJdbcRepository extends ProjectRepository with SQLInterpolation {
+class JdbcProjectRepository extends ProjectRepository with SQLInterpolation {
 
   override def findById(id: ProjectId): Option[Project] = DB readOnly { implicit session =>
     sql"""select * from main.public."project" where project_id = ${id.asString}"""

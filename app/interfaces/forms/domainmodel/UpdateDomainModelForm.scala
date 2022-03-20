@@ -1,6 +1,6 @@
 package interfaces.forms.domainmodel
 
-import domain.models.domainmodel.DomainModel
+import dev.tchiba.sdmt.core.models.domainmodel.DomainModel
 
 object UpdateDomainModelForm {
 

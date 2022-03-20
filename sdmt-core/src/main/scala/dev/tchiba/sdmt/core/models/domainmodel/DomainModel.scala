@@ -2,6 +2,9 @@ package dev.tchiba.sdmt.core.models.domainmodel
 
 import dev.tchiba.sdmt.core.{Aggregate, Entity}
 import dev.tchiba.sdmt.core.models.project.ProjectId
+import laika.api.Transformer
+import laika.format.{HTML, Markdown}
+import laika.markdown.github.GitHubFlavor
 
 /**
  * ドメインモデル
@@ -24,18 +27,18 @@ final class DomainModel private (
   /**
    * Markdownで書かれた仕様をHTMLに変換する
    */
-//  def specificationToHtml: String = {
-//    val transformer = Transformer
-//      .from(Markdown)
-//      .to(HTML)
-//      .using(GitHubFlavor)
-//      .build
-//
-//    transformer.transform(specificationMD).left.map(_.toString) match {
-//      case Left(value)  => value
-//      case Right(value) => value
-//    }
-//  }
+  def specificationToHtml: String = {
+    val transformer = Transformer
+      .from(Markdown)
+      .to(HTML)
+      .using(GitHubFlavor)
+      .build
+
+    transformer.transform(specificationMD).left.map(_.toString) match {
+      case Left(value)  => value
+      case Right(value) => value
+    }
+  }
 
   def changeJapaneseName(name: String): DomainModel = copy(japaneseName = name)
 

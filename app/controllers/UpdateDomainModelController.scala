@@ -1,8 +1,12 @@
 package controllers
 
-import domain.models.domainmodel.DomainModelRepository
-import domain.models.project.{ProjectAlias, ProjectRepository}
-import domain.usecases.domainmodel.udpate.{UpdateDomainModelInput, UpdateDomainModelOutput, UpdateDomainModelUseCase}
+import dev.tchiba.sdmt.core.models.domainmodel.DomainModelRepository
+import dev.tchiba.sdmt.core.models.project.{ProjectAlias, ProjectRepository}
+import dev.tchiba.sdmt.usecase.domainmodel.update.{
+  UpdateDomainModelInput,
+  UpdateDomainModelOutput,
+  UpdateDomainModelUseCase
+}
 import interfaces.forms.domainmodel.UpdateDomainModelForm
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 

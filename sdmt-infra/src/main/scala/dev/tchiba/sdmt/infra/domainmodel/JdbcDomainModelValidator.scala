@@ -1,10 +1,10 @@
-package infrastructure.domain.service
+package dev.tchiba.sdmt.infra.domainmodel
 
-import domain.models.domainmodel.{DomainModelId, DomainModelValidator}
-import domain.models.project.ProjectId
+import dev.tchiba.sdmt.core.models.domainmodel.{DomainModelId, DomainModelValidator}
+import dev.tchiba.sdmt.core.models.project.ProjectId
 import scalikejdbc.{DB, SQLInterpolation}
 
-class DomainModelScalikeJdbcValidator extends DomainModelValidator with SQLInterpolation {
+class JdbcDomainModelValidator extends DomainModelValidator with SQLInterpolation {
 
   /**
    * プロジェクト内に自分自身を除いて同じ英語名が存在するかを調べる
