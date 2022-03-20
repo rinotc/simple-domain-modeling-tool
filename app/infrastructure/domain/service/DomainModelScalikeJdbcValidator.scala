@@ -21,9 +21,9 @@ class DomainModelScalikeJdbcValidator extends DomainModelValidator with SQLInter
     selfId.asString
     sql"""
         select * from main.public."domain_model"
-        where project_id = ${projectId.value}
+        where project_id = ${projectId.asString}
         and english_name = $englishName
-        and domain_model_id != ${selfId.value}
+        and domain_model_id != ${selfId.asString}
        """
       .map { rs => DomainModelId.fromString(rs.string("domain_model_id")) }
       .single()
