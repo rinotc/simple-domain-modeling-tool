@@ -7,7 +7,7 @@ import scalikejdbc.{DB, SQLInterpolation, WrappedResultSet}
 class DomainModelScalikeJdbcRepository extends DomainModelRepository with SQLInterpolation {
 
   override def findById(id: DomainModelId): Option[DomainModel] = DB readOnly { implicit session =>
-    sql"""select * from main.public."domain_model" where domain_model_id = ${id.value}"""
+    sql"""select * from main.public."domain_model" where domain_model_id = ${id.asString}"""
       .map(reconstructDomainModelFromResultSet)
       .single()
       .apply()
@@ -15,14 +15,14 @@ class DomainModelScalikeJdbcRepository extends DomainModelRepository with SQLInt
 
   override def findByEnglishName(englishName: String, projectId: ProjectId): Option[DomainModel] = DB readOnly {
     implicit session =>
-      sql"""select * from main.public."domain_model" where english_name = $englishName and project_id = ${projectId.value}"""
+      sql"""select * from main.public."domain_model" where english_name = $englishName and project_id = ${projectId.asString}"""
         .map(reconstructDomainModelFromResultSet)
         .single()
         .apply()
   }
 
   override def listBy(projectId: ProjectId): Seq[DomainModel] = DB readOnly { implicit session =>
-    sql"""select * from main.public."domain_model" where project_id = ${projectId.value}"""
+    sql"""select * from main.public."domain_model" where project_id = ${projectId.asString}"""
       .map(reconstructDomainModelFromResultSet)
       .list()
       .apply()
@@ -41,7 +41,7 @@ class DomainModelScalikeJdbcRepository extends DomainModelRepository with SQLInt
   override def insert(model: DomainModel): Unit = DB localTx { implicit session =>
     sql"""
         insert into main.public."domain_model" (domain_model_id, project_id, japanese_name, english_name, specification)
-        values (${model.id.value}, ${model.projectId.value}, ${model.japaneseName}, ${model.englishName}, ${model.specificationMD})
+        values (${model.id.asString}, ${model.projectId.asString}, ${model.japaneseName}, ${model.englishName}, ${model.specificationMD})
        """
       .update()
       .apply()
@@ -53,7 +53,7 @@ class DomainModelScalikeJdbcRepository extends DomainModelRepository with SQLInt
         set japanese_name = ${model.japaneseName},
             english_name = ${model.englishName},
             specification = ${model.specificationMD}
-        where domain_model_id = ${model.id.value}
+        where domain_model_id = ${model.id.asString}
        """
       .update()
       .apply()
@@ -61,7 +61,7 @@ class DomainModelScalikeJdbcRepository extends DomainModelRepository with SQLInt
 
   override def delete(id: DomainModelId): Unit = DB localTx { implicit session =>
     sql"""
-        delete from main.public."domain_model" where domain_model_id = ${id.value}
+        delete from main.public."domain_model" where domain_model_id = ${id.asString}
        """
       .update()
       .apply()
