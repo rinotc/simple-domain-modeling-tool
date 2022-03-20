@@ -11,7 +11,7 @@ lazy val `web` = (project in file("."))
   .settings(
     name := "sdmt-web",
     libraryDependencies ++= Seq(
-      guice,
+      Google.`guice`,
       ScalaTest.`scalatestplus-play` % Test,
       CodingWell.`scala-guice`,
       Postgresql.`postgresql`,
@@ -45,7 +45,8 @@ lazy val `sdmt-application` = (project in file("sdmt-application"))
   .settings(
     name := "sdmt-application",
     libraryDependencies ++= Seq(
-      ScalaTest.`scalatest` % Test
+      ScalaTest.`scalatest` % Test,
+      Google.`guice`
     )
   )
 
