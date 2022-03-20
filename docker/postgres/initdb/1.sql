@@ -1,6 +1,6 @@
 create table project
 (
-    project_id       uuid         not null
+    project_id       char(36)     not null
         constraint user_pk
             primary key,
     project_alias    varchar(32)  not null,
@@ -24,10 +24,10 @@ create unique index project_project_name_uindex
 
 create table domain_model
 (
-    domain_model_id uuid         not null
+    domain_model_id char(36)     not null
         constraint domain_model_pk
             primary key,
-    project_id      uuid         not null
+    project_id      char(36)     not null
         constraint domain_model_project_project_id_fk
             references project,
     japanese_name   varchar(50)  not null,

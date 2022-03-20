@@ -8,7 +8,7 @@ import java.util.UUID
 class ProjectScalikeJdbcRepository extends ProjectRepository with SQLInterpolation {
 
   override def findById(id: ProjectId): Option[Project] = DB readOnly { implicit session =>
-    sql"""select * from main.public."project" where project_id = ${id.value}"""
+    sql"""select * from main.public."project" where project_id = ${id.asString}"""
       .map(reconstructProjectFromResultSet)
       .single()
       .apply()
@@ -39,7 +39,7 @@ class ProjectScalikeJdbcRepository extends ProjectRepository with SQLInterpolati
     DB localTx { implicit session =>
       sql"""
            insert into main.public."project" (project_id, project_alias, project_name, project_overview) 
-           values (${project.id.value}, ${project.alias.value},${project.name}, ${project.overview})
+           values (${project.id.asString}, ${project.alias.value},${project.name}, ${project.overview})
          """
         .update()
         .apply()
@@ -53,7 +53,7 @@ class ProjectScalikeJdbcRepository extends ProjectRepository with SQLInterpolati
             set project_alias = ${project.alias},
                 project_name = ${project.name},
                 project_overview = ${project.overview}
-            where project_id = ${project.id.value}
+            where project_id = ${project.id.asString}
          """
         .update()
         .apply()
@@ -62,8 +62,8 @@ class ProjectScalikeJdbcRepository extends ProjectRepository with SQLInterpolati
 
   override def delete(id: ProjectId): Unit = {
     DB localTx { implicit session =>
-      sql"""delete from main.public."project" where project_id = ${id.value}""".update().apply()
-      sql"""delete from main.public."domain_model" where project_id = ${id.value}""".update().apply()
+      sql"""delete from main.public."project" where project_id = ${id.asString}""".update().apply()
+      sql"""delete from main.public."domain_model" where project_id = ${id.asString}""".update().apply()
     }
   }
 }
