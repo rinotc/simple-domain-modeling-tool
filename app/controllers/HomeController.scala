@@ -1,6 +1,6 @@
 package controllers
 
-import domain.models.project.ProjectRepository
+import dev.tchiba.sdmt.core.models.project.ProjectRepository
 import play.api.mvc._
 
 import javax.inject._

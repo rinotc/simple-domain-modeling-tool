@@ -1,6 +1,6 @@
 package controllers
 
-import domain.models.domainmodel.{DomainModelId, DomainModelRepository}
+import dev.tchiba.sdmt.core.models.domainmodel.{DomainModelId, DomainModelRepository}
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 
 import javax.inject.Inject
