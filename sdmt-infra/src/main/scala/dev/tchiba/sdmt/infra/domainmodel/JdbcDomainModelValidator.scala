@@ -2,9 +2,12 @@ package dev.tchiba.sdmt.infra.domainmodel
 
 import dev.tchiba.sdmt.core.models.domainmodel.{DomainModelId, DomainModelValidator}
 import dev.tchiba.sdmt.core.models.project.ProjectId
-import scalikejdbc.{DB, SQLInterpolation}
+import dev.tchiba.sdmt.infra.scalikejdbc.DomainModels
+import scalikejdbc._
 
-class JdbcDomainModelValidator extends DomainModelValidator with SQLInterpolation {
+class JdbcDomainModelValidator extends DomainModelValidator {
+
+  private val dm = DomainModels.dm
 
   /**
    * プロジェクト内に自分自身を除いて同じ英語名が存在するかを調べる
@@ -18,14 +21,14 @@ class JdbcDomainModelValidator extends DomainModelValidator with SQLInterpolatio
       projectId: ProjectId,
       selfId: DomainModelId
   ): Boolean = DB readOnly { implicit session =>
-    selfId.asString
-    sql"""
-        select * from main.public."domain_model"
-        where project_id = ${projectId.asString}
-        and english_name = $englishName
-        and domain_model_id != ${selfId.asString}
-       """
-      .map { rs => DomainModelId.fromString(rs.string("domain_model_id")) }
+    withSQL {
+      select
+        .from(DomainModels.as(dm))
+        .where
+        .eq(dm.projectId, projectId.asString)
+        .and
+        .ne(dm.domainModelId, selfId.asString)
+    }.map(DomainModels(dm))
       .single()
       .apply()
       .isDefined
