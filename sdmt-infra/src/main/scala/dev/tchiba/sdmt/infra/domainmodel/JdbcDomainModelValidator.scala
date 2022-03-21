@@ -20,7 +20,7 @@ class JdbcDomainModelValidator extends DomainModelValidator with SQLInterpolatio
   ): Boolean = DB readOnly { implicit session =>
     selfId.asString
     sql"""
-        select * from main.public."domain_model"
+        select * from main.public."domain_models"
         where project_id = ${projectId.asString}
         and english_name = $englishName
         and domain_model_id != ${selfId.asString}

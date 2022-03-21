@@ -8,21 +8,21 @@ import java.util.UUID
 class JdbcProjectRepository extends ProjectRepository with SQLInterpolation {
 
   override def findById(id: ProjectId): Option[Project] = DB readOnly { implicit session =>
-    sql"""select * from main.public."project" where project_id = ${id.asString}"""
+    sql"""select * from main.public."projects" where project_id = ${id.asString}"""
       .map(reconstructProjectFromResultSet)
       .single()
       .apply()
   }
 
   override def findByAlias(alias: ProjectAlias): Option[Project] = DB readOnly { implicit session =>
-    sql"""select * from main.public."project" where project_alias = ${alias.value}"""
+    sql"""select * from main.public."projects" where project_alias = ${alias.value}"""
       .map(reconstructProjectFromResultSet)
       .single()
       .apply()
   }
 
   override def all: Seq[Project] = DB readOnly { implicit session =>
-    sql"""select * from main.public."project""""
+    sql"""select * from main.public."projects""""
       .map(reconstructProjectFromResultSet)
       .list()
       .apply()
@@ -38,7 +38,7 @@ class JdbcProjectRepository extends ProjectRepository with SQLInterpolation {
   override def insert(project: Project): Unit = {
     DB localTx { implicit session =>
       sql"""
-           insert into main.public."project" (project_id, project_alias, project_name, project_overview) 
+           insert into main.public."projects" (project_id, project_alias, project_name, project_overview) 
            values (${project.id.asString}, ${project.alias.value},${project.name}, ${project.overview})
          """
         .update()
@@ -49,7 +49,7 @@ class JdbcProjectRepository extends ProjectRepository with SQLInterpolation {
   override def update(project: Project): Unit = {
     DB localTx { implicit session =>
       sql"""
-            update main.public."project" 
+            update main.public."projects" 
             set project_alias = ${project.alias},
                 project_name = ${project.name},
                 project_overview = ${project.overview}
@@ -62,8 +62,8 @@ class JdbcProjectRepository extends ProjectRepository with SQLInterpolation {
 
   override def delete(id: ProjectId): Unit = {
     DB localTx { implicit session =>
-      sql"""delete from main.public."project" where project_id = ${id.asString}""".update().apply()
-      sql"""delete from main.public."domain_model" where project_id = ${id.asString}""".update().apply()
+      sql"""delete from main.public."projects" where project_id = ${id.asString}""".update().apply()
+      sql"""delete from main.public."domain_models" where project_id = ${id.asString}""".update().apply()
     }
   }
 }
