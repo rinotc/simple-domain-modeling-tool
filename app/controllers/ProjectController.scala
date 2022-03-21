@@ -12,7 +12,7 @@ class ProjectController @Inject() (
     domainModelRepository: DomainModelRepository
 ) extends MessagesAbstractController(cc) {
 
-  def findByProjectAlias(alias: String): Action[AnyContent] = Action { implicit request =>
+  def findByProjectAlias(alias: String): Action[AnyContent] = Action {
     val projectAlias = ProjectAlias(alias)
     projectRepository.findByAlias(projectAlias) match {
       case None => NotFound(views.html.error.NotFound(s"プロジェクト: $alias が見つかりません"))

@@ -17,18 +17,16 @@ lazy val `web` = (project in file("."))
   .dependsOn(`sdmt-core`, `sdmt-usecase`, `sdmt-query`, `sdmt-application`, `sdmt-infra`)
   .settings(
     name := "sdmt-web",
-    scalacOptions := ScalacOptions,
+    scalacOptions := ScalacOptions ++ Seq(
+      // Suggested here https://github.com/playframework/twirl/issues/105#issuecomment-782985171
+      "-Wconf:src=routes/.*:is,src=twirl/.*:is"
+    ),
     libraryDependencies ++= Seq(
       guice,
       Google.`guice`,
       ScalaTest.`scalatestplus-play` % Test,
       CodingWell.`scala-guice`,
-      Postgresql.`postgresql`,
-      Planet42.`laika-core`,
-      ScalikeJDBC.`scalikejdbc`,
-      ScalikeJDBC.`scalikejdbc-config`,
-      ScalikeJDBC.`scalikejdbc-play-initializer`,
-      ScalikeJDBC.`scalikejdbc-play-dbapi-adapter`
+      Planet42.`laika-core`
     )
   )
 
@@ -82,7 +80,9 @@ lazy val `sdmt-infra` = (project in file("sdmt-infra"))
       ScalaTest.`scalatest` % Test,
       Postgresql.`postgresql`,
       ScalikeJDBC.`scalikejdbc`,
-      ScalikeJDBC.`scalikejdbc-config`
+      ScalikeJDBC.`scalikejdbc-config`,
+      ScalikeJDBC.`scalikejdbc-play-initializer`,
+      ScalikeJDBC.`scalikejdbc-play-dbapi-adapter`
     )
   )
 
