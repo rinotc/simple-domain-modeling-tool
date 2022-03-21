@@ -1,17 +1,36 @@
 package dev.tchiba.sdmt.infra.project
 
 import dev.tchiba.sdmt.core.models.project.{Project, ProjectAlias, ProjectId, ProjectRepository}
+import dev.tchiba.sdmt.infra.scalikejdbc.Projects
 import scalikejdbc.{DB, SQLInterpolation, WrappedResultSet}
 
 import java.util.UUID
 
 class JdbcProjectRepository extends ProjectRepository with SQLInterpolation {
 
+  private val p = Projects.p
+
   override def findById(id: ProjectId): Option[Project] = DB readOnly { implicit session =>
     sql"""select * from main.public."projects" where project_id = ${id.asString}"""
       .map(reconstructProjectFromResultSet)
       .single()
       .apply()
+  }
+
+  def findById2(id: ProjectId): Option[Project] = DB readOnly { implicit session =>
+    withSQL {
+      select
+        .from(Projects.as(p))
+        .where
+        .eq(p.projectId, id.asString)
+    }.map(Projects(p)(_)).single().apply().map { row =>
+      Project.reconstruct(
+        id = ProjectId.fromString(row.projectId),
+        alias = ProjectAlias(row.projectAlias),
+        name = row.projectName,
+        overview = row.projectOverview
+      )
+    }
   }
 
   override def findByAlias(alias: ProjectAlias): Option[Project] = DB readOnly { implicit session =>
