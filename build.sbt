@@ -76,7 +76,7 @@ lazy val `sdmt-infra` = (project in file("sdmt-infra"))
 lazy val `sdmt-infra-scalikejdbc` = (project in file("sdmt-infra-scalikejdbc"))
   .enablePlugins(ScalikejdbcPlugin)
   .settings(
-    name := "infra-domain-modeling-scalikejdbc",
+    name := "sdmt-infra-scalikejdbc",
     libraryDependencies ++= Seq(
       ScalaTest.`scalatest` % Test,
       ScalikeJDBC.`scalikejdbc`,
