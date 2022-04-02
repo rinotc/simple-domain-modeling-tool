@@ -27,12 +27,25 @@ object Dependencies {
   }
 
   object ScalikeJDBC {
-    val `scalikejdbc`                  = "org.scalikejdbc" %% "scalikejdbc"                  % "3.5.0"
-    val `scalikejdbc-config`           = "org.scalikejdbc" %% "scalikejdbc-config"           % "3.5.0"
+
+    private val Version = "3.5.0"
+
+    val `scalikejdbc`                  = "org.scalikejdbc" %% "scalikejdbc"                  % Version
+    val `scalikejdbc-config`           = "org.scalikejdbc" %% "scalikejdbc-config"           % Version
+    val `scalikejdbc-test`             = "org.scalikejdbc" %% "scalikejdbc-test"             % Version
     val `scalikejdbc-play-initializer` = "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.8.0-scalikejdbc-3.5"
     val `scalikejdbc-play-dbapi-adapter` =
       "org.scalikejdbc" %% "scalikejdbc-play-dbapi-adapter" % "2.8.0-scalikejdbc-3.5"
-    val `scalikejdbc-test` = "org.scalikejdbc" %% "scalikejdbc-test" % "3.5.0"
+  }
 
+  object Circe {
+
+    private val Version = "0.14.1"
+
+    val `circe-core`           = "io.circe"     %% "circe-core"           % Version
+    val `circe-generic`        = "io.circe"     %% "circe-generic"        % Version
+    val `circe-generic-extras` = "io.circe"     %% "circe-generic-extras" % Version
+    val `circe-parser`         = "io.circe"     %% "circe-parser"         % Version
+    val `play-circe`           = "com.dripower" %% "play-circe"           % "2814.2"
   }
 }

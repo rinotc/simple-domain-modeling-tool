@@ -26,7 +26,12 @@ lazy val `web` = (project in file("."))
       Google.`guice`,
       ScalaTest.`scalatestplus-play` % Test,
       CodingWell.`scala-guice`,
-      Planet42.`laika-core`
+      Planet42.`laika-core`,
+      Circe.`circe-core`,
+      Circe.`circe-parser`,
+      Circe.`circe-generic`,
+      Circe.`circe-generic-extras`,
+      Circe.`play-circe`
     )
   )
 
