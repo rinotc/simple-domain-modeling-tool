@@ -5,9 +5,9 @@ import dev.tchiba.sdmt.core.{Aggregate, Entity}
 /**
  * プロジェクト
  *
- * @param id          プロジェクトID
- * @param name プロジェクト名称
- * @param overview    プロジェクト概要
+ * @param id       プロジェクトID
+ * @param name     プロジェクト名称
+ * @param overview プロジェクト概要
  */
 final class Project private (
     val id: ProjectId,
