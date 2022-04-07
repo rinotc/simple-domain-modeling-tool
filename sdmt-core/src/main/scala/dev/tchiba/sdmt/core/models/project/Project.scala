@@ -23,13 +23,13 @@ final class Project private (
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Project]
 
-  override def toString = s"Project(id=$id, projectName=$name)"
-
   private def copy(
       alias: ProjectAlias = this.alias,
       name: String = this.name,
       overview: String = this.overview
   ): Project = new Project(this.id, alias, name, overview)
+
+  override def toString = s"Project(id=$id, alias=$alias, name=$name, overview=$overview)"
 }
 
 object Project {
