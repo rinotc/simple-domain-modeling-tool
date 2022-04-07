@@ -2,68 +2,88 @@ package dev.tchiba.sdmt.infra.domainmodel
 
 import dev.tchiba.sdmt.core.models.domainmodel.{DomainModel, DomainModelId, DomainModelRepository}
 import dev.tchiba.sdmt.core.models.project.ProjectId
-import scalikejdbc.{DB, SQLInterpolation, WrappedResultSet}
+import dev.tchiba.sdmt.infra.scalikejdbc.DomainModels
+import scalikejdbc.{DB, WrappedResultSet}
+import scalikejdbc._
 
-class JdbcDomainModelRepository extends DomainModelRepository with SQLInterpolation {
+class JdbcDomainModelRepository extends DomainModelRepository {
+
+  import JdbcDomainModelRepository._
+
+  private val dm = DomainModels.dm
 
   override def findById(id: DomainModelId): Option[DomainModel] = DB readOnly { implicit session =>
-    sql"""select * from main.public."domain_models" where domain_model_id = ${id.asString}"""
-      .map(reconstructDomainModelFromResultSet)
-      .single()
-      .apply()
+    DomainModels.find(id.asString).map(translate)
   }
 
   override def findByEnglishName(englishName: String, projectId: ProjectId): Option[DomainModel] = DB readOnly {
     implicit session =>
-      sql"""select * from main.public."domain_models" where english_name = $englishName and project_id = ${projectId.asString}"""
-        .map(reconstructDomainModelFromResultSet)
+      withSQL {
+        select
+          .from(DomainModels.as(dm))
+          .where
+          .eq(dm.projectId, projectId.asString)
+          .and
+          .eq(dm.englishName, englishName)
+      }.map(DomainModels(dm))
         .single()
         .apply()
+        .map(translate)
   }
 
   override def listBy(projectId: ProjectId): Seq[DomainModel] = DB readOnly { implicit session =>
-    sql"""select * from main.public."domain_models" where project_id = ${projectId.asString}"""
-      .map(reconstructDomainModelFromResultSet)
+    withSQL {
+      select
+        .from(DomainModels.as(dm))
+        .where
+        .eq(dm.projectId, projectId.asString)
+    }.map(DomainModels(dm))
       .list()
       .apply()
-  }
-
-  private def reconstructDomainModelFromResultSet(rs: WrappedResultSet) = {
-    DomainModel.reconstruct(
-      id = DomainModelId.fromString(rs.string("domain_model_id")),
-      projectId = ProjectId.fromString(rs.string("project_id")),
-      japaneseName = rs.string("japanese_name"),
-      englishName = rs.string("english_name"),
-      specification = rs.string("specification")
-    )
+      .map(translate)
   }
 
   override def insert(model: DomainModel): Unit = DB localTx { implicit session =>
-    sql"""
-        insert into main.public."domain_models" (domain_model_id, project_id, japanese_name, english_name, specification)
-        values (${model.id.asString}, ${model.projectId.asString}, ${model.japaneseName}, ${model.englishName}, ${model.specificationMD})
-       """
-      .update()
-      .apply()
+    val e = model.toEntity
+    DomainModels.create(
+      domainModelId = e.domainModelId,
+      projectId = e.projectId,
+      japaneseName = e.japaneseName,
+      englishName = e.englishName,
+      specification = e.specification
+    )
   }
 
   override def update(model: DomainModel): Unit = DB localTx { implicit session =>
-    sql"""
-        update main.public."domain_models"
-        set japanese_name = ${model.japaneseName},
-            english_name = ${model.englishName},
-            specification = ${model.specificationMD}
-        where domain_model_id = ${model.id.asString}
-       """
-      .update()
-      .apply()
+    DomainModels.save(model.toEntity)
   }
 
   override def delete(id: DomainModelId): Unit = DB localTx { implicit session =>
-    sql"""
-        delete from main.public."domain_models" where domain_model_id = ${id.asString}
-       """
-      .update()
-      .apply()
+    withSQL {
+      QueryDSL.delete
+        .from(DomainModels)
+        .where
+        .eq(DomainModels.column.domainModelId, id.asString)
+    }.update().apply()
+  }
+}
+
+object JdbcDomainModelRepository {
+  def translate(m: DomainModels): DomainModel = DomainModel.reconstruct(
+    id = DomainModelId.fromString(m.domainModelId),
+    projectId = ProjectId.fromString(m.projectId),
+    japaneseName = m.japaneseName,
+    englishName = m.englishName,
+    specification = m.specification
+  )
+
+  implicit class DomainModelConverterExtension(m: DomainModel) {
+    def toEntity: DomainModels = DomainModels(
+      domainModelId = m.id.asString,
+      projectId = m.projectId.asString,
+      japaneseName = m.japaneseName,
+      englishName = m.englishName,
+      specification = m.specificationMD
+    )
   }
 }
