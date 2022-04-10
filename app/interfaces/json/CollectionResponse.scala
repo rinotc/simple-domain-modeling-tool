@@ -1,8 +1,8 @@
 package interfaces.json
 
-import play.api.libs.json.{JsValue, Json, OFormat, Writes}
+import play.api.libs.json.{JsValue, Json, OFormat}
 
-final case class CollectionResponse(collection: Iterable[JsValue]) {
+final case class CollectionResponse(data: Iterable[JsValue]) {
   def json: JsValue = Json.toJson(this)
 }
 
