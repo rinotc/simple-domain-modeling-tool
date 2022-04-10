@@ -6,7 +6,7 @@ name: Node.js CI
 on:
   push:
     paths:
-      - 'front/**'
+#      - 'front/**'
   pull_request:
     paths:
       - 'front/**'
