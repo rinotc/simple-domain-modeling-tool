@@ -8,7 +8,6 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
 
   private val p = Projects.p
 
-  // Projectsにあるメソッドを使えばすぐだが、QueryDSLに慣れるためにあえて直がきしている。
   override def findById(id: ProjectId): Option[Project] = DB readOnly { implicit session =>
     withSQL {
       select
