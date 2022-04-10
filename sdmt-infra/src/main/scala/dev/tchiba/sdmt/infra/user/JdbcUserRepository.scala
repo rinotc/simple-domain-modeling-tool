@@ -8,6 +8,8 @@ final class JdbcUserRepository extends UserRepository {
 
   import JdbcUserRepository._
 
+  override def listAll(): Seq[User] = Users.findAll().map(translate)
+
   override def findById(id: UserId): Option[User] = {
     Users.find(id.value.toString).map(translate)
   }
