@@ -14,7 +14,7 @@ resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
 
 lazy val `web` = (project in file("."))
   .enablePlugins(PlayScala)
-  .dependsOn(`sdmt-core`, `sdmt-usecase`, `sdmt-query`, `sdmt-application`, `sdmt-infra`)
+  .dependsOn(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`)
   .settings(
     name := "sdmt-web",
     scalacOptions := ScalacOptions ++ Seq(
@@ -36,11 +36,11 @@ lazy val `web` = (project in file("."))
   )
 
 lazy val `sdmt-core` = (project in file("sdmt-core"))
+  .dependsOn(sdmtTestDependency)
   .settings(
     name := "sdmt-core",
     scalacOptions := ScalacOptions,
     libraryDependencies ++= Seq(
-      ScalaTest.`scalatest` % Test,
       Planet42.`laika-core`
     )
   )
@@ -66,18 +66,8 @@ lazy val `sdmt-application` = (project in file("sdmt-application"))
     )
   )
 
-lazy val `sdmt-query` = (project in file("sdmt-query"))
-  .dependsOn(`sdmt-core`)
-  .settings(
-    name := "sdmt-query",
-    scalacOptions := ScalacOptions,
-    libraryDependencies ++= Seq(
-      ScalaTest.`scalatest` % Test
-    )
-  )
-
 lazy val `sdmt-infra` = (project in file("sdmt-infra"))
-  .dependsOn(`sdmt-core`, `sdmt-query`, `sdmt-infra-scalikejdbc`)
+  .dependsOn(`sdmt-core`, `sdmt-application`, `sdmt-infra-scalikejdbc`)
   .settings(
     name := "sdmt-infra",
     scalacOptions := ScalacOptions,
@@ -106,3 +96,14 @@ lazy val `sdmt-infra-scalikejdbc` = (project in file("sdmt-infra-scalikejdbc"))
       ScalikeJDBC.`scalikejdbc-test` % Test
     )
   )
+
+lazy val `sdmt-test` = (project in file("sdmt-test"))
+  .settings(
+    name := "sdmt-test",
+    scalacOptions := ScalacOptions,
+    libraryDependencies ++= Seq(
+      ScalaTest.`scalatest`
+    )
+  )
+
+lazy val sdmtTestDependency: ClasspathDependency = `sdmt-test` % "test->test"
