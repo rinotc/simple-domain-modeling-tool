@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import {User} from "./models/user/user";
-import {HttpClient} from "@angular/common/http";
+import {Component} from '@angular/core';
+import {UserService} from "./services/user/user.service";
 
 @Component({
   selector: 'app-root',
@@ -8,17 +7,12 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-front';
 
-  users: User[] = [];
+  users$ = this.userService.users$;
 
-  constructor(private http: HttpClient) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.http
-      .get<{ data: User[] }>('http://localhost:9000/api/users')
-      .subscribe((res) => {
-          this.users = res.data;
-      });
+    this.userService.fetchUsers();
   }
 }
