@@ -11,13 +11,16 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import { HeaderComponent } from './views/components/header/header/header.component';
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import { UserListFilterComponentComponent } from './views/components/user-list-filter-component/user-list-filter-component.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     UserListItemComponent,
     UserListComponent,
-    HeaderComponent
+    HeaderComponent,
+    UserListFilterComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,9 @@ import {MatButtonModule} from "@angular/material/button";
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

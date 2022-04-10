@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserService } from './user.service';
+import { UserListUseCase } from './user-list.usecase';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 
-describe('UserService', () => {
-  let service: UserService;
+describe('UserListUsecase', () => {
+  let service: UserListUseCase;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -12,7 +12,7 @@ describe('UserService', () => {
         HttpClientTestingModule,
       ]
     });
-    service = TestBed.inject(UserService);
+    service = TestBed.inject(UserListUseCase);
   });
 
   it('should be created', () => {

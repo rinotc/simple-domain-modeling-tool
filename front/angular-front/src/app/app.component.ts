@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {UserService} from "./services/user/user.service";
+import {UserListUseCase} from "./services/user-list/user-list.usecase";
+import {UserListFilter} from "./state/state";
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,16 @@ import {UserService} from "./services/user/user.service";
 })
 export class AppComponent {
 
-  users$ = this.userService.users$;
+  users$ = this.userListUseCase.users$;
+  userListFilter$ = this.userListUseCase.filter$;
 
-  constructor(private userService: UserService) {}
+  constructor(private userListUseCase: UserListUseCase) {}
 
   ngOnInit() {
-    this.userService.fetchUsers();
+    this.userListUseCase.fetchUsers();
+  }
+
+  setUserListFilter(value: UserListFilter) {
+    this.userListUseCase.setNameFilter(value.nameFilter);
   }
 }
