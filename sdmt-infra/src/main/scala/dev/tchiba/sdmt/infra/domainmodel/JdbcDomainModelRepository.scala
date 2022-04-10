@@ -3,8 +3,7 @@ package dev.tchiba.sdmt.infra.domainmodel
 import dev.tchiba.sdmt.core.models.domainmodel.{DomainModel, DomainModelId, DomainModelRepository}
 import dev.tchiba.sdmt.core.models.project.ProjectId
 import dev.tchiba.sdmt.infra.scalikejdbc.DomainModels
-import scalikejdbc.{DB, WrappedResultSet}
-import scalikejdbc._
+import scalikejdbc.{DB, _}
 
 class JdbcDomainModelRepository extends DomainModelRepository {
 
