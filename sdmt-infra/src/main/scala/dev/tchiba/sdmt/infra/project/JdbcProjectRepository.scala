@@ -6,10 +6,8 @@ import scalikejdbc._
 
 class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trait をミックスインするとQueryDSLがうまく動かない模様
 
-  private val p  = Projects.p
-  private val dm = DomainModels.dm
+  private val p = Projects.p
 
-  // Projectsにあるメソッドを使えばすぐだが、QueryDSLに慣れるためにあえて直がきしている。
   override def findById(id: ProjectId): Option[Project] = DB readOnly { implicit session =>
     withSQL {
       select
