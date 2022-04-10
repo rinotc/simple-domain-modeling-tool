@@ -18,6 +18,8 @@ POST        /projects/:projectAlias/domain-models/:id/delete                 con
 
 POST        /api/signup                                                      interfaces.api.auth.AuthApiController.singUp()
 
+GET         /api/users/:userId                                               interfaces.api.user.UserApiController.findUser(userId: String)
+
 GET         /api/projects/:projectAlias                                      interfaces.api.ProjectApiController.findByAlias(projectAlias: String)
 
 # Map static resources from the /public folder to the /assets URL path
