@@ -41,7 +41,8 @@ lazy val `sdmt-core` = (project in file("sdmt-core"))
     name := "sdmt-core",
     scalacOptions := ScalacOptions,
     libraryDependencies ++= Seq(
-      Planet42.`laika-core`
+      Planet42.`laika-core`,
+      Refined.`refined`
     )
   )
 
