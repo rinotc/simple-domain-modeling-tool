@@ -17,7 +17,7 @@ class ProjectApiController @Inject() (
   def findByAlias(alias: String): Action[AnyContent] = Action {
     val projectAlias = ProjectAlias(alias)
     projectRepository.findByAlias(projectAlias) match {
-      case None => NotFound(ErrorResponse(s"project $alias not found").json)
+      case None => NotFound(ErrorResponse(s"project $alias not found").json.circe)
       case Some(project) =>
         val response = ProjectResponse(project)
         Ok(response.json)

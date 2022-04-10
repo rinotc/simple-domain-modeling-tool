@@ -13,7 +13,7 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
       select
         .from[Projects](Projects.as(p))
         .where
-        .eq(p.projectId, id.asString)
+        .eq(p.projectId, id.string)
     }.map(Projects(p))
       .single()
       .apply()
@@ -43,7 +43,7 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
         QueryDSL.insert
           .into(Projects)
           .namedValues(
-            column.projectId       -> project.id.asString,
+            column.projectId       -> project.id.string,
             column.projectAlias    -> project.alias.value,
             column.projectName     -> project.name,
             column.projectOverview -> project.overview
@@ -58,11 +58,13 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
         val column = Projects.column
         QueryDSL
           .update(Projects).set(
-            column.projectId       -> project.id.asString,
+            column.projectId       -> project.id.string,
             column.projectAlias    -> project.alias.value,
             column.projectName     -> project.name,
             column.projectOverview -> project.overview
           )
+          .where
+          .eq(column.projectId, project.id.string)
       }
     }
   }
@@ -70,10 +72,10 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
   override def delete(id: ProjectId): Unit = {
     DB localTx { implicit session =>
       withSQL {
-        QueryDSL.delete.from(Projects).where.eq(Projects.column.projectId, id.asString)
+        QueryDSL.delete.from(Projects).where.eq(Projects.column.projectId, id.string)
       }.update().apply()
       withSQL {
-        QueryDSL.delete.from(DomainModels).where.eq(DomainModels.column.projectId, id.asString)
+        QueryDSL.delete.from(DomainModels).where.eq(DomainModels.column.projectId, id.string)
       }.update().apply()
     }
   }

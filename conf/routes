@@ -16,6 +16,8 @@ GET         /projects/:projectAlias/domain-models/:englishName/udpate        con
 POST        /projects/:projectAlias/domain-models/:englishName               controllers.UpdateDomainModelController.updateDomainModel(projectAlias: String, englishName: String)
 POST        /projects/:projectAlias/domain-models/:id/delete                 controllers.DeleteDomainModelController.deleteDomainModel(projectAlias: String, id: String)
 
+POST        /api/signup                                                      interfaces.api.auth.AuthApiController.singUp()
+
 GET         /api/projects/:projectAlias                                      interfaces.api.ProjectApiController.findByAlias(projectAlias: String)
 
 # Map static resources from the /public folder to the /assets URL path

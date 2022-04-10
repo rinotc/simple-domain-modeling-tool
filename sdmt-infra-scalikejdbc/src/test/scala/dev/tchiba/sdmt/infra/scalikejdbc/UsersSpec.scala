@@ -37,7 +37,7 @@ class UsersSpec extends FixtureAnyFlatSpec with Matchers with AutoRollback {
     count should be >(0L)
   }
   it should "create new record" in { implicit session =>
-    val created = Users.create(userId = "MyString", createdAt = null, updatedAt = null)
+    val created = Users.create(userId = "MyString", userName = "MyString", createdAt = null, updatedAt = null)
     created should not be(null)
   }
   it should "save a record" in { implicit session =>

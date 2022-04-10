@@ -15,3 +15,11 @@ final class UserId(val value: UUID) extends EntityId[UUID] {
 
   override def toString = s"UserId($value)"
 }
+
+object UserId {
+  def apply(value: UUID) = new UserId(value)
+
+  def generate() = new UserId(UUID.randomUUID())
+
+  def fromString(value: String) = new UserId(UUID.fromString(value))
+}
