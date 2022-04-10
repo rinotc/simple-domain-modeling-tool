@@ -5,7 +5,7 @@ import java.time.{LocalDateTime}
 
 case class Users(
   userId: String,
-  userName: Option[String] = None,
+  userName: String,
   createdAt: LocalDateTime,
   updatedAt: LocalDateTime) {
 
@@ -70,7 +70,7 @@ object Users extends SQLSyntaxSupport[Users] {
 
   def create(
     userId: String,
-    userName: Option[String] = None,
+    userName: String,
     createdAt: LocalDateTime,
     updatedAt: LocalDateTime)(implicit session: DBSession = autoSession): Users = {
     withSQL {
