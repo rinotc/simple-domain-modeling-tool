@@ -6,8 +6,10 @@ import dev.tchiba.sdmt.application.interactors.domainmodel.update.UpdateDomainMo
 import dev.tchiba.sdmt.application.interactors.project.add.AddProjectInteractor
 import dev.tchiba.sdmt.core.models.domainmodel.{DomainModelRepository, DomainModelValidator}
 import dev.tchiba.sdmt.core.models.project.ProjectRepository
+import dev.tchiba.sdmt.core.models.user.UserRepository
 import dev.tchiba.sdmt.infra.domainmodel.{JdbcDomainModelRepository, JdbcDomainModelValidator}
 import dev.tchiba.sdmt.infra.project.JdbcProjectRepository
+import dev.tchiba.sdmt.infra.user.JdbcUserRepository
 import dev.tchiba.sdmt.usecase.domainmodel.add.AddDomainModelUseCase
 import dev.tchiba.sdmt.usecase.domainmodel.update.UpdateDomainModelUseCase
 import dev.tchiba.sdmt.usecase.project.add.AddProjectUseCase
@@ -23,5 +25,7 @@ class CoreModule extends AbstractModule with ScalaModule {
 
     bind[UpdateDomainModelUseCase].to[UpdateDomainModelInteractor]
     bind[DomainModelValidator].to[JdbcDomainModelValidator]
+
+    bind[UserRepository].to[JdbcUserRepository]
   }
 }

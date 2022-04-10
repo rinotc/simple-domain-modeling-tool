@@ -25,9 +25,9 @@ class JdbcDomainModelValidator extends DomainModelValidator {
       select
         .from(DomainModels.as(dm))
         .where
-        .eq(dm.projectId, projectId.asString)
+        .eq(dm.projectId, projectId.string)
         .and
-        .ne(dm.domainModelId, selfId.asString)
+        .ne(dm.domainModelId, selfId.string)
     }.map(DomainModels(dm))
       .single()
       .apply()

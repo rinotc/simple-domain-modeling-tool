@@ -29,7 +29,7 @@
         </p>
       </div>
       <div class="col">
-      @helper.form(action = routes.DeleteDomainModelController.deleteDomainModel(project.alias.value, model.id.asString)) {
+      @helper.form(action = routes.DeleteDomainModelController.deleteDomainModel(project.alias.value, model.id.string)) {
         @helper.CSRF.formField
         <button type="submit" class="btn btn-danger">削除する</button>
       }

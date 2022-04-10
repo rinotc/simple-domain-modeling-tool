@@ -26,6 +26,9 @@ object Dependencies {
     val `laika-core` = "org.planet42" %% "laika-core" % "0.18.1"
   }
 
+  /**
+   * @see [[http://scalikejdbc.org/]]
+   */
   object ScalikeJDBC {
 
     private val Version = "3.5.0"
@@ -38,6 +41,9 @@ object Dependencies {
       "org.scalikejdbc" %% "scalikejdbc-play-dbapi-adapter" % "2.8.0-scalikejdbc-3.5"
   }
 
+  /**
+   * @see [[https://github.com/circe/circe]]
+   */
   object Circe {
 
     private val Version = "0.14.1"
@@ -47,5 +53,21 @@ object Dependencies {
     val `circe-generic-extras` = "io.circe"     %% "circe-generic-extras" % Version
     val `circe-parser`         = "io.circe"     %% "circe-parser"         % Version
     val `play-circe`           = "com.dripower" %% "play-circe"           % "2814.2"
+  }
+
+  /**
+   * @see [[https://github.com/fthomas/refined#documentation]]
+   */
+  object Refined {
+    val `refined`            = "eu.timepit" %% "refined"            % "0.9.28"
+    val `refined-cats`       = "eu.timepit" %% "refined-cats"       % "0.9.28" // optional
+    val `refined-eval`       = "eu.timepit" %% "refined-eval"       % "0.9.28" // optional, JVM-only
+    val `refined-jsonpath`   = "eu.timepit" %% "refined-jsonpath"   % "0.9.28" // optional, JVM-only
+    val `refined-pureconfig` = "eu.timepit" %% "refined-pureconfig" % "0.9.28" // optional, JVM-only
+    val `refined-scalacheck` = "eu.timepit" %% "refined-scalacheck" % "0.9.28" // optional
+    val `refined-scalaz`     = "eu.timepit" %% "refined-scalaz"     % "0.9.28" // optional
+    val `refined-scodec`     = "eu.timepit" %% "refined-scodec"     % "0.9.28" // optional
+    val `refined-scopt`      = "eu.timepit" %% "refined-scopt"      % "0.9.28" // optional
+    val `refined-shapeless`  = "eu.timepit" %% "refined-shapeless"  % "0.9.28" // optional
   }
 }

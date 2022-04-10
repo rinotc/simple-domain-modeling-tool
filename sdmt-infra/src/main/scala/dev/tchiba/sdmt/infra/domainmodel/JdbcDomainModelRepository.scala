@@ -12,7 +12,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
   private val dm = DomainModels.dm
 
   override def findById(id: DomainModelId): Option[DomainModel] = DB readOnly { implicit session =>
-    DomainModels.find(id.asString).map(translate)
+    DomainModels.find(id.string).map(translate)
   }
 
   override def findByEnglishName(englishName: String, projectId: ProjectId): Option[DomainModel] = DB readOnly {
@@ -21,7 +21,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
         select
           .from(DomainModels.as(dm))
           .where
-          .eq(dm.projectId, projectId.asString)
+          .eq(dm.projectId, projectId.string)
           .and
           .eq(dm.englishName, englishName)
       }.map(DomainModels(dm))
@@ -35,7 +35,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
       select
         .from(DomainModels.as(dm))
         .where
-        .eq(dm.projectId, projectId.asString)
+        .eq(dm.projectId, projectId.string)
     }.map(DomainModels(dm))
       .list()
       .apply()
@@ -62,7 +62,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
       QueryDSL.delete
         .from(DomainModels)
         .where
-        .eq(DomainModels.column.domainModelId, id.asString)
+        .eq(DomainModels.column.domainModelId, id.string)
     }.update().apply()
   }
 }
@@ -78,8 +78,8 @@ object JdbcDomainModelRepository {
 
   implicit class DomainModelConverterExtension(m: DomainModel) {
     def toEntity: DomainModels = DomainModels(
-      domainModelId = m.id.asString,
-      projectId = m.projectId.asString,
+      domainModelId = m.id.string,
+      projectId = m.projectId.string,
       japaneseName = m.japaneseName,
       englishName = m.englishName,
       specification = m.specificationMD

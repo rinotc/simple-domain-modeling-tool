@@ -1,3 +1,9 @@
 package dev.tchiba.sdmt.core
 
-trait EntityId[A]
+import java.util.UUID
+
+trait EntityId[A] {
+  def value: A
+
+  def string(implicit ev: A =:= UUID): String = value.toString
+}

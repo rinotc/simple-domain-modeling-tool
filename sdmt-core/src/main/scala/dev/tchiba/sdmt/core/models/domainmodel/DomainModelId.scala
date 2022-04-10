@@ -6,8 +6,6 @@ import java.util.UUID
 
 final class DomainModelId(val value: UUID) extends EntityId[UUID] {
 
-  def asString: String = value.toString
-
   override def equals(other: Any): Boolean = other match {
     case that: DomainModelId => value == that.value
     case _                   => false

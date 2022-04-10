@@ -14,7 +14,7 @@ final class ProjectResponse private (project: Project) {
   )
   implicit private val encoder: Encoder[Response] = deriveEncoder[Response]
   private val response = Response(
-    projectId = project.id.asString,
+    projectId = project.id.string,
     projectAlias = project.alias.value,
     projectName = project.name,
     projectOverview = project.overview

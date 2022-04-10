@@ -1,0 +1,11 @@
+<header>
+  <app-header title="Simple Domain Modeling Tool"></app-header>
+</header>
+<main>
+  <app-user-list-filter-component
+    *ngIf="userListFilter$ | async as userListFilter"
+    [value]="userListFilter"
+    (valueChanges)="setUserListFilter($event)"
+  ></app-user-list-filter-component>
+  <app-user-list *ngIf="users$ | async as users" [users]="users"></app-user-list>
+</main>
