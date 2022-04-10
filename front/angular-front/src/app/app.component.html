@@ -1,2 +1,6 @@
-<h1>Hello World</h1>
-<app-user-list *ngIf="users$ | async as users" [users]="users"></app-user-list>
+<header>
+  <app-header title="Simple Domain Modeling Tool"></app-header>
+</header>
+<main>
+  <app-user-list *ngIf="users$ | async as users" [users]="users"></app-user-list>
+</main>

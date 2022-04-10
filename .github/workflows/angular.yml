@@ -6,10 +6,10 @@ name: Angular Front Test
 on:
   push:
     paths:
-      - 'front/**'
+      - 'front/angular-front/**'
   pull_request:
     paths:
-      - 'front/**'
+      - 'front/angular-front/**'
     branches: [ master ]
 
 jobs:
