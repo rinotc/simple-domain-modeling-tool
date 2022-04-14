@@ -8,6 +8,8 @@ import scala.concurrent.ExecutionContext
 
 case class SingUpRequest(
     name: String,
+    emailAddress: String,
+    avatarUrl: Option[String],
     password: String
 )
 

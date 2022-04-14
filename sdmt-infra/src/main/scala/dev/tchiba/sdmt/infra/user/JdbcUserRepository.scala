@@ -1,5 +1,7 @@
 package dev.tchiba.sdmt.infra.user
 
+import dev.tchiba.sdmt.core.models.sub.email.EmailAddress
+import dev.tchiba.sdmt.core.models.sub.url.Url
 import dev.tchiba.sdmt.core.models.user.{User, UserId, UserRepository}
 import dev.tchiba.sdmt.infra.scalikejdbc.Users
 import scalikejdbc._
@@ -20,8 +22,10 @@ final class JdbcUserRepository extends UserRepository {
       QueryDSL.insert
         .into(Users)
         .namedValues(
-          c.userId   -> user.id.value.toString,
-          c.userName -> user.name
+          c.userId       -> user.id.value.toString,
+          c.userName     -> user.name,
+          c.emailAddress -> user.email.value,
+          c.avatarUrl    -> user.avatarUrl.map(_.value)
         )
     }.update().apply()
   }
@@ -32,7 +36,9 @@ final class JdbcUserRepository extends UserRepository {
       QueryDSL
         .update(Users)
         .set(
-          c.userName -> user.name
+          c.userName     -> user.name,
+          c.emailAddress -> user.email.value,
+          c.avatarUrl    -> user.avatarUrl.map(_.value)
         )
         .where
         .eq(c.userId, user.id.string)
@@ -48,5 +54,9 @@ final class JdbcUserRepository extends UserRepository {
 }
 
 object JdbcUserRepository {
-  def translate(row: Users): User = User.reconstruct(row.userId, row.userName)
+  def translate(row: Users): User = {
+    val emailAddress = EmailAddress(row.emailAddress)
+    val avatarUrl    = row.avatarUrl.map(Url.apply)
+    User.reconstruct(row.userId, row.userName, emailAddress, avatarUrl)
+  }
 }

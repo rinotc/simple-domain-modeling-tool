@@ -6,6 +6,8 @@ import java.time.{LocalDateTime}
 case class Users(
   userId: String,
   userName: String,
+  emailAddress: String,
+  avatarUrl: Option[String] = None,
   createdAt: LocalDateTime,
   updatedAt: LocalDateTime) {
 
@@ -22,12 +24,14 @@ object Users extends SQLSyntaxSupport[Users] {
 
   override val tableName = "users"
 
-  override val columns = Seq("user_id", "user_name", "created_at", "updated_at")
+  override val columns = Seq("user_id", "user_name", "email_address", "avatar_url", "created_at", "updated_at")
 
   def apply(u: SyntaxProvider[Users])(rs: WrappedResultSet): Users = apply(u.resultName)(rs)
   def apply(u: ResultName[Users])(rs: WrappedResultSet): Users = new Users(
     userId = rs.get(u.userId),
     userName = rs.get(u.userName),
+    emailAddress = rs.get(u.emailAddress),
+    avatarUrl = rs.get(u.avatarUrl),
     createdAt = rs.get(u.createdAt),
     updatedAt = rs.get(u.updatedAt)
   )
@@ -71,12 +75,16 @@ object Users extends SQLSyntaxSupport[Users] {
   def create(
     userId: String,
     userName: String,
+    emailAddress: String,
+    avatarUrl: Option[String] = None,
     createdAt: LocalDateTime,
     updatedAt: LocalDateTime)(implicit session: DBSession = autoSession): Users = {
     withSQL {
       insert.into(Users).namedValues(
         column.userId -> userId,
         column.userName -> userName,
+        column.emailAddress -> emailAddress,
+        column.avatarUrl -> avatarUrl,
         column.createdAt -> createdAt,
         column.updatedAt -> updatedAt
       )
@@ -85,6 +93,8 @@ object Users extends SQLSyntaxSupport[Users] {
     Users(
       userId = userId,
       userName = userName,
+      emailAddress = emailAddress,
+      avatarUrl = avatarUrl,
       createdAt = createdAt,
       updatedAt = updatedAt)
   }
@@ -94,16 +104,22 @@ object Users extends SQLSyntaxSupport[Users] {
       Seq(
         Symbol("userId") -> entity.userId,
         Symbol("userName") -> entity.userName,
+        Symbol("emailAddress") -> entity.emailAddress,
+        Symbol("avatarUrl") -> entity.avatarUrl,
         Symbol("createdAt") -> entity.createdAt,
         Symbol("updatedAt") -> entity.updatedAt))
     SQL("""insert into users(
       user_id,
       user_name,
+      email_address,
+      avatar_url,
       created_at,
       updated_at
     ) values (
       {userId},
       {userName},
+      {emailAddress},
+      {avatarUrl},
       {createdAt},
       {updatedAt}
     )""").batchByName(params.toSeq: _*).apply[List]()
@@ -114,6 +130,8 @@ object Users extends SQLSyntaxSupport[Users] {
       update(Users).set(
         column.userId -> entity.userId,
         column.userName -> entity.userName,
+        column.emailAddress -> entity.emailAddress,
+        column.avatarUrl -> entity.avatarUrl,
         column.createdAt -> entity.createdAt,
         column.updatedAt -> entity.updatedAt
       ).where.eq(column.userId, entity.userId)
