@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Project} from "../../../../models/project/project";
 import {ProjectRepository} from "../../../../models/project/project.repository";
-import {config} from "../../../../config";
 
 @Component({
   selector: 'app-project-list-component',

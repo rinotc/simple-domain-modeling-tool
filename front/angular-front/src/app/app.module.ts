@@ -20,6 +20,10 @@ import {
 import {MatTableModule} from "@angular/material/table";
 import { WelcomeComponent } from './views/components/welcome/welcome.component';
 import { ProjectDetailComponent } from './views/components/project/project-detail/project-detail.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
+import { ProjectCreateComponent } from './views/components/project/project-create/project-create.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -29,6 +33,7 @@ import { ProjectDetailComponent } from './views/components/project/project-detai
     ProjectListComponentComponent,
     WelcomeComponent,
     ProjectDetailComponent,
+    ProjectCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,10 @@ import { ProjectDetailComponent } from './views/components/project/project-detai
     ReactiveFormsModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    FlexLayoutModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
