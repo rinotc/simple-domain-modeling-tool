@@ -9,7 +9,7 @@ import scala.concurrent.ExecutionContext
 import scala.util.{Failure, Success, Try}
 
 object JsonValidator {
-  def jsonValidate[A: Reads](implicit parsers: PlayBodyParsers, ec: ExecutionContext): BodyParser[A] = {
+  def validate[A: Reads](implicit parsers: PlayBodyParsers, ec: ExecutionContext): BodyParser[A] = {
     parsers.json.validate[A] { jsValue =>
       Try(jsValue.validate[A]) match {
         case Success(value) => value.asEither.left.map { _ => BadRequest(ErrorResponse("parse error.").json.play) }

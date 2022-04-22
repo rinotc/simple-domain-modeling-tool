@@ -29,8 +29,8 @@
           @for(project <- projects) {
             <tr>
               <td>@{project.alias.value}</td>
-              <td>@{project.name}</td>
-              <td>@{project.overview}</td>
+              <td>@{project.name.value}</td>
+              <td>@{project.overview.value}</td>
               <td><a href="@routes.ProjectController.findByProjectAlias(project.alias.value)">詳細</a></td>
             </tr>
           }

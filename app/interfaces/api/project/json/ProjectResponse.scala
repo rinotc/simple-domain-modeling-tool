@@ -13,8 +13,8 @@ final class ProjectResponse private (project: Project) extends PlayJsonResponse 
   private val response = Response(
     projectId = project.id.value,
     projectAlias = project.alias.value,
-    projectName = project.name,
-    projectOverview = project.overview
+    projectName = project.name.value,
+    projectOverview = project.overview.value
   )
 
   override def json: JsValue = toJson(response)

@@ -9,7 +9,9 @@ import dev.tchiba.sdmt.core.ValueObject
  */
 final class ProjectAlias private (val value: String) extends ValueObject {
 
-  require(value.length <= 32 && mustOnlyAlphanumerical, "プロジェクトエイリアスは1文字以上32文字以下の半角英数")
+  import ProjectAlias._
+
+  require(projectAliasRequirement(value), projectAliasRequirementMessage(value))
 
   override def equals(other: Any): Boolean = other match {
     case that: ProjectAlias => value == that.value
@@ -19,10 +21,25 @@ final class ProjectAlias private (val value: String) extends ValueObject {
   override def hashCode(): Int = 31 * value.##
 
   override def toString = s"ProjectAlias($value)"
-
-  private def mustOnlyAlphanumerical: Boolean = "^[0-9a-zA-Z]{1,32}$".r.matches(value)
 }
 
 object ProjectAlias {
   def apply(value: String) = new ProjectAlias(value)
+
+  def validate(value: String): Either[String, ProjectAlias] =
+    Either.cond(
+      projectAliasRequirement(value),
+      ProjectAlias(value),
+      projectAliasRequirementMessage(value)
+    )
+
+  private def projectAliasRequirement(value: String): Boolean =
+    mustLessThan32Length(value) && mustOnlyAlphanumerical(value)
+
+  private def projectAliasRequirementMessage(value: String): String =
+    s"ProjectAlias value must less than 32 characters and alphanumerical, but value is $value"
+
+  private def mustOnlyAlphanumerical(value: String): Boolean = "^[0-9a-zA-Z]{1,32}$".r.matches(value)
+
+  private def mustLessThan32Length(value: String): Boolean = value.length <= 32
 }
