@@ -34,12 +34,14 @@ object ProjectAlias {
     )
 
   private def projectAliasRequirement(value: String): Boolean =
-    mustLessThan32Length(value) && mustOnlyAlphanumerical(value)
+    mustNotEmpty(value) && mustLessThan32Length(value) && mustOnlyAlphanumerical(value)
 
   private def projectAliasRequirementMessage(value: String): String =
-    s"ProjectAlias value must less than 32 characters and alphanumerical, but value is $value"
+    s"ProjectAlias value must be 1 to 32 characters and alphanumerical, but value is $value"
 
-  private def mustOnlyAlphanumerical(value: String): Boolean = "^[0-9a-zA-Z]{1,32}$".r.matches(value)
+  private def mustNotEmpty(value: String): Boolean = value.nonEmpty
 
   private def mustLessThan32Length(value: String): Boolean = value.length <= 32
+
+  private def mustOnlyAlphanumerical(value: String): Boolean = "^[0-9a-zA-Z]{1,32}$".r.matches(value)
 }
