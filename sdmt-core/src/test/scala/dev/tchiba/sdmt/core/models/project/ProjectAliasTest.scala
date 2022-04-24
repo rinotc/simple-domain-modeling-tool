@@ -82,7 +82,7 @@ class ProjectAliasTest extends BaseTest {
         value.length shouldBe 32
         val actual = ProjectAlias.validate(value)
         actual shouldBe Symbol("right")
-        actual.value shouldBe value
+        actual.value.value shouldBe value
       }
     }
   }
