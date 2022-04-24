@@ -80,7 +80,9 @@ class ProjectAliasTest extends BaseTest {
       "return right" in {
         val value = "ABCDE" + "fghij" + "KLMNO" + "pqrst" + "UVWXY" + "12345" + "67"
         value.length shouldBe 32
-        ProjectAlias.validate(value).isRight shouldBe true
+        val actual = ProjectAlias.validate(value)
+        actual shouldBe Symbol("right")
+        actual.value shouldBe value
       }
     }
   }
