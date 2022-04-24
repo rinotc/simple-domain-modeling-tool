@@ -25,6 +25,7 @@ lazy val `web` = (project in file("."))
       guice,
       Google.`guice`,
       ScalaTest.`scalatestplus-play` % Test,
+      ScalaMock.`scalamock`          % Test,
       CodingWell.`scala-guice`,
       Planet42.`laika-core`,
       Circe.`circe-core`,
@@ -103,7 +104,8 @@ lazy val `sdmt-test` = (project in file("sdmt-test"))
     name := "sdmt-test",
     scalacOptions := ScalacOptions,
     libraryDependencies ++= Seq(
-      ScalaTest.`scalatest`
+      ScalaTest.`scalatest` % Test,
+      ScalaMock.`scalamock` % Test
     )
   )
 

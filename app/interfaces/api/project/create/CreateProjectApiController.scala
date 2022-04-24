@@ -18,7 +18,7 @@ final class CreateProjectApiController @Inject() (cc: ControllerComponents, crea
     val input = request.body.input
     createProjectUseCase.handle(input) match {
       case CreateProjectOutput.ConflictAlias(alias) =>
-        Conflict(ErrorResponse(s"Project alias = $alias is conflicted.").json.play)
+        Conflict(ErrorResponse(s"Project alias = ${alias.value} is conflicted.").json.play)
       case CreateProjectOutput.Success(newProject) =>
         val response = ProjectResponse(newProject)
         Ok(response.json)
