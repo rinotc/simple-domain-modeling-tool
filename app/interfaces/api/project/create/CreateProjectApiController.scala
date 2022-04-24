@@ -1,6 +1,6 @@
 package interfaces.api.project.create
 
-import dev.tchiba.sdmt.usecase.project.add.{CreateProjectOutput, CreateProjectUseCase}
+import dev.tchiba.sdmt.usecase.project.create.{CreateProjectOutput, CreateProjectUseCase}
 import interfaces.api.project.json.ProjectResponse
 import interfaces.json.error.ErrorResponse
 import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}

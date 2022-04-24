@@ -1,7 +1,7 @@
 package controllers
 
 import dev.tchiba.sdmt.core.models.project.{ProjectAlias, ProjectName, ProjectOverview}
-import dev.tchiba.sdmt.usecase.project.add.{CreateProjectInput, CreateProjectOutput, CreateProjectUseCase}
+import dev.tchiba.sdmt.usecase.project.create.{CreateProjectInput, CreateProjectOutput, CreateProjectUseCase}
 import interfaces.forms.project.AddProjectForm
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 

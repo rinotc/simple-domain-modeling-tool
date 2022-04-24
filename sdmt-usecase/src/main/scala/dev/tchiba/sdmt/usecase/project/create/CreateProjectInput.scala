@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.usecase.project.add
+package dev.tchiba.sdmt.usecase.project.create
 
 import dev.tchiba.sdmt.core.models.project.{ProjectAlias, ProjectName, ProjectOverview}
 import dev.tchiba.sdmt.usecase.Input

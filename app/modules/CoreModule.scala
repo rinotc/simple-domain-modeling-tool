@@ -12,7 +12,7 @@ import dev.tchiba.sdmt.infra.project.JdbcProjectRepository
 import dev.tchiba.sdmt.infra.user.JdbcUserRepository
 import dev.tchiba.sdmt.usecase.domainmodel.add.AddDomainModelUseCase
 import dev.tchiba.sdmt.usecase.domainmodel.update.UpdateDomainModelUseCase
-import dev.tchiba.sdmt.usecase.project.add.CreateProjectUseCase
+import dev.tchiba.sdmt.usecase.project.create.CreateProjectUseCase
 import net.codingwell.scalaguice.ScalaModule
 
 class CoreModule extends AbstractModule with ScalaModule {

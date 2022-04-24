@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.application.interactors.project.create
 
 import dev.tchiba.sdmt.core.models.project.{Project, ProjectRepository}
-import dev.tchiba.sdmt.usecase.project.add.{CreateProjectInput, CreateProjectOutput, CreateProjectUseCase}
+import dev.tchiba.sdmt.usecase.project.create.{CreateProjectInput, CreateProjectOutput, CreateProjectUseCase}
 
 import javax.inject.Inject
 

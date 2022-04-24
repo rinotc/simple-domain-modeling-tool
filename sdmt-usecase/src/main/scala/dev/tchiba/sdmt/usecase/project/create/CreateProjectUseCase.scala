@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.usecase.project.add
+package dev.tchiba.sdmt.usecase.project.create
 
 import dev.tchiba.sdmt.usecase.UseCase
 
