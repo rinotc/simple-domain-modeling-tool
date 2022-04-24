@@ -22,6 +22,7 @@ GET         /api/users                                                       int
 GET         /api/users/:userId                                               interfaces.api.user.UserApiController.findUser(userId: String)
 
 GET         /api/projects                                                    interfaces.api.project.ProjectApiController.list()
+POST        /api/projects                                                    interfaces.api.project.create.CreateProjectApiController.action
 GET         /api/projects/:projectAlias                                      interfaces.api.project.ProjectApiController.findByAlias(projectAlias: String)
 
 # Map static resources from the /public folder to the /assets URL path

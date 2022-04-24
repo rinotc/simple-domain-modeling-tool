@@ -14,6 +14,7 @@ resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
 
 lazy val `web` = (project in file("."))
   .enablePlugins(PlayScala)
+  .aggregate(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`)
   .dependsOn(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`)
   .settings(
     name := "sdmt-web",
@@ -25,6 +26,7 @@ lazy val `web` = (project in file("."))
       guice,
       Google.`guice`,
       ScalaTest.`scalatestplus-play` % Test,
+      ScalaMock.`scalamock`          % Test,
       CodingWell.`scala-guice`,
       Planet42.`laika-core`,
       Circe.`circe-core`,
@@ -57,12 +59,11 @@ lazy val `sdmt-usecase` = (project in file("sdmt-usecase"))
   )
 
 lazy val `sdmt-application` = (project in file("sdmt-application"))
-  .dependsOn(`sdmt-core`, `sdmt-usecase`)
+  .dependsOn(`sdmt-core`, `sdmt-usecase`, sdmtTestDependency)
   .settings(
     name := "sdmt-application",
     scalacOptions := ScalacOptions,
     libraryDependencies ++= Seq(
-      ScalaTest.`scalatest` % Test,
       Google.`guice`
     )
   )
@@ -103,7 +104,8 @@ lazy val `sdmt-test` = (project in file("sdmt-test"))
     name := "sdmt-test",
     scalacOptions := ScalacOptions,
     libraryDependencies ++= Seq(
-      ScalaTest.`scalatest`
+      ScalaTest.`scalatest` % Test,
+      ScalaMock.`scalamock` % Test
     )
   )
 

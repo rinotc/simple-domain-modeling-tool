@@ -1,6 +1,13 @@
 package dev.tchiba.sdmt.infra.project
 
-import dev.tchiba.sdmt.core.models.project.{Project, ProjectAlias, ProjectId, ProjectRepository}
+import dev.tchiba.sdmt.core.models.project.{
+  Project,
+  ProjectAlias,
+  ProjectId,
+  ProjectName,
+  ProjectOverview,
+  ProjectRepository
+}
 import dev.tchiba.sdmt.infra.scalikejdbc.{DomainModels, Projects}
 import scalikejdbc._
 
@@ -17,7 +24,7 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
     }.map(Projects(p))
       .single()
       .apply()
-      .map(reconstructFromProjects)
+      .map(reconstructFrom)
   }
 
   override def findByAlias(alias: ProjectAlias): Option[Project] = DB readOnly { implicit session =>
@@ -29,11 +36,11 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
     }.map(Projects(p))
       .single()
       .apply()
-      .map(reconstructFromProjects)
+      .map(reconstructFrom)
   }
 
   override def all: Seq[Project] = DB readOnly { implicit session =>
-    Projects.findAll().map(reconstructFromProjects)
+    Projects.findAll().map(reconstructFrom)
   }
 
   override def insert(project: Project): Unit = {
@@ -45,8 +52,8 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
           .namedValues(
             column.projectId       -> project.id.string,
             column.projectAlias    -> project.alias.value,
-            column.projectName     -> project.name,
-            column.projectOverview -> project.overview
+            column.projectName     -> project.name.value,
+            column.projectOverview -> project.overview.value
           )
       }.update().apply()
     }
@@ -60,8 +67,8 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
           .update(Projects).set(
             column.projectId       -> project.id.string,
             column.projectAlias    -> project.alias.value,
-            column.projectName     -> project.name,
-            column.projectOverview -> project.overview
+            column.projectName     -> project.name.value,
+            column.projectOverview -> project.overview.value
           )
           .where
           .eq(column.projectId, project.id.string)
@@ -80,12 +87,12 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
     }
   }
 
-  private def reconstructFromProjects(row: Projects): Project = {
+  private def reconstructFrom(row: Projects): Project = {
     Project.reconstruct(
       id = ProjectId.fromString(row.projectId),
       alias = ProjectAlias(row.projectAlias),
-      name = row.projectName,
-      overview = row.projectOverview
+      name = ProjectName(row.projectName),
+      overview = ProjectOverview(row.projectOverview)
     )
   }
 }

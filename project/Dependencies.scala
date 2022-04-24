@@ -9,6 +9,16 @@ object Dependencies {
     val `logback-classic` = "ch.qos.logback" % "logback-classic" % "1.2.11"
   }
 
+  /**
+   * @see [[https://scalamock.org/]]
+   */
+  object ScalaMock {
+    val `scalamock` = "org.scalamock" %% "scalamock" % "5.2.0"
+  }
+
+  /**
+   * @see [[https://www.scalatest.org/]]
+   */
   object ScalaTest {
     val `scalatest`          = "org.scalatest"          %% "scalatest"          % "3.2.11"
     val `scalatestplus-play` = "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0"

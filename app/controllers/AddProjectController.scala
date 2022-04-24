@@ -1,7 +1,7 @@
 package controllers
 
-import dev.tchiba.sdmt.core.models.project.ProjectAlias
-import dev.tchiba.sdmt.usecase.project.add.{AddProjectInput, AddProjectOutput, AddProjectUseCase}
+import dev.tchiba.sdmt.core.models.project.{ProjectAlias, ProjectName, ProjectOverview}
+import dev.tchiba.sdmt.usecase.project.create.{CreateProjectInput, CreateProjectOutput, CreateProjectUseCase}
 import interfaces.forms.project.AddProjectForm
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class AddProjectController @Inject() (
     cc: MessagesControllerComponents,
-    addProjectUseCase: AddProjectUseCase
+    createProjectUseCase: CreateProjectUseCase
 ) extends MessagesAbstractController(cc) {
 
   def addProjectFormPage(): Action[AnyContent] = Action { implicit request =>
@@ -20,15 +20,15 @@ class AddProjectController @Inject() (
   def addProject(): Action[AnyContent] = Action { implicit request =>
     val form = AddProjectForm.form.bindFromRequest()
     val data = form.get
-    val input = AddProjectInput(
+    val input = CreateProjectInput(
       projectAlias = ProjectAlias(data.alias),
-      projectName = data.name,
-      projectOverview = data.overview
+      projectName = ProjectName(data.name),
+      projectOverview = ProjectOverview(data.overview)
     )
-    addProjectUseCase.handle(input) match {
-      case AddProjectOutput.ConflictAlias(alias) =>
+    createProjectUseCase.handle(input) match {
+      case CreateProjectOutput.ConflictAlias(alias) =>
         Conflict(views.html.error.Conflict(s"alias: ${alias.value} は既に存在します"))
-      case AddProjectOutput.Success(newProject) =>
+      case CreateProjectOutput.Success(newProject) =>
         Redirect(controllers.routes.ProjectController.findByProjectAlias(newProject.alias.value))
     }
   }

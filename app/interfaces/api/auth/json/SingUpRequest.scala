@@ -17,5 +17,5 @@ object SingUpRequest extends {
   implicit val jsonFormat: OFormat[SingUpRequest] = Json.format[SingUpRequest]
 
   def validateJson(implicit parse: PlayBodyParsers, ec: ExecutionContext): BodyParser[SingUpRequest] =
-    JsonValidator.jsonValidate
+    JsonValidator.validate
 }
