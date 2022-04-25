@@ -19,7 +19,7 @@ describe('ProjectId', () => {
     const value = 'abcde-fghij-klmno-pqrst-uvwxy-z1234'
     expect(value.length).toBe(35);
     const actual = ProjectId.validate(value);
-    expect(E.isLeft(actual)).toBe(true)
+    expect(E.isLeft(actual)).toBeTrue();
   });
 
   it('should return right when value length is 36', () => {

@@ -1,8 +1,8 @@
 import {PreferNominal} from "../../prefer-nominal";
 import * as E from "fp-ts/Either";
 
-// noinspection JSUnusedLocalSymbols,JSUnusedGlobalSymbols
 export class ProjectId {
+  // noinspection JSUnusedGlobalSymbols
   readonly _projectIdBrand: PreferNominal;
   readonly value: string
 
