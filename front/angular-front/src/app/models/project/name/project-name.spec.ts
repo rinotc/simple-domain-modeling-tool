@@ -17,7 +17,7 @@ describe('ProjectName', () => {
   });
 
   describe('validate', () => {
-    it('should return left Left when value length is 101.', () => {
+    it('should return left when value length is 101.', () => {
       const value = 'a'.repeat(101);
       expect(value.length).toBe(101);
       const actual = ProjectName.validate(value);
