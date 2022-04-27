@@ -13,6 +13,10 @@ export class ProjectName {
     this.value = value;
   }
 
+  equals(other: ProjectName): boolean {
+    return this.value === other.value;
+  }
+
   static validate(value: string): E.Either<string, ProjectName> {
     if (this.mustLessThan100(value)) {
       return E.right(new ProjectName(value));

@@ -73,5 +73,12 @@ describe('ProjectAlias', () => {
       expect(a === b).toBeFalse(); // 異なるインスタンスである
       expect(a.equals(b)).toBeTrue(); // 値が等しければ同値とみなす
     });
+
+    it('should return false when compare not same underlying value instances', () => {
+      const a = new ProjectAlias('ALIAS');
+      const b = new ProjectAlias('alias');
+      expect(a === b).toBeFalse();
+      expect(a.equals(b)).toBeFalse();
+    })
   });
 });

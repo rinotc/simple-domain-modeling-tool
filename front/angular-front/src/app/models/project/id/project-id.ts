@@ -13,6 +13,10 @@ export class ProjectId {
     this.value = value;
   }
 
+  equals(other: ProjectId): boolean {
+    return this.value === other.value;
+  }
+
   static validate(value: string): E.Either<string, ProjectId> {
     if (this.mustValueLengthEqual36(value)) {
       const projectId = new ProjectId(value)
