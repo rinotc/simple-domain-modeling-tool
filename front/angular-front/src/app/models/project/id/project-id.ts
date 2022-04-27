@@ -4,13 +4,11 @@ import * as E from "fp-ts/Either";
 export class ProjectId {
   // noinspection JSUnusedGlobalSymbols
   readonly _projectIdBrand: PreferNominal;
-  readonly value: string
 
-  constructor(value: string) {
+  constructor(readonly value: string) {
     if (!ProjectId.mustValueLengthEqual36(value)) {
       throw new TypeError(ProjectId.requirementErrorMessage);
     }
-    this.value = value;
   }
 
   equals(other: ProjectId): boolean {

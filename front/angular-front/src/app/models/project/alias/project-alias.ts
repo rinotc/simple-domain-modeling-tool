@@ -4,13 +4,11 @@ import * as E from "fp-ts/Either"
 export class ProjectAlias {
   // noinspection JSUnusedGlobalSymbols
   readonly _projectAliasBrand: PreferNominal;
-  readonly value: string;
 
-  constructor(value: string) {
+  constructor(readonly value: string) {
     if (!ProjectAlias.projectAliasRequirement(value)) {
       throw new TypeError(ProjectAlias.projectAliasRequirementErrorMessage(value));
     }
-    this.value = value;
   }
 
   equals(other: ProjectAlias): boolean {
