@@ -4,13 +4,9 @@ import {map, Observable} from "rxjs";
 import {config} from "../../config";
 import {Project} from "./project";
 import {ApiCollectionResponse} from "../ApiCollectionResponse";
+import {ProjectResponse} from "./http/ProjectResponse";
+import {ProjectAlias} from "./alias/project-alias";
 
-interface ProjectResponse {
-  projectId: string,
-  projectAlias: string,
-  projectName: string,
-  projectOverview: string
-}
 
 @Injectable({providedIn: 'root'})
 export class ProjectRepository {
@@ -21,17 +17,15 @@ export class ProjectRepository {
     return this.http
         .get<ApiCollectionResponse<ProjectResponse>>(`${config.apiHost}/projects`)
         .pipe(
-          map(res => res.data.map(p => ProjectRepository.toModel(p)))
+          map(res => res.data.map(p => p.convert))
         )
-
   }
 
-  private static toModel(response: ProjectResponse): Project {
-    return new Project(
-      response.projectId,
-      response.projectAlias,
-      response.projectName,
-      response.projectOverview
-    )
+  findBy(alias: ProjectAlias): Observable<Project> {
+    return this.http
+      .get<ProjectResponse>(`${config.apiHost}/projects/${alias.value}`)
+      .pipe(
+        map(res => res.convert)
+      );
   }
 }
