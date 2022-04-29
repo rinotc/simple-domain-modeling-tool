@@ -21,9 +21,9 @@ POST        /api/signup                                                      int
 GET         /api/users                                                       interfaces.api.user.UserApiController.allUsers()
 GET         /api/users/:userId                                               interfaces.api.user.UserApiController.findUser(userId: String)
 
-GET         /api/projects                                                    interfaces.api.project.ProjectApiController.list()
-POST        /api/projects                                                    interfaces.api.project.create.CreateProjectApiController.action
-GET         /api/projects/:projectAlias                                      interfaces.api.project.ProjectApiController.findByAlias(projectAlias: String)
+GET         /api/projects                                                    interfaces.api.project.list.ListProjectsApiController.action()
+POST        /api/projects                                                    interfaces.api.project.create.CreateProjectApiController.action()
+GET         /api/projects/:projectAlias                                      interfaces.api.project.find.FindProjectByAliasApiController.action(projectAlias: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                    controllers.Assets.versioned(path="/public", file: Asset)
