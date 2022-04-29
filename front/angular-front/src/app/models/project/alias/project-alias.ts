@@ -6,9 +6,13 @@ export class ProjectAlias {
   readonly _projectAliasBrand: PreferNominal;
 
   constructor(readonly value: string) {
-    if (!ProjectAlias.projectAliasRequirement(value)) {
-      throw new TypeError(ProjectAlias.projectAliasRequirementErrorMessage(value));
+    if (!ProjectAlias.isValid(value)) {
+      throw new TypeError(this.requirementErrorMessage);
     }
+  }
+
+  private get requirementErrorMessage(): string {
+    return `ProjectAlias value must be 1 to 32 characters and alphanumerical, but value is ${this.value}`;
   }
 
   equals(other: ProjectAlias): boolean {
@@ -16,19 +20,17 @@ export class ProjectAlias {
   }
 
   static validate(value: string): E.Either<string, ProjectAlias> {
-    if (this.projectAliasRequirement(value)) {
+    if (this.isValid(value)) {
       return E.right(new ProjectAlias(value));
     }
-    return E.left(this.projectAliasRequirementErrorMessage(value));
+    return E.left(this.validationErrorMessage);
   }
 
-  private static projectAliasRequirementErrorMessage(value: string): string {
-    return `ProjectAlias value must be 1 to 32 characters and alphanumerical, but value is ${value}`;
-  }
-
-  private static projectAliasRequirement(value: string): boolean {
+  static isValid(value: string): boolean {
     return this.mustNonEmpty(value) && this.mustLessThan32Length(value) && this.mustOnlyAlphanumerical(value);
   }
+
+  static validationErrorMessage: string = 'プロジェクトエイリアスは1文字以上32文字以下で、英数のみ利用可能です'
 
   private static mustNonEmpty(value: string): boolean {
     return value.length > 0;

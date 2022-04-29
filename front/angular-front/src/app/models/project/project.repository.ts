@@ -6,6 +6,9 @@ import {Project} from "./project";
 import {ApiCollectionResponse} from "../ApiCollectionResponse";
 import {ProjectResponse} from "./http/ProjectResponse";
 import {ProjectAlias} from "./alias/project-alias";
+import {ProjectName} from "./name/project-name";
+import {ProjectOverview} from "./overview/project-overview";
+import {CreateProjectRequest} from "./http/CreateProjectRequest";
 
 
 @Injectable({providedIn: 'root'})
@@ -28,6 +31,11 @@ export class ProjectRepository {
       .pipe(
         map(res => ProjectResponse.convert(res))
       );
+  }
+
+  create(alias: ProjectAlias, name: ProjectName, overview: ProjectOverview): Observable<CreateProjectRequest> {
+    return this.http
+      .post<CreateProjectRequest>(`${config.apiHost}/projects`, CreateProjectRequest.translate(alias, name, overview))
   }
 
   /**

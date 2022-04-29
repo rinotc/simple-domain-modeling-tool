@@ -6,9 +6,13 @@ export class ProjectName {
   readonly _projectNameBrand: PreferNominal;
 
   constructor(readonly value: string) {
-    if (!ProjectName.mustLessThan100(value)) {
-      throw new TypeError(ProjectName.projectNameRequirementErrorMessage);
+    if (!ProjectName.isValid(value)) {
+      throw new TypeError(this.requirementErrorMessage);
     }
+  }
+
+  private get requirementErrorMessage(): string {
+    return `ProjectName must to be 1 to 100 characters. but value length is ${this.value.length}`
   }
 
   equals(other: ProjectName): boolean {
@@ -16,15 +20,19 @@ export class ProjectName {
   }
 
   static validate(value: string): E.Either<string, ProjectName> {
-    if (this.mustLessThan100(value)) {
+    if (this.isValid(value)) {
       return E.right(new ProjectName(value));
     }
-    return E.left(this.projectNameRequirementErrorMessage);
+    return E.left(this.validationErrorMessage);
   }
 
-  private static projectNameRequirementErrorMessage: string = 'project name value must less than 100.';
+  static isValid(value: string): boolean {
+    return this.mustBe1To100Characters(value);
+  }
 
-  private static mustLessThan100(value: string): boolean {
-    return value.length <= 100;
+  static validationErrorMessage: string = 'プロジェクト名は1文字以上100文字以下である必要があります';
+
+  private static mustBe1To100Characters(value: string): boolean {
+    return value.length >= 1 && value.length <= 100;
   }
 }
