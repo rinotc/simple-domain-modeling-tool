@@ -14,7 +14,7 @@ final class CreateProjectApiController @Inject() (cc: ControllerComponents, crea
 
   implicit private val parser: PlayBodyParsers = cc.parsers
 
-  def action: Action[CreateProjectRequest] = Action(CreateProjectRequest.validateJson) { implicit request =>
+  def action(): Action[CreateProjectRequest] = Action(CreateProjectRequest.validateJson) { implicit request =>
     val input = request.body.input
     createProjectUseCase.handle(input) match {
       case CreateProjectOutput.ConflictAlias(alias) =>
