@@ -14,7 +14,7 @@ object JsonValidator {
       Try(jsValue.validate[A]) match {
         case Success(value) => value.asEither.left.map { _ => BadRequest(ErrorResponse("parse error.").json.play) }
         case Failure(e) =>
-          e match {
+          (e: @unchecked) match {
             case e: RequestValidationError => Left(BadRequest(ErrorResponse(e.message).json.play))
           }
       }
