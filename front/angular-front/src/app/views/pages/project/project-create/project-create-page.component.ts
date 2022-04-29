@@ -65,7 +65,7 @@ export class ProjectCreatePageComponent implements OnInit {
     const overview = new ProjectOverview(this.inputProjectOverview);
 
     this.projectRepository.create(alias, name, overview).subscribe((_) => {
-      this.router.navigateByUrl('/projects').then((v) => console.log(v));
+      this.router.navigateByUrl('/projects').then((_) => {});
     });
   }
 }
