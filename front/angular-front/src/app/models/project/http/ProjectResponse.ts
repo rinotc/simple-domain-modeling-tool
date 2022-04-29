@@ -4,20 +4,22 @@ import {ProjectAlias} from "../alias/project-alias";
 import {ProjectName} from "../name/project-name";
 import {ProjectOverview} from "../overview/project-overview";
 
-export class ProjectResponse {
-  constructor(
-    readonly projectId: string,
-    readonly projectAlias: string,
-    readonly projectName: string,
-    readonly projectOverview: string
-  ) {}
 
-  get convert(): Project {
+export type ProjectResponse = {
+  readonly projectId: string
+  readonly projectAlias: string
+  readonly projectName: string
+  readonly projectOverview: string
+}
+
+export const ProjectResponse = {
+  convert(res: ProjectResponse): Project {
     return new Project(
-      new ProjectId(this.projectId),
-      new ProjectAlias(this.projectAlias),
-      new ProjectName(this.projectName),
-      new ProjectOverview(this.projectOverview)
+      new ProjectId(res.projectId),
+      new ProjectAlias(res.projectAlias),
+      new ProjectName(res.projectName),
+      new ProjectOverview(res.projectOverview)
     )
   }
 }
+

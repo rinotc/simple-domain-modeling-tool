@@ -7,7 +7,7 @@ export class ProjectId {
 
   constructor(readonly value: string) {
     if (!ProjectId.mustValueLengthEqual36(value)) {
-      throw new TypeError(ProjectId.requirementErrorMessage);
+      throw new TypeError(ProjectId.requirementErrorMessage(value));
     }
   }
 
@@ -20,10 +20,12 @@ export class ProjectId {
       const projectId = new ProjectId(value)
       return E.right(projectId)
     }
-    return E.left(this.requirementErrorMessage);
+    return E.left(this.requirementErrorMessage(value));
   }
 
-  private static requirementErrorMessage: string = 'project id value length must be 36 length.';
+  private static requirementErrorMessage(value: string): string {
+    return `project id value length must be 36 length, but ${value.length}. value is ${value}`;
+  }
 
   private static mustValueLengthEqual36(value: string): boolean {
     return value.length === 36;
