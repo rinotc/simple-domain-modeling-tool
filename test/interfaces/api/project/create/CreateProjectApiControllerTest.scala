@@ -45,7 +45,7 @@ class CreateProjectApiControllerTest extends PlaySpec with Results with MockFact
           )
         )
 
-        val result  = controller.action.apply(request)
+        val result  = controller.action().apply(request)
         val content = contentAsJson(result)
 
         status(result) mustBe OK
@@ -81,7 +81,7 @@ class CreateProjectApiControllerTest extends PlaySpec with Results with MockFact
           )
         )
 
-        val result  = controller.action.apply(request)
+        val result  = controller.action().apply(request)
         val content = contentAsJson(result)
 
         status(result) mustBe CONFLICT
