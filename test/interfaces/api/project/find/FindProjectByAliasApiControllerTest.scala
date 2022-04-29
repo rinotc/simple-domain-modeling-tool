@@ -1,13 +1,6 @@
 package interfaces.api.project.find
 
-import dev.tchiba.sdmt.core.models.project.{
-  Project,
-  ProjectAlias,
-  ProjectId,
-  ProjectName,
-  ProjectOverview,
-  ProjectRepository
-}
+import dev.tchiba.sdmt.core.models.project._
 import interfaces.api.project.json.ProjectResponse
 import interfaces.json.error.ErrorResponse
 import org.scalamock.scalatest.MockFactory
