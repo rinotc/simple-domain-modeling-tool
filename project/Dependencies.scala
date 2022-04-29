@@ -3,7 +3,8 @@ import sbt._
 object Dependencies {
 
   object Google {
-    val `guice` = "com.google.inject" % "guice" % "5.1.0"
+    val `guice`                = "com.google.inject"            % "guice"                % "5.1.0"
+    val `guice-assistedinject` = "com.google.inject.extensions" % "guice-assistedinject" % "5.1.0"
   }
   object Logback {
     val `logback-classic` = "ch.qos.logback" % "logback-classic" % "1.2.11"

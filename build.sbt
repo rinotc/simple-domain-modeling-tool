@@ -25,6 +25,7 @@ lazy val `web` = (project in file("."))
     libraryDependencies ++= Seq(
       guice,
       Google.`guice`,
+      Google.`guice-assistedinject`,
       ScalaTest.`scalatestplus-play` % Test,
       ScalaMock.`scalamock`          % Test,
       CodingWell.`scala-guice`,
