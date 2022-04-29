@@ -21,7 +21,7 @@ import {MatTableModule} from "@angular/material/table";
 import { WelcomeComponent } from './views/components/welcome/welcome.component';
 import { ProjectDetailComponent } from './views/components/project/project-detail/project-detail.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
-import { ProjectCreateComponent } from './views/components/project/project-create/project-create.component';
+import { ProjectCreatePageComponent } from './views/pages/project/project-create/project-create-page.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 
@@ -33,7 +33,7 @@ import {MatInputModule} from "@angular/material/input";
     ProjectListComponentComponent,
     WelcomeComponent,
     ProjectDetailComponent,
-    ProjectCreateComponent,
+    ProjectCreatePageComponent,
   ],
   imports: [
     BrowserModule,

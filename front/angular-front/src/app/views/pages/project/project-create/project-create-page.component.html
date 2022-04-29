@@ -1,0 +1,22 @@
+<h1>プロジェクトを作成する</h1>
+
+<div id="create-project-input" fxLayout="column" >
+  <div *ngIf="hasProjectNameValidationError">{{projectNameErrorMessage}}</div>
+  <mat-form-field appearance="fill">
+    <mat-label>プロジェクト名</mat-label>
+    <input matInput [(ngModel)]="inputProjectName"/>
+  </mat-form-field>
+  <div *ngIf="hasProjectAliasValidationError">{{projectAliasErrorMessage}}</div>
+  <mat-form-field appearance="fill">
+    <mat-label>プロジェクトエイリアス</mat-label>
+    <input matInput [(ngModel)]="inputProjectAlias"/>
+  </mat-form-field>
+  <div *ngIf="hasProjectOverviewValidationError">{{projectOverviewErrorMessage}}</div>
+  <mat-form-field appearance="fill">
+    <mat-label>プロジェクト概要</mat-label>
+    <textarea matInput [(ngModel)]="inputProjectOverview"></textarea>
+  </mat-form-field>
+</div>
+
+<button mat-flat-button color="primary" [disabled]="!canSubmit" (click)="onSubmit()">作成する</button>
+
