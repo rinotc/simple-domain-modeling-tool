@@ -1,0 +1,219 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "sdmt api specifications",
+    "description": "Title",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:9000/api/",
+      "description": "local"
+    }
+  ],
+  "paths": {
+    "/projects": {
+      "post": {
+        "summary": "プロジェクト作成",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-projects",
+        "description": "新規のプロジェクトを作成する",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "description": "プロジェクト名",
+                    "writeOnly": true
+                  },
+                  "alias": {
+                    "type": "string",
+                    "pattern": "^[0-9a-zA-Z]{1,32}$",
+                    "minLength": 1,
+                    "maxLength": 32,
+                    "description": "プロジェクトエイリアス",
+                    "writeOnly": true
+                  },
+                  "overview": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 500,
+                    "description": "プロジェクト概要",
+                    "writeOnly": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "alias",
+                  "overview"
+                ]
+              }
+            }
+          },
+          "description": "新規プロジェクト情報"
+        }
+      },
+      "get": {
+        "summary": "プロジェクト一覧取得",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProjectResponse"
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-projects",
+        "description": "プロジェクト一覧を取得する"
+      }
+    },
+    "/projects/{projectAlias}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string",
+            "pattern": "^[0-9a-zA-Z]{1,32}$",
+            "minLength": 1,
+            "maxLength": 32
+          },
+          "name": "projectAlias",
+          "in": "path",
+          "required": true,
+          "description": "プロジェクトエイリアス"
+        }
+      ],
+      "get": {
+        "summary": "プロジェクト取得",
+        "tags": [
+          "Project"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-projects-projectAlias",
+        "parameters": [],
+        "description": "エイリアスを元に、プロジェクト情報を取得する"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProjectResponse": {
+        "title": "ProjectResponse",
+        "type": "object",
+        "x-tags": [
+          "Project"
+        ],
+        "properties": {
+          "projectId": {
+            "type": "string",
+            "description": "プロジェクトID",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "projectAlias": {
+            "type": "string",
+            "description": "プロジェクトエイリアス",
+            "example": "ALIAS",
+            "minLength": 1,
+            "maxLength": 32,
+            "pattern": "^[0-9a-zA-Z]{1,32}$"
+          },
+          "projectName": {
+            "type": "string",
+            "description": "プロジェクト名称",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "projectOverview": {
+            "type": "string",
+            "description": "プロジェクト概要",
+            "minLength": 0,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "projectId",
+          "projectAlias",
+          "projectName",
+          "projectOverview"
+        ]
+      },
+      "ErrorResponse": {
+        "title": "ErrorResponse",
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "エラーメッセージ"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      }
+    }
+  }
+}
