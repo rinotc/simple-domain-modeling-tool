@@ -3,7 +3,7 @@ package dev.tchiba.sdmt.application.interactors.boundedContext.create
 import dev.tchiba.sdmt.core.models.boundedContext.{
   Project,
   BoundedContextAlias,
-  ProjectName,
+  BoundedContextName,
   ProjectOverview,
   ProjectRepository
 }
@@ -23,7 +23,7 @@ class CreateProjectInteractorTest extends BaseTest with MockFactory {
         val interactor = new CreateProjectInteractor(mockProjectRepository)
         val input = CreateProjectInput(
           projectAlias = BoundedContextAlias("NEW"),
-          projectName = ProjectName("新しいプロジェクト名"),
+          projectName = BoundedContextName("新しいプロジェクト名"),
           projectOverview = ProjectOverview("新しいプロジェクト概要")
         )
 
@@ -43,7 +43,7 @@ class CreateProjectInteractorTest extends BaseTest with MockFactory {
 
         val existProject = Project.create(
           alias = BoundedContextAlias("EXIST"),
-          name = ProjectName("既存プロジェクト名"),
+          name = BoundedContextName("既存プロジェクト名"),
           overview = ProjectOverview("既存プロジェクト概要")
         )
         (mockProjectRepository.findByAlias _).expects(*).returning(existProject.some)

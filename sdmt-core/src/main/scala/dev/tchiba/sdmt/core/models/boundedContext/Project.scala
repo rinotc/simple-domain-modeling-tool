@@ -12,14 +12,14 @@ import dev.tchiba.sdmt.core.{Aggregate, Entity}
 final class Project private (
     val id: BoundedContextId,
     val alias: BoundedContextAlias,
-    val name: ProjectName,
+    val name: BoundedContextName,
     val overview: ProjectOverview
 ) extends Entity[BoundedContextId]
     with Aggregate {
 
   def changeAlias(newAlias: BoundedContextAlias): Project = copy(newAlias)
 
-  def changeProjectName(newProjectName: ProjectName): Project = copy(name = newProjectName)
+  def changeProjectName(newProjectName: BoundedContextName): Project = copy(name = newProjectName)
 
   def changeOverview(newOverview: ProjectOverview): Project = copy(overview = newOverview)
 
@@ -27,7 +27,7 @@ final class Project private (
 
   private def copy(
       alias: BoundedContextAlias = this.alias,
-      name: ProjectName = this.name,
+      name: BoundedContextName = this.name,
       overview: ProjectOverview = this.overview
   ): Project = new Project(this.id, alias, name, overview)
 
@@ -35,9 +35,14 @@ final class Project private (
 }
 
 object Project {
-  def reconstruct(id: BoundedContextId, alias: BoundedContextAlias, name: ProjectName, overview: ProjectOverview) =
+  def reconstruct(
+      id: BoundedContextId,
+      alias: BoundedContextAlias,
+      name: BoundedContextName,
+      overview: ProjectOverview
+  ) =
     new Project(id, alias, name, overview)
 
-  def create(alias: BoundedContextAlias, name: ProjectName, overview: ProjectOverview) =
+  def create(alias: BoundedContextAlias, name: BoundedContextName, overview: ProjectOverview) =
     new Project(BoundedContextId.generate, alias, name, overview)
 }

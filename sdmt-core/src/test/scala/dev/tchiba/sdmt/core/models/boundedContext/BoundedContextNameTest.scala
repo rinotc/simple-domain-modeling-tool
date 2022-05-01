@@ -2,13 +2,13 @@ package dev.tchiba.sdmt.core.models.boundedContext
 
 import dev.tchiba.sdmt.test.BaseTest
 
-class ProjectNameTest extends BaseTest {
+class BoundedContextNameTest extends BaseTest {
 
   "ProjectName Requirement" when {
     "empty value" should {
       "throw requirement error" in {
         assertThrows[IllegalArgumentException] {
-          ProjectName("")
+          BoundedContextName("")
         }
       }
     }
@@ -17,21 +17,21 @@ class ProjectNameTest extends BaseTest {
       "throw requirement error" in {
         assertThrows[IllegalArgumentException] {
           val value = "A" * 101
-          ProjectName(value)
+          BoundedContextName(value)
         }
       }
     }
 
     "1 length value" should {
       "can create instance" in {
-        ProjectName("A").value shouldBe "A"
+        BoundedContextName("A").value shouldBe "A"
       }
     }
 
     "100 length value" should {
       "can create instance" in {
         val value = "A" * 100
-        ProjectName(value).value shouldBe value
+        BoundedContextName(value).value shouldBe value
       }
     }
   }
@@ -39,13 +39,13 @@ class ProjectNameTest extends BaseTest {
   "equal" when {
     "same value instances" should {
       "be equal" in {
-        ProjectName("AbcDefアイウエオ") shouldEqual ProjectName("AbcDefアイウエオ")
+        BoundedContextName("AbcDefアイウエオ") shouldEqual BoundedContextName("AbcDefアイウエオ")
       }
     }
 
     "not same value instance" should {
       "not be equal" in {
-        ProjectName("ABC") should not be ProjectName("アイウ")
+        BoundedContextName("ABC") should not be BoundedContextName("アイウ")
       }
     }
   }
@@ -53,21 +53,21 @@ class ProjectNameTest extends BaseTest {
   "validate" when {
     "empty value" should {
       "return left" in {
-        val actual = ProjectName.validate("")
+        val actual = BoundedContextName.validate("")
         actual shouldBe Symbol("left")
       }
     }
 
     "over 101 length value" should {
       "return left" in {
-        val actual = ProjectName.validate("A" * 101)
+        val actual = BoundedContextName.validate("A" * 101)
         actual shouldBe Symbol("left")
       }
     }
 
     "1 characters value" should {
       "return right" in {
-        val actual = ProjectName.validate("A")
+        val actual = BoundedContextName.validate("A")
         actual shouldBe Symbol("right")
         actual.value.value shouldBe "A"
       }
