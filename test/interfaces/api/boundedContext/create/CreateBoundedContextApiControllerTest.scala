@@ -90,7 +90,7 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
         val content = contentAsJson(result)
 
         status(result) mustBe CONFLICT
-        content mustBe ErrorResponse(s"Project alias = ${conflictProject.alias.value} is conflicted.").json.play
+        content mustBe ErrorResponse(s"Bounded context alias = ${conflictProject.alias.value} is conflicted.").json.play
       }
     }
   }
