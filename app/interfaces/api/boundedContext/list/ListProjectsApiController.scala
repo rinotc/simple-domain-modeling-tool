@@ -1,7 +1,7 @@
-package interfaces.api.project.list
+package interfaces.api.boundedContext.list
 
 import dev.tchiba.sdmt.core.models.boundedContext.ProjectRepository
-import interfaces.api.project.json.ProjectResponse
+import interfaces.api.boundedContext.json.ProjectResponse
 import interfaces.json.CollectionResponse
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 

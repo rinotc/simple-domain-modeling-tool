@@ -1,4 +1,4 @@
-package interfaces.api.project.create
+package interfaces.api.boundedContext.create
 
 import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, ProjectName, ProjectOverview}
 import dev.tchiba.sdmt.usecase.project.create.CreateProjectInput

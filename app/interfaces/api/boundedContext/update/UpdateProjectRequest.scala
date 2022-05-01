@@ -1,4 +1,4 @@
-package interfaces.api.project.update
+package interfaces.api.boundedContext.update
 
 import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, ProjectId, ProjectName, ProjectOverview}
 import dev.tchiba.sdmt.usecase.project.update.UpdateProjectInput

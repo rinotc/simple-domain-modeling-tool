@@ -1,7 +1,7 @@
-package interfaces.api.project.find
+package interfaces.api.boundedContext.find
 
 import dev.tchiba.sdmt.core.models.boundedContext._
-import interfaces.api.project.json.ProjectResponse
+import interfaces.api.boundedContext.json.ProjectResponse
 import interfaces.json.error.ErrorResponse
 import org.scalamock.scalatest.MockFactory
 import org.scalatestplus.play.PlaySpec

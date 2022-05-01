@@ -1,4 +1,4 @@
-package interfaces.api.project.json
+package interfaces.api.boundedContext.json
 
 import dev.tchiba.sdmt.core.models.boundedContext.Project
 import interfaces.json.PlayJsonResponse

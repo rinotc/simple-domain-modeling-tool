@@ -1,9 +1,9 @@
-package interfaces.api.project.update
+package interfaces.api.boundedContext.update
 
 import dev.tchiba.sdmt.core.models.boundedContext.ProjectId
 import dev.tchiba.sdmt.usecase.project.update.{UpdateProjectOutput, UpdateProjectUseCase}
 import interfaces.api.QueryValidator
-import interfaces.api.project.json.ProjectResponse
+import interfaces.api.boundedContext.json.ProjectResponse
 import interfaces.json.error.ErrorResponse
 import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
 
