@@ -7,9 +7,9 @@ sealed abstract class UpdateBoundedContextOutput extends Output
 
 object UpdateBoundedContextOutput {
 
-  case class Success(updatedProject: BoundedContext) extends UpdateBoundedContextOutput
+  case class Success(updatedBoundedContext: BoundedContext) extends UpdateBoundedContextOutput
 
   case class NotFound(targetId: BoundedContextId) extends UpdateBoundedContextOutput
 
-  case class ConflictAlias(conflictedProject: BoundedContext) extends UpdateBoundedContextOutput
+  case class ConflictAlias(conflictedBoundedContext: BoundedContext) extends UpdateBoundedContextOutput
 }

@@ -7,7 +7,7 @@ import dev.tchiba.sdmt.core.models.boundedContext.{
   BoundedContextOverview
 }
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateBoundedContextOutput, CreateBoundedContextUseCase}
-import interfaces.api.boundedContext.json.ProjectResponse
+import interfaces.api.boundedContext.json.BoundedContextResponse
 import interfaces.json.error.ErrorResponse
 import org.scalamock.scalatest.MockFactory
 import org.scalatestplus.play._
@@ -18,7 +18,7 @@ import play.api.test.{FakeHeaders, FakeRequest}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class CreateProjectApiControllerTest extends PlaySpec with Results with MockFactory {
+class CreateBoundedContextApiControllerTest extends PlaySpec with Results with MockFactory {
 
   "action" when {
     "successful request has been sent" should {
@@ -34,16 +34,16 @@ class CreateProjectApiControllerTest extends PlaySpec with Results with MockFact
           .returning(
             CreateBoundedContextOutput.Success(newProject)
           )
-        val controller = new CreateProjectApiController(
+        val controller = new CreateBoundedContextApiController(
           stubControllerComponents(),
           mockCreateProjectUseCase
         )
 
-        val request: FakeRequest[CreateProjectRequest] = FakeRequest.apply(
+        val request: FakeRequest[CreateBoundedContextRequest] = FakeRequest.apply(
           method = POST,
           uri = "/api/projects",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
-          body = CreateProjectRequest(
+          body = CreateBoundedContextRequest(
             name = newProject.name.value,
             alias = newProject.alias.value,
             overview = newProject.overview.value
@@ -54,7 +54,7 @@ class CreateProjectApiControllerTest extends PlaySpec with Results with MockFact
         val content = contentAsJson(result)
 
         status(result) mustBe OK
-        content mustBe ProjectResponse(newProject).json
+        content mustBe BoundedContextResponse(newProject).json
       }
     }
 
@@ -71,15 +71,15 @@ class CreateProjectApiControllerTest extends PlaySpec with Results with MockFact
           .returning(
             CreateBoundedContextOutput.ConflictAlias(conflictProject.alias)
           )
-        val controller = new CreateProjectApiController(
+        val controller = new CreateBoundedContextApiController(
           stubControllerComponents(),
           mockCreateProjectUseCase
         )
-        val request: FakeRequest[CreateProjectRequest] = FakeRequest.apply(
+        val request: FakeRequest[CreateBoundedContextRequest] = FakeRequest.apply(
           method = POST,
           uri = "/api/projects",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
-          body = CreateProjectRequest(
+          body = CreateBoundedContextRequest(
             name = conflictProject.name.value,
             alias = conflictProject.alias.value,
             overview = conflictProject.overview.value
