@@ -36,7 +36,7 @@ class DomainModelsSpec extends FixtureAnyFlatSpec with Matchers with AutoRollbac
     count should be >(0L)
   }
   it should "create new record" in { implicit session =>
-    val created = DomainModels.create(domainModelId = "MyString", projectId = "MyString", japaneseName = "MyString", englishName = "MyString", specification = "MyString")
+    val created = DomainModels.create(domainModelId = "MyString", boundedContextId = "MyString", japaneseName = "MyString", englishName = "MyString", specification = "MyString")
     created should not be(null)
   }
   it should "save a record" in { implicit session =>

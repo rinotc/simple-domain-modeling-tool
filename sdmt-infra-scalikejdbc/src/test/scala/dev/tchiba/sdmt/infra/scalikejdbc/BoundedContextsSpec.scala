@@ -6,57 +6,57 @@ import scalikejdbc.scalatest.AutoRollback
 import scalikejdbc._
 
 
-class ProjectsSpec extends FixtureAnyFlatSpec with Matchers with AutoRollback {
-  val p = Projects.syntax("p")
+class BoundedContextsSpec extends FixtureAnyFlatSpec with Matchers with AutoRollback {
+  val bc = BoundedContexts.syntax("bc")
 
-  behavior of "Projects"
+  behavior of "BoundedContexts"
 
   it should "find by primary keys" in { implicit session =>
-    val maybeFound = Projects.find("MyString")
+    val maybeFound = BoundedContexts.find("MyString")
     maybeFound.isDefined should be(true)
   }
   it should "find by where clauses" in { implicit session =>
-    val maybeFound = Projects.findBy(sqls.eq(p.projectId, "MyString"))
+    val maybeFound = BoundedContexts.findBy(sqls.eq(bc.boundedContextId, "MyString"))
     maybeFound.isDefined should be(true)
   }
   it should "find all records" in { implicit session =>
-    val allResults = Projects.findAll()
+    val allResults = BoundedContexts.findAll()
     allResults.size should be >(0)
   }
   it should "count all records" in { implicit session =>
-    val count = Projects.countAll()
+    val count = BoundedContexts.countAll()
     count should be >(0L)
   }
   it should "find all by where clauses" in { implicit session =>
-    val results = Projects.findAllBy(sqls.eq(p.projectId, "MyString"))
+    val results = BoundedContexts.findAllBy(sqls.eq(bc.boundedContextId, "MyString"))
     results.size should be >(0)
   }
   it should "count by where clauses" in { implicit session =>
-    val count = Projects.countBy(sqls.eq(p.projectId, "MyString"))
+    val count = BoundedContexts.countBy(sqls.eq(bc.boundedContextId, "MyString"))
     count should be >(0L)
   }
   it should "create new record" in { implicit session =>
-    val created = Projects.create(projectId = "MyString", projectAlias = "MyString", projectName = "MyString", projectOverview = "MyString")
+    val created = BoundedContexts.create(boundedContextId = "MyString", boundedContextAlias = "MyString", boundedContextName = "MyString", boundedContextOverview = "MyString")
     created should not be(null)
   }
   it should "save a record" in { implicit session =>
-    val entity = Projects.findAll().head
+    val entity = BoundedContexts.findAll().head
     // TODO modify something
     val modified = entity
-    val updated = Projects.save(modified)
+    val updated = BoundedContexts.save(modified)
     updated should not equal(entity)
   }
   it should "destroy a record" in { implicit session =>
-    val entity = Projects.findAll().head
-    val deleted = Projects.destroy(entity)
+    val entity = BoundedContexts.findAll().head
+    val deleted = BoundedContexts.destroy(entity)
     deleted should be(1)
-    val shouldBeNone = Projects.find("MyString")
+    val shouldBeNone = BoundedContexts.find("MyString")
     shouldBeNone.isDefined should be(false)
   }
   it should "perform batch insert" in { implicit session =>
-    val entities = Projects.findAll()
-    entities.foreach(e => Projects.destroy(e))
-    val batchInserted = Projects.batchInsert(entities)
+    val entities = BoundedContexts.findAll()
+    entities.foreach(e => BoundedContexts.destroy(e))
+    val batchInserted = BoundedContexts.batchInsert(entities)
     batchInserted.size should be >(0)
   }
 }
