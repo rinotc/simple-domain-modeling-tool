@@ -7,7 +7,11 @@ import dev.tchiba.sdmt.usecase.Output
 sealed abstract class UpdateDomainModelOutput extends Output
 
 object UpdateDomainModelOutput {
-  case class Success(updatedDomainModel: DomainModel, project: BoundedContext)           extends UpdateDomainModelOutput
-  case class NotFoundSuchModel(projectAlias: BoundedContextAlias, englishName: String)   extends UpdateDomainModelOutput
-  case class ConflictEnglishName(projectAlias: BoundedContextAlias, englishName: String) extends UpdateDomainModelOutput
+  case class Success(updatedDomainModel: DomainModel, boundedContext: BoundedContext) extends UpdateDomainModelOutput
+
+  case class NotFoundSuchModel(boundedContextAlias: BoundedContextAlias, englishName: String)
+      extends UpdateDomainModelOutput
+
+  case class ConflictEnglishName(boundedContextAlias: BoundedContextAlias, englishName: String)
+      extends UpdateDomainModelOutput
 }

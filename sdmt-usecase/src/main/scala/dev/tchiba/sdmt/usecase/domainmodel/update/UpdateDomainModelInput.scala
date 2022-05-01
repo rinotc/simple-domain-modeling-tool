@@ -4,7 +4,7 @@ import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextAlias
 import dev.tchiba.sdmt.usecase.Input
 
 final case class UpdateDomainModelInput(
-    projectAlias: BoundedContextAlias,
+    boundedContextAlias: BoundedContextAlias,
     englishNameNow: String,
     updatedJapaneseName: String,
     updatedEnglishName: String,

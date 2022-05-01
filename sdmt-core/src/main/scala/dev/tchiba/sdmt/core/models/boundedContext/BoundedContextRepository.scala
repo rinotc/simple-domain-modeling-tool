@@ -31,7 +31,7 @@ object BoundedContextRepository {
   /**
    * 境界づけられたコンテキストのエイリアスがコンフリクトしている。
    *
-   * @param conflictedProject エイリアスがコンフリクトした境界づけられたコンテキスト
+   * @param conflictedContext エイリアスがコンフリクトした境界づけられたコンテキスト
    */
-  case class ConflictAlias(conflictedProject: BoundedContext)
+  case class ConflictAlias(conflictedContext: BoundedContext)
 }

@@ -16,7 +16,7 @@ import {BoundedContextsListPageComponent} from './views/pages/boundedContext/lis
 import {MatCardModule} from "@angular/material/card";
 import {
   BoundedContextListComponentComponent
-} from './views/components/project/project-list-component/bounded-context-list-component.component';
+} from './views/components/boundedContext/bounded-context-list-component/bounded-context-list-component.component';
 import {MatTableModule} from "@angular/material/table";
 import { WelcomeComponent } from './views/components/welcome/welcome.component';
 import { BoundedContextDetailPageComponent } from './views/pages/boundedContext/detail/bounded-context-detail-page.component';

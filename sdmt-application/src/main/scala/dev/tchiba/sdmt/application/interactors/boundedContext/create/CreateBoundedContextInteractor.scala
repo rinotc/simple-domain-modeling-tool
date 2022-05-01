@@ -10,15 +10,15 @@ import dev.tchiba.sdmt.usecase.boundedContext.create.{
 import javax.inject.Inject
 
 class CreateBoundedContextInteractor @Inject() (
-    projectRepository: BoundedContextRepository
+    boundedContextRepository: BoundedContextRepository
 ) extends CreateBoundedContextUseCase {
   override def handle(input: CreateBoundedContextInput): CreateBoundedContextOutput = {
-    projectRepository.findByAlias(input.alias) match {
+    boundedContextRepository.findByAlias(input.alias) match {
       case Some(_) => CreateBoundedContextOutput.ConflictAlias(input.alias)
       case None =>
-        val newProject = BoundedContext.create(input.alias, input.name, input.overview)
-        projectRepository.insert(newProject)
-        CreateBoundedContextOutput.Success(newProject)
+        val newBoundedContext = BoundedContext.create(input.alias, input.name, input.overview)
+        boundedContextRepository.insert(newBoundedContext)
+        CreateBoundedContextOutput.Success(newBoundedContext)
     }
   }
 }

@@ -8,6 +8,6 @@ sealed abstract class AddDomainModelOutput extends Output
 
 object AddDomainModelOutput {
   case class Success(newDomainModel: DomainModel)             extends AddDomainModelOutput
-  case class NoSuchProject(projectAlias: BoundedContextAlias) extends AddDomainModelOutput
+  case class NoSuchBoundedContext(alias: BoundedContextAlias) extends AddDomainModelOutput
   case class ConflictEnglishName(englishName: String)         extends AddDomainModelOutput
 }

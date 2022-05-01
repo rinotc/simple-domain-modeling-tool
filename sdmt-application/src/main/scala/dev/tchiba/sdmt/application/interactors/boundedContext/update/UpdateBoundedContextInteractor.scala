@@ -19,10 +19,10 @@ final class UpdateBoundedContextInteractor @Inject() (
       }
       updatedProject = project
         .changeAlias(input.alias)
-        .changeProjectName(input.name)
+        .changeName(input.name)
         .changeOverview(input.overview)
       _ <- projectRepository.update(updatedProject).left.map { conflict =>
-        UpdateBoundedContextOutput.ConflictAlias(conflict.conflictedProject)
+        UpdateBoundedContextOutput.ConflictAlias(conflict.conflictedContext)
       }
     } yield UpdateBoundedContextOutput.Success(updatedProject)
 

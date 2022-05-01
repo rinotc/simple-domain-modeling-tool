@@ -27,7 +27,7 @@ object BoundedContextId {
   def fromString(value: String): BoundedContextId = apply(UUID.fromString(value))
 
   def validate(value: String): Either[String, BoundedContextId] = Try(fromString(value)) match {
-    case Success(projectId)                   => Right(projectId)
+    case Success(boundedContextId)            => Right(boundedContextId)
     case Failure(e: IllegalArgumentException) => Left(e.getMessage)
     case Failure(e)                           => throw e
   }

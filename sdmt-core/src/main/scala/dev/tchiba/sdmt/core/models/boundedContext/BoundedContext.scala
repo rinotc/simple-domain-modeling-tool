@@ -19,7 +19,7 @@ final class BoundedContext private (
 
   def changeAlias(newAlias: BoundedContextAlias): BoundedContext = copy(newAlias)
 
-  def changeProjectName(newProjectName: BoundedContextName): BoundedContext = copy(name = newProjectName)
+  def changeName(newName: BoundedContextName): BoundedContext = copy(name = newName)
 
   def changeOverview(newOverview: BoundedContextOverview): BoundedContext = copy(overview = newOverview)
 
