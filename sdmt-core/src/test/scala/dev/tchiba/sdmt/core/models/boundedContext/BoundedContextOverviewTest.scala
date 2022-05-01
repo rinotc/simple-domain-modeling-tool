@@ -2,15 +2,15 @@ package dev.tchiba.sdmt.core.models.boundedContext
 
 import dev.tchiba.sdmt.test.BaseTest
 
-class ProjectOverviewTest extends BaseTest {
+class BoundedContextOverviewTest extends BaseTest {
 
-  "ProjectOverview Requirement" when {
+  "BoundeContextOverview Requirement" when {
     "501 length value" should {
       "throw requirement error" in {
         val value = "A" * 501
         value.length shouldBe 501
         assertThrows[IllegalArgumentException] {
-          ProjectOverview(value)
+          BoundedContextOverview(value)
         }
       }
     }
@@ -19,8 +19,8 @@ class ProjectOverviewTest extends BaseTest {
   "equals" when {
     "compare same underlying value instance" should {
       "return true" in {
-        val overviewA = ProjectOverview("ABC")
-        val overviewB = ProjectOverview("ABC")
+        val overviewA = BoundedContextOverview("ABC")
+        val overviewB = BoundedContextOverview("ABC")
 
         overviewA shouldEqual overviewB
       }
@@ -28,8 +28,8 @@ class ProjectOverviewTest extends BaseTest {
 
     "compare not same underlying value instance" should {
       "return false" in {
-        val overviewA = ProjectOverview("ABC")
-        val overviewB = ProjectOverview("XYZ")
+        val overviewA = BoundedContextOverview("ABC")
+        val overviewB = BoundedContextOverview("XYZ")
 
         overviewA should not equal overviewB
       }
@@ -40,14 +40,14 @@ class ProjectOverviewTest extends BaseTest {
     "501 length String value" should {
       "return left" in {
         val value  = "A" * 501
-        val actual = ProjectOverview.validate(value)
+        val actual = BoundedContextOverview.validate(value)
         actual shouldBe Symbol("left")
       }
     }
 
     "empty String value" should {
       "return right" in {
-        val actual = ProjectOverview.validate("")
+        val actual = BoundedContextOverview.validate("")
         actual shouldBe Symbol("right")
         actual.value.value shouldBe ""
       }

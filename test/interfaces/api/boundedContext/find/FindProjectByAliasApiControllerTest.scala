@@ -21,7 +21,7 @@ class FindProjectByAliasApiControllerTest extends PlaySpec with Results with Moc
           BoundedContextId.generate,
           BoundedContextAlias(requestAliasValue),
           BoundedContextName("プロジェクト名"),
-          ProjectOverview("プロジェクト概要")
+          BoundedContextOverview("プロジェクト概要")
         )
         (mockProjectRepository.findByAlias _)
           .expects(existingProject.alias)

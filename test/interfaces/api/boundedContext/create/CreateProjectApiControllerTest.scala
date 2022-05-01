@@ -1,6 +1,11 @@
 package interfaces.api.boundedContext.create
 
-import dev.tchiba.sdmt.core.models.boundedContext.{Project, BoundedContextAlias, BoundedContextName, ProjectOverview}
+import dev.tchiba.sdmt.core.models.boundedContext.{
+  Project,
+  BoundedContextAlias,
+  BoundedContextName,
+  BoundedContextOverview
+}
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateProjectOutput, CreateProjectUseCase}
 import interfaces.api.boundedContext.json.ProjectResponse
 import interfaces.json.error.ErrorResponse
@@ -22,7 +27,7 @@ class CreateProjectApiControllerTest extends PlaySpec with Results with MockFact
         val newProject = Project.create(
           BoundedContextAlias("TEST"),
           BoundedContextName("プロジェクト名"),
-          ProjectOverview("プロジェクト概要")
+          BoundedContextOverview("プロジェクト概要")
         )
         (mockCreateProjectUseCase.handle _)
           .expects(*)
@@ -59,7 +64,7 @@ class CreateProjectApiControllerTest extends PlaySpec with Results with MockFact
         val conflictProject = Project.create(
           BoundedContextAlias("CONFLICT"),
           BoundedContextName("既存プロジェクト名"),
-          ProjectOverview("既存プロジェクト概要")
+          BoundedContextOverview("既存プロジェクト概要")
         )
         (mockCreateProjectUseCase.handle _)
           .expects(*)

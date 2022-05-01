@@ -3,7 +3,7 @@ package dev.tchiba.sdmt.core.models.boundedContext
 import dev.tchiba.sdmt.test.BaseTest
 
 class BoundedContextAliasTest extends BaseTest {
-  "BoundeContextAlias Requirement" when {
+  "BoundedContextAlias Requirement" when {
     "empty value" should {
       "throw requirement error" in {
         assertThrows[IllegalArgumentException] {

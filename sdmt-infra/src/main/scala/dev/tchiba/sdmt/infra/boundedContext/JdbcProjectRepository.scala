@@ -5,7 +5,7 @@ import dev.tchiba.sdmt.core.models.boundedContext.{
   BoundedContextAlias,
   BoundedContextId,
   BoundedContextName,
-  ProjectOverview,
+  BoundedContextOverview,
   ProjectRepository
 }
 import dev.tchiba.sdmt.infra.scalikejdbc.{DomainModels, Projects}
@@ -100,7 +100,7 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
       id = BoundedContextId.fromString(row.projectId),
       alias = BoundedContextAlias(row.projectAlias),
       name = BoundedContextName(row.projectName),
-      overview = ProjectOverview(row.projectOverview)
+      overview = BoundedContextOverview(row.projectOverview)
     )
   }
 }

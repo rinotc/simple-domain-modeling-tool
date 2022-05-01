@@ -1,6 +1,6 @@
 package controllers
 
-import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, BoundedContextName, ProjectOverview}
+import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, BoundedContextName, BoundedContextOverview}
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateProjectInput, CreateProjectOutput, CreateProjectUseCase}
 import interfaces.forms.project.AddProjectForm
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
@@ -23,7 +23,7 @@ class AddProjectController @Inject() (
     val input = CreateProjectInput(
       projectAlias = BoundedContextAlias(data.alias),
       projectName = BoundedContextName(data.name),
-      projectOverview = ProjectOverview(data.overview)
+      projectOverview = BoundedContextOverview(data.overview)
     )
     createProjectUseCase.handle(input) match {
       case CreateProjectOutput.ConflictAlias(alias) =>

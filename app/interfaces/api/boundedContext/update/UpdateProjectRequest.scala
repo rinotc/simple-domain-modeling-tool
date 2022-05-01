@@ -4,7 +4,7 @@ import dev.tchiba.sdmt.core.models.boundedContext.{
   BoundedContextAlias,
   BoundedContextId,
   BoundedContextName,
-  ProjectOverview
+  BoundedContextOverview
 }
 import dev.tchiba.sdmt.usecase.boundedContext.update.UpdateProjectInput
 import interfaces.json.{JsonRequest, JsonValidator}
@@ -20,7 +20,7 @@ case class UpdateProjectRequest(
 ) extends JsonRequest {
   private val projectAlias    = BoundedContextAlias.validate(alias).leftThrow
   private val projectName     = BoundedContextName.validate(name).leftThrow
-  private val projectOverview = ProjectOverview.validate(overview).leftThrow
+  private val projectOverview = BoundedContextOverview.validate(overview).leftThrow
 
   val input: BoundedContextId => UpdateProjectInput = UpdateProjectInput(_, projectAlias, projectName, projectOverview)
 }

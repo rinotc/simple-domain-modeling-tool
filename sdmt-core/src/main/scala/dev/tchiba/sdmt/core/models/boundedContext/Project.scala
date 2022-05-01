@@ -13,7 +13,7 @@ final class Project private (
     val id: BoundedContextId,
     val alias: BoundedContextAlias,
     val name: BoundedContextName,
-    val overview: ProjectOverview
+    val overview: BoundedContextOverview
 ) extends Entity[BoundedContextId]
     with Aggregate {
 
@@ -21,14 +21,14 @@ final class Project private (
 
   def changeProjectName(newProjectName: BoundedContextName): Project = copy(name = newProjectName)
 
-  def changeOverview(newOverview: ProjectOverview): Project = copy(overview = newOverview)
+  def changeOverview(newOverview: BoundedContextOverview): Project = copy(overview = newOverview)
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Project]
 
   private def copy(
       alias: BoundedContextAlias = this.alias,
       name: BoundedContextName = this.name,
-      overview: ProjectOverview = this.overview
+      overview: BoundedContextOverview = this.overview
   ): Project = new Project(this.id, alias, name, overview)
 
   override def toString = s"Project(id=$id, alias=$alias, name=$name, overview=$overview)"
@@ -39,10 +39,10 @@ object Project {
       id: BoundedContextId,
       alias: BoundedContextAlias,
       name: BoundedContextName,
-      overview: ProjectOverview
+      overview: BoundedContextOverview
   ) =
     new Project(id, alias, name, overview)
 
-  def create(alias: BoundedContextAlias, name: BoundedContextName, overview: ProjectOverview) =
+  def create(alias: BoundedContextAlias, name: BoundedContextName, overview: BoundedContextOverview) =
     new Project(BoundedContextId.generate, alias, name, overview)
 }

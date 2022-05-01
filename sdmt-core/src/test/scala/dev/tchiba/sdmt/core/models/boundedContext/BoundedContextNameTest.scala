@@ -4,7 +4,7 @@ import dev.tchiba.sdmt.test.BaseTest
 
 class BoundedContextNameTest extends BaseTest {
 
-  "ProjectName Requirement" when {
+  "BoundedContextName Requirement" when {
     "empty value" should {
       "throw requirement error" in {
         assertThrows[IllegalArgumentException] {
