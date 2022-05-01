@@ -2,7 +2,7 @@ package dev.tchiba.sdmt.infra.user
 
 import dev.tchiba.sdmt.core.models.sub.email.EmailAddress
 import dev.tchiba.sdmt.core.models.sub.url.Url
-import dev.tchiba.sdmt.core.models.user.{User, UserId, UserRepository}
+import dev.tchiba.sdmt.core.user.{User, UserId, UserRepository}
 import dev.tchiba.sdmt.infra.scalikejdbc.Users
 import scalikejdbc._
 

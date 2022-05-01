@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.core.models.user
+package dev.tchiba.sdmt.core.user
 
 import dev.tchiba.sdmt.core.Repository
 
