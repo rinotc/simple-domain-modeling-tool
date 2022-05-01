@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.application.interactors.boundedContext.create
 
 import dev.tchiba.sdmt.core.models.boundedContext.{
-  Project,
+  BoundedContext,
   BoundedContextAlias,
   BoundedContextName,
   BoundedContextOverview,
@@ -41,7 +41,7 @@ class CreateProjectInteractorTest extends BaseTest with MockFactory {
       "return Conflict" in {
         val mockProjectRepository = mock[ProjectRepository]
 
-        val existProject = Project.create(
+        val existProject = BoundedContext.create(
           alias = BoundedContextAlias("EXIST"),
           name = BoundedContextName("既存プロジェクト名"),
           overview = BoundedContextOverview("既存プロジェクト概要")

@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.infra.boundedContext
 
 import dev.tchiba.sdmt.core.models.boundedContext.{
-  Project,
+  BoundedContext,
   BoundedContextAlias,
   BoundedContextId,
   BoundedContextName,
@@ -17,7 +17,7 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
 
   private val p = Projects.p
 
-  override def findById(id: BoundedContextId): Option[Project] = DB readOnly { implicit session =>
+  override def findById(id: BoundedContextId): Option[BoundedContext] = DB readOnly { implicit session =>
     withSQL {
       select
         .from[Projects](Projects.as(p))
@@ -29,7 +29,7 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
       .map(reconstructFrom)
   }
 
-  override def findByAlias(alias: BoundedContextAlias): Option[Project] = DB readOnly { implicit session =>
+  override def findByAlias(alias: BoundedContextAlias): Option[BoundedContext] = DB readOnly { implicit session =>
     withSQL {
       select
         .from(Projects.as(p))
@@ -41,11 +41,11 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
       .map(reconstructFrom)
   }
 
-  override def all: Seq[Project] = DB readOnly { implicit session =>
+  override def all: Seq[BoundedContext] = DB readOnly { implicit session =>
     Projects.findAll().map(reconstructFrom)
   }
 
-  override def insert(project: Project): Unit = {
+  override def insert(project: BoundedContext): Unit = {
     DB localTx { implicit session =>
       withSQL {
         val column = Projects.column
@@ -61,7 +61,7 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
     }
   }
 
-  override def update(project: Project): Either[ConflictAlias, Unit] = {
+  override def update(project: BoundedContext): Either[ConflictAlias, Unit] = {
     findByAlias(project.alias) match {
       case Some(sameAliasProject) if sameAliasProject != project => Left(ConflictAlias(sameAliasProject))
       case _ =>
@@ -95,8 +95,8 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
     }
   }
 
-  private def reconstructFrom(row: Projects): Project = {
-    Project.reconstruct(
+  private def reconstructFrom(row: Projects): BoundedContext = {
+    BoundedContext.reconstruct(
       id = BoundedContextId.fromString(row.projectId),
       alias = BoundedContextAlias(row.projectAlias),
       name = BoundedContextName(row.projectName),

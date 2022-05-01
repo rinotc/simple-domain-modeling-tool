@@ -1,7 +1,7 @@
-@import dev.tchiba.sdmt.core.models.boundedContext.Project
+@import dev.tchiba.sdmt.core.models.boundedContext.BoundedContext
 @import dev.tchiba.sdmt.core.models.domainmodel.DomainModel
 
-@(project: Project, domainModels: Seq[DomainModel])
+@(project: BoundedContext, domainModels: Seq[DomainModel])
 
 @main(s"Project: ${project.name}", Some(project)) {
   <div class="bg-light p-3 p-sm-5 mb-4">

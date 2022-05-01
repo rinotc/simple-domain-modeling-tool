@@ -1,7 +1,7 @@
 @import dev.tchiba.sdmt.core.models.domainmodel.DomainModel
-@import dev.tchiba.sdmt.core.models.boundedContext.Project
+@import dev.tchiba.sdmt.core.models.boundedContext.BoundedContext
 
-@(model: DomainModel, project: Project)(implicit request: MessagesRequestHeader)
+@(model: DomainModel, project: BoundedContext)(implicit request: MessagesRequestHeader)
 
 @main("ドメインモデル詳細", Some(project)) {
   <div class="container">

@@ -1,5 +1,5 @@
-@import dev.tchiba.sdmt.core.models.boundedContext.Project
-@(title: String, maybeProject: Option[Project] = None)(content: Html)
+@import dev.tchiba.sdmt.core.models.boundedContext.BoundedContext
+@(title: String, maybeProject: Option[BoundedContext] = None)(content: Html)
 
 @projectName = @{maybeProject.map(_.name).getOrElse("")}
 @maybeProjectAlias = @{maybeProject.map(_.alias.value)}

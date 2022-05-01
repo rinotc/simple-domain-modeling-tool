@@ -1,12 +1,12 @@
 package interfaces.api.boundedContext.json
 
-import dev.tchiba.sdmt.core.models.boundedContext.Project
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContext
 import interfaces.json.PlayJsonResponse
 import play.api.libs.json.{JsValue, Json, OFormat}
 
 import java.util.UUID
 
-final class ProjectResponse private (project: Project) extends PlayJsonResponse {
+final class ProjectResponse private (project: BoundedContext) extends PlayJsonResponse {
 
   import ProjectResponse._
 
@@ -21,7 +21,7 @@ final class ProjectResponse private (project: Project) extends PlayJsonResponse 
 }
 
 object ProjectResponse {
-  def apply(project: Project) = new ProjectResponse(project)
+  def apply(project: BoundedContext) = new ProjectResponse(project)
 
   private case class Response(
       projectId: UUID,

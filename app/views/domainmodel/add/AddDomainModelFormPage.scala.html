@@ -1,7 +1,7 @@
-@import dev.tchiba.sdmt.core.models.boundedContext.Project
+@import dev.tchiba.sdmt.core.models.boundedContext.BoundedContext
 @import interfaces.forms.domainmodel.AddDomainModelForm
 
-@(addForm: Form[AddDomainModelForm.Data], project: Project)(implicit request: MessagesRequestHeader)
+@(addForm: Form[AddDomainModelForm.Data], project: BoundedContext)(implicit request: MessagesRequestHeader)
 
 @main("ドメインモデルの追加") {
   <div class="container">

@@ -1,9 +1,9 @@
 @import interfaces.forms.domainmodel.UpdateDomainModelForm
 
-@import dev.tchiba.sdmt.core.models.boundedContext.Project
+@import dev.tchiba.sdmt.core.models.boundedContext.BoundedContext
 @import dev.tchiba.sdmt.core.models.domainmodel.DomainModel
 
-@(updateForm: Form[UpdateDomainModelForm.Data], project: Project, model: DomainModel)(implicit request: MessagesRequestHeader)
+@(updateForm: Form[UpdateDomainModelForm.Data], project: BoundedContext, model: DomainModel)(implicit request: MessagesRequestHeader)
 
 @main("ドメインモデルの編集") {
 <div class="container">
