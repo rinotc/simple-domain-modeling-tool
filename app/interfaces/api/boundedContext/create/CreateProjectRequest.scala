@@ -1,7 +1,7 @@
 package interfaces.api.boundedContext.create
 
 import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, BoundedContextName, BoundedContextOverview}
-import dev.tchiba.sdmt.usecase.boundedContext.create.CreateProjectInput
+import dev.tchiba.sdmt.usecase.boundedContext.create.CreateBoundedContextInput
 import interfaces.json.{JsonRequest, JsonValidator}
 import play.api.libs.json.{Json, OFormat}
 import play.api.mvc.{BodyParser, PlayBodyParsers}
@@ -17,7 +17,7 @@ case class CreateProjectRequest(
   private val projectAlias: BoundedContextAlias       = BoundedContextAlias.validate(alias).leftThrow
   private val projectOverview: BoundedContextOverview = BoundedContextOverview.validate(overview).leftThrow
 
-  val input: CreateProjectInput = CreateProjectInput(projectAlias, projectName, projectOverview)
+  val input: CreateBoundedContextInput = CreateBoundedContextInput(projectAlias, projectName, projectOverview)
 }
 
 object CreateProjectRequest {

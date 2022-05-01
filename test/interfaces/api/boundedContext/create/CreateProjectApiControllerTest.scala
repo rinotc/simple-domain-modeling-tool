@@ -6,7 +6,7 @@ import dev.tchiba.sdmt.core.models.boundedContext.{
   BoundedContextName,
   BoundedContextOverview
 }
-import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateProjectOutput, CreateProjectUseCase}
+import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateBoundedContextOutput, CreateBoundedContextUseCase}
 import interfaces.api.boundedContext.json.ProjectResponse
 import interfaces.json.error.ErrorResponse
 import org.scalamock.scalatest.MockFactory
@@ -23,7 +23,7 @@ class CreateProjectApiControllerTest extends PlaySpec with Results with MockFact
   "action" when {
     "successful request has been sent" should {
       "returns new project in json format and OK status" in {
-        val mockCreateProjectUseCase = mock[CreateProjectUseCase]
+        val mockCreateProjectUseCase = mock[CreateBoundedContextUseCase]
         val newProject = BoundedContext.create(
           BoundedContextAlias("TEST"),
           BoundedContextName("プロジェクト名"),
@@ -32,7 +32,7 @@ class CreateProjectApiControllerTest extends PlaySpec with Results with MockFact
         (mockCreateProjectUseCase.handle _)
           .expects(*)
           .returning(
-            CreateProjectOutput.Success(newProject)
+            CreateBoundedContextOutput.Success(newProject)
           )
         val controller = new CreateProjectApiController(
           stubControllerComponents(),
@@ -60,7 +60,7 @@ class CreateProjectApiControllerTest extends PlaySpec with Results with MockFact
 
     "project alias already exists" should {
       "return error response in json format and Conflict status" in {
-        val mockCreateProjectUseCase = mock[CreateProjectUseCase]
+        val mockCreateProjectUseCase = mock[CreateBoundedContextUseCase]
         val conflictProject = BoundedContext.create(
           BoundedContextAlias("CONFLICT"),
           BoundedContextName("既存プロジェクト名"),
@@ -69,7 +69,7 @@ class CreateProjectApiControllerTest extends PlaySpec with Results with MockFact
         (mockCreateProjectUseCase.handle _)
           .expects(*)
           .returning(
-            CreateProjectOutput.ConflictAlias(conflictProject.alias)
+            CreateBoundedContextOutput.ConflictAlias(conflictProject.alias)
           )
         val controller = new CreateProjectApiController(
           stubControllerComponents(),
