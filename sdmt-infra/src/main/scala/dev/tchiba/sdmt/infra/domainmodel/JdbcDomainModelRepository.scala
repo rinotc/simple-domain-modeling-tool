@@ -70,7 +70,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
 object JdbcDomainModelRepository {
   def translate(m: DomainModels): DomainModel = DomainModel.reconstruct(
     id = DomainModelId.fromString(m.domainModelId),
-    projectId = BoundedContextId.fromString(m.projectId),
+    projectId = BoundedContextId.fromString(m.boundedContextId),
     japaneseName = m.japaneseName,
     englishName = m.englishName,
     specification = m.specification
@@ -79,7 +79,7 @@ object JdbcDomainModelRepository {
   implicit class DomainModelConverterExtension(m: DomainModel) {
     def toEntity: DomainModels = DomainModels(
       domainModelId = m.id.string,
-      projectId = m.projectId.string,
+      boundedContextId = m.projectId.string,
       japaneseName = m.japaneseName,
       englishName = m.englishName,
       specification = m.specificationMD
