@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.application.interactors.project.create
+package dev.tchiba.sdmt.application.interactors.boundedContext.create
 
 import dev.tchiba.sdmt.core.models.boundedContext.{
   Project,

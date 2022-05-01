@@ -3,8 +3,8 @@ package modules
 import com.google.inject.AbstractModule
 import dev.tchiba.sdmt.application.interactors.domainmodel.add.AddDomainModelInteractor
 import dev.tchiba.sdmt.application.interactors.domainmodel.update.UpdateDomainModelInteractor
-import dev.tchiba.sdmt.application.interactors.project.create.CreateProjectInteractor
-import dev.tchiba.sdmt.application.interactors.project.update.UpdateProjectInteractor
+import dev.tchiba.sdmt.application.interactors.boundedContext.create.CreateProjectInteractor
+import dev.tchiba.sdmt.application.interactors.boundedContext.update.UpdateProjectInteractor
 import dev.tchiba.sdmt.core.models.domainmodel.{DomainModelRepository, DomainModelValidator}
 import dev.tchiba.sdmt.core.models.boundedContext.ProjectRepository
 import dev.tchiba.sdmt.core.models.user.UserRepository
