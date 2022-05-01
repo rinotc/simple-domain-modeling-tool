@@ -13,6 +13,8 @@ import scalikejdbc._
 
 class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trait をミックスインするとQueryDSLがうまく動かない模様
 
+  import ProjectRepository._
+
   private val p = Projects.p
 
   override def findById(id: ProjectId): Option[Project] = DB readOnly { implicit session =>
@@ -59,20 +61,26 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
     }
   }
 
-  override def update(project: Project): Unit = {
-    DB localTx { implicit session =>
-      withSQL {
-        val column = Projects.column
-        QueryDSL
-          .update(Projects).set(
-            column.projectId       -> project.id.string,
-            column.projectAlias    -> project.alias.value,
-            column.projectName     -> project.name.value,
-            column.projectOverview -> project.overview.value
-          )
-          .where
-          .eq(column.projectId, project.id.string)
-      }
+  override def update(project: Project): Either[ConflictAlias, Unit] = {
+    findByAlias(project.alias) match {
+      case Some(sameAliasProject) if sameAliasProject != project => Left(ConflictAlias(sameAliasProject))
+      case _ =>
+        val updateResult = DB.localTx { implicit session =>
+          withSQL {
+            val column = Projects.column
+            QueryDSL
+              .update(Projects).set(
+                column.projectId       -> project.id.string,
+                column.projectAlias    -> project.alias.value,
+                column.projectName     -> project.name.value,
+                column.projectOverview -> project.overview.value
+              )
+              .where
+              .eq(column.projectId, project.id.string)
+          }.update().apply()
+        }
+        updateResult.ensuring(_ == 1, "updater target must only one record.")
+        Right(())
     }
   }
 

@@ -17,11 +17,11 @@ final class Project private (
 ) extends Entity[ProjectId]
     with Aggregate {
 
-  def changeProjectName(newProjectName: String): Either[String, Project] =
-    ProjectName.validate(newProjectName).map { pn => copy(name = pn) }
+  def changeAlias(newAlias: ProjectAlias): Project = copy(newAlias)
 
-  def changeOverview(newOverview: String): Either[String, Project] =
-    ProjectOverview.validate(newOverview).map { o => copy(overview = o) }
+  def changeProjectName(newProjectName: ProjectName): Project = copy(name = newProjectName)
+
+  def changeOverview(newOverview: ProjectOverview): Project = copy(overview = newOverview)
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Project]
 
