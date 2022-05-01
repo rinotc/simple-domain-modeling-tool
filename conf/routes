@@ -1,30 +1,15 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
-
-# An example controller showing a sample home page
-GET         /                                                                controllers.HomeController.index
-
-POST        /projects                                                        controllers.AddProjectController.addProject()
-GET         /projects/add                                                    controllers.AddProjectController.addProjectFormPage()
-GET         /projects/:projectAlias                                          controllers.ProjectController.findByProjectAlias(projectAlias: String)
-
-POST        /projects/:projectAlias/domain-models                            controllers.AddDomainModelController.addDomainModel(projectAlias: String)
-GET         /projects/:projectAlias/domain-models/add                        controllers.AddDomainModelController.addDomainModelFormPage(projectAlias: String)
-GET         /projects/:projectAlias/domain-models/:englishName               controllers.DomainModelController.findByEnglishName(projectAlias: String, englishName: String)
-GET         /projects/:projectAlias/domain-models/:englishName/udpate        controllers.UpdateDomainModelController.updateDomainModelFormPage(projectAlias: String, englishName: String)
-POST        /projects/:projectAlias/domain-models/:englishName               controllers.UpdateDomainModelController.updateDomainModel(projectAlias: String, englishName: String)
-POST        /projects/:projectAlias/domain-models/:id/delete                 controllers.DeleteDomainModelController.deleteDomainModel(projectAlias: String, id: String)
-
 POST        /api/signup                                                      interfaces.api.auth.AuthApiController.singUp()
 
 GET         /api/users                                                       interfaces.api.user.UserApiController.allUsers()
 GET         /api/users/:userId                                               interfaces.api.user.UserApiController.findUser(userId: String)
 
-GET         /api/projects                                                    interfaces.api.project.list.ListProjectsApiController.action()
-POST        /api/projects                                                    interfaces.api.project.create.CreateProjectApiController.action()
-GET         /api/projects/:projectAlias                                      interfaces.api.project.find.FindProjectByAliasApiController.action(projectAlias: String)
-PUT         /api/projects/:projectId                                         interfaces.api.project.update.UpdateProjectApiController.action(projectId: String)
+GET         /api/projects                                                    interfaces.api.boundedContext.list.ListBoundedContextsApiController.action()
+POST        /api/projects                                                    interfaces.api.boundedContext.create.CreateBoundedContextApiController.action()
+GET         /api/projects/:projectAlias                                      interfaces.api.boundedContext.find.FindBoundedContextByAliasApiController.action(projectAlias: String)
+PUT         /api/projects/:projectId                                         interfaces.api.boundedContext.update.UpdateBoundedContextApiController.action(projectId: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                    controllers.Assets.versioned(path="/public", file: Asset)
