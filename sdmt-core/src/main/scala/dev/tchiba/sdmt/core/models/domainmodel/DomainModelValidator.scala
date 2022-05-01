@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.core.models.domainmodel
 
 import dev.tchiba.sdmt.core.DomainService
-import dev.tchiba.sdmt.core.models.boundedContext.ProjectId
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
 
 trait DomainModelValidator extends DomainService {
 
@@ -12,5 +12,9 @@ trait DomainModelValidator extends DomainService {
    * @param projectId   プロジェクトID
    * @param selfId      モデル自身のID
    */
-  def isSameEnglishNameModelAlreadyExist(englishName: String, projectId: ProjectId, selfId: DomainModelId): Boolean
+  def isSameEnglishNameModelAlreadyExist(
+      englishName: String,
+      projectId: BoundedContextId,
+      selfId: DomainModelId
+  ): Boolean
 }

@@ -6,7 +6,7 @@ trait ProjectRepository extends Repository[Project] {
 
   import ProjectRepository.ConflictAlias
 
-  def findById(id: ProjectId): Option[Project]
+  def findById(id: BoundedContextId): Option[Project]
 
   def findByAlias(alias: ProjectAlias): Option[Project]
 
@@ -23,7 +23,7 @@ trait ProjectRepository extends Repository[Project] {
    */
   def update(project: Project): Either[ConflictAlias, Unit]
 
-  def delete(id: ProjectId): Unit
+  def delete(id: BoundedContextId): Unit
 }
 
 object ProjectRepository {

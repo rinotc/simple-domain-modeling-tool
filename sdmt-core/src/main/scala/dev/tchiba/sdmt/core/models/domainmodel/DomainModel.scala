@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.core.models.domainmodel
 
 import dev.tchiba.sdmt.core.{Aggregate, Entity}
-import dev.tchiba.sdmt.core.models.boundedContext.ProjectId
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
 import laika.api.Transformer
 import laika.format.{HTML, Markdown}
 import laika.markdown.github.GitHubFlavor
@@ -17,7 +17,7 @@ import laika.markdown.github.GitHubFlavor
  */
 final class DomainModel private (
     val id: DomainModelId,
-    val projectId: ProjectId,
+    val projectId: BoundedContextId,
     val japaneseName: String,
     val englishName: String,
     val specificationMD: String
@@ -61,13 +61,18 @@ final class DomainModel private (
 object DomainModel {
   def reconstruct(
       id: DomainModelId,
-      projectId: ProjectId,
+      projectId: BoundedContextId,
       japaneseName: String,
       englishName: String,
       specification: String
   ): DomainModel = new DomainModel(id, projectId, japaneseName, englishName, specification)
 
-  def create(projectId: ProjectId, japaneseName: String, englishName: String, specification: String): DomainModel = {
+  def create(
+      projectId: BoundedContextId,
+      japaneseName: String,
+      englishName: String,
+      specification: String
+  ): DomainModel = {
     new DomainModel(
       id = DomainModelId.generate,
       projectId = projectId,

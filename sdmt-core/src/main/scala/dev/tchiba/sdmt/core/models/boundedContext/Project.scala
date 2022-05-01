@@ -10,11 +10,11 @@ import dev.tchiba.sdmt.core.{Aggregate, Entity}
  * @param overview プロジェクト概要
  */
 final class Project private (
-    val id: ProjectId,
+    val id: BoundedContextId,
     val alias: ProjectAlias,
     val name: ProjectName,
     val overview: ProjectOverview
-) extends Entity[ProjectId]
+) extends Entity[BoundedContextId]
     with Aggregate {
 
   def changeAlias(newAlias: ProjectAlias): Project = copy(newAlias)
@@ -35,9 +35,9 @@ final class Project private (
 }
 
 object Project {
-  def reconstruct(id: ProjectId, alias: ProjectAlias, name: ProjectName, overview: ProjectOverview) =
+  def reconstruct(id: BoundedContextId, alias: ProjectAlias, name: ProjectName, overview: ProjectOverview) =
     new Project(id, alias, name, overview)
 
   def create(alias: ProjectAlias, name: ProjectName, overview: ProjectOverview) =
-    new Project(ProjectId.generate, alias, name, overview)
+    new Project(BoundedContextId.generate, alias, name, overview)
 }

@@ -18,7 +18,7 @@ class FindProjectByAliasApiControllerTest extends PlaySpec with Results with Moc
         val mockProjectRepository = mock[ProjectRepository]
         val requestAliasValue     = "TEST"
         val existingProject = Project.reconstruct(
-          ProjectId.generate,
+          BoundedContextId.generate,
           ProjectAlias(requestAliasValue),
           ProjectName("プロジェクト名"),
           ProjectOverview("プロジェクト概要")

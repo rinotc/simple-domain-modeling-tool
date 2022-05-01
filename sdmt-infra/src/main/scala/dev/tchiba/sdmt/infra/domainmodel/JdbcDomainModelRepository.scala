@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.infra.domainmodel
 
 import dev.tchiba.sdmt.core.models.domainmodel.{DomainModel, DomainModelId, DomainModelRepository}
-import dev.tchiba.sdmt.core.models.boundedContext.ProjectId
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.infra.scalikejdbc.DomainModels
 import scalikejdbc._
 
@@ -15,7 +15,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
     DomainModels.find(id.string).map(translate)
   }
 
-  override def findByEnglishName(englishName: String, projectId: ProjectId): Option[DomainModel] = DB readOnly {
+  override def findByEnglishName(englishName: String, projectId: BoundedContextId): Option[DomainModel] = DB readOnly {
     implicit session =>
       withSQL {
         select
@@ -30,7 +30,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
         .map(translate)
   }
 
-  override def listBy(projectId: ProjectId): Seq[DomainModel] = DB readOnly { implicit session =>
+  override def listBy(projectId: BoundedContextId): Seq[DomainModel] = DB readOnly { implicit session =>
     withSQL {
       select
         .from(DomainModels.as(dm))
@@ -70,7 +70,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
 object JdbcDomainModelRepository {
   def translate(m: DomainModels): DomainModel = DomainModel.reconstruct(
     id = DomainModelId.fromString(m.domainModelId),
-    projectId = ProjectId.fromString(m.projectId),
+    projectId = BoundedContextId.fromString(m.projectId),
     japaneseName = m.japaneseName,
     englishName = m.englishName,
     specification = m.specification

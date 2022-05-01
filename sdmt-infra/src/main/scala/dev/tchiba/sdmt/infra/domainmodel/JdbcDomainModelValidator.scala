@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.infra.domainmodel
 
 import dev.tchiba.sdmt.core.models.domainmodel.{DomainModelId, DomainModelValidator}
-import dev.tchiba.sdmt.core.models.boundedContext.ProjectId
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.infra.scalikejdbc.DomainModels
 import scalikejdbc._
 
@@ -18,7 +18,7 @@ class JdbcDomainModelValidator extends DomainModelValidator {
    */
   override def isSameEnglishNameModelAlreadyExist(
       englishName: String,
-      projectId: ProjectId,
+      projectId: BoundedContextId,
       selfId: DomainModelId
   ): Boolean = DB readOnly { implicit session =>
     withSQL {

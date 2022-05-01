@@ -3,7 +3,7 @@ package dev.tchiba.sdmt.infra.boundedContext
 import dev.tchiba.sdmt.core.models.boundedContext.{
   Project,
   ProjectAlias,
-  ProjectId,
+  BoundedContextId,
   ProjectName,
   ProjectOverview,
   ProjectRepository
@@ -17,7 +17,7 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
 
   private val p = Projects.p
 
-  override def findById(id: ProjectId): Option[Project] = DB readOnly { implicit session =>
+  override def findById(id: BoundedContextId): Option[Project] = DB readOnly { implicit session =>
     withSQL {
       select
         .from[Projects](Projects.as(p))
@@ -84,7 +84,7 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
     }
   }
 
-  override def delete(id: ProjectId): Unit = {
+  override def delete(id: BoundedContextId): Unit = {
     DB localTx { implicit session =>
       withSQL {
         QueryDSL.delete.from(Projects).where.eq(Projects.column.projectId, id.string)
@@ -97,7 +97,7 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
 
   private def reconstructFrom(row: Projects): Project = {
     Project.reconstruct(
-      id = ProjectId.fromString(row.projectId),
+      id = BoundedContextId.fromString(row.projectId),
       alias = ProjectAlias(row.projectAlias),
       name = ProjectName(row.projectName),
       overview = ProjectOverview(row.projectOverview)

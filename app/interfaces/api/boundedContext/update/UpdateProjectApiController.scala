@@ -1,6 +1,6 @@
 package interfaces.api.boundedContext.update
 
-import dev.tchiba.sdmt.core.models.boundedContext.ProjectId
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.usecase.boundedContext.update.{UpdateProjectOutput, UpdateProjectUseCase}
 import interfaces.api.QueryValidator
 import interfaces.api.boundedContext.json.ProjectResponse
@@ -21,7 +21,7 @@ class UpdateProjectApiController @Inject() (
   def action(targetId: String): Action[UpdateProjectRequest] = Action(UpdateProjectRequest.validateJson) {
     implicit request =>
       QueryValidator.sync {
-        ProjectId.validate(targetId)
+        BoundedContextId.validate(targetId)
       } { projectId =>
         val input = request.body.input(projectId)
         updateProjectUseCase.handle(input) match {
