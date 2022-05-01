@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectCreatePageComponent } from './project-create-page.component';
+import { BoundedContextCreatePageComponent } from './bounded-context-create-page.component';
 
 xdescribe('ProjectCreateComponent', () => {
-  let component: ProjectCreatePageComponent;
-  let fixture: ComponentFixture<ProjectCreatePageComponent>;
+  let component: BoundedContextCreatePageComponent;
+  let fixture: ComponentFixture<BoundedContextCreatePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProjectCreatePageComponent ]
+      declarations: [ BoundedContextCreatePageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectCreatePageComponent);
+    fixture = TestBed.createComponent(BoundedContextCreatePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

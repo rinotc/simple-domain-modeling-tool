@@ -4,11 +4,11 @@ import {catchError, map, Observable, of} from "rxjs";
 import {config} from "../../config";
 import {BoundedContext} from "./bounded-context";
 import {ApiCollectionResponse} from "../ApiCollectionResponse";
-import {ProjectResponse} from "./http/ProjectResponse";
+import {BoundedContextResponse} from "./http/BoundedContextResponse";
 import {BoundedContextAlias} from "./alias/bounded-context-alias";
 import {BoundedContextName} from "./name/bounded-context-name";
 import {BoundedContextOverview} from "./overview/bounded-context-overview";
-import {CreateProjectRequest} from "./http/CreateProjectRequest";
+import {CreateBoundedContextRequest} from "./http/CreateBoundedContextRequest";
 
 
 @Injectable({providedIn: 'root'})
@@ -18,24 +18,24 @@ export class BoundedContextRepository {
 
   getAll(): Observable<BoundedContext[]> {
     return this.http
-        .get<ApiCollectionResponse<ProjectResponse>>(`${config.apiHost}/bounded-contexts`)
+        .get<ApiCollectionResponse<BoundedContextResponse>>(`${config.apiHost}/bounded-contexts`)
         .pipe(
-          map(res => res.data.map(p => ProjectResponse.convert(p))),
+          map(res => res.data.map(p => BoundedContextResponse.convert(p))),
           catchError(this.handleError('getAll', []))
         )
   }
 
   findBy(alias: BoundedContextAlias): Observable<BoundedContext> {
     return this.http
-      .get<ProjectResponse>(`${config.apiHost}/projects/${alias.value}`)
+      .get<BoundedContextResponse>(`${config.apiHost}/projects/${alias.value}`)
       .pipe(
-        map(res => ProjectResponse.convert(res))
+        map(res => BoundedContextResponse.convert(res))
       );
   }
 
-  create(alias: BoundedContextAlias, name: BoundedContextName, overview: BoundedContextOverview): Observable<CreateProjectRequest> {
+  create(alias: BoundedContextAlias, name: BoundedContextName, overview: BoundedContextOverview): Observable<CreateBoundedContextRequest> {
     return this.http
-      .post<CreateProjectRequest>(`${config.apiHost}/bounded-contexts`, CreateProjectRequest.translate(alias, name, overview))
+      .post<CreateBoundedContextRequest>(`${config.apiHost}/bounded-contexts`, CreateBoundedContextRequest.translate(alias, name, overview))
   }
 
   /**

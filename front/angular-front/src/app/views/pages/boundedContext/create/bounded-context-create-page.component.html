@@ -1,20 +1,20 @@
 <h1>プロジェクトを作成する</h1>
 
 <div id="create-project-input" fxLayout="column" >
-  <div *ngIf="hasProjectNameValidationError">{{projectNameErrorMessage}}</div>
+  <div *ngIf="hasBoundedContextNameValidationError">{{boundedContextNameErrorMessage}}</div>
   <mat-form-field appearance="fill">
     <mat-label>プロジェクト名</mat-label>
-    <input matInput [(ngModel)]="inputProjectName"/>
+    <input matInput [(ngModel)]="inputBoundedContextName"/>
   </mat-form-field>
-  <div *ngIf="hasProjectAliasValidationError">{{projectAliasErrorMessage}}</div>
+  <div *ngIf="hasBoundedContextAliasValidationError">{{boundedContextAliasErrorMessage}}</div>
   <mat-form-field appearance="fill">
     <mat-label>プロジェクトエイリアス</mat-label>
-    <input matInput [(ngModel)]="inputProjectAlias"/>
+    <input matInput [(ngModel)]="inputBoundedContextAlias"/>
   </mat-form-field>
-  <div *ngIf="hasProjectOverviewValidationError">{{projectOverviewErrorMessage}}</div>
+  <div *ngIf="hasBoundedContextOverviewValidationError">{{boundedContextOverviewErrorMessage}}</div>
   <mat-form-field appearance="fill">
     <mat-label>プロジェクト概要</mat-label>
-    <textarea matInput [(ngModel)]="inputProjectOverview"></textarea>
+    <textarea matInput [(ngModel)]="inputBoundedContextOverview"></textarea>
   </mat-form-field>
 </div>
 

@@ -1,21 +1,21 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ProjectListPageComponent} from "./views/pages/project/project-list-page/project-list-page.component";
-import {ProjectDetailComponent} from "./views/components/project/project-detail/project-detail.component";
-import {ProjectCreatePageComponent} from "./views/pages/project/project-create/project-create-page.component";
+import {BoundedContextsListPageComponent} from "./views/pages/boundedContext/list/bounded-contexts-list-page.component";
+import {BoundedContextDetailPageComponent} from "./views/pages/boundedContext/detail/bounded-context-detail-page.component";
+import {BoundedContextCreatePageComponent} from "./views/pages/boundedContext/create/bounded-context-create-page.component";
 
 const routes: Routes = [
   {
-    path: 'projects',
-    component: ProjectListPageComponent
+    path: 'bounded-contexts',
+    component: BoundedContextsListPageComponent
   },
   {
-    path: 'projects/create',
-    component: ProjectCreatePageComponent
+    path: 'bounded-contexts/create',
+    component: BoundedContextCreatePageComponent
   },
   {
-    path: 'projects/:projectId',
-    component: ProjectDetailComponent
+    path: 'bounded-contexts/:boundedContextId',
+    component: BoundedContextDetailPageComponent
   }
 ];
 

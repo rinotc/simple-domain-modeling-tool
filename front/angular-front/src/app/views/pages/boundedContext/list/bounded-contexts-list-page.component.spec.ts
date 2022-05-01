@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectListPageComponent } from './project-list-page.component';
+import { BoundedContextsListPageComponent } from './bounded-contexts-list-page.component';
 
 describe('ProjectListPageComponent', () => {
-  let component: ProjectListPageComponent;
-  let fixture: ComponentFixture<ProjectListPageComponent>;
+  let component: BoundedContextsListPageComponent;
+  let fixture: ComponentFixture<BoundedContextsListPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProjectListPageComponent ]
+      declarations: [ BoundedContextsListPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectListPageComponent);
+    fixture = TestBed.createComponent(BoundedContextsListPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

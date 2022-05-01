@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectDetailComponent } from './project-detail.component';
+import { BoundedContextDetailPageComponent } from './bounded-context-detail-page.component';
 
 xdescribe('ProjectDetailComponent', () => {
-  let component: ProjectDetailComponent;
-  let fixture: ComponentFixture<ProjectDetailComponent>;
+  let component: BoundedContextDetailPageComponent;
+  let fixture: ComponentFixture<BoundedContextDetailPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProjectDetailComponent ]
+      declarations: [ BoundedContextDetailPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectDetailComponent);
+    fixture = TestBed.createComponent(BoundedContextDetailPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
