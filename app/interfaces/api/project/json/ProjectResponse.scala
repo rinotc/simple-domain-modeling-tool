@@ -1,6 +1,6 @@
 package interfaces.api.project.json
 
-import dev.tchiba.sdmt.core.models.project.Project
+import dev.tchiba.sdmt.core.models.boundedContext.Project
 import interfaces.json.PlayJsonResponse
 import play.api.libs.json.{JsValue, Json, OFormat}
 

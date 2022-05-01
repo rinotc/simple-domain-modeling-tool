@@ -1,6 +1,6 @@
 package controllers
 
-import dev.tchiba.sdmt.core.models.project.{ProjectAlias, ProjectRepository}
+import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, ProjectRepository}
 import dev.tchiba.sdmt.usecase.domainmodel.add.{AddDomainModelInput, AddDomainModelOutput, AddDomainModelUseCase}
 import interfaces.forms.domainmodel.AddDomainModelForm
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}

@@ -1,6 +1,12 @@
 package dev.tchiba.sdmt.application.interactors.project.create
 
-import dev.tchiba.sdmt.core.models.project.{Project, ProjectAlias, ProjectName, ProjectOverview, ProjectRepository}
+import dev.tchiba.sdmt.core.models.boundedContext.{
+  Project,
+  ProjectAlias,
+  ProjectName,
+  ProjectOverview,
+  ProjectRepository
+}
 import dev.tchiba.sdmt.test.BaseTest
 import dev.tchiba.sdmt.usecase.project.create.{CreateProjectInput, CreateProjectOutput}
 import org.scalamock.scalatest.MockFactory

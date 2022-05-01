@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.core.models.project
+package dev.tchiba.sdmt.core.models.boundedContext
 
 import dev.tchiba.sdmt.core.Repository
 

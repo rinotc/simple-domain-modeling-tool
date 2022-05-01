@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.usecase.project.update
 
-import dev.tchiba.sdmt.core.models.project.{Project, ProjectId}
+import dev.tchiba.sdmt.core.models.boundedContext.{Project, ProjectId}
 import dev.tchiba.sdmt.usecase.Output
 
 sealed abstract class UpdateProjectOutput extends Output

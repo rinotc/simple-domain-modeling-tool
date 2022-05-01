@@ -1,6 +1,6 @@
 package interfaces.api.project.find
 
-import dev.tchiba.sdmt.core.models.project._
+import dev.tchiba.sdmt.core.models.boundedContext._
 import interfaces.api.project.json.ProjectResponse
 import interfaces.json.error.ErrorResponse
 import org.scalamock.scalatest.MockFactory

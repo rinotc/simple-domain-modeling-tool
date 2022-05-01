@@ -1,6 +1,6 @@
 package interfaces.api.project.create
 
-import dev.tchiba.sdmt.core.models.project.{ProjectAlias, ProjectName, ProjectOverview}
+import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, ProjectName, ProjectOverview}
 import dev.tchiba.sdmt.usecase.project.create.CreateProjectInput
 import interfaces.json.{JsonRequest, JsonValidator}
 import play.api.libs.json.{Json, OFormat}

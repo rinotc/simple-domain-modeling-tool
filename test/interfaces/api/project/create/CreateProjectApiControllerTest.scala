@@ -1,6 +1,6 @@
 package interfaces.api.project.create
 
-import dev.tchiba.sdmt.core.models.project.{Project, ProjectAlias, ProjectName, ProjectOverview}
+import dev.tchiba.sdmt.core.models.boundedContext.{Project, ProjectAlias, ProjectName, ProjectOverview}
 import dev.tchiba.sdmt.usecase.project.create.{CreateProjectOutput, CreateProjectUseCase}
 import interfaces.api.project.json.ProjectResponse
 import interfaces.json.error.ErrorResponse

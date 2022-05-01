@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.usecase.project.create
 
-import dev.tchiba.sdmt.core.models.project.{ProjectAlias, ProjectName, ProjectOverview}
+import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, ProjectName, ProjectOverview}
 import dev.tchiba.sdmt.usecase.Input
 
 case class CreateProjectInput(

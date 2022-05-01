@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.core.models.domainmodel
 
 import dev.tchiba.sdmt.core.Repository
-import dev.tchiba.sdmt.core.models.project.ProjectId
+import dev.tchiba.sdmt.core.models.boundedContext.ProjectId
 
 trait DomainModelRepository extends Repository[DomainModel] {
 

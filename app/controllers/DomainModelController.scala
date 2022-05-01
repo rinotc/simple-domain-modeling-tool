@@ -1,7 +1,7 @@
 package controllers
 
 import dev.tchiba.sdmt.core.models.domainmodel.DomainModelRepository
-import dev.tchiba.sdmt.core.models.project.{ProjectAlias, ProjectRepository}
+import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, ProjectRepository}
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 
 import javax.inject.Inject

@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.infra.project
 
-import dev.tchiba.sdmt.core.models.project.{
+import dev.tchiba.sdmt.core.models.boundedContext.{
   Project,
   ProjectAlias,
   ProjectId,

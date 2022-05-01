@@ -1,6 +1,6 @@
 package interfaces.api.project.update
 
-import dev.tchiba.sdmt.core.models.project.ProjectId
+import dev.tchiba.sdmt.core.models.boundedContext.ProjectId
 import dev.tchiba.sdmt.usecase.project.update.{UpdateProjectOutput, UpdateProjectUseCase}
 import interfaces.api.QueryValidator
 import interfaces.api.project.json.ProjectResponse
