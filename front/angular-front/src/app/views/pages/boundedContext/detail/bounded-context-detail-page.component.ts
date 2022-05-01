@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {HeaderService} from "../../../../store/title/header.service";
 
 @Component({
   selector: 'app-project-detail',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoundedContextDetailPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private headerService: HeaderService
+  ) {}
 
   ngOnInit(): void {
+    this.headerService.update('aiueo')
   }
-
 }

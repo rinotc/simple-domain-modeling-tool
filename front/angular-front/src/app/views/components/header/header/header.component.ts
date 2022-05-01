@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {HeaderQuery} from "../../../../store/title/header.query";
 
 @Component({
   selector: 'app-header',
@@ -9,9 +10,15 @@ export class HeaderComponent implements OnInit {
 
   @Input() title!: string;
 
-  constructor() { }
+  constructor(private titleQuery: HeaderQuery) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  get nowContext() {
+    const nc = this.titleQuery.nowContext;
+    if (nc !== '') {
+      return ' > ' + this.titleQuery.nowContext;
+    }
+    return '';
   }
-
 }
