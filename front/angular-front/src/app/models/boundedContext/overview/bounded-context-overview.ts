@@ -1,27 +1,27 @@
 import {PreferNominal} from "../../prefer-nominal";
 import * as E from 'fp-ts/Either';
 
-export class ProjectOverview {
+export class BoundedContextOverview {
   // noinspection JSUnusedGlobalSymbols
-  readonly _projectNameBrand: PreferNominal;
+  readonly _boundedContextOverviewBrand: PreferNominal;
 
   constructor(readonly value: string) {
-    if (!ProjectOverview.mustLessThan500(value)) {
+    if (!BoundedContextOverview.isValid(value)) {
       throw new TypeError(this.requirementErrorMessage);
     }
   }
 
   private get requirementErrorMessage(): string {
-    return `ProjectOverview value must less than 500, but length is ${this.value.length}`;
+    return `BoundedContextOverview value must less than 500, but length is ${this.value.length}`;
   }
 
-  equals(other: ProjectOverview): boolean {
+  equals(other: BoundedContextOverview): boolean {
     return this.value === other.value
   }
 
-  static validate(value: string): E.Either<string, ProjectOverview> {
+  static validate(value: string): E.Either<string, BoundedContextOverview> {
     if (this.isValid(value)) {
-      return E.right(new ProjectOverview(value));
+      return E.right(new BoundedContextOverview(value));
     }
     return E.left(this.validationErrorMessage);
   }
@@ -30,7 +30,7 @@ export class ProjectOverview {
     return this.mustLessThan500(value);
   }
 
-  static validationErrorMessage: string = 'プロジェクト概要は500文字以下である必要があります';
+  static validationErrorMessage: string = '境界づけられたコンテキストの概要は500文字以下である必要があります';
 
   private static mustLessThan500(value: string): boolean {
     return value.length <= 500;

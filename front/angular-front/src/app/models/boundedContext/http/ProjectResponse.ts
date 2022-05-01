@@ -1,8 +1,8 @@
-import {Project} from "../project";
-import {ProjectId} from "../id/project-id";
-import {ProjectAlias} from "../alias/project-alias";
-import {ProjectName} from "../name/project-name";
-import {ProjectOverview} from "../overview/project-overview";
+import {BoundedContext} from "../bounded-context";
+import {BoundedContextId} from "../id/bounded-context-id";
+import {BoundedContextAlias} from "../alias/bounded-context-alias";
+import {BoundedContextName} from "../name/bounded-context-name";
+import {BoundedContextOverview} from "../overview/bounded-context-overview";
 
 
 export type ProjectResponse = {
@@ -13,12 +13,12 @@ export type ProjectResponse = {
 }
 
 export const ProjectResponse = {
-  convert(res: ProjectResponse): Project {
-    return new Project(
-      new ProjectId(res.projectId),
-      new ProjectAlias(res.projectAlias),
-      new ProjectName(res.projectName),
-      new ProjectOverview(res.projectOverview)
+  convert(res: ProjectResponse): BoundedContext {
+    return new BoundedContext(
+      new BoundedContextId(res.projectId),
+      new BoundedContextAlias(res.projectAlias),
+      new BoundedContextName(res.projectName),
+      new BoundedContextOverview(res.projectOverview)
     )
   }
 }

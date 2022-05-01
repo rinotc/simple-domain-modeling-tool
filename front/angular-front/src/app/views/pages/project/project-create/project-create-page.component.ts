@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ProjectName} from "../../../../models/boundedContext/name/project-name";
+import {BoundedContextName} from "../../../../models/boundedContext/name/bounded-context-name";
 import {requirement} from "../../../../dbc/dbc";
-import {ProjectAlias} from "../../../../models/boundedContext/alias/project-alias";
-import {ProjectOverview} from "../../../../models/boundedContext/overview/project-overview";
-import {ProjectRepository} from "../../../../models/boundedContext/project.repository";
+import {BoundedContextAlias} from "../../../../models/boundedContext/alias/bounded-context-alias";
+import {BoundedContextOverview} from "../../../../models/boundedContext/overview/bounded-context-overview";
+import {BoundedContextRepository} from "../../../../models/boundedContext/bounded-context.repository";
 import {Router} from "@angular/router";
 
 @Component({
@@ -19,50 +19,50 @@ export class ProjectCreatePageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private projectRepository: ProjectRepository
+    private projectRepository: BoundedContextRepository
   ) { }
 
   ngOnInit(): void {
   }
 
   get hasProjectNameValidationError(): boolean {
-    return !ProjectName.isValid(this.inputProjectName);
+    return !BoundedContextName.isValid(this.inputProjectName);
   }
 
   get projectNameErrorMessage(): string {
     requirement(this.hasProjectNameValidationError, 'this method must only call project name has validation error');
-    return ProjectName.validationErrorMessage;
+    return BoundedContextName.validationErrorMessage;
   }
 
   get hasProjectAliasValidationError(): boolean {
-    return !ProjectAlias.isValid(this.inputProjectAlias)
+    return !BoundedContextAlias.isValid(this.inputProjectAlias)
   }
 
   get projectAliasErrorMessage(): string {
     requirement(this.hasProjectAliasValidationError, 'this method must only call project alias has validation error');
-    return ProjectAlias.validationErrorMessage
+    return BoundedContextAlias.validationErrorMessage
   }
 
   get hasProjectOverviewValidationError(): boolean {
-    return !ProjectOverview.isValid(this.inputProjectOverview);
+    return !BoundedContextOverview.isValid(this.inputProjectOverview);
   }
 
   get projectOverviewErrorMessage(): string {
     requirement(this.hasProjectOverviewValidationError, 'this method must only call project overview has validation error');
-    return ProjectOverview.validationErrorMessage
+    return BoundedContextOverview.validationErrorMessage
   }
 
   get canSubmit(): boolean {
-    return ProjectAlias.isValid(this.inputProjectAlias) &&
-      ProjectName.isValid(this.inputProjectName) &&
-      ProjectOverview.isValid(this.inputProjectOverview);
+    return BoundedContextAlias.isValid(this.inputProjectAlias) &&
+      BoundedContextName.isValid(this.inputProjectName) &&
+      BoundedContextOverview.isValid(this.inputProjectOverview);
   }
 
   onSubmit(): void {
     requirement(this.canSubmit, 'submit button only can all validation were passed.')
-    const alias = new ProjectAlias(this.inputProjectAlias);
-    const name = new ProjectName(this.inputProjectName);
-    const overview = new ProjectOverview(this.inputProjectOverview);
+    const alias = new BoundedContextAlias(this.inputProjectAlias);
+    const name = new BoundedContextName(this.inputProjectName);
+    const overview = new BoundedContextOverview(this.inputProjectOverview);
 
     this.projectRepository.create(alias, name, overview).subscribe((_) => {
       this.router.navigateByUrl('/projects').then((_) => {});

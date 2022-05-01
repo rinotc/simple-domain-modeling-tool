@@ -1,6 +1,6 @@
-import {ProjectAlias} from "../alias/project-alias";
-import {ProjectName} from "../name/project-name";
-import {ProjectOverview} from "../overview/project-overview";
+import {BoundedContextAlias} from "../alias/bounded-context-alias";
+import {BoundedContextName} from "../name/bounded-context-name";
+import {BoundedContextOverview} from "../overview/bounded-context-overview";
 
 export type CreateProjectRequest = {
   alias: string,
@@ -8,7 +8,7 @@ export type CreateProjectRequest = {
   overview: string
 }
 export const CreateProjectRequest = {
-  translate(alias: ProjectAlias, name: ProjectName, overview: ProjectOverview): CreateProjectRequest {
+  translate(alias: BoundedContextAlias, name: BoundedContextName, overview: BoundedContextOverview): CreateProjectRequest {
     return {
       alias: alias.value,
       name: name.value,

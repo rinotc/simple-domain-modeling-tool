@@ -1,27 +1,27 @@
 import {PreferNominal} from "../../prefer-nominal";
 import * as E from "fp-ts/Either";
 
-export class ProjectName {
+export class BoundedContextName {
   // noinspection JSUnusedGlobalSymbols
-  readonly _projectNameBrand: PreferNominal;
+  readonly _boundedContextNameBrand: PreferNominal;
 
   constructor(readonly value: string) {
-    if (!ProjectName.isValid(value)) {
+    if (!BoundedContextName.isValid(value)) {
       throw new TypeError(this.requirementErrorMessage);
     }
   }
 
   private get requirementErrorMessage(): string {
-    return `ProjectName must to be 1 to 100 characters. but value length is ${this.value.length}`
+    return `BoundedContextName must to be 1 to 100 characters. but value length is ${this.value.length}`
   }
 
-  equals(other: ProjectName): boolean {
+  equals(other: BoundedContextName): boolean {
     return this.value === other.value;
   }
 
-  static validate(value: string): E.Either<string, ProjectName> {
+  static validate(value: string): E.Either<string, BoundedContextName> {
     if (this.isValid(value)) {
-      return E.right(new ProjectName(value));
+      return E.right(new BoundedContextName(value));
     }
     return E.left(this.validationErrorMessage);
   }
@@ -30,7 +30,7 @@ export class ProjectName {
     return this.mustBe1To100Characters(value);
   }
 
-  static validationErrorMessage: string = 'プロジェクト名は1文字以上100文字以下である必要があります';
+  static validationErrorMessage: string = '境界づけられたコンテキストの名称は1文字以上100文字以下である必要があります';
 
   private static mustBe1To100Characters(value: string): boolean {
     return value.length >= 1 && value.length <= 100;

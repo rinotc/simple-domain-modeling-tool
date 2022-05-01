@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Project} from "../../../../models/boundedContext/project";
-import {ProjectRepository} from "../../../../models/boundedContext/project.repository";
+import {BoundedContext} from "../../../../models/boundedContext/bounded-context";
+import {BoundedContextRepository} from "../../../../models/boundedContext/bounded-context.repository";
 
 @Component({
   selector: 'app-project-list-component',
@@ -9,14 +9,14 @@ import {ProjectRepository} from "../../../../models/boundedContext/project.repos
 })
 export class ProjectListComponentComponent implements OnInit {
 
-  projects: Project[] = [];
+  projects: BoundedContext[] = [];
 
   displayedColumns: string[] = ['project-alias', 'project-name', 'project-overview', 'project-detail']
 
-  constructor(private projectRepository: ProjectRepository) {}
+  constructor(private projectRepository: BoundedContextRepository) {}
 
   ngOnInit(): void {
-    this.projectRepository.getProjects().subscribe(projects => {
+    this.projectRepository.getAll().subscribe(projects => {
       this.projects = projects
     });
   }

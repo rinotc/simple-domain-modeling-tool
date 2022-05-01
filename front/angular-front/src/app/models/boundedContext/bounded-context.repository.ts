@@ -2,30 +2,30 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, Observable, of} from "rxjs";
 import {config} from "../../config";
-import {Project} from "./project";
+import {BoundedContext} from "./bounded-context";
 import {ApiCollectionResponse} from "../ApiCollectionResponse";
 import {ProjectResponse} from "./http/ProjectResponse";
-import {ProjectAlias} from "./alias/project-alias";
-import {ProjectName} from "./name/project-name";
-import {ProjectOverview} from "./overview/project-overview";
+import {BoundedContextAlias} from "./alias/bounded-context-alias";
+import {BoundedContextName} from "./name/bounded-context-name";
+import {BoundedContextOverview} from "./overview/bounded-context-overview";
 import {CreateProjectRequest} from "./http/CreateProjectRequest";
 
 
 @Injectable({providedIn: 'root'})
-export class ProjectRepository {
+export class BoundedContextRepository {
 
   constructor(private http: HttpClient) {}
 
-  getProjects(): Observable<Project[]> {
+  getAll(): Observable<BoundedContext[]> {
     return this.http
-        .get<ApiCollectionResponse<ProjectResponse>>(`${config.apiHost}/projects`)
+        .get<ApiCollectionResponse<ProjectResponse>>(`${config.apiHost}/bounded-contexts`)
         .pipe(
           map(res => res.data.map(p => ProjectResponse.convert(p))),
-          catchError(this.handleError('getProjects', []))
+          catchError(this.handleError('getAll', []))
         )
   }
 
-  findBy(alias: ProjectAlias): Observable<Project> {
+  findBy(alias: BoundedContextAlias): Observable<BoundedContext> {
     return this.http
       .get<ProjectResponse>(`${config.apiHost}/projects/${alias.value}`)
       .pipe(
@@ -33,9 +33,9 @@ export class ProjectRepository {
       );
   }
 
-  create(alias: ProjectAlias, name: ProjectName, overview: ProjectOverview): Observable<CreateProjectRequest> {
+  create(alias: BoundedContextAlias, name: BoundedContextName, overview: BoundedContextOverview): Observable<CreateProjectRequest> {
     return this.http
-      .post<CreateProjectRequest>(`${config.apiHost}/projects`, CreateProjectRequest.translate(alias, name, overview))
+      .post<CreateProjectRequest>(`${config.apiHost}/bounded-contexts`, CreateProjectRequest.translate(alias, name, overview))
   }
 
   /**
