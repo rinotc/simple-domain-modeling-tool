@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.usecase.boundedContext.update
 
-import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContext, BoundedContextId}
+import dev.tchiba.sdmt.core.boundedContext.{BoundedContext, BoundedContextId}
 import dev.tchiba.sdmt.usecase.Output
 
 sealed abstract class UpdateBoundedContextOutput extends Output

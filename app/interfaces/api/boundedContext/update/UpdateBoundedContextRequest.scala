@@ -1,6 +1,6 @@
 package interfaces.api.boundedContext.update
 
-import dev.tchiba.sdmt.core.models.boundedContext.{
+import dev.tchiba.sdmt.core.boundedContext.{
   BoundedContextAlias,
   BoundedContextId,
   BoundedContextName,

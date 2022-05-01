@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.infra.domainmodel
 
+import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.core.domainmodel.{DomainModel, DomainModelId, DomainModelRepository}
-import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.infra.scalikejdbc.DomainModels
 import scalikejdbc._
 

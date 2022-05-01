@@ -1,6 +1,13 @@
 package interfaces.api.boundedContext.find
 
-import dev.tchiba.sdmt.core.models.boundedContext._
+import dev.tchiba.sdmt.core.boundedContext.{
+  BoundedContext,
+  BoundedContextAlias,
+  BoundedContextId,
+  BoundedContextName,
+  BoundedContextOverview,
+  BoundedContextRepository
+}
 import interfaces.api.boundedContext.json.BoundedContextResponse
 import interfaces.json.error.ErrorResponse
 import org.scalamock.scalatest.MockFactory

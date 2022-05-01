@@ -1,6 +1,6 @@
 package interfaces.api.boundedContext.create
 
-import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, BoundedContextName, BoundedContextOverview}
+import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextName, BoundedContextOverview}
 import dev.tchiba.sdmt.usecase.boundedContext.create.CreateBoundedContextInput
 import interfaces.json.{JsonRequest, JsonValidator}
 import play.api.libs.json.{Json, OFormat}

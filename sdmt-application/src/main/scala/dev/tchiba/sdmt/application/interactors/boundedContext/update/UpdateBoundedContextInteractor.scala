@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.application.interactors.boundedContext.update
 
-import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextRepository
+import dev.tchiba.sdmt.core.boundedContext.BoundedContextRepository
 import dev.tchiba.sdmt.usecase.boundedContext.update.{
   UpdateBoundedContextInput,
   UpdateBoundedContextOutput,

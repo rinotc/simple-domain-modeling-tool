@@ -5,8 +5,8 @@ import dev.tchiba.sdmt.application.interactors.domainmodel.add.AddDomainModelInt
 import dev.tchiba.sdmt.application.interactors.domainmodel.update.UpdateDomainModelInteractor
 import dev.tchiba.sdmt.application.interactors.boundedContext.create.CreateBoundedContextInteractor
 import dev.tchiba.sdmt.application.interactors.boundedContext.update.UpdateBoundedContextInteractor
+import dev.tchiba.sdmt.core.boundedContext.BoundedContextRepository
 import dev.tchiba.sdmt.core.domainmodel.{DomainModelRepository, DomainModelValidator}
-import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextRepository
 import dev.tchiba.sdmt.core.user.UserRepository
 import dev.tchiba.sdmt.infra.domainmodel.{JdbcDomainModelRepository, JdbcDomainModelValidator}
 import dev.tchiba.sdmt.infra.boundedContext.JdbcBoundedContextRepository

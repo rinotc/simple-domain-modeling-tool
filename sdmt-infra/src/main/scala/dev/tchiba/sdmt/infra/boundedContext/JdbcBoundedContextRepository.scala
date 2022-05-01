@@ -1,12 +1,19 @@
 package dev.tchiba.sdmt.infra.boundedContext
 
-import dev.tchiba.sdmt.core.models.boundedContext._
+import dev.tchiba.sdmt.core.boundedContext.{
+  BoundedContext,
+  BoundedContextAlias,
+  BoundedContextId,
+  BoundedContextName,
+  BoundedContextOverview,
+  BoundedContextRepository
+}
 import dev.tchiba.sdmt.infra.scalikejdbc.{BoundedContexts, DomainModels}
 import scalikejdbc._
 
 class JdbcBoundedContextRepository extends BoundedContextRepository { // SQLInterporation trait をミックスインするとQueryDSLがうまく動かない模様
 
-  import BoundedContextRepository._
+  import dev.tchiba.sdmt.core.boundedContext.BoundedContextRepository._
 
   private val bc = BoundedContexts.bc
 

@@ -1,5 +1,6 @@
 package dev.tchiba.sdmt.core.models.boundedContext
 
+import dev.tchiba.sdmt.core.boundedContext.BoundedContextName
 import dev.tchiba.sdmt.test.BaseTest
 
 class BoundedContextNameTest extends BaseTest {

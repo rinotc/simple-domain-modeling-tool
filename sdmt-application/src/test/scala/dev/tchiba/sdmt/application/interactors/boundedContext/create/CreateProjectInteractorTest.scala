@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.application.interactors.boundedContext.create
 
-import dev.tchiba.sdmt.core.models.boundedContext.{
+import dev.tchiba.sdmt.core.boundedContext.{
   BoundedContext,
   BoundedContextAlias,
   BoundedContextName,
