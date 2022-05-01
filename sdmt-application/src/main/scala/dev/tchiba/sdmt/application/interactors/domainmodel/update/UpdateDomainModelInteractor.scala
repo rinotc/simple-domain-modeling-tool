@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.application.interactors.domainmodel.update
 
-import dev.tchiba.sdmt.core.models.domainmodel.{DomainModelRepository, DomainModelValidator}
+import dev.tchiba.sdmt.core.domainmodel.{DomainModelRepository, DomainModelValidator}
 import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextRepository
 import dev.tchiba.sdmt.usecase.domainmodel.update.{
   UpdateDomainModelInput,

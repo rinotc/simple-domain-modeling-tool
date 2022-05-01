@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.core.models.domainmodel
+package dev.tchiba.sdmt.core.domainmodel
 
 import dev.tchiba.sdmt.core.{Aggregate, Entity}
 import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
