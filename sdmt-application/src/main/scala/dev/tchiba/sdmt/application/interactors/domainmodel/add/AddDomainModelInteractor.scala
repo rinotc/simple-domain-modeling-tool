@@ -16,12 +16,12 @@ class AddDomainModelInteractor @Inject() (
       case None => AddDomainModelOutput.NoSuchProject(input.projectAlias)
       case Some(project) =>
         val newDomainModel = DomainModel.create(
-          projectId = project.id,
+          boundedCOntextId = project.id,
           japaneseName = input.japaneseName,
           englishName = input.englishName,
           specification = input.specification
         )
-        domainModelRepository.findByEnglishName(newDomainModel.englishName, newDomainModel.projectId) match {
+        domainModelRepository.findByEnglishName(newDomainModel.englishName, newDomainModel.boundedContextId) match {
           case Some(_) => AddDomainModelOutput.ConflictEnglishName(newDomainModel.englishName)
           case None =>
             domainModelRepository.insert(newDomainModel)

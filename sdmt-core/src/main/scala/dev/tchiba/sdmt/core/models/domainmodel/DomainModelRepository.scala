@@ -7,9 +7,9 @@ trait DomainModelRepository extends Repository[DomainModel] {
 
   def findById(id: DomainModelId): Option[DomainModel]
 
-  def findByEnglishName(englishName: String, projectId: BoundedContextId): Option[DomainModel]
+  def findByEnglishName(englishName: String, boundedContextId: BoundedContextId): Option[DomainModel]
 
-  def listBy(projectId: BoundedContextId): Seq[DomainModel]
+  def listBy(boundedContextId: BoundedContextId): Seq[DomainModel]
 
   def insert(domainMode: DomainModel): Unit
 
