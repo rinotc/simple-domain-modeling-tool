@@ -1,19 +1,19 @@
-<h1>プロジェクトを作成する</h1>
+<h1>境界づけられたコンテキストを作成する</h1>
 
-<div id="create-project-input" fxLayout="column" >
+<div id="create-bounded-context-input" fxLayout="column" >
   <div *ngIf="hasBoundedContextNameValidationError">{{boundedContextNameErrorMessage}}</div>
   <mat-form-field appearance="fill">
-    <mat-label>プロジェクト名</mat-label>
+    <mat-label>境界づけられたコンテキスト名称</mat-label>
     <input matInput [(ngModel)]="inputBoundedContextName"/>
   </mat-form-field>
   <div *ngIf="hasBoundedContextAliasValidationError">{{boundedContextAliasErrorMessage}}</div>
   <mat-form-field appearance="fill">
-    <mat-label>プロジェクトエイリアス</mat-label>
+    <mat-label>境界づけられたコンテキストのエイリアス</mat-label>
     <input matInput [(ngModel)]="inputBoundedContextAlias"/>
   </mat-form-field>
   <div *ngIf="hasBoundedContextOverviewValidationError">{{boundedContextOverviewErrorMessage}}</div>
   <mat-form-field appearance="fill">
-    <mat-label>プロジェクト概要</mat-label>
+    <mat-label>境界づけられたコンテキスト概要</mat-label>
     <textarea matInput [(ngModel)]="inputBoundedContextOverview"></textarea>
   </mat-form-field>
 </div>

@@ -4,20 +4,20 @@ import {BoundedContextRepository} from "../../../../models/boundedContext/bounde
 
 @Component({
   selector: 'app-project-list-component',
-  templateUrl: './project-list-component.component.html',
-  styleUrls: ['./project-list-component.component.scss']
+  templateUrl: './bounded-context-list-component.component.html',
+  styleUrls: ['./bounded-context-list-component.component.scss']
 })
-export class ProjectListComponentComponent implements OnInit {
+export class BoundedContextListComponentComponent implements OnInit {
 
-  projects: BoundedContext[] = [];
+  boundedContexts: BoundedContext[] = [];
 
-  displayedColumns: string[] = ['project-alias', 'project-name', 'project-overview', 'project-detail']
+  displayedColumns: string[] = ['alias', 'name', 'overview', 'detail']
 
   constructor(private projectRepository: BoundedContextRepository) {}
 
   ngOnInit(): void {
     this.projectRepository.getAll().subscribe(projects => {
-      this.projects = projects
+      this.boundedContexts = projects
     });
   }
 }

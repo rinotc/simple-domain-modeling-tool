@@ -15,8 +15,8 @@ import {environment} from '../environments/environment';
 import {BoundedContextsListPageComponent} from './views/pages/boundedContext/list/bounded-contexts-list-page.component';
 import {MatCardModule} from "@angular/material/card";
 import {
-  ProjectListComponentComponent
-} from './views/components/project/project-list-component/project-list-component.component';
+  BoundedContextListComponentComponent
+} from './views/components/project/project-list-component/bounded-context-list-component.component';
 import {MatTableModule} from "@angular/material/table";
 import { WelcomeComponent } from './views/components/welcome/welcome.component';
 import { BoundedContextDetailPageComponent } from './views/pages/boundedContext/detail/bounded-context-detail-page.component';
@@ -30,7 +30,7 @@ import {MatInputModule} from "@angular/material/input";
     AppComponent,
     HeaderComponent,
     BoundedContextsListPageComponent,
-    ProjectListComponentComponent,
+    BoundedContextListComponentComponent,
     WelcomeComponent,
     BoundedContextDetailPageComponent,
     BoundedContextCreatePageComponent,

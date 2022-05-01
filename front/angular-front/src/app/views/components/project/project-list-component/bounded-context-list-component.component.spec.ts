@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectListComponentComponent } from './project-list-component.component';
+import { BoundedContextListComponentComponent } from './bounded-context-list-component.component';
 
 xdescribe('ProjectListComponentComponent', () => {
-  let component: ProjectListComponentComponent;
-  let fixture: ComponentFixture<ProjectListComponentComponent>;
+  let component: BoundedContextListComponentComponent;
+  let fixture: ComponentFixture<BoundedContextListComponentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProjectListComponentComponent ]
+      declarations: [ BoundedContextListComponentComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectListComponentComponent);
+    fixture = TestBed.createComponent(BoundedContextListComponentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
