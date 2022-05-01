@@ -8,7 +8,7 @@ trait ProjectRepository extends Repository[Project] {
 
   def findById(id: BoundedContextId): Option[Project]
 
-  def findByAlias(alias: ProjectAlias): Option[Project]
+  def findByAlias(alias: BoundedContextAlias): Option[Project]
 
   def all: Seq[Project]
 

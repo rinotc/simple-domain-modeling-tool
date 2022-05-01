@@ -1,6 +1,6 @@
 package controllers
 
-import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, ProjectRepository}
+import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, ProjectRepository}
 import dev.tchiba.sdmt.usecase.domainmodel.add.{AddDomainModelInput, AddDomainModelOutput, AddDomainModelUseCase}
 import interfaces.forms.domainmodel.AddDomainModelForm
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
@@ -14,7 +14,7 @@ class AddDomainModelController @Inject() (
 ) extends MessagesAbstractController(cc) {
 
   def addDomainModelFormPage(projectAlias: String): Action[AnyContent] = Action { implicit request =>
-    val alias = ProjectAlias(projectAlias)
+    val alias = BoundedContextAlias(projectAlias)
 
     projectRepository.findByAlias(alias) match {
       case None => NotFound(views.html.error.NotFound())
@@ -28,7 +28,7 @@ class AddDomainModelController @Inject() (
     val form = AddDomainModelForm.form.bindFromRequest()
     val data = form.get
 
-    val alias = ProjectAlias(projectAlias)
+    val alias = BoundedContextAlias(projectAlias)
 
     val input = AddDomainModelInput(
       projectAlias = alias,

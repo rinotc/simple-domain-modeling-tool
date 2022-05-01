@@ -1,7 +1,7 @@
 package controllers
 
 import dev.tchiba.sdmt.core.models.domainmodel.DomainModelRepository
-import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, ProjectRepository}
+import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, ProjectRepository}
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 
 import javax.inject.Inject
@@ -13,7 +13,7 @@ class DomainModelController @Inject() (
 ) extends MessagesAbstractController(cc) {
 
   def findByEnglishName(projectAlias: String, englishName: String): Action[AnyContent] = Action { implicit request =>
-    val alias = ProjectAlias(projectAlias)
+    val alias = BoundedContextAlias(projectAlias)
     val maybeResult = for {
       project     <- projectRepository.findByAlias(alias)
       domainModel <- domainModelRepository.findByEnglishName(englishName, project.id)

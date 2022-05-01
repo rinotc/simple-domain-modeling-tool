@@ -1,6 +1,6 @@
 package controllers
 
-import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, ProjectName, ProjectOverview}
+import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, ProjectName, ProjectOverview}
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateProjectInput, CreateProjectOutput, CreateProjectUseCase}
 import interfaces.forms.project.AddProjectForm
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
@@ -21,7 +21,7 @@ class AddProjectController @Inject() (
     val form = AddProjectForm.form.bindFromRequest()
     val data = form.get
     val input = CreateProjectInput(
-      projectAlias = ProjectAlias(data.alias),
+      projectAlias = BoundedContextAlias(data.alias),
       projectName = ProjectName(data.name),
       projectOverview = ProjectOverview(data.overview)
     )

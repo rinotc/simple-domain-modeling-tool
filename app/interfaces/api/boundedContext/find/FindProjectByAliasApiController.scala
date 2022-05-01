@@ -1,6 +1,6 @@
 package interfaces.api.boundedContext.find
 
-import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, ProjectRepository}
+import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, ProjectRepository}
 import interfaces.api.boundedContext.json.ProjectResponse
 import interfaces.json.error.ErrorResponse
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
@@ -11,7 +11,7 @@ class FindProjectByAliasApiController @Inject() (cc: ControllerComponents, proje
     extends AbstractController(cc) {
 
   def action(alias: String): Action[AnyContent] = Action {
-    val projectAlias = ProjectAlias(alias)
+    val projectAlias = BoundedContextAlias(alias)
     projectRepository.findByAlias(projectAlias) match {
       case None => NotFound(ErrorResponse(s"project $alias not found").json.play)
       case Some(project) =>

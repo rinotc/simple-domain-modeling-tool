@@ -1,7 +1,7 @@
 package controllers
 
 import dev.tchiba.sdmt.core.models.domainmodel.DomainModelRepository
-import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, ProjectRepository}
+import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, ProjectRepository}
 import dev.tchiba.sdmt.usecase.domainmodel.update.{
   UpdateDomainModelInput,
   UpdateDomainModelOutput,
@@ -22,7 +22,7 @@ class UpdateDomainModelController @Inject() (
   def updateDomainModelFormPage(projectAlias: String, englishName: String): Action[AnyContent] = Action {
     implicit request =>
       val maybeProjectAndModel = for {
-        project <- projectRepository.findByAlias(ProjectAlias(projectAlias))
+        project <- projectRepository.findByAlias(BoundedContextAlias(projectAlias))
         model   <- domainModelRepository.findByEnglishName(englishName, project.id)
       } yield (project, model)
 
@@ -40,7 +40,7 @@ class UpdateDomainModelController @Inject() (
       val data = form.get
 
       val input = UpdateDomainModelInput(
-        projectAlias = ProjectAlias(projectAlias),
+        projectAlias = BoundedContextAlias(projectAlias),
         englishNameNow = modelEnglishName,
         updatedJapaneseName = data.japaneseName,
         updatedEnglishName = data.englishName,

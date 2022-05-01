@@ -1,10 +1,10 @@
 package dev.tchiba.sdmt.usecase.domainmodel.update
 
-import dev.tchiba.sdmt.core.models.boundedContext.ProjectAlias
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextAlias
 import dev.tchiba.sdmt.usecase.Input
 
 final case class UpdateDomainModelInput(
-    projectAlias: ProjectAlias,
+    projectAlias: BoundedContextAlias,
     englishNameNow: String,
     updatedJapaneseName: String,
     updatedEnglishName: String,

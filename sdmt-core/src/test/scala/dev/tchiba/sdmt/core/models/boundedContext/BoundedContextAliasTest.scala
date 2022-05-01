@@ -2,12 +2,12 @@ package dev.tchiba.sdmt.core.models.boundedContext
 
 import dev.tchiba.sdmt.test.BaseTest
 
-class ProjectAliasTest extends BaseTest {
-  "ProjectAlias Requirement" when {
+class BoundedContextAliasTest extends BaseTest {
+  "BoundeContextAlias Requirement" when {
     "empty value" should {
       "throw requirement error" in {
         assertThrows[IllegalArgumentException] {
-          ProjectAlias("")
+          BoundedContextAlias("")
         }
       }
     }
@@ -16,7 +16,7 @@ class ProjectAliasTest extends BaseTest {
       "throw requirement error" in {
         assertThrows[IllegalArgumentException] {
           val over32Alias = "A" * 33
-          ProjectAlias(over32Alias)
+          BoundedContextAlias(over32Alias)
         }
       }
     }
@@ -24,7 +24,7 @@ class ProjectAliasTest extends BaseTest {
     "not alphanumerical value" should {
       "throw requirement error" in {
         assertThrows[IllegalArgumentException] {
-          ProjectAlias("プロジェクトエイリアス")
+          BoundedContextAlias("境界づけられたコンテキストエイリアス")
         }
       }
     }
@@ -33,8 +33,8 @@ class ProjectAliasTest extends BaseTest {
   "equals" when {
     "same underlying value" should {
       "return true" in {
-        val aliasA = ProjectAlias("azAZ123")
-        val aliasB = ProjectAlias("azAZ123")
+        val aliasA = BoundedContextAlias("azAZ123")
+        val aliasB = BoundedContextAlias("azAZ123")
 
         (aliasA == aliasB) shouldBe true
       }
@@ -42,8 +42,8 @@ class ProjectAliasTest extends BaseTest {
 
     "not same underlying value" should {
       "return false" in {
-        val aliasA = ProjectAlias("azAZ123")
-        val aliasB = ProjectAlias("321ZAza")
+        val aliasA = BoundedContextAlias("azAZ123")
+        val aliasB = BoundedContextAlias("321ZAza")
 
         (aliasA == aliasB) shouldBe false
       }
@@ -53,26 +53,26 @@ class ProjectAliasTest extends BaseTest {
   "validate" when {
     "empty value" should {
       "return left" in {
-        ProjectAlias.validate("").isLeft shouldBe true
+        BoundedContextAlias.validate("").isLeft shouldBe true
       }
     }
 
     "over 32 length value" should {
       "return left" in {
         val value = "A" * 33
-        ProjectAlias.validate(value).isLeft shouldBe true
+        BoundedContextAlias.validate(value).isLeft shouldBe true
       }
     }
 
     "not alphanumerical value" should {
       "return left" in {
-        ProjectAlias.validate("プロジェクトエイリアス").isLeft shouldBe true
+        BoundedContextAlias.validate("境界づけられたコンテキストエイリアス").isLeft shouldBe true
       }
     }
 
     "1 characters value" should {
       "return right" in {
-        ProjectAlias.validate("A").isRight shouldBe true
+        BoundedContextAlias.validate("A").isRight shouldBe true
       }
     }
 
@@ -80,7 +80,7 @@ class ProjectAliasTest extends BaseTest {
       "return right" in {
         val value = "ABCDE" + "fghij" + "KLMNO" + "pqrst" + "UVWXY" + "12345" + "67"
         value.length shouldBe 32
-        val actual = ProjectAlias.validate(value)
+        val actual = BoundedContextAlias.validate(value)
         actual shouldBe Symbol("right")
         actual.value.value shouldBe value
       }

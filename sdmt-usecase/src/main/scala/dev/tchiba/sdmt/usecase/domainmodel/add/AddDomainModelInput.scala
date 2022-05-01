@@ -1,10 +1,10 @@
 package dev.tchiba.sdmt.usecase.domainmodel.add
 
-import dev.tchiba.sdmt.core.models.boundedContext.ProjectAlias
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextAlias
 import dev.tchiba.sdmt.usecase.Input
 
 final case class AddDomainModelInput(
-    projectAlias: ProjectAlias,
+    projectAlias: BoundedContextAlias,
     japaneseName: String,
     englishName: String,
     specification: String

@@ -2,7 +2,7 @@ package dev.tchiba.sdmt.infra.boundedContext
 
 import dev.tchiba.sdmt.core.models.boundedContext.{
   Project,
-  ProjectAlias,
+  BoundedContextAlias,
   BoundedContextId,
   ProjectName,
   ProjectOverview,
@@ -29,7 +29,7 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
       .map(reconstructFrom)
   }
 
-  override def findByAlias(alias: ProjectAlias): Option[Project] = DB readOnly { implicit session =>
+  override def findByAlias(alias: BoundedContextAlias): Option[Project] = DB readOnly { implicit session =>
     withSQL {
       select
         .from(Projects.as(p))
@@ -98,7 +98,7 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
   private def reconstructFrom(row: Projects): Project = {
     Project.reconstruct(
       id = BoundedContextId.fromString(row.projectId),
-      alias = ProjectAlias(row.projectAlias),
+      alias = BoundedContextAlias(row.projectAlias),
       name = ProjectName(row.projectName),
       overview = ProjectOverview(row.projectOverview)
     )

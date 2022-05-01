@@ -1,6 +1,6 @@
 package interfaces.api.boundedContext.update
 
-import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, BoundedContextId, ProjectName, ProjectOverview}
+import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, BoundedContextId, ProjectName, ProjectOverview}
 import dev.tchiba.sdmt.usecase.boundedContext.update.UpdateProjectInput
 import interfaces.json.{JsonRequest, JsonValidator}
 import play.api.libs.json.{Json, OFormat}
@@ -13,7 +13,7 @@ case class UpdateProjectRequest(
     name: String,
     overview: String
 ) extends JsonRequest {
-  private val projectAlias    = ProjectAlias.validate(alias).leftThrow
+  private val projectAlias    = BoundedContextAlias.validate(alias).leftThrow
   private val projectName     = ProjectName.validate(name).leftThrow
   private val projectOverview = ProjectOverview.validate(overview).leftThrow
 
