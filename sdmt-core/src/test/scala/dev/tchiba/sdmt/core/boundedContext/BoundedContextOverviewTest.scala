@@ -1,5 +1,6 @@
-package dev.tchiba.sdmt.core.models.boundedContext
+package dev.tchiba.sdmt.core.boundedContext
 
+import dev.tchiba.sdmt.core.boundedContext.BoundedContextOverview
 import dev.tchiba.sdmt.test.BaseTest
 
 class BoundedContextOverviewTest extends BaseTest {

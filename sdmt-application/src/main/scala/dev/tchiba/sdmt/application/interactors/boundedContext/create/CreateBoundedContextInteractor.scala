@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.application.interactors.boundedContext.create
 
-import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContext, BoundedContextRepository}
+import dev.tchiba.sdmt.core.boundedContext.{BoundedContext, BoundedContextRepository}
 import dev.tchiba.sdmt.usecase.boundedContext.create.{
   CreateBoundedContextInput,
   CreateBoundedContextOutput,

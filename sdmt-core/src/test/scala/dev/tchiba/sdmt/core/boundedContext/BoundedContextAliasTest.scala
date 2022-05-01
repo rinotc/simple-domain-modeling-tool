@@ -1,5 +1,6 @@
-package dev.tchiba.sdmt.core.models.boundedContext
+package dev.tchiba.sdmt.core.boundedContext
 
+import dev.tchiba.sdmt.core.boundedContext.BoundedContextAlias
 import dev.tchiba.sdmt.test.BaseTest
 
 class BoundedContextAliasTest extends BaseTest {

@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.core.models.sub.url
+package dev.tchiba.sdmt.core.sub.url
 
 import dev.tchiba.sdmt.core.ValueObject
 

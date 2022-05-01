@@ -1,6 +1,6 @@
 package interfaces.api.boundedContext.find
 
-import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, BoundedContextRepository}
+import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextRepository}
 import interfaces.api.boundedContext.json.BoundedContextResponse
 import interfaces.json.error.ErrorResponse
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}

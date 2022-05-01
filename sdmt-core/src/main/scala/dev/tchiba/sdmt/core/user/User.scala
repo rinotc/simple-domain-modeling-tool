@@ -1,7 +1,7 @@
-package dev.tchiba.sdmt.core.models.user
+package dev.tchiba.sdmt.core.user
 
-import dev.tchiba.sdmt.core.models.sub.email.EmailAddress
-import dev.tchiba.sdmt.core.models.sub.url.Url
+import dev.tchiba.sdmt.core.sub.email.EmailAddress
+import dev.tchiba.sdmt.core.sub.url.Url
 import dev.tchiba.sdmt.core.{Aggregate, Entity}
 
 /**

@@ -1,6 +1,6 @@
 package interfaces.api.boundedContext.update
 
-import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
+import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.usecase.boundedContext.update.{UpdateBoundedContextOutput, UpdateBoundedContextUseCase}
 import interfaces.api.QueryValidator
 import interfaces.api.boundedContext.json.BoundedContextResponse

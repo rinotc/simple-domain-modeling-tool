@@ -1,6 +1,6 @@
 package interfaces.api.user.json
 
-import dev.tchiba.sdmt.core.models.user.User
+import dev.tchiba.sdmt.core.user.User
 import play.api.libs.json.{JsValue, Json, OFormat}
 
 final class UserResponse(private val user: User) {

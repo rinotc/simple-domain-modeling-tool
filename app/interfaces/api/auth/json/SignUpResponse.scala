@@ -1,6 +1,6 @@
 package interfaces.api.auth.json
 
-import dev.tchiba.sdmt.core.models.user.User
+import dev.tchiba.sdmt.core.user.User
 import play.api.libs.json.{JsValue, Json, OFormat}
 
 import java.util.UUID

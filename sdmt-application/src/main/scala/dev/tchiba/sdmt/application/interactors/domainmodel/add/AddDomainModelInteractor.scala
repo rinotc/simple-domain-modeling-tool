@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.application.interactors.domainmodel.add
 
-import dev.tchiba.sdmt.core.models.domainmodel.{DomainModel, DomainModelRepository}
-import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextRepository
+import dev.tchiba.sdmt.core.boundedContext.BoundedContextRepository
+import dev.tchiba.sdmt.core.domainmodel.{DomainModel, DomainModelRepository}
 import dev.tchiba.sdmt.usecase.domainmodel.add.{AddDomainModelInput, AddDomainModelOutput, AddDomainModelUseCase}
 
 import javax.inject.Inject

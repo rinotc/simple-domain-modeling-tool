@@ -1,7 +1,7 @@
-package dev.tchiba.sdmt.core.models.domainmodel
+package dev.tchiba.sdmt.core.domainmodel
 
+import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.core.{Aggregate, Entity}
-import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
 import laika.api.Transformer
 import laika.format.{HTML, Markdown}
 import laika.markdown.github.GitHubFlavor

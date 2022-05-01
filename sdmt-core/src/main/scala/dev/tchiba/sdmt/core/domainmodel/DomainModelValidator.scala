@@ -1,7 +1,7 @@
-package dev.tchiba.sdmt.core.models.domainmodel
+package dev.tchiba.sdmt.core.domainmodel
 
 import dev.tchiba.sdmt.core.DomainService
-import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
+import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 
 trait DomainModelValidator extends DomainService {
 
