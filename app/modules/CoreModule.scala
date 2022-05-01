@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule
 import dev.tchiba.sdmt.application.interactors.domainmodel.add.AddDomainModelInteractor
 import dev.tchiba.sdmt.application.interactors.domainmodel.update.UpdateDomainModelInteractor
 import dev.tchiba.sdmt.application.interactors.boundedContext.create.CreateBoundedContextInteractor
-import dev.tchiba.sdmt.application.interactors.boundedContext.update.UpdateProjectInteractor
+import dev.tchiba.sdmt.application.interactors.boundedContext.update.UpdateBoundedContextInteractor
 import dev.tchiba.sdmt.core.models.domainmodel.{DomainModelRepository, DomainModelValidator}
 import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextRepository
 import dev.tchiba.sdmt.core.models.user.UserRepository
@@ -14,7 +14,7 @@ import dev.tchiba.sdmt.infra.user.JdbcUserRepository
 import dev.tchiba.sdmt.usecase.domainmodel.add.AddDomainModelUseCase
 import dev.tchiba.sdmt.usecase.domainmodel.update.UpdateDomainModelUseCase
 import dev.tchiba.sdmt.usecase.boundedContext.create.CreateBoundedContextUseCase
-import dev.tchiba.sdmt.usecase.boundedContext.update.UpdateProjectUseCase
+import dev.tchiba.sdmt.usecase.boundedContext.update.UpdateBoundedContextUseCase
 import net.codingwell.scalaguice.ScalaModule
 
 class CoreModule extends AbstractModule with ScalaModule {
@@ -23,7 +23,7 @@ class CoreModule extends AbstractModule with ScalaModule {
     bind[DomainModelRepository].to[JdbcDomainModelRepository]
 
     bind[CreateBoundedContextUseCase].to[CreateBoundedContextInteractor]
-    bind[UpdateProjectUseCase].to[UpdateProjectInteractor]
+    bind[UpdateBoundedContextUseCase].to[UpdateBoundedContextInteractor]
     bind[AddDomainModelUseCase].to[AddDomainModelInteractor]
 
     bind[UpdateDomainModelUseCase].to[UpdateDomainModelInteractor]

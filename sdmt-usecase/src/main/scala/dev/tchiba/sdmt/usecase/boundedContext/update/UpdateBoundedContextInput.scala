@@ -8,9 +8,9 @@ import dev.tchiba.sdmt.core.models.boundedContext.{
 }
 import dev.tchiba.sdmt.usecase.Input
 
-case class UpdateProjectInput(
+case class UpdateBoundedContextInput(
     targetId: BoundedContextId,
     alias: BoundedContextAlias,
     name: BoundedContextName,
     overview: BoundedContextOverview
-) extends Input[UpdateProjectOutput]
+) extends Input[UpdateBoundedContextOutput]

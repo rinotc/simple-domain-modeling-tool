@@ -1,7 +1,7 @@
 package interfaces.api.boundedContext.update
 
 import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
-import dev.tchiba.sdmt.usecase.boundedContext.update.{UpdateProjectOutput, UpdateProjectUseCase}
+import dev.tchiba.sdmt.usecase.boundedContext.update.{UpdateBoundedContextOutput, UpdateBoundedContextUseCase}
 import interfaces.api.QueryValidator
 import interfaces.api.boundedContext.json.ProjectResponse
 import interfaces.json.error.ErrorResponse
@@ -12,7 +12,7 @@ import scala.concurrent.ExecutionContext
 
 class UpdateProjectApiController @Inject() (
     cc: ControllerComponents,
-    updateProjectUseCase: UpdateProjectUseCase
+    updateProjectUseCase: UpdateBoundedContextUseCase
 )(implicit ec: ExecutionContext)
     extends AbstractController(cc) {
 
@@ -25,10 +25,10 @@ class UpdateProjectApiController @Inject() (
       } { projectId =>
         val input = request.body.input(projectId)
         updateProjectUseCase.handle(input) match {
-          case UpdateProjectOutput.Success(updatedProject) => Ok(ProjectResponse(updatedProject).json)
-          case UpdateProjectOutput.NotFound(targetId) =>
+          case UpdateBoundedContextOutput.Success(updatedProject) => Ok(ProjectResponse(updatedProject).json)
+          case UpdateBoundedContextOutput.NotFound(targetId) =>
             NotFound(ErrorResponse(s"project that id = ${targetId.value} is not found.").json.play)
-          case UpdateProjectOutput.ConflictAlias(conflictedProject) =>
+          case UpdateBoundedContextOutput.ConflictAlias(conflictedProject) =>
             Conflict(ErrorResponse(s"project alias ${conflictedProject.alias.value} is conflicted.").json.play)
         }
       }
