@@ -1,6 +1,6 @@
 package interfaces.api.boundedContext.create
 
-import dev.tchiba.sdmt.usecase.project.create.{CreateProjectOutput, CreateProjectUseCase}
+import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateProjectOutput, CreateProjectUseCase}
 import interfaces.api.boundedContext.json.ProjectResponse
 import interfaces.json.error.ErrorResponse
 import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}

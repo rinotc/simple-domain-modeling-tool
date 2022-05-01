@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.usecase.project.update
+package dev.tchiba.sdmt.usecase.boundedContext.update
 
 import dev.tchiba.sdmt.core.models.boundedContext.{Project, ProjectId}
 import dev.tchiba.sdmt.usecase.Output

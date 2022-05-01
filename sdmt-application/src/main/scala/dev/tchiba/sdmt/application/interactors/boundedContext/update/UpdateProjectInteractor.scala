@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.application.interactors.boundedContext.update
 
 import dev.tchiba.sdmt.core.models.boundedContext.ProjectRepository
-import dev.tchiba.sdmt.usecase.project.update.{UpdateProjectInput, UpdateProjectOutput, UpdateProjectUseCase}
+import dev.tchiba.sdmt.usecase.boundedContext.update.{UpdateProjectInput, UpdateProjectOutput, UpdateProjectUseCase}
 
 import javax.inject.Inject
 

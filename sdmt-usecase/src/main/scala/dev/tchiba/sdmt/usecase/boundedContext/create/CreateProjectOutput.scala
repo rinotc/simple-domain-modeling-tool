@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.usecase.project.create
+package dev.tchiba.sdmt.usecase.boundedContext.create
 
 import dev.tchiba.sdmt.core.models.boundedContext.{Project, ProjectAlias}
 import dev.tchiba.sdmt.usecase.Output

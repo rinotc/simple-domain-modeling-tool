@@ -1,7 +1,7 @@
 package interfaces.api.boundedContext.update
 
 import dev.tchiba.sdmt.core.models.boundedContext.{ProjectAlias, ProjectId, ProjectName, ProjectOverview}
-import dev.tchiba.sdmt.usecase.project.update.UpdateProjectInput
+import dev.tchiba.sdmt.usecase.boundedContext.update.UpdateProjectInput
 import interfaces.json.{JsonRequest, JsonValidator}
 import play.api.libs.json.{Json, OFormat}
 import play.api.mvc.{BodyParser, PlayBodyParsers}

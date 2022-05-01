@@ -9,12 +9,12 @@ import dev.tchiba.sdmt.core.models.domainmodel.{DomainModelRepository, DomainMod
 import dev.tchiba.sdmt.core.models.boundedContext.ProjectRepository
 import dev.tchiba.sdmt.core.models.user.UserRepository
 import dev.tchiba.sdmt.infra.domainmodel.{JdbcDomainModelRepository, JdbcDomainModelValidator}
-import dev.tchiba.sdmt.infra.project.JdbcProjectRepository
+import dev.tchiba.sdmt.infra.boundedContext.JdbcProjectRepository
 import dev.tchiba.sdmt.infra.user.JdbcUserRepository
 import dev.tchiba.sdmt.usecase.domainmodel.add.AddDomainModelUseCase
 import dev.tchiba.sdmt.usecase.domainmodel.update.UpdateDomainModelUseCase
-import dev.tchiba.sdmt.usecase.project.create.CreateProjectUseCase
-import dev.tchiba.sdmt.usecase.project.update.UpdateProjectUseCase
+import dev.tchiba.sdmt.usecase.boundedContext.create.CreateProjectUseCase
+import dev.tchiba.sdmt.usecase.boundedContext.update.UpdateProjectUseCase
 import net.codingwell.scalaguice.ScalaModule
 
 class CoreModule extends AbstractModule with ScalaModule {

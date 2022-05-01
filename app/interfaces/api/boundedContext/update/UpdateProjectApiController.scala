@@ -1,7 +1,7 @@
 package interfaces.api.boundedContext.update
 
 import dev.tchiba.sdmt.core.models.boundedContext.ProjectId
-import dev.tchiba.sdmt.usecase.project.update.{UpdateProjectOutput, UpdateProjectUseCase}
+import dev.tchiba.sdmt.usecase.boundedContext.update.{UpdateProjectOutput, UpdateProjectUseCase}
 import interfaces.api.QueryValidator
 import interfaces.api.boundedContext.json.ProjectResponse
 import interfaces.json.error.ErrorResponse
