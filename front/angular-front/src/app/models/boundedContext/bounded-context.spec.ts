@@ -6,10 +6,10 @@ import {BoundedContextOverview} from "./overview/bounded-context-overview";
 
 describe('BoundedContexts', () => {
   it('should create an instance', () => {
-    const projectId = new BoundedContextId('abcde-fghij-klmno-pqrst-uvwxy-z12345');
-    const projectAlias = new BoundedContextAlias('ALIAS');
-    const projectName = new BoundedContextName('境界づけられたコンテキスト名称');
-    const projectOverview = new BoundedContextOverview('境界づけられたコンテキスト概要');
-    expect(new BoundedContext(projectId, projectAlias, projectName, projectOverview)).toBeTruthy();
+    const boundedContextId = new BoundedContextId('abcde-fghij-klmno-pqrst-uvwxy-z12345');
+    const boundedContextAlias = new BoundedContextAlias('ALIAS');
+    const boundedContextName = new BoundedContextName('境界づけられたコンテキスト名称');
+    const boundedContextOverview = new BoundedContextOverview('境界づけられたコンテキスト概要');
+    expect(new BoundedContext(boundedContextId, boundedContextAlias, boundedContextName, boundedContextOverview)).toBeTruthy();
   });
 });
