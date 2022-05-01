@@ -46,7 +46,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
     val e = model.toEntity
     DomainModels.create(
       domainModelId = e.domainModelId,
-      projectId = e.projectId,
+      boundedContextId = e.boundedContextId,
       japaneseName = e.japaneseName,
       englishName = e.englishName,
       specification = e.specification
