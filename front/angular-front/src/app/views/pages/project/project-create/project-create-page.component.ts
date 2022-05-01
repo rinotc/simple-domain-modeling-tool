@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ProjectName} from "../../../../models/project/name/project-name";
+import {ProjectName} from "../../../../models/boundedContext/name/project-name";
 import {requirement} from "../../../../dbc/dbc";
-import {ProjectAlias} from "../../../../models/project/alias/project-alias";
-import {ProjectOverview} from "../../../../models/project/overview/project-overview";
-import {ProjectRepository} from "../../../../models/project/project.repository";
+import {ProjectAlias} from "../../../../models/boundedContext/alias/project-alias";
+import {ProjectOverview} from "../../../../models/boundedContext/overview/project-overview";
+import {ProjectRepository} from "../../../../models/boundedContext/project.repository";
 import {Router} from "@angular/router";
 
 @Component({

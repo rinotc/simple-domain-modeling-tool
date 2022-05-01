@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Project} from "../../../../models/project/project";
-import {ProjectRepository} from "../../../../models/project/project.repository";
+import {Project} from "../../../../models/boundedContext/project";
+import {ProjectRepository} from "../../../../models/boundedContext/project.repository";
 
 @Component({
   selector: 'app-project-list-component',
