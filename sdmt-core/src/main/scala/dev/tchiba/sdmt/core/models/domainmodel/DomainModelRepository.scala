@@ -1,15 +1,15 @@
 package dev.tchiba.sdmt.core.models.domainmodel
 
 import dev.tchiba.sdmt.core.Repository
-import dev.tchiba.sdmt.core.models.project.ProjectId
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
 
 trait DomainModelRepository extends Repository[DomainModel] {
 
   def findById(id: DomainModelId): Option[DomainModel]
 
-  def findByEnglishName(englishName: String, projectId: ProjectId): Option[DomainModel]
+  def findByEnglishName(englishName: String, boundedContextId: BoundedContextId): Option[DomainModel]
 
-  def listBy(projectId: ProjectId): Seq[DomainModel]
+  def listBy(boundedContextId: BoundedContextId): Seq[DomainModel]
 
   def insert(domainMode: DomainModel): Unit
 

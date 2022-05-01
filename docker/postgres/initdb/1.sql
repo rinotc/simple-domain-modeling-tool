@@ -1,46 +1,44 @@
--- projects
-create table projects
+create table bounded_contexts
 (
-    project_id       char(36)     not null
+    bounded_context_id       char(36)     not null
         constraint user_pk
             primary key,
-    project_alias    varchar(32)  not null,
-    project_name     varchar(100) not null,
-    project_overview varchar(500) not null
+    bounded_context_alias    varchar(32)  not null,
+    bounded_context_name     varchar(100) not null,
+    bounded_context_overview varchar(500) not null
 );
 
-comment on table projects is 'プロジェクトテーブル';
+comment on table bounded_contexts is 'プロジェクトテーブル';
 
-comment on column projects.project_id is 'プロジェクトID';
+comment on column bounded_contexts.bounded_context_id is '境界づけられたコンテキストID';
 
-comment on column projects.project_alias is 'プロジェクトエイリアス';
+comment on column bounded_contexts.bounded_context_alias is '境界づけられたコンテキストのエイリアス';
 
-comment on column projects.project_name is 'プロジェクト名称';
+comment on column bounded_contexts.bounded_context_name is '境界づけられたコンテキストの名称';
 
-comment on column projects.project_overview is 'プロジェクト概要';
+comment on column bounded_contexts.bounded_context_overview is '境界づけられたコンテキストの概要';
 
 create unique index project_project_name_uindex
-    on projects (project_name);
+    on bounded_contexts (bounded_context_name);
 
--- domain_models
 create table domain_models
 (
-    domain_model_id char(36)     not null
+    domain_model_id    char(36)     not null
         constraint domain_model_pk
             primary key,
-    project_id      char(36)     not null
-        constraint domain_model_project_project_id_fk
-            references projects,
-    japanese_name   varchar(50)  not null,
-    english_name    varchar(100) not null,
-    specification   text         not null
+    bounded_context_id char(36)     not null
+        constraint domain_models_bounded_contexts_bounded_context_id_fk
+            references bounded_contexts,
+    japanese_name      varchar(50)  not null,
+    english_name       varchar(100) not null,
+    specification      text         not null
 );
 
 comment on table domain_models is 'ドメインモデルテーブル';
 
 comment on column domain_models.domain_model_id is 'ドメインモデルID';
 
-comment on column domain_models.project_id is '紐づくプロジェクトID';
+comment on column domain_models.bounded_context_id is '紐づく境界づけられたコンテキストID';
 
 comment on column domain_models.japanese_name is 'ドメインモデル日本語名';
 
@@ -48,11 +46,9 @@ comment on column domain_models.english_name is 'ドメインモデル英語名�
 
 comment on column domain_models.specification is 'モデルの仕様';
 
+
 create unique index domain_model_project_id_english_name_uindex
-    on domain_models (project_id, english_name);
-
-
--- users
+    on domain_models (bounded_context_id, english_name);
 
 create table users
 (

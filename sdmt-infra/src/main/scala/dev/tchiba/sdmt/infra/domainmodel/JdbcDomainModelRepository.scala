@@ -1,9 +1,9 @@
 package dev.tchiba.sdmt.infra.domainmodel
 
 import dev.tchiba.sdmt.core.models.domainmodel.{DomainModel, DomainModelId, DomainModelRepository}
-import dev.tchiba.sdmt.core.models.project.ProjectId
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.infra.scalikejdbc.DomainModels
-import scalikejdbc.{DB, _}
+import scalikejdbc._
 
 class JdbcDomainModelRepository extends DomainModelRepository {
 
@@ -15,27 +15,27 @@ class JdbcDomainModelRepository extends DomainModelRepository {
     DomainModels.find(id.string).map(translate)
   }
 
-  override def findByEnglishName(englishName: String, projectId: ProjectId): Option[DomainModel] = DB readOnly {
-    implicit session =>
+  override def findByEnglishName(englishName: String, boundedContextId: BoundedContextId): Option[DomainModel] =
+    DB readOnly { implicit session =>
       withSQL {
         select
           .from(DomainModels.as(dm))
           .where
-          .eq(dm.projectId, projectId.string)
+          .eq(dm.boundedContextId, boundedContextId.string)
           .and
           .eq(dm.englishName, englishName)
       }.map(DomainModels(dm))
         .single()
         .apply()
         .map(translate)
-  }
+    }
 
-  override def listBy(projectId: ProjectId): Seq[DomainModel] = DB readOnly { implicit session =>
+  override def listBy(boundedContextId: BoundedContextId): Seq[DomainModel] = DB readOnly { implicit session =>
     withSQL {
       select
         .from(DomainModels.as(dm))
         .where
-        .eq(dm.projectId, projectId.string)
+        .eq(dm.boundedContextId, boundedContextId.string)
     }.map(DomainModels(dm))
       .list()
       .apply()
@@ -46,7 +46,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
     val e = model.toEntity
     DomainModels.create(
       domainModelId = e.domainModelId,
-      projectId = e.projectId,
+      boundedContextId = e.boundedContextId,
       japaneseName = e.japaneseName,
       englishName = e.englishName,
       specification = e.specification
@@ -70,7 +70,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
 object JdbcDomainModelRepository {
   def translate(m: DomainModels): DomainModel = DomainModel.reconstruct(
     id = DomainModelId.fromString(m.domainModelId),
-    projectId = ProjectId.fromString(m.projectId),
+    boundedContextId = BoundedContextId.fromString(m.boundedContextId),
     japaneseName = m.japaneseName,
     englishName = m.englishName,
     specification = m.specification
@@ -79,7 +79,7 @@ object JdbcDomainModelRepository {
   implicit class DomainModelConverterExtension(m: DomainModel) {
     def toEntity: DomainModels = DomainModels(
       domainModelId = m.id.string,
-      projectId = m.projectId.string,
+      boundedContextId = m.boundedContextId.string,
       japaneseName = m.japaneseName,
       englishName = m.englishName,
       specification = m.specificationMD

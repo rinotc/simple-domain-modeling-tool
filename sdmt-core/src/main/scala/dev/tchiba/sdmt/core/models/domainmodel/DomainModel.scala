@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.core.models.domainmodel
 
 import dev.tchiba.sdmt.core.{Aggregate, Entity}
-import dev.tchiba.sdmt.core.models.project.ProjectId
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextId
 import laika.api.Transformer
 import laika.format.{HTML, Markdown}
 import laika.markdown.github.GitHubFlavor
@@ -10,14 +10,14 @@ import laika.markdown.github.GitHubFlavor
  * ドメインモデル
  *
  * @param id              ドメインモデルID
- * @param projectId       プロジェクトID
+ * @param boundedContextId       プロジェクトID
  * @param japaneseName    日本語名
  * @param englishName     英語名
  * @param specificationMD 仕様（Markdown）
  */
 final class DomainModel private (
     val id: DomainModelId,
-    val projectId: ProjectId,
+    val boundedContextId: BoundedContextId,
     val japaneseName: String,
     val englishName: String,
     val specificationMD: String
@@ -55,22 +55,27 @@ final class DomainModel private (
       japaneseName: String = this.japaneseName,
       englishName: String = this.englishName,
       specification: String = this.specificationMD
-  ): DomainModel = new DomainModel(this.id, this.projectId, japaneseName, englishName, specification)
+  ): DomainModel = new DomainModel(this.id, this.boundedContextId, japaneseName, englishName, specification)
 }
 
 object DomainModel {
   def reconstruct(
       id: DomainModelId,
-      projectId: ProjectId,
+      boundedContextId: BoundedContextId,
       japaneseName: String,
       englishName: String,
       specification: String
-  ): DomainModel = new DomainModel(id, projectId, japaneseName, englishName, specification)
+  ): DomainModel = new DomainModel(id, boundedContextId, japaneseName, englishName, specification)
 
-  def create(projectId: ProjectId, japaneseName: String, englishName: String, specification: String): DomainModel = {
+  def create(
+      boundedCOntextId: BoundedContextId,
+      japaneseName: String,
+      englishName: String,
+      specification: String
+  ): DomainModel = {
     new DomainModel(
       id = DomainModelId.generate,
-      projectId = projectId,
+      boundedContextId = boundedCOntextId,
       japaneseName = japaneseName,
       englishName = englishName,
       specificationMD = specification

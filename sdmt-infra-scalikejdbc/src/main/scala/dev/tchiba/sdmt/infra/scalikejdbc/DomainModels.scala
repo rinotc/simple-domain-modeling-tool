@@ -4,7 +4,7 @@ import scalikejdbc._
 
 case class DomainModels(
   domainModelId: String,
-  projectId: String,
+  boundedContextId: String,
   japaneseName: String,
   englishName: String,
   specification: String) {
@@ -22,12 +22,12 @@ object DomainModels extends SQLSyntaxSupport[DomainModels] {
 
   override val tableName = "domain_models"
 
-  override val columns = Seq("domain_model_id", "project_id", "japanese_name", "english_name", "specification")
+  override val columns = Seq("domain_model_id", "bounded_context_id", "japanese_name", "english_name", "specification")
 
   def apply(dm: SyntaxProvider[DomainModels])(rs: WrappedResultSet): DomainModels = apply(dm.resultName)(rs)
   def apply(dm: ResultName[DomainModels])(rs: WrappedResultSet): DomainModels = new DomainModels(
     domainModelId = rs.get(dm.domainModelId),
-    projectId = rs.get(dm.projectId),
+    boundedContextId = rs.get(dm.boundedContextId),
     japaneseName = rs.get(dm.japaneseName),
     englishName = rs.get(dm.englishName),
     specification = rs.get(dm.specification)
@@ -71,14 +71,14 @@ object DomainModels extends SQLSyntaxSupport[DomainModels] {
 
   def create(
     domainModelId: String,
-    projectId: String,
+    boundedContextId: String,
     japaneseName: String,
     englishName: String,
     specification: String)(implicit session: DBSession = autoSession): DomainModels = {
     withSQL {
       insert.into(DomainModels).namedValues(
         column.domainModelId -> domainModelId,
-        column.projectId -> projectId,
+        column.boundedContextId -> boundedContextId,
         column.japaneseName -> japaneseName,
         column.englishName -> englishName,
         column.specification -> specification
@@ -87,7 +87,7 @@ object DomainModels extends SQLSyntaxSupport[DomainModels] {
 
     DomainModels(
       domainModelId = domainModelId,
-      projectId = projectId,
+      boundedContextId = boundedContextId,
       japaneseName = japaneseName,
       englishName = englishName,
       specification = specification)
@@ -97,19 +97,19 @@ object DomainModels extends SQLSyntaxSupport[DomainModels] {
     val params: collection.Seq[Seq[(Symbol, Any)]] = entities.map(entity =>
       Seq(
         Symbol("domainModelId") -> entity.domainModelId,
-        Symbol("projectId") -> entity.projectId,
+        Symbol("boundedContextId") -> entity.boundedContextId,
         Symbol("japaneseName") -> entity.japaneseName,
         Symbol("englishName") -> entity.englishName,
         Symbol("specification") -> entity.specification))
     SQL("""insert into domain_models(
       domain_model_id,
-      project_id,
+      bounded_context_id,
       japanese_name,
       english_name,
       specification
     ) values (
       {domainModelId},
-      {projectId},
+      {boundedContextId},
       {japaneseName},
       {englishName},
       {specification}
@@ -120,7 +120,7 @@ object DomainModels extends SQLSyntaxSupport[DomainModels] {
     withSQL {
       update(DomainModels).set(
         column.domainModelId -> entity.domainModelId,
-        column.projectId -> entity.projectId,
+        column.boundedContextId -> entity.boundedContextId,
         column.japaneseName -> entity.japaneseName,
         column.englishName -> entity.englishName,
         column.specification -> entity.specification
