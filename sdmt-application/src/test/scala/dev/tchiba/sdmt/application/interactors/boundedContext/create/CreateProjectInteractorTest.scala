@@ -5,7 +5,7 @@ import dev.tchiba.sdmt.core.models.boundedContext.{
   BoundedContextAlias,
   BoundedContextName,
   BoundedContextOverview,
-  ProjectRepository
+  BoundedContextRepository
 }
 import dev.tchiba.sdmt.test.BaseTest
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateProjectInput, CreateProjectOutput}
@@ -16,7 +16,7 @@ class CreateProjectInteractorTest extends BaseTest with MockFactory {
   "handle" when {
     "there is no same alias project" should {
       "return Success with new project" in {
-        val mockProjectRepository = mock[ProjectRepository]
+        val mockProjectRepository = mock[BoundedContextRepository]
         (mockProjectRepository.findByAlias _).expects(*).returning(None)
         (mockProjectRepository.insert _).expects(*).returning(())
 
@@ -39,7 +39,7 @@ class CreateProjectInteractorTest extends BaseTest with MockFactory {
 
     "the same project alias exists" should {
       "return Conflict" in {
-        val mockProjectRepository = mock[ProjectRepository]
+        val mockProjectRepository = mock[BoundedContextRepository]
 
         val existProject = BoundedContext.create(
           alias = BoundedContextAlias("EXIST"),

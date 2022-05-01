@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.application.interactors.domainmodel.update
 
 import dev.tchiba.sdmt.core.models.domainmodel.{DomainModelRepository, DomainModelValidator}
-import dev.tchiba.sdmt.core.models.boundedContext.ProjectRepository
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextRepository
 import dev.tchiba.sdmt.usecase.domainmodel.update.{
   UpdateDomainModelInput,
   UpdateDomainModelOutput,
@@ -11,7 +11,7 @@ import dev.tchiba.sdmt.usecase.domainmodel.update.{
 import javax.inject.Inject
 
 class UpdateDomainModelInteractor @Inject() (
-    projectRepository: ProjectRepository,
+    projectRepository: BoundedContextRepository,
     domainModelRepository: DomainModelRepository,
     domainModelValidator: DomainModelValidator
 ) extends UpdateDomainModelUseCase {

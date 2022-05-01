@@ -1,7 +1,7 @@
 package controllers
 
 import dev.tchiba.sdmt.core.models.domainmodel.DomainModelRepository
-import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, ProjectRepository}
+import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, BoundedContextRepository}
 import dev.tchiba.sdmt.usecase.domainmodel.update.{
   UpdateDomainModelInput,
   UpdateDomainModelOutput,
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class UpdateDomainModelController @Inject() (
     cc: MessagesControllerComponents,
-    projectRepository: ProjectRepository,
+    projectRepository: BoundedContextRepository,
     domainModelRepository: DomainModelRepository,
     updateDomainModelUseCase: UpdateDomainModelUseCase
 ) extends MessagesAbstractController(cc) {

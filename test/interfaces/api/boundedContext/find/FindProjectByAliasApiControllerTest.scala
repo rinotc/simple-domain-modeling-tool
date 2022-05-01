@@ -15,7 +15,7 @@ class FindProjectByAliasApiControllerTest extends PlaySpec with Results with Moc
   "action" when {
     "requested project alias is exist" should {
       "return OK and response that alias project" in {
-        val mockProjectRepository = mock[ProjectRepository]
+        val mockProjectRepository = mock[BoundedContextRepository]
         val requestAliasValue     = "TEST"
         val existingProject = BoundedContext.reconstruct(
           BoundedContextId.generate,
@@ -39,7 +39,7 @@ class FindProjectByAliasApiControllerTest extends PlaySpec with Results with Moc
 
     "requested project alias is not exist" should {
       "return NotFound" in {
-        val mockProjectRepository = mock[ProjectRepository]
+        val mockProjectRepository = mock[BoundedContextRepository]
         val requestAliasValue     = "TEST"
         (mockProjectRepository.findByAlias _)
           .expects(*)

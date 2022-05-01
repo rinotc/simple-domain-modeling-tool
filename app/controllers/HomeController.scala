@@ -1,6 +1,6 @@
 package controllers
 
-import dev.tchiba.sdmt.core.models.boundedContext.ProjectRepository
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextRepository
 import play.api.mvc._
 
 import javax.inject._
@@ -12,7 +12,7 @@ import javax.inject._
 @Singleton
 class HomeController @Inject() (
     cc: ControllerComponents,
-    projectRepository: ProjectRepository
+    projectRepository: BoundedContextRepository
 ) extends AbstractController(cc) {
 
   def index: Action[AnyContent] = Action {

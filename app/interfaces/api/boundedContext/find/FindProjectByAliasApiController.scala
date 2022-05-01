@@ -1,13 +1,13 @@
 package interfaces.api.boundedContext.find
 
-import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, ProjectRepository}
+import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, BoundedContextRepository}
 import interfaces.api.boundedContext.json.ProjectResponse
 import interfaces.json.error.ErrorResponse
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 
 import javax.inject.Inject
 
-class FindProjectByAliasApiController @Inject() (cc: ControllerComponents, projectRepository: ProjectRepository)
+class FindProjectByAliasApiController @Inject() (cc: ControllerComponents, projectRepository: BoundedContextRepository)
     extends AbstractController(cc) {
 
   def action(alias: String): Action[AnyContent] = Action {

@@ -1,6 +1,6 @@
 package controllers
 
-import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, ProjectRepository}
+import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContextAlias, BoundedContextRepository}
 import dev.tchiba.sdmt.usecase.domainmodel.add.{AddDomainModelInput, AddDomainModelOutput, AddDomainModelUseCase}
 import interfaces.forms.domainmodel.AddDomainModelForm
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class AddDomainModelController @Inject() (
     cc: MessagesControllerComponents,
-    projectRepository: ProjectRepository,
+    projectRepository: BoundedContextRepository,
     addDomainModelUseCase: AddDomainModelUseCase
 ) extends MessagesAbstractController(cc) {
 

@@ -1,12 +1,12 @@
 package dev.tchiba.sdmt.application.interactors.boundedContext.update
 
-import dev.tchiba.sdmt.core.models.boundedContext.ProjectRepository
+import dev.tchiba.sdmt.core.models.boundedContext.BoundedContextRepository
 import dev.tchiba.sdmt.usecase.boundedContext.update.{UpdateProjectInput, UpdateProjectOutput, UpdateProjectUseCase}
 
 import javax.inject.Inject
 
 final class UpdateProjectInteractor @Inject() (
-    projectRepository: ProjectRepository
+    projectRepository: BoundedContextRepository
 ) extends UpdateProjectUseCase {
   override def handle(input: UpdateProjectInput): UpdateProjectOutput = {
     val result = for {

@@ -1,12 +1,12 @@
 package dev.tchiba.sdmt.application.interactors.boundedContext.create
 
-import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContext, ProjectRepository}
+import dev.tchiba.sdmt.core.models.boundedContext.{BoundedContext, BoundedContextRepository}
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateProjectInput, CreateProjectOutput, CreateProjectUseCase}
 
 import javax.inject.Inject
 
 class CreateProjectInteractor @Inject() (
-    projectRepository: ProjectRepository
+    projectRepository: BoundedContextRepository
 ) extends CreateProjectUseCase {
   override def handle(input: CreateProjectInput): CreateProjectOutput = {
     projectRepository.findByAlias(input.projectAlias) match {

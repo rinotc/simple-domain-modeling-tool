@@ -6,14 +6,14 @@ import dev.tchiba.sdmt.core.models.boundedContext.{
   BoundedContextId,
   BoundedContextName,
   BoundedContextOverview,
-  ProjectRepository
+  BoundedContextRepository
 }
 import dev.tchiba.sdmt.infra.scalikejdbc.{DomainModels, Projects}
 import scalikejdbc._
 
-class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trait をミックスインするとQueryDSLがうまく動かない模様
+class JdbcBoundedContextRepository extends BoundedContextRepository { // SQLInterporation trait をミックスインするとQueryDSLがうまく動かない模様
 
-  import ProjectRepository._
+  import BoundedContextRepository._
 
   private val p = Projects.p
 
@@ -45,38 +45,38 @@ class JdbcProjectRepository extends ProjectRepository { // SQLInterporation trai
     Projects.findAll().map(reconstructFrom)
   }
 
-  override def insert(project: BoundedContext): Unit = {
+  override def insert(boundedContext: BoundedContext): Unit = {
     DB localTx { implicit session =>
       withSQL {
         val column = Projects.column
         QueryDSL.insert
           .into(Projects)
           .namedValues(
-            column.projectId       -> project.id.string,
-            column.projectAlias    -> project.alias.value,
-            column.projectName     -> project.name.value,
-            column.projectOverview -> project.overview.value
+            column.projectId       -> boundedContext.id.string,
+            column.projectAlias    -> boundedContext.alias.value,
+            column.projectName     -> boundedContext.name.value,
+            column.projectOverview -> boundedContext.overview.value
           )
       }.update().apply()
     }
   }
 
-  override def update(project: BoundedContext): Either[ConflictAlias, Unit] = {
-    findByAlias(project.alias) match {
-      case Some(sameAliasProject) if sameAliasProject != project => Left(ConflictAlias(sameAliasProject))
+  override def update(boundedContext: BoundedContext): Either[ConflictAlias, Unit] = {
+    findByAlias(boundedContext.alias) match {
+      case Some(sameAliasProject) if sameAliasProject != boundedContext => Left(ConflictAlias(sameAliasProject))
       case _ =>
         val updateResult = DB.localTx { implicit session =>
           withSQL {
             val column = Projects.column
             QueryDSL
               .update(Projects).set(
-                column.projectId       -> project.id.string,
-                column.projectAlias    -> project.alias.value,
-                column.projectName     -> project.name.value,
-                column.projectOverview -> project.overview.value
+                column.projectId       -> boundedContext.id.string,
+                column.projectAlias    -> boundedContext.alias.value,
+                column.projectName     -> boundedContext.name.value,
+                column.projectOverview -> boundedContext.overview.value
               )
               .where
-              .eq(column.projectId, project.id.string)
+              .eq(column.projectId, boundedContext.id.string)
           }.update().apply()
         }
         updateResult.ensuring(_ == 1, "updater target must only one record.")
