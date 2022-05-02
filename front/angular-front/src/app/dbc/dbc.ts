@@ -13,3 +13,9 @@ export function requirement(condition: boolean, message: any): void {
     throw new RequirementError(message);
   }
 }
+
+export function notNull<T>(value: T | null | undefined, message?: any): void {
+  if (!value) {
+    throw new RequirementError(`not null error: ${message}`)
+  }
+}
