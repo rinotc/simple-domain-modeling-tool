@@ -16,11 +16,11 @@ class CreateDomainModelInteractor @Inject() (
 ) extends CreateDomainModelUseCase {
 
   override def handle(input: CreateDomainModelInput): CreateDomainModelOutput = {
-    boundedContextRepository.findByAlias(input.boundedContextAlias) match {
-      case None => CreateDomainModelOutput.NoSuchBoundedContext(input.boundedContextAlias)
+    boundedContextRepository.findById(input.boundedContextId) match {
+      case None => CreateDomainModelOutput.NoSuchBoundedContext(input.boundedContextId)
       case Some(context) =>
         val newDomainModel = DomainModel.create(
-          boundedCOntextId = context.id,
+          boundedContextId = context.id,
           japaneseName = input.japaneseName,
           englishName = input.englishName,
           specification = input.specification

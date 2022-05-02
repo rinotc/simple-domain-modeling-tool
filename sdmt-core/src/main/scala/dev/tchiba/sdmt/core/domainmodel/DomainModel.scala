@@ -68,14 +68,14 @@ object DomainModel {
   ): DomainModel = new DomainModel(id, boundedContextId, japaneseName, englishName, specification)
 
   def create(
-      boundedCOntextId: BoundedContextId,
+      boundedContextId: BoundedContextId,
       japaneseName: String,
       englishName: String,
       specification: String
   ): DomainModel = {
     new DomainModel(
       id = DomainModelId.generate,
-      boundedContextId = boundedCOntextId,
+      boundedContextId = boundedContextId,
       japaneseName = japaneseName,
       englishName = englishName,
       specificationMD = specification
