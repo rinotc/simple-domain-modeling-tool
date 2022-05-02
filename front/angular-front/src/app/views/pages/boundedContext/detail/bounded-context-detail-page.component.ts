@@ -27,6 +27,7 @@ export class BoundedContextDetailPageComponent implements OnInit {
     const alias = new BoundedContextAlias(aliasString!);
     this.boundedContextRepository.findBy(alias).subscribe(context => {
       this._boundedContext = context;
+      this.headerService.update(context.name.value);
     });
   }
 
@@ -35,7 +36,7 @@ export class BoundedContextDetailPageComponent implements OnInit {
   }
 
   get boundedContext(): BoundedContext {
-    requirement(!this.isLoading, 'assume now is not loading');
+    requirement(!this.isLoading, 'assume this method call after loading.');
     return this._boundedContext!;
   }
 }

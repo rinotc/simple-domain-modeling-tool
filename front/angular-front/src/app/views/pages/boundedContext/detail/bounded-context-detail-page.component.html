@@ -1,16 +1,15 @@
-<h1>詳細画面</h1>
-
-<div *ngIf="!isLoading; else Loading">
-  <dl>
-    <dt>ID</dt>
-    <dd>{{boundedContext.id.value}}</dd>
-    <dt>ALIAS</dt>
-    <dd>{{boundedContext.alias.value}}</dd>
-    <dt>NAME</dt>
-    <dd>{{boundedContext.name.value}}</dd>
-    <dt>OVERVIEW</dt>
-    <dd>{{boundedContext.overview.value}}</dd>
-  </dl>
+<div *ngIf="!isLoading; else Loading" fxLayout="column" fxLayoutGap="16px">
+  <mat-card>
+    <mat-card-title>{{boundedContext.name.value}}</mat-card-title>
+    <mat-card-subtitle>{{boundedContext.alias.value}}</mat-card-subtitle>
+    <mat-card-content>
+      <p>{{boundedContext.overview.value}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>Edit</button>
+      <button mat-button>Delete</button>
+    </mat-card-actions>
+  </mat-card>
 </div>
 <ng-template #Loading>
   <mat-spinner></mat-spinner>
