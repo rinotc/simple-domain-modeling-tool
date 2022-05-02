@@ -1,6 +1,6 @@
 <h1>詳細画面</h1>
 
-<div *ngIf="!isLoading">
+<div *ngIf="!isLoading; else Loading">
   <dl>
     <dt>ID</dt>
     <dd>{{boundedContext.id.value}}</dd>
@@ -12,3 +12,6 @@
     <dd>{{boundedContext.overview.value}}</dd>
   </dl>
 </div>
+<ng-template #Loading>
+  <mat-spinner></mat-spinner>
+</ng-template>
