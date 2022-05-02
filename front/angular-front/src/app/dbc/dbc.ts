@@ -1,4 +1,4 @@
-class RequirementError implements Error {
+export class RequirementError implements Error {
 
   readonly name = 'requirement error'
 
@@ -8,7 +8,7 @@ class RequirementError implements Error {
   ) {}
 }
 
-export function requirement(condition: boolean, message: any): void {
+export function requirement(condition: boolean, message?: any): void {
   if (!condition) {
     throw new RequirementError(message);
   }
