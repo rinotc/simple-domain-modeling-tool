@@ -27,7 +27,7 @@ export class BoundedContextRepository {
 
   findBy(alias: BoundedContextAlias): Observable<BoundedContext> {
     return this.http
-      .get<BoundedContextResponse>(`${config.apiHost}/projects/${alias.value}`)
+      .get<BoundedContextResponse>(`${config.apiHost}/bounded-contexts/${alias.value}`)
       .pipe(
         map(res => BoundedContextResponse.convert(res))
       );

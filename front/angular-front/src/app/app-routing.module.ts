@@ -6,6 +6,11 @@ import {BoundedContextCreatePageComponent} from "./views/pages/boundedContext/cr
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'bounded-contexts',
+    pathMatch: 'full'
+  },
+  {
     path: 'bounded-contexts',
     component: BoundedContextsListPageComponent
   },
@@ -14,7 +19,7 @@ const routes: Routes = [
     component: BoundedContextCreatePageComponent
   },
   {
-    path: 'bounded-contexts/:boundedContextId',
+    path: 'bounded-contexts/:boundedContextAlias',
     component: BoundedContextDetailPageComponent
   }
 ];
