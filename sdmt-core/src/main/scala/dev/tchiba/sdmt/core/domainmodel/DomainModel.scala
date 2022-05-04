@@ -9,11 +9,11 @@ import laika.markdown.github.GitHubFlavor
 /**
  * ドメインモデル
  *
- * @param id              ドメインモデルID
- * @param boundedContextId       プロジェクトID
- * @param japaneseName    日本語名
- * @param englishName     英語名
- * @param specificationMD 仕様（Markdown）
+ * @param id               ドメインモデルID
+ * @param boundedContextId 境界づけられたコンテキストID
+ * @param japaneseName     日本語名
+ * @param englishName      英語名
+ * @param specificationMD  仕様（Markdown）
  */
 final class DomainModel private (
     val id: DomainModelId,
