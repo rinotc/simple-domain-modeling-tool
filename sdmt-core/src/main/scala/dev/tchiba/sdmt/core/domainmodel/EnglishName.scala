@@ -7,15 +7,15 @@ import dev.tchiba.sdmt.core.ValueObject
  *
  * @param value 1文字以上100文字以下の英語もしくは数字文字列。半角スペースを含まない。
  */
-final class DomainModelEnglishName private (val value: String) extends ValueObject {
+final class EnglishName private (val value: String) extends ValueObject {
 
-  import DomainModelEnglishName._
+  import EnglishName._
 
   require(requirement(value), requirementErrorMessage(value))
 
   override def equals(other: Any): Boolean = other match {
-    case that: DomainModelEnglishName => value == that.value
-    case _                            => false
+    case that: EnglishName => value == that.value
+    case _                 => false
   }
 
   override def hashCode(): Int = 31 * value.##
@@ -23,10 +23,10 @@ final class DomainModelEnglishName private (val value: String) extends ValueObje
   override def toString = s"DomainModelEnglishName($value)"
 }
 
-object DomainModelEnglishName {
-  def apply(value: String) = new DomainModelEnglishName(value)
+object EnglishName {
+  def apply(value: String) = new EnglishName(value)
 
-  def validate(value: String): Either[String, DomainModelEnglishName] =
+  def validate(value: String): Either[String, EnglishName] =
     Either.cond(requirement(value), apply(value), requirementErrorMessage(value))
 
   private def requirementErrorMessage(value: String): String =

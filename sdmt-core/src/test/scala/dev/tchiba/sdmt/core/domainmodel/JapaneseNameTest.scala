@@ -2,13 +2,13 @@ package dev.tchiba.sdmt.core.domainmodel
 
 import dev.tchiba.sdmt.test.BaseTest
 
-class DomainModelJapaneseNameTest extends BaseTest {
+class JapaneseNameTest extends BaseTest {
 
   "requirement" when {
     "empty value String" should {
       "throw requirement error" in {
         assertThrows[IllegalArgumentException] {
-          DomainModelJapaneseName("")
+          JapaneseName("")
         }
       }
     }
@@ -18,7 +18,7 @@ class DomainModelJapaneseNameTest extends BaseTest {
         val value = "あ" * 51
         value.length shouldBe 51
         assertThrows[IllegalArgumentException] {
-          DomainModelJapaneseName(value)
+          JapaneseName(value)
         }
       }
     }
@@ -27,7 +27,7 @@ class DomainModelJapaneseNameTest extends BaseTest {
       "can create instance" in {
         val value = "あ" * 50
         value.length shouldBe 50
-        DomainModelJapaneseName(value)
+        JapaneseName(value)
       }
     }
   }
@@ -35,7 +35,7 @@ class DomainModelJapaneseNameTest extends BaseTest {
   "validate" when {
     "empty value String" should {
       "return Left" in {
-        DomainModelJapaneseName.validate("") shouldBe Symbol("left")
+        JapaneseName.validate("") shouldBe Symbol("left")
       }
     }
 
@@ -43,7 +43,7 @@ class DomainModelJapaneseNameTest extends BaseTest {
       "return Left" in {
         val value = "あ" * 51
         value.length shouldBe 51
-        DomainModelJapaneseName.validate(value) shouldBe Symbol("left")
+        JapaneseName.validate(value) shouldBe Symbol("left")
       }
     }
 
@@ -51,7 +51,7 @@ class DomainModelJapaneseNameTest extends BaseTest {
       "can create instance" in {
         val value = "あ" * 50
         value.length shouldBe 50
-        val actual = DomainModelJapaneseName.validate(value)
+        val actual = JapaneseName.validate(value)
         actual shouldBe Symbol("right")
         actual.value.value shouldBe value
       }
@@ -61,16 +61,16 @@ class DomainModelJapaneseNameTest extends BaseTest {
   "equals" when {
     "same underlying value" should {
       "return true" in {
-        val a = DomainModelJapaneseName("日本語")
-        val b = DomainModelJapaneseName("日本語")
+        val a = JapaneseName("日本語")
+        val b = JapaneseName("日本語")
         (a == b) shouldBe true
       }
     }
 
     "not same underlying value" should {
       "return false" in {
-        val a = DomainModelJapaneseName("日本語")
-        val b = DomainModelJapaneseName("英語")
+        val a = JapaneseName("日本語")
+        val b = JapaneseName("英語")
 
         (a == b) shouldBe false
       }

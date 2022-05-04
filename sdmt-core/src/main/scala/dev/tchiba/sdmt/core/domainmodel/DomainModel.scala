@@ -2,9 +2,6 @@ package dev.tchiba.sdmt.core.domainmodel
 
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.core.{Aggregate, Entity}
-import laika.api.Transformer
-import laika.format.{HTML, Markdown}
-import laika.markdown.github.GitHubFlavor
 
 /**
  * ドメインモデル
@@ -13,72 +10,55 @@ import laika.markdown.github.GitHubFlavor
  * @param boundedContextId 境界づけられたコンテキストID
  * @param japaneseName     日本語名
  * @param englishName      英語名
- * @param specificationMD  仕様（Markdown）
+ * @param specification    仕様（Markdown）
  */
 final class DomainModel private (
     val id: DomainModelId,
     val boundedContextId: BoundedContextId,
-    val japaneseName: String,
-    val englishName: String,
-    val specificationMD: String
+    val japaneseName: JapaneseName,
+    val englishName: EnglishName,
+    val specification: Specification
 ) extends Entity[DomainModelId]
     with Aggregate {
 
-  /**
-   * Markdownで書かれた仕様をHTMLに変換する
-   */
-  def specificationToHtml: String = {
-    val transformer = Transformer
-      .from(Markdown)
-      .to(HTML)
-      .using(GitHubFlavor)
-      .build
+  def changeJapaneseName(name: JapaneseName): DomainModel = copy(japaneseName = name)
 
-    transformer.transform(specificationMD).left.map(_.toString) match {
-      case Left(value)  => value
-      case Right(value) => value
-    }
-  }
+  def changeEnglishName(name: EnglishName): DomainModel = copy(englishName = name)
 
-  def changeJapaneseName(name: String): DomainModel = copy(japaneseName = name)
-
-  def changeEnglishName(name: String): DomainModel = copy(englishName = name)
-
-  def changeSpecification(specification: String): DomainModel = copy(specification = specification)
+  def changeSpecification(specification: Specification): DomainModel = copy(specification = specification)
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[DomainModel]
 
-  override def toString =
-    s"DomainModel(id=$id, domainModelJapaneseName=$japaneseName, domainModelEnglishName=$englishName, specification=$specificationMD)"
-
   private def copy(
-      japaneseName: String = this.japaneseName,
-      englishName: String = this.englishName,
-      specification: String = this.specificationMD
+      japaneseName: JapaneseName = this.japaneseName,
+      englishName: EnglishName = this.englishName,
+      specification: Specification = this.specification
   ): DomainModel = new DomainModel(this.id, this.boundedContextId, japaneseName, englishName, specification)
+
+  override def toString = s"DomainModel($id, $boundedContextId, $japaneseName, $englishName, $specification)"
 }
 
 object DomainModel {
   def reconstruct(
       id: DomainModelId,
       boundedContextId: BoundedContextId,
-      japaneseName: String,
-      englishName: String,
-      specification: String
+      japaneseName: JapaneseName,
+      englishName: EnglishName,
+      specification: Specification
   ): DomainModel = new DomainModel(id, boundedContextId, japaneseName, englishName, specification)
 
   def create(
       boundedContextId: BoundedContextId,
-      japaneseName: String,
-      englishName: String,
-      specification: String
+      japaneseName: JapaneseName,
+      englishName: EnglishName,
+      specification: Specification
   ): DomainModel = {
     new DomainModel(
       id = DomainModelId.generate,
       boundedContextId = boundedContextId,
       japaneseName = japaneseName,
       englishName = englishName,
-      specificationMD = specification
+      specification = specification
     )
   }
 }

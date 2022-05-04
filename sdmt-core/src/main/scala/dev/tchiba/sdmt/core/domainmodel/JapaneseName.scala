@@ -2,15 +2,20 @@ package dev.tchiba.sdmt.core.domainmodel
 
 import dev.tchiba.sdmt.core.ValueObject
 
-final class DomainModelJapaneseName private (val value: String) extends ValueObject {
+/**
+ * ドメインモデルの日本語名
+ *
+ * @param value 1文字以上50文字以下の文字列
+ */
+final class JapaneseName private (val value: String) extends ValueObject {
 
-  import DomainModelJapaneseName._
+  import JapaneseName._
 
   require(valueLengthMustBe1to50(value), requirementErrorMessage(value))
 
   override def equals(other: Any): Boolean = other match {
-    case that: DomainModelJapaneseName => value == that.value
-    case _                             => false
+    case that: JapaneseName => value == that.value
+    case _                  => false
   }
 
   override def hashCode(): Int = 31 * value.##
@@ -18,10 +23,10 @@ final class DomainModelJapaneseName private (val value: String) extends ValueObj
   override def toString = s"DomainModelJapaneseName($value)"
 }
 
-object DomainModelJapaneseName {
-  def apply(value: String) = new DomainModelJapaneseName(value)
+object JapaneseName {
+  def apply(value: String) = new JapaneseName(value)
 
-  def validate(value: String): Either[String, DomainModelJapaneseName] =
+  def validate(value: String): Either[String, JapaneseName] =
     Either.cond(valueLengthMustBe1to50(value), apply(value), requirementErrorMessage(value))
 
   private def requirementErrorMessage(value: String): String =
