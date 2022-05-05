@@ -1,3 +1,3 @@
-# 境界づけられたコンテキストユースケース
+## 境界づけられたコンテキストユースケース
 
-<img src="BoundedContextUseCase.svg">
+<img src="BoundedContextUseCase.png">
