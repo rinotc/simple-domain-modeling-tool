@@ -26,9 +26,13 @@ final class CreateDomainModelApiController @Inject() (
         val input = request.body.input(boundedContextId)
         createDomainModelUseCase.handle(input) match {
           case CreateDomainModelOutput.NoSuchBoundedContext(id) =>
-            NotFound(ErrorResponse(s"no such bounded context id: $id").json.play)
-          case CreateDomainModelOutput.ConflictEnglishName(englishName) =>
-            Conflict(ErrorResponse(s"english name $englishName is conflicted in bounded context.").json.play)
+            NotFound(ErrorResponse(s"no such bounded context id: ${id.value}").json.play)
+          case CreateDomainModelOutput.ConflictEnglishName(conflictedModel) =>
+            Conflict(
+              ErrorResponse(
+                s"english name `${conflictedModel.englishName.value}` is conflicted in bounded context."
+              ).json.play
+            )
           case CreateDomainModelOutput.Success(newDomainModel) =>
             Ok(DomainModelResponse(newDomainModel).json)
         }

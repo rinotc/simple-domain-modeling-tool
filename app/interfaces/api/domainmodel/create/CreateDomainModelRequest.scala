@@ -1,6 +1,7 @@
 package interfaces.api.domainmodel.create
 
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
+import dev.tchiba.sdmt.core.domainmodel.{EnglishName, JapaneseName, Specification}
 import dev.tchiba.sdmt.usecase.domainmodel.create.CreateDomainModelInput
 import interfaces.json.{JsonRequest, JsonValidator}
 import play.api.libs.json.{Json, OFormat}
@@ -14,8 +15,12 @@ case class CreateDomainModelRequest(
     specification: String
 ) extends JsonRequest {
 
+  private val japName = JapaneseName.validate(japaneseName).leftThrow
+  private val engName = EnglishName.validate(englishName).leftThrow
+  private val spec    = Specification(specification)
+
   val input: BoundedContextId => CreateDomainModelInput =
-    CreateDomainModelInput(_, japaneseName, englishName, specification)
+    CreateDomainModelInput(_, japName, engName, spec)
 }
 
 object CreateDomainModelRequest {

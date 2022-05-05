@@ -25,11 +25,9 @@ class CreateDomainModelInteractor @Inject() (
           englishName = input.englishName,
           specification = input.specification
         )
-        domainModelRepository.findByEnglishName(newDomainModel.englishName, newDomainModel.boundedContextId) match {
-          case Some(_) => CreateDomainModelOutput.ConflictEnglishName(newDomainModel.englishName)
-          case None =>
-            domainModelRepository.insert(newDomainModel)
-            CreateDomainModelOutput.Success(newDomainModel)
+        domainModelRepository.insert(newDomainModel) match {
+          case Left(conflict) => CreateDomainModelOutput.ConflictEnglishName(conflict.conflictedModel)
+          case Right(_)       => CreateDomainModelOutput.Success(newDomainModel)
         }
     }
   }

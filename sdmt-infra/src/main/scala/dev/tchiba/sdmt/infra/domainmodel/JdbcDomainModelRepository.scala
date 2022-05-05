@@ -1,12 +1,20 @@
 package dev.tchiba.sdmt.infra.domainmodel
 
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
-import dev.tchiba.sdmt.core.domainmodel.{DomainModel, DomainModelId, DomainModelRepository}
+import dev.tchiba.sdmt.core.domainmodel.{
+  DomainModel,
+  DomainModelId,
+  DomainModelRepository,
+  EnglishName,
+  JapaneseName,
+  Specification
+}
 import dev.tchiba.sdmt.infra.scalikejdbc.DomainModels
 import scalikejdbc._
 
 class JdbcDomainModelRepository extends DomainModelRepository {
 
+  import DomainModelRepository._
   import JdbcDomainModelRepository._
 
   private val dm = DomainModels.dm
@@ -15,7 +23,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
     DomainModels.find(id.string).map(translate)
   }
 
-  override def findByEnglishName(englishName: String, boundedContextId: BoundedContextId): Option[DomainModel] =
+  override def findByEnglishName(englishName: EnglishName, boundedContextId: BoundedContextId): Option[DomainModel] =
     DB readOnly { implicit session =>
       withSQL {
         select
@@ -23,7 +31,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
           .where
           .eq(dm.boundedContextId, boundedContextId.string)
           .and
-          .eq(dm.englishName, englishName)
+          .eq(dm.englishName, englishName.value)
       }.map(DomainModels(dm))
         .single()
         .apply()
@@ -42,19 +50,32 @@ class JdbcDomainModelRepository extends DomainModelRepository {
       .map(translate)
   }
 
-  override def insert(model: DomainModel): Unit = DB localTx { implicit session =>
-    val e = model.toEntity
-    DomainModels.create(
-      domainModelId = e.domainModelId,
-      boundedContextId = e.boundedContextId,
-      japaneseName = e.japaneseName,
-      englishName = e.englishName,
-      specification = e.specification
-    )
+  override def insert(model: DomainModel): Either[ConflictEnglishName, Unit] = {
+    maybeSameEnglishNameAlreadyExists(model) match {
+      case Some(conflict) => Left(ConflictEnglishName(conflict))
+      case None =>
+        DB localTx { implicit session =>
+          val e = model.toEntity
+
+          DomainModels.create(
+            domainModelId = e.domainModelId,
+            boundedContextId = e.boundedContextId,
+            japaneseName = e.japaneseName,
+            englishName = e.englishName,
+            specification = e.specification
+          )
+        }
+        Right(())
+    }
   }
 
-  override def update(model: DomainModel): Unit = DB localTx { implicit session =>
-    DomainModels.save(model.toEntity)
+  override def update(model: DomainModel): Either[ConflictEnglishName, Unit] = DB localTx { implicit session =>
+    maybeSameEnglishNameAlreadyExists(model) match {
+      case Some(conflict) => Left(ConflictEnglishName(conflict))
+      case None =>
+        DomainModels.save(model.toEntity)
+        Right(())
+    }
   }
 
   override def delete(id: DomainModelId): Unit = DB localTx { implicit session =>
@@ -65,24 +86,46 @@ class JdbcDomainModelRepository extends DomainModelRepository {
         .eq(DomainModels.column.domainModelId, id.string)
     }.update().apply()
   }
+
+  /**
+   * 永続化しようとしているドメインモデルと同じコンテキスト内に自分自身を除く同じ英語名のモデルが存在しているか？
+   *
+   * @param m 永続化しようとしているモデル
+   * @return 存在すればそのドメインモデルを。なければ `None` を返す。
+   */
+  private def maybeSameEnglishNameAlreadyExists(m: DomainModel): Option[DomainModel] = DB readOnly { implicit session =>
+    withSQL {
+      select
+        .from(DomainModels.as(dm))
+        .where
+        .eq(dm.boundedContextId, m.boundedContextId.string)
+        .and
+        .eq(dm.englishName, m.englishName.value)
+        .and
+        .ne(dm.domainModelId, m.id.string)
+    }.map(DomainModels(dm))
+      .single()
+      .apply()
+      .map(translate)
+  }
 }
 
 object JdbcDomainModelRepository {
   def translate(m: DomainModels): DomainModel = DomainModel.reconstruct(
     id = DomainModelId.fromString(m.domainModelId),
     boundedContextId = BoundedContextId.fromString(m.boundedContextId),
-    japaneseName = m.japaneseName,
-    englishName = m.englishName,
-    specification = m.specification
+    japaneseName = JapaneseName(m.japaneseName),
+    englishName = EnglishName(m.englishName),
+    specification = Specification(m.specification)
   )
 
   implicit class DomainModelConverterExtension(m: DomainModel) {
     def toEntity: DomainModels = DomainModels(
       domainModelId = m.id.string,
       boundedContextId = m.boundedContextId.string,
-      japaneseName = m.japaneseName,
-      englishName = m.englishName,
-      specification = m.specificationMD
+      japaneseName = m.japaneseName.value,
+      englishName = m.englishName.value,
+      specification = m.specification.value
     )
   }
 }
