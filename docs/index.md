@@ -1,5 +1,3 @@
-# Sample GitHub Page
+# Simple Domain Modeling Tool
 
-My first repository on GitHub.
-
-I love :coffee :pizza, and :dancer.
+- [ユースケース](usecase/boundedContext/bounded-context-usecase.md)
