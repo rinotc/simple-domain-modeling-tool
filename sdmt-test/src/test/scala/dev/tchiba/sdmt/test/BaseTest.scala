@@ -12,4 +12,6 @@ trait BaseTest extends AnyWordSpec with Matchers with OptionValues with EitherVa
 
     def right[L]: Either[L, A] = Right(value)
   }
+
+  val unit: Unit = ()
 }

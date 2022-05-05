@@ -154,6 +154,70 @@
         "parameters": [],
         "description": "エイリアスを元に、プロジェクト情報を取得する"
       }
+    },
+    "/bounded-contexts/{boundedContextId}/domain-models": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "boundedContextId",
+          "in": "path",
+          "required": true,
+          "description": "境界づけられたコンテキストID"
+        }
+      ],
+      "post": {
+        "summary": "ドメインモデルの作成",
+        "tags": [
+          "DomainModel"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DomainModelResponse"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-bounded-contexts-boundedContextId-domain-models",
+        "description": "境界づけられたコンテキストにおけるドメインモデルを作成する",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "japaneseName": {
+                    "type": "string",
+                    "description": "ドメインモデル日本語名",
+                    "maxLength": 50
+                  },
+                  "englishName": {
+                    "type": "string",
+                    "description": "ドメインモデル英語名（境界づけられたコンテキスト内で一意）",
+                    "maxLength": 100
+                  },
+                  "specification": {
+                    "type": "string",
+                    "description": "仕様"
+                  }
+                },
+                "required": [
+                  "japaneseName",
+                  "englishName",
+                  "specification"
+                ]
+              }
+            }
+          },
+          "description": "新しいドメインモデル"
+        }
+      }
     }
   },
   "components": {
@@ -212,6 +276,52 @@
         "required": [
           "message"
         ]
+      },
+      "DomainModelResponse": {
+        "title": "DomainModelResponse",
+        "type": "object",
+        "x-tags": [
+          "DomainModel"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ドメインモデルID",
+            "readOnly": true
+          },
+          "boundedContextId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "境界づけられたコンテキストID",
+            "readOnly": true
+          },
+          "japaneseName": {
+            "type": "string",
+            "description": "ドメインモデル日本語名",
+            "maxLength": 50,
+            "readOnly": true
+          },
+          "englishName": {
+            "type": "string",
+            "description": "ドメインモデル英語名",
+            "maxLength": 100,
+            "readOnly": true
+          },
+          "specification": {
+            "type": "string",
+            "description": "ドメインモデルの仕様（Markdown形式）",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "id",
+          "boundedContextId",
+          "japaneseName",
+          "englishName",
+          "specification"
+        ],
+        "description": "ドメインモデルのレスポンス"
       }
     }
   }

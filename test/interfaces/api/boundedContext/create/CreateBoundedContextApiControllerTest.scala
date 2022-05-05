@@ -22,31 +22,31 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
 
   "action" when {
     "successful request has been sent" should {
-      "returns new project in json format and OK status" in {
-        val mockCreateProjectUseCase = mock[CreateBoundedContextUseCase]
-        val newProject = BoundedContext.create(
+      "returns new BoundedContext in json format and OK status" in {
+        val mockCreateBoundedContextUseCase = mock[CreateBoundedContextUseCase]
+        val newBoundedContext = BoundedContext.create(
           BoundedContextAlias("TEST"),
-          BoundedContextName("プロジェクト名"),
-          BoundedContextOverview("プロジェクト概要")
+          BoundedContextName("境界づけられたコンテキスト名"),
+          BoundedContextOverview("境界づけられたコンテキスト概要")
         )
-        (mockCreateProjectUseCase.handle _)
+        (mockCreateBoundedContextUseCase.handle _)
           .expects(*)
           .returning(
-            CreateBoundedContextOutput.Success(newProject)
+            CreateBoundedContextOutput.Success(newBoundedContext)
           )
         val controller = new CreateBoundedContextApiController(
           stubControllerComponents(),
-          mockCreateProjectUseCase
+          mockCreateBoundedContextUseCase
         )
 
         val request: FakeRequest[CreateBoundedContextRequest] = FakeRequest.apply(
           method = POST,
-          uri = "/api/projects",
+          uri = "/api/bounded-contexts",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
           body = CreateBoundedContextRequest(
-            name = newProject.name.value,
-            alias = newProject.alias.value,
-            overview = newProject.overview.value
+            name = newBoundedContext.name.value,
+            alias = newBoundedContext.alias.value,
+            overview = newBoundedContext.overview.value
           )
         )
 
@@ -54,35 +54,35 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
         val content = contentAsJson(result)
 
         status(result) mustBe OK
-        content mustBe BoundedContextResponse(newProject).json
+        content mustBe BoundedContextResponse(newBoundedContext).json
       }
     }
 
-    "project alias already exists" should {
+    "BoundedContextAlias already exists" should {
       "return error response in json format and Conflict status" in {
-        val mockCreateProjectUseCase = mock[CreateBoundedContextUseCase]
-        val conflictProject = BoundedContext.create(
+        val mockCreateBoundedContextUseCase = mock[CreateBoundedContextUseCase]
+        val conflictBoundedContext = BoundedContext.create(
           BoundedContextAlias("CONFLICT"),
-          BoundedContextName("既存プロジェクト名"),
-          BoundedContextOverview("既存プロジェクト概要")
+          BoundedContextName("既存境界づけられたコンテキスト名"),
+          BoundedContextOverview("既存境界づけられたコンテキスト概要")
         )
-        (mockCreateProjectUseCase.handle _)
+        (mockCreateBoundedContextUseCase.handle _)
           .expects(*)
           .returning(
-            CreateBoundedContextOutput.ConflictAlias(conflictProject.alias)
+            CreateBoundedContextOutput.ConflictAlias(conflictBoundedContext.alias)
           )
         val controller = new CreateBoundedContextApiController(
           stubControllerComponents(),
-          mockCreateProjectUseCase
+          mockCreateBoundedContextUseCase
         )
         val request: FakeRequest[CreateBoundedContextRequest] = FakeRequest.apply(
           method = POST,
-          uri = "/api/projects",
+          uri = "/api/bounded-contexts",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
           body = CreateBoundedContextRequest(
-            name = conflictProject.name.value,
-            alias = conflictProject.alias.value,
-            overview = conflictProject.overview.value
+            name = conflictBoundedContext.name.value,
+            alias = conflictBoundedContext.alias.value,
+            overview = conflictBoundedContext.overview.value
           )
         )
 
@@ -90,7 +90,9 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
         val content = contentAsJson(result)
 
         status(result) mustBe CONFLICT
-        content mustBe ErrorResponse(s"Bounded context alias = ${conflictProject.alias.value} is conflicted.").json.play
+        content mustBe ErrorResponse(
+          s"Bounded context alias = ${conflictBoundedContext.alias.value} is conflicted."
+        ).json.play
       }
     }
   }
