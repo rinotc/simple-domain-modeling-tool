@@ -168,7 +168,7 @@
         }
       ],
       "post": {
-        "summary": "ドメインモデルの作成",
+        "summary": "ドメインモデル作成",
         "tags": [
           "DomainModel"
         ],
@@ -216,6 +216,34 @@
             }
           },
           "description": "新しいドメインモデル"
+        }
+      },
+      "get": {
+        "summary": "ドメインモデル一覧",
+        "operationId": "get-bounded-contexts-boundedContextId-domain-models",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "description": "境界づけられたコンテキスト内のドメインモデル一覧　",
+                      "items": {
+                        "$ref": "#/components/schemas/DomainModelResponse"
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
         }
       }
     }
