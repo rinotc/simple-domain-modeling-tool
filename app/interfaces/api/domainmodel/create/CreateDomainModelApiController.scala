@@ -34,7 +34,7 @@ final class CreateDomainModelApiController @Inject() (
               ).json.play
             )
           case CreateDomainModelOutput.Success(newDomainModel) =>
-            Ok(DomainModelResponse(newDomainModel).json)
+            Created(DomainModelResponse(newDomainModel).json)
         }
       }
   }
