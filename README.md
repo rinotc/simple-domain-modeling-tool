@@ -1,7 +1,13 @@
 # Simple Domain Modeling Tool（SDMT）
 
-ドメインモデリング用のツール。
 
-DDD的な実装を試したり、モジュール、パッケージ構成などを試したりするのが主。
+## 概要
 
-いつかクラウドにデプロイして使えるようにしたい。
+ドメインモデリングを支援するツールというテーマのプロジェクト。
+
+要求定義やドキュメント、実装パターンなどを試すのが主目的です。
+
+
+## 仕様など
+
+- [Documents](https://rinotc.github.io/simple-domain-modeling-tool/)
