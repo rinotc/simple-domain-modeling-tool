@@ -1,18 +1,20 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
-POST        /api/signup                                    interfaces.api.auth.AuthApiController.singUp()
+POST        /api/signup                                                                interfaces.api.auth.AuthApiController.singUp()
 
-GET         /api/users                                     interfaces.api.user.UserApiController.allUsers()
-GET         /api/users/:userId                             interfaces.api.user.UserApiController.findUser(userId: String)
+GET         /api/users                                                                 interfaces.api.user.UserApiController.allUsers()
+GET         /api/users/:userId                                                         interfaces.api.user.UserApiController.findUser(userId: String)
 
-GET         /api/bounded-contexts                          interfaces.api.boundedContext.list.ListBoundedContextsApiController.action()
-POST        /api/bounded-contexts                          interfaces.api.boundedContext.create.CreateBoundedContextApiController.action()
-GET         /api/bounded-contexts/:alias                   interfaces.api.boundedContext.find.FindBoundedContextByAliasApiController.action(alias: String)
-PUT         /api/bounded-contexts/:id                      interfaces.api.boundedContext.update.UpdateBoundedContextApiController.action(id: String)
+GET         /api/bounded-contexts                                                      interfaces.api.boundedContext.list.ListBoundedContextsApiController.action()
+POST        /api/bounded-contexts                                                      interfaces.api.boundedContext.create.CreateBoundedContextApiController.action()
+GET         /api/bounded-contexts/:alias                                               interfaces.api.boundedContext.find.FindBoundedContextByAliasApiController.action(alias: String)
+PUT         /api/bounded-contexts/:boundedContextId                                    interfaces.api.boundedContext.update.UpdateBoundedContextApiController.action(boundedContextId: String)
 
-POST        /api/bounded-contexts/:id/domain-models        interfaces.api.domainmodel.create.CreateDomainModelApiController.action(id: String)
-GET         /api/bounded-contexts/:id/domain-models        interfaces.api.domainmodel.list.ListDomainModelsApiController.action(id: String)
+POST        /api/bounded-contexts/:boundedContextId/domain-models                      interfaces.api.domainmodel.create.CreateDomainModelApiController.action(boundedContextId: String)
+GET         /api/bounded-contexts/:boundedContextId/domain-models                      interfaces.api.domainmodel.list.ListDomainModelsApiController.action(boundedContextId: String)
+
+PUT         /api/bounded-contexts/:boundeContextId/domain-models/:domainModelId        interfaces.api.domainmodel.update.UpdateDomainModelApiController.action(boundedContextId: String, domainModelId: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                                                              controllers.Assets.versioned(path="/public", file: Asset)
