@@ -17,7 +17,12 @@ object UpdateDomainModelOutput {
    * @param updatedDomainModel 更新後のドメインモデル
    * @param boundedContext 境界づけられたコンテキスト
    */
-  case class Success(updatedDomainModel: DomainModel, boundedContext: BoundedContext) extends UpdateDomainModelOutput
+  case class Success(updatedDomainModel: DomainModel, boundedContext: BoundedContext) extends UpdateDomainModelOutput {
+    require(
+      boundedContext.contains(updatedDomainModel),
+      s"conflictModel must in boundedContext. but, context: ${boundedContext.id.string}, conflictModel: ${updatedDomainModel.boundedContextId.string}"
+    )
+  }
 
   /**
    * 境界づけられたコンテキストが見つけられなかった
@@ -42,5 +47,10 @@ object UpdateDomainModelOutput {
    * @param conflictModel  英語名が競合したドメインモデル
    */
   case class ConflictEnglishName(boundedContext: BoundedContext, conflictModel: DomainModel)
-      extends UpdateDomainModelOutput
+      extends UpdateDomainModelOutput {
+    require(
+      boundedContext.contains(conflictModel),
+      s"conflictModel must in boundedContext. but, context: ${boundedContext.id.string}, conflictModel: ${conflictModel.boundedContextId.string}"
+    )
+  }
 }

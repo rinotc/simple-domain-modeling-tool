@@ -1,5 +1,6 @@
 package dev.tchiba.sdmt.core.boundedContext
 
+import dev.tchiba.sdmt.core.domainmodel.DomainModel
 import dev.tchiba.sdmt.core.{Aggregate, Entity}
 
 /**
@@ -16,6 +17,8 @@ final class BoundedContext private (
     val overview: BoundedContextOverview
 ) extends Entity[BoundedContextId]
     with Aggregate {
+
+  def contains(domainModel: DomainModel): Boolean = domainModel.boundedContextId == id
 
   def changeAlias(newAlias: BoundedContextAlias): BoundedContext = copy(newAlias)
 
