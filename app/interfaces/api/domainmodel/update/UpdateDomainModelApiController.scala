@@ -30,9 +30,9 @@ class UpdateDomainModelApiController @Inject() (
         val input = request.body.input(boundedContextId, domainModelId)
         updateDomainModelUseCase.handle(input) match {
           case UpdateDomainModelOutput.NotFoundBoundedContext(boundedContextId) =>
-            NotFound(ErrorResponse(s"Not Found BoundedContext: ${boundedContextId.value}").json.play)
+            NotFound(ErrorResponse(s"Not Found BoundedContext: ${boundedContextId.string}").json.play)
           case UpdateDomainModelOutput.NotFoundSuchModel(_, domainModelId) =>
-            NotFound(ErrorResponse(s"Not Found DomainModel: ${domainModelId.value}").json.play)
+            NotFound(ErrorResponse(s"Not Found DomainModel: ${domainModelId.string}").json.play)
           case UpdateDomainModelOutput.ConflictEnglishName(_, conflictModel) =>
             Conflict(ErrorResponse(s"Conflict EnglishName: ${conflictModel.englishName.value}").json.play)
           case UpdateDomainModelOutput.Success(updatedDomainModel, _) =>
