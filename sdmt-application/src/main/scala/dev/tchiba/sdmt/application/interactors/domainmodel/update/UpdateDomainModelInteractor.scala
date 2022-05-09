@@ -15,23 +15,24 @@ class UpdateDomainModelInteractor @Inject() (
     domainModelRepository: DomainModelRepository
 ) extends UpdateDomainModelUseCase {
   override def handle(input: UpdateDomainModelInput): UpdateDomainModelOutput = {
-    val maybeContextAndModel = for {
-      context <- boundedContextRepository.findByAlias(input.boundedContextAlias)
-      model   <- domainModelRepository.findByEnglishName(input.englishNameNow, context.id)
-    } yield (context, model)
 
-    maybeContextAndModel match {
-      case None => UpdateDomainModelOutput.NotFoundSuchModel(input.boundedContextAlias, input.englishNameNow)
-      case Some((context, model)) =>
-        val updatedModel = model
-          .changeJapaneseName(input.updatedJapaneseName)
-          .changeEnglishName(input.updatedEnglishName)
-          .changeSpecification(input.updatedSpecification)
-        domainModelRepository.update(updatedModel) match {
-          case Left(conflict) =>
-            UpdateDomainModelOutput.ConflictEnglishName(input.boundedContextAlias, conflict.conflictedModel)
-          case Right(_) => UpdateDomainModelOutput.Success(updatedModel, context)
+    val result = for {
+      context <- boundedContextRepository
+        .findById(input.boundedContextId).toRight {
+          UpdateDomainModelOutput.NotFoundBoundedContext(input.boundedContextId)
         }
-    }
+      model <- domainModelRepository.findById(input.domainModelId).toRight {
+        UpdateDomainModelOutput.NotFoundSuchModel(context, input.domainModelId)
+      }
+      updatedModel = model
+        .changeJapaneseName(input.updatedJapaneseName)
+        .changeEnglishName(input.updatedEnglishName)
+        .changeSpecification(input.updatedSpecification)
+      _ <- domainModelRepository.update(updatedModel).left.map { conflict =>
+        UpdateDomainModelOutput.ConflictEnglishName(context, conflict.conflictedModel)
+      }
+    } yield UpdateDomainModelOutput.Success(updatedModel, context)
+
+    result.unwrap
   }
 }
