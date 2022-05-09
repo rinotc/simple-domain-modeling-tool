@@ -13,8 +13,7 @@ import scala.concurrent.ExecutionContext
 class ListDomainModelsApiController @Inject() (
     cc: ControllerComponents,
     domainModelRepository: DomainModelRepository
-)(implicit ec: ExecutionContext)
-    extends AbstractController(cc) {
+) extends AbstractController(cc) {
 
   /**
    * 境界づけられたコンテキスト一覧API

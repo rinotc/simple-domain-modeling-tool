@@ -1,9 +1,8 @@
 package dev.tchiba.sdmt.core.boundedContext
 
-import dev.tchiba.sdmt.core.EntityId
+import dev.tchiba.sdmt.core.{EntityId, EntityIdCompanion}
 
 import java.util.UUID
-import scala.util.{Failure, Success, Try}
 
 /**
  * 境界づけられたコンテキストID
@@ -20,17 +19,6 @@ final class BoundedContextId(val value: UUID) extends EntityId[UUID] {
   override def toString = s"BoundedContextId($value)"
 }
 
-object BoundedContextId {
-
-  def apply(value: UUID): BoundedContextId = new BoundedContextId(value)
-
-  def fromString(value: String): BoundedContextId = apply(UUID.fromString(value))
-
-  def validate(value: String): Either[String, BoundedContextId] = Try(fromString(value)) match {
-    case Success(boundedContextId)            => Right(boundedContextId)
-    case Failure(e: IllegalArgumentException) => Left(e.getMessage)
-    case Failure(e)                           => throw e
-  }
-
-  def generate: BoundedContextId = apply(UUID.randomUUID())
+object BoundedContextId extends EntityIdCompanion[UUID, BoundedContextId] {
+  override def apply(value: UUID): BoundedContextId = new BoundedContextId(value)
 }
