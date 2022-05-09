@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.core.boundedContext
 
-import dev.tchiba.sdmt.core.{EntityId, EntityIdCompanion}
+import dev.tchiba.sdmt.core.{EntityId, EntityIdCompanionUUID}
 
 import java.util.UUID
 
@@ -19,6 +19,6 @@ final class BoundedContextId(val value: UUID) extends EntityId[UUID] {
   override def toString = s"BoundedContextId($value)"
 }
 
-object BoundedContextId extends EntityIdCompanion[UUID, BoundedContextId] {
+object BoundedContextId extends EntityIdCompanionUUID[BoundedContextId] {
   override def apply(value: UUID): BoundedContextId = new BoundedContextId(value)
 }

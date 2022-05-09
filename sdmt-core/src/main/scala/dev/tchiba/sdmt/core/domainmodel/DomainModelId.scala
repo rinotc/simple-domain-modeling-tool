@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.core.domainmodel
 
-import dev.tchiba.sdmt.core.{EntityId, EntityIdCompanion}
+import dev.tchiba.sdmt.core.{EntityId, EntityIdCompanionUUID}
 
 import java.util.UUID
 
@@ -16,6 +16,6 @@ final class DomainModelId(val value: UUID) extends EntityId[UUID] {
   override def toString = s"DomainModelId($value)"
 }
 
-object DomainModelId extends EntityIdCompanion[UUID, DomainModelId] {
+object DomainModelId extends EntityIdCompanionUUID[DomainModelId] {
   override def apply(value: UUID): DomainModelId = new DomainModelId(value)
 }
