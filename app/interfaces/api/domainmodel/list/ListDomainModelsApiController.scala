@@ -23,7 +23,7 @@ class ListDomainModelsApiController @Inject() (
    */
   def action(bcId: String): Action[AnyContent] = Action {
     QueryValidator.sync {
-      BoundedContextId.fromString(bcId)
+      BoundedContextId.validate(bcId)
     } { boundedContextId =>
       val domainModels = domainModelRepository.listBy(boundedContextId)
       val jsons        = domainModels.map(DomainModelResponse.apply).map(_.json)
