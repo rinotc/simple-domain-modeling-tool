@@ -2,12 +2,15 @@
   "openapi": "3.0.3",
   "info": {
     "title": "sdmt api specifications",
-    "description": "Title",
-    "version": "1.0.0"
+    "description": "SDMT API Specification",
+    "version": "1.0.0",
+    "contact": {
+      "name": "rinotc"
+    }
   },
   "servers": [
     {
-      "url": "http://localhost:9000/api/",
+      "url": "http://localhost:9000/api",
       "description": "local"
     }
   ],
@@ -15,7 +18,9 @@
     "/bounded-contexts": {
       "post": {
         "summary": "境界づけられたコンテキスト作成",
-        "tags": [],
+        "tags": [
+          "BoundedContext"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -113,16 +118,17 @@
       },
       "parameters": []
     },
-    "/bounded-contexts/{alias}": {
+    "/bounded-contexts/{boundedContextId}": {
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
-          "name": "alias",
+          "name": "boundedContextId",
           "in": "path",
           "required": true,
-          "description": "境界づけられたコンテキストのエイリアス"
+          "description": "境界づけられたコンテキストID"
         }
       ],
       "get": {
@@ -151,7 +157,7 @@
         },
         "operationId": "get-bounded-contexts-alias",
         "parameters": [],
-        "description": "エイリアスを元に、プロジェクト情報を取得する",
+        "description": "境界づけられたコンテキストIDを元に、プロジェクト情報を取得する",
         "tags": [
           "BoundedContext"
         ]
@@ -249,7 +255,8 @@
         },
         "tags": [
           "DomainModel"
-        ]
+        ],
+        "description": "境界づけられたコンテキストに属するドメインモデル一覧を取得する"
       }
     },
     "/bounded-contexts/{boundedContextId}/domain-models/{domainModelId}": {
@@ -431,5 +438,13 @@
         "description": "ドメインモデルのレスポンス"
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "BoundedContext"
+    },
+    {
+      "name": "DomainModel"
+    }
+  ]
 }
