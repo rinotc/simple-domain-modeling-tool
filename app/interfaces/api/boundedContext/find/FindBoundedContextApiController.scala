@@ -18,7 +18,7 @@ class FindBoundedContextApiController @Inject() (
       BoundedContextId.validate(boundedContextId)
     } { boundedContextId =>
       boundedContextRepository.findById(boundedContextId) match {
-        case None => NotFound(ErrorResponse(s"BoundedContext: $boundedContextId not found").json.play)
+        case None => NotFound(ErrorResponse(s"BoundedContext: ${boundedContextId.string} not found").json.play)
         case Some(project) =>
           val response = BoundedContextResponse(project)
           Ok(response.json)
