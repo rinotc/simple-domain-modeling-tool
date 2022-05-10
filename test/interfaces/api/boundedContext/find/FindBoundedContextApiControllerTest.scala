@@ -45,7 +45,7 @@ class FindBoundedContextApiControllerTest extends PlaySpec with Results with Moc
       }
     }
 
-    "requested BoundedContext alias is not exist" should {
+    "requested id's BoundedContext is not exist" should {
       "return NotFound" in {
         val mockBoundedContextRepository = mock[BoundedContextRepository]
         val boundedContextId             = BoundedContextId.generate
