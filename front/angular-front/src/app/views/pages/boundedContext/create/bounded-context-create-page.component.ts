@@ -3,8 +3,8 @@ import {BoundedContextName} from "../../../../models/boundedContext/name/bounded
 import {requirement} from "../../../../dbc/dbc";
 import {BoundedContextAlias} from "../../../../models/boundedContext/alias/bounded-context-alias";
 import {BoundedContextOverview} from "../../../../models/boundedContext/overview/bounded-context-overview";
-import {BoundedContextRepository} from "../../../../models/boundedContext/bounded-context.repository";
 import {Router} from "@angular/router";
+import {BoundedContextsService} from "../../../../store/boundedContext/bounded-contexts.service";
 
 @Component({
   selector: 'app-project-create-page',
@@ -19,7 +19,7 @@ export class BoundedContextCreatePageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private boundedContextRepository: BoundedContextRepository
+    private boundedContextService: BoundedContextsService
   ) { }
 
   ngOnInit(): void {
@@ -64,7 +64,7 @@ export class BoundedContextCreatePageComponent implements OnInit {
     const name = new BoundedContextName(this.inputBoundedContextName);
     const overview = new BoundedContextOverview(this.inputBoundedContextOverview);
 
-    this.boundedContextRepository.create(alias, name, overview).subscribe((_) => {
+    this.boundedContextService.create(alias, name, overview).forEach(_ => {
       this.router.navigateByUrl('/bounded-contexts').then((_) => {});
     });
   }

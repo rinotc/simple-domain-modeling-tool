@@ -9,6 +9,7 @@ import {BoundedContextAlias} from "./alias/bounded-context-alias";
 import {BoundedContextName} from "./name/bounded-context-name";
 import {BoundedContextOverview} from "./overview/bounded-context-overview";
 import {CreateBoundedContextRequest} from "./http/CreateBoundedContextRequest";
+import {BoundedContextId} from "./id/bounded-context-id";
 
 
 @Injectable({providedIn: 'root'})
@@ -25,7 +26,15 @@ export class BoundedContextRepository {
         )
   }
 
-  findBy(alias: BoundedContextAlias): Observable<BoundedContext> {
+  findById(id: BoundedContextId): Observable<BoundedContext> {
+    return this.http
+      .get<BoundedContextResponse>(`${config.apiHost}/bounded-contexts/${id.value}`)
+      .pipe(
+        map(res => BoundedContextResponse.convert(res))
+      );
+  }
+
+  findByAlias(alias: BoundedContextAlias): Observable<BoundedContext> {
     return this.http
       .get<BoundedContextResponse>(`${config.apiHost}/bounded-contexts/${alias.value}`)
       .pipe(

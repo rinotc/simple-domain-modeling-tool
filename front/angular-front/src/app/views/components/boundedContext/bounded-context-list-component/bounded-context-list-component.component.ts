@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BoundedContext} from "../../../../models/boundedContext/bounded-context";
 import {BoundedContextRepository} from "../../../../models/boundedContext/bounded-context.repository";
+import {BoundedContextsQuery} from "../../../../store/boundedContext/bounded-contexts.query";
+import {BoundedContextsService} from "../../../../store/boundedContext/bounded-contexts.service";
 
 @Component({
   selector: 'app-bounded-context-list-component',
@@ -13,11 +15,18 @@ export class BoundedContextListComponentComponent implements OnInit {
 
   displayedColumns: string[] = ['alias', 'name', 'overview', 'detail']
 
-  constructor(private boundedContextRepository: BoundedContextRepository) {}
-
-  ngOnInit(): void {
-    this.boundedContextRepository.getAll().subscribe(contexts => {
-      this.boundedContexts = contexts
+  constructor(
+    private boundedContextsService: BoundedContextsService,
+    private boundedContextsQuery: BoundedContextsQuery
+  ) {
+    console.log('list component constructor')
+    this.boundedContextsService.fetchAll();
+    this.boundedContextsQuery.contexts$.subscribe(bcs => {
+      console.log('subscribe now')
+      console.log(bcs);
+      this.boundedContexts = bcs.contexts;
     });
   }
+
+  ngOnInit() {}
 }
