@@ -3,8 +3,10 @@ import {ActivatedRoute} from "@angular/router";
 import {HeaderService} from "../../../../store/title/header.service";
 import {notNull, requirement} from "../../../../dbc/dbc";
 import {BoundedContextAlias} from "../../../../models/boundedContext/alias/bounded-context-alias";
-import {BoundedContextRepository} from "../../../../models/boundedContext/bounded-context.repository";
 import {BoundedContext} from "../../../../models/boundedContext/bounded-context";
+import {BoundedContextsQuery} from "../../../../store/boundedContext/bounded-contexts.query";
+import {BoundedContextsService} from "../../../../store/boundedContext/bounded-contexts.service";
+import * as O from 'fp-ts/Option';
 
 @Component({
   selector: 'app-project-detail',
@@ -18,16 +20,26 @@ export class BoundedContextDetailPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private headerService: HeaderService,
-    private boundedContextRepository: BoundedContextRepository
+    private boundedContextsService: BoundedContextsService,
+    private boundedContextsQuery: BoundedContextsQuery
   ) {}
 
   ngOnInit(): void {
     const aliasString = this.route.snapshot.paramMap.get('boundedContextAlias');
     notNull(aliasString, `alias string must not be null but ${aliasString}`);
     const alias = new BoundedContextAlias(aliasString!);
-    this.boundedContextRepository.findBy(alias).subscribe(context => {
-      this._boundedContext = context;
-      this.headerService.update(context.name.value);
+    this.boundedContextsQuery.contexts$.subscribe(contexts => {
+      const maybeContext: O.Option<BoundedContext> = contexts.findByAlias(alias)
+      O.match<BoundedContext, void>(
+        () => {
+          this.boundedContextsService.fetchAll();
+        },
+        (context) => {
+          this.boundedContextsService.fetchById(context.id)
+          this.headerService.update(context.name.value);
+          this._boundedContext = context;
+        }
+      )(maybeContext)
     });
   }
 

@@ -17,48 +17,48 @@ import play.api.mvc.Results
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsJson, defaultAwaitTimeout, status, stubControllerComponents}
 
-class FindBoundedContextByAliasApiControllerTest extends PlaySpec with Results with MockFactory {
+class FindBoundedContextApiControllerTest extends PlaySpec with Results with MockFactory {
 
   "action" when {
-    "requested BoundedContext alias is exist" should {
-      "return OK and response that alias BoundedContext" in {
+    "requested BoundedContextId is exist" should {
+      "return OK and response that id's BoundedContext" in {
         val mockBoundedContextRepository = mock[BoundedContextRepository]
-        val requestAliasValue            = "TEST"
+        val boundedContextId             = BoundedContextId.generate
         val existingProject = BoundedContext.reconstruct(
-          BoundedContextId.generate,
-          BoundedContextAlias(requestAliasValue),
+          boundedContextId,
+          BoundedContextAlias("TEST"),
           BoundedContextName("境界づけられたコンテキスト名称"),
           BoundedContextOverview("境界づけられたコンテキスト概要")
         )
-        (mockBoundedContextRepository.findByAlias _)
-          .expects(existingProject.alias)
+        (mockBoundedContextRepository.findById _)
+          .expects(boundedContextId)
           .returning(
             Some(existingProject)
           )
 
         val controller =
-          new FindBoundedContextByAliasApiController(stubControllerComponents(), mockBoundedContextRepository)
+          new FindBoundedContextApiController(stubControllerComponents(), mockBoundedContextRepository)
 
-        val result = controller.action(requestAliasValue).apply(FakeRequest())
+        val result = controller.action(boundedContextId.string).apply(FakeRequest())
         status(result) mustEqual OK
         contentAsJson(result) mustBe BoundedContextResponse(existingProject).json
       }
     }
 
-    "requested BoundedContext alias is not exist" should {
+    "requested id's BoundedContext is not exist" should {
       "return NotFound" in {
         val mockBoundedContextRepository = mock[BoundedContextRepository]
-        val requestAliasValue            = "TEST"
-        (mockBoundedContextRepository.findByAlias _)
-          .expects(*)
+        val boundedContextId             = BoundedContextId.generate
+        (mockBoundedContextRepository.findById _)
+          .expects(boundedContextId)
           .returning(None)
 
         val controller =
-          new FindBoundedContextByAliasApiController(stubControllerComponents(), mockBoundedContextRepository)
+          new FindBoundedContextApiController(stubControllerComponents(), mockBoundedContextRepository)
 
-        val result = controller.action(requestAliasValue).apply(FakeRequest())
+        val result = controller.action(boundedContextId.string).apply(FakeRequest())
         status(result) mustEqual NOT_FOUND
-        contentAsJson(result) mustBe ErrorResponse(s"bounded context $requestAliasValue not found").json.play
+        contentAsJson(result) mustBe ErrorResponse(s"BoundedContext: ${boundedContextId.string} not found").json.play
       }
     }
   }
