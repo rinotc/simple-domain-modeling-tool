@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {BoundedContext} from "../../../../models/boundedContext/bounded-context";
-import {BoundedContextRepository} from "../../../../models/boundedContext/bounded-context.repository";
 import {BoundedContextsQuery} from "../../../../store/boundedContext/bounded-contexts.query";
 import {BoundedContextsService} from "../../../../store/boundedContext/bounded-contexts.service";
 
