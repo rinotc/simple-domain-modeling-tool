@@ -18,11 +18,8 @@ export class BoundedContextListComponentComponent implements OnInit {
     private boundedContextsService: BoundedContextsService,
     private boundedContextsQuery: BoundedContextsQuery
   ) {
-    console.log('list component constructor')
     this.boundedContextsService.fetchAll();
     this.boundedContextsQuery.contexts$.subscribe(bcs => {
-      console.log('subscribe now')
-      console.log(bcs);
       this.boundedContexts = bcs.contexts;
     });
   }

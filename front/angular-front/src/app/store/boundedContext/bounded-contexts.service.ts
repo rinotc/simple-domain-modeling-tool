@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {BoundedContextsStore} from './bounded-contexts.store';
-import {map, Observable, tap} from "rxjs";
+import {tap} from "rxjs";
 import {ApiCollectionResponse} from "../../models/ApiCollectionResponse";
 import {BoundedContextResponse} from "../../models/boundedContext/http/BoundedContextResponse";
 import {config} from "../../config";
@@ -20,7 +20,6 @@ export class BoundedContextsService {
   ) {}
 
   fetchAll(): void {
-    console.log('fetchAll')
     this.http
       .get<ApiCollectionResponse<BoundedContextResponse>>(`${config.apiHost}/bounded-contexts`)
       .subscribe(res => {
