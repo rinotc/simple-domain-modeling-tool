@@ -200,25 +200,25 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "japaneseName": {
+                  "ubiquitousName": {
                     "type": "string",
-                    "description": "ドメインモデル日本語名",
-                    "maxLength": 50
+                    "maxLength": 50,
+                    "description": "ユビキタス名"
                   },
                   "englishName": {
                     "type": "string",
                     "description": "ドメインモデル英語名（境界づけられたコンテキスト内で一意）",
                     "maxLength": 100
                   },
-                  "specification": {
+                  "knowledge": {
                     "type": "string",
-                    "description": "仕様"
+                    "description": "モデルの知識（Markdown形式）"
                   }
                 },
                 "required": [
-                  "japaneseName",
+                  "ubiquitousName",
                   "englishName",
-                  "specification"
+                  "knowledge"
                 ]
               }
             }
@@ -397,6 +397,7 @@
         "x-tags": [
           "DomainModel"
         ],
+        "description": "ドメインモデルのレスポンス",
         "properties": {
           "id": {
             "type": "string",
@@ -410,9 +411,9 @@
             "description": "境界づけられたコンテキストID",
             "readOnly": true
           },
-          "japaneseName": {
+          "ubiquitousName": {
             "type": "string",
-            "description": "ドメインモデル日本語名",
+            "description": "ユビキタス名",
             "maxLength": 50,
             "readOnly": true
           },
@@ -422,20 +423,19 @@
             "maxLength": 100,
             "readOnly": true
           },
-          "specification": {
+          "knowledge": {
             "type": "string",
-            "description": "ドメインモデルの仕様（Markdown形式）",
+            "description": "モデルの知識（Markdown形式）",
             "readOnly": true
           }
         },
         "required": [
           "id",
           "boundedContextId",
-          "japaneseName",
+          "ubiquitousName",
           "englishName",
-          "specification"
-        ],
-        "description": "ドメインモデルのレスポンス"
+          "knowledge"
+        ]
       }
     }
   },

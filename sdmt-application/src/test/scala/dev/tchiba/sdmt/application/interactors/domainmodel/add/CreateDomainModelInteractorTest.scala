@@ -8,7 +8,7 @@ import dev.tchiba.sdmt.core.boundedContext.{
   BoundedContextOverview,
   BoundedContextRepository
 }
-import dev.tchiba.sdmt.core.domainmodel.{DomainModel, DomainModelRepository, EnglishName, JapaneseName, Specification}
+import dev.tchiba.sdmt.core.domainmodel.{DomainModel, DomainModelRepository, EnglishName, UbiquitousName, Knowledge}
 import dev.tchiba.sdmt.test.BaseTest
 import dev.tchiba.sdmt.usecase.domainmodel.create.{CreateDomainModelInput, CreateDomainModelOutput}
 import org.scalamock.scalatest.MockFactory
@@ -31,9 +31,9 @@ class CreateDomainModelInteractorTest extends BaseTest with MockFactory {
 
         private val input = CreateDomainModelInput(
           boundedContextId = BoundedContextId.generate,
-          japaneseName = JapaneseName("日本語名"),
+          ubiquitousName = UbiquitousName("ユビキタス名"),
           englishName = EnglishName("EnglishName"),
-          specification = Specification("仕様")
+          knowledge = Knowledge("知識")
         )
         private val actual = interactor.handle(input)
 
@@ -59,16 +59,16 @@ class CreateDomainModelInteractorTest extends BaseTest with MockFactory {
 
         private val input = CreateDomainModelInput(
           boundedContextId = boundedContext.id,
-          japaneseName = JapaneseName("日本語名"),
+          ubiquitousName = UbiquitousName("ユビキタス名"),
           englishName = EnglishName("EnglishName"),
-          specification = Specification("仕様")
+          knowledge = Knowledge("知識")
         )
 
         private val conflictedDomainModel = DomainModel.create(
           boundedContext.id,
-          japaneseName = JapaneseName("コンフリクトしたドメインモデル日本語名"),
+          ubiquitousName = UbiquitousName("コンフリクトしたドメインモデルユビキタス名"),
           englishName = input.englishName,
-          specification = Specification("コンフリクトしたドメインモデル仕様")
+          knowledge = Knowledge("コンフリクトしたドメインモデル知識")
         )
 
         (domainModelRepository.insert _)
@@ -98,9 +98,9 @@ class CreateDomainModelInteractorTest extends BaseTest with MockFactory {
 
         private val input = CreateDomainModelInput(
           boundedContextId = boundedContext.id,
-          japaneseName = JapaneseName("日本語名"),
+          ubiquitousName = UbiquitousName("ユビキタス名"),
           englishName = EnglishName("EnglishName"),
-          specification = Specification("仕様")
+          knowledge = Knowledge("知識")
         )
 
         (domainModelRepository.insert _)
@@ -111,9 +111,9 @@ class CreateDomainModelInteractorTest extends BaseTest with MockFactory {
 
         inside(actual) { case CreateDomainModelOutput.Success(newDomainModel) =>
           newDomainModel.boundedContextId shouldBe input.boundedContextId
-          newDomainModel.japaneseName shouldBe input.japaneseName
+          newDomainModel.ubiquitousName shouldBe input.ubiquitousName
           newDomainModel.englishName shouldBe input.englishName
-          newDomainModel.specification shouldBe input.specification
+          newDomainModel.knowledge shouldBe input.knowledge
         }
       }
     }

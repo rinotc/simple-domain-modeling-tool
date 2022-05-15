@@ -21,9 +21,9 @@ class CreateDomainModelInteractor @Inject() (
       case Some(context) =>
         val newDomainModel = DomainModel.create(
           boundedContextId = context.id,
-          japaneseName = input.japaneseName,
+          ubiquitousName = input.ubiquitousName,
           englishName = input.englishName,
-          specification = input.specification
+          knowledge = input.knowledge
         )
         domainModelRepository.insert(newDomainModel) match {
           case Left(conflict) => CreateDomainModelOutput.ConflictEnglishName(conflict.conflictedModel)

@@ -8,9 +8,9 @@ import {DomainModelId} from "../id/domain-model-id";
 export interface DomainModelResponse {
   id: string,
   boundedContextId: string,
-  japaneseName: string,
+  ubiquitousName: string,
   englishName: string,
-  specification: string
+  knowledge: string
 }
 
 export const DomainModelResponse = {
@@ -18,9 +18,9 @@ export const DomainModelResponse = {
     return new DomainModel(
       new DomainModelId(res.id),
       new BoundedContextId(res.boundedContextId),
-      new UbiquitousName(res.japaneseName),
+      new UbiquitousName(res.ubiquitousName),
       new EnglishName(res.englishName),
-      new Knowledge(res.specification)
+      new Knowledge(res.knowledge)
     )
   }
 }

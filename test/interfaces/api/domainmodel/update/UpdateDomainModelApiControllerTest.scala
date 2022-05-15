@@ -1,7 +1,7 @@
 package interfaces.api.domainmodel.update
 
 import dev.tchiba.sdmt.core.boundedContext._
-import dev.tchiba.sdmt.core.domainmodel.{DomainModel, DomainModelId, EnglishName, JapaneseName, Specification}
+import dev.tchiba.sdmt.core.domainmodel.{DomainModel, DomainModelId, EnglishName, UbiquitousName, Knowledge}
 import dev.tchiba.sdmt.usecase.domainmodel.update.{UpdateDomainModelOutput, UpdateDomainModelUseCase}
 import interfaces.api.domainmodel.json.DomainModelResponse
 import interfaces.json.error.ErrorResponse
@@ -36,9 +36,9 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           uri = s"/api/bounded-contexts/$invalidFormBoundedContextId/domain-models/${domainModelId.string}",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
           body = UpdateDomainModelRequest(
-            japaneseName = "日本語名",
+            ubiquitousName = "ユビキタス名",
             englishName = "EnglishName",
-            specification = "仕様"
+            knowledge = "知識"
           )
         )
 
@@ -58,9 +58,9 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           uri = s"/api/bounded-contexts/${boundedContextId.string}/domain-models/$invalidDomainModelId",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
           body = UpdateDomainModelRequest(
-            japaneseName = "日本語名",
+            ubiquitousName = "ユビキタス名",
             englishName = "EnglishName",
-            specification = "仕様"
+            knowledge = "知識"
           )
         )
 
@@ -80,9 +80,9 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           uri = s"/api/bounded-contexts/${bcId.string}/domain-models/${dmId.string}",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
           body = UpdateDomainModelRequest(
-            japaneseName = "日本語名",
+            ubiquitousName = "ユビキタス名",
             englishName = "EnglishName",
-            specification = "仕様"
+            knowledge = "知識"
           )
         )
 
@@ -108,9 +108,9 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           uri = s"/api/bounded-contexts/${bcId.string}/domain-models/${dmId.string}",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
           body = UpdateDomainModelRequest(
-            japaneseName = "日本語名",
+            ubiquitousName = "ユビキタス名",
             englishName = "EnglishName",
-            specification = "仕様"
+            knowledge = "知識"
           )
         )
         private val input = request.body.input(bcId, dmId)
@@ -141,9 +141,9 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           uri = s"/api/bounded-contexts/${bcId.string}/domain-models/${dmId.string}",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
           body = UpdateDomainModelRequest(
-            japaneseName = "日本語名",
+            ubiquitousName = "ユビキタス名",
             englishName = "EnglishName",
-            specification = "仕様"
+            knowledge = "知識"
           )
         )
         private val input = request.body.input(bcId, dmId)
@@ -156,9 +156,9 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
         private val conflictDomainModel = DomainModel.create(
           boundedContextId = bcId,
-          japaneseName = JapaneseName("コンフリクトしたモデル"),
+          ubiquitousName = UbiquitousName("コンフリクトしたモデル"),
           englishName = EnglishName("EnglishName"),
-          specification = Specification("仕様")
+          knowledge = Knowledge("知識")
         )
 
         (updateDomainModelUseCase.handle _)
@@ -183,9 +183,9 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           uri = s"/api/bounded-contexts/${bcId.string}/domain-models/${dmId.string}",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
           body = UpdateDomainModelRequest(
-            japaneseName = "日本語名",
+            ubiquitousName = "ユビキタス名",
             englishName = "EnglishName",
-            specification = "仕様"
+            knowledge = "知識"
           )
         )
         private val input = request.body.input(bcId, dmId)
@@ -199,9 +199,9 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
         private val updatedDomainModel = DomainModel.reconstruct(
           id = dmId,
           boundedContextId = bcId,
-          japaneseName = input.updatedJapaneseName,
+          ubiquitousName = input.updatedUbiquitousName,
           englishName = input.updatedEnglishName,
-          specification = input.updatedSpecification
+          knowledge = input.updatedKnowledge
         )
 
         (updateDomainModelUseCase.handle _)

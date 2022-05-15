@@ -13,9 +13,9 @@ final class DomainModelResponse(domainModel: DomainModel) extends PlayJsonRespon
   private val response = Response(
     id = domainModel.id.value,
     boundedContextId = domainModel.boundedContextId.value,
-    japaneseName = domainModel.japaneseName.value,
+    ubiquitousName = domainModel.ubiquitousName.value,
     englishName = domainModel.englishName.value,
-    specification = domainModel.specification.value
+    knowledge = domainModel.knowledge.value
   )
 
   override def json: JsValue = Json.toJson(response)
@@ -28,9 +28,9 @@ object DomainModelResponse {
   private case class Response(
       id: UUID,
       boundedContextId: UUID,
-      japaneseName: String,
+      ubiquitousName: String,
       englishName: String,
-      specification: String
+      knowledge: String
   )
 
   implicit private val jsonFormat: OFormat[Response] = Json.format[Response]

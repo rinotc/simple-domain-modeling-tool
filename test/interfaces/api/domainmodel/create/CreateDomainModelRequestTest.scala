@@ -1,24 +1,24 @@
 package interfaces.api.domainmodel.create
 
-import dev.tchiba.sdmt.core.domainmodel.{EnglishName, JapaneseName}
+import dev.tchiba.sdmt.core.domainmodel.{EnglishName, UbiquitousName}
 import interfaces.json.RequestValidationError
 import org.scalatestplus.play.PlaySpec
 
 class CreateDomainModelRequestTest extends PlaySpec {
 
   "primary constructor" when {
-    "invalid japaneseName request" should {
+    "invalid ubiquitousName request" should {
       "throw RequestValidationError" in {
-        val japaneseName = "あ" * 51
+        val ubiquitousName = "あ" * 51
         assertThrows[IllegalArgumentException] {
-          JapaneseName(japaneseName)
+          UbiquitousName(ubiquitousName)
         }
 
         assertThrows[RequestValidationError] {
           CreateDomainModelRequest(
-            japaneseName,
+            ubiquitousName,
             "EnglishName",
-            "Specification"
+            "Knowledge"
           )
         }
       }
@@ -33,9 +33,9 @@ class CreateDomainModelRequestTest extends PlaySpec {
 
         assertThrows[RequestValidationError] {
           CreateDomainModelRequest(
-            "日本語名",
+            "ユビキタス名",
             englishName,
-            "Specification"
+            "Knowledge"
           )
         }
       }

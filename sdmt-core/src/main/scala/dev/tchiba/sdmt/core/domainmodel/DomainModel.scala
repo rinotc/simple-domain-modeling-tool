@@ -8,57 +8,57 @@ import dev.tchiba.sdmt.core.{Aggregate, Entity}
  *
  * @param id               ドメインモデルID
  * @param boundedContextId 境界づけられたコンテキストID
- * @param japaneseName     日本語名
+ * @param ubiquitousName   ユビキタス名
  * @param englishName      英語名
- * @param specification    仕様（Markdown）
+ * @param knowledge        モデルの知識（Markdown）
  */
 final class DomainModel private (
     val id: DomainModelId,
     val boundedContextId: BoundedContextId,
-    val japaneseName: JapaneseName,
+    val ubiquitousName: UbiquitousName,
     val englishName: EnglishName,
-    val specification: Specification
+    val knowledge: Knowledge
 ) extends Entity[DomainModelId]
     with Aggregate {
 
-  def changeJapaneseName(name: JapaneseName): DomainModel = copy(japaneseName = name)
+  def changeUbiquitousName(name: UbiquitousName): DomainModel = copy(ubiquitousName = name)
 
   def changeEnglishName(name: EnglishName): DomainModel = copy(englishName = name)
 
-  def changeSpecification(specification: Specification): DomainModel = copy(specification = specification)
+  def changeKnowledge(knowledge: Knowledge): DomainModel = copy(knowledge = knowledge)
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[DomainModel]
 
   private def copy(
-      japaneseName: JapaneseName = this.japaneseName,
+      ubiquitousName: UbiquitousName = this.ubiquitousName,
       englishName: EnglishName = this.englishName,
-      specification: Specification = this.specification
-  ): DomainModel = new DomainModel(this.id, this.boundedContextId, japaneseName, englishName, specification)
+      knowledge: Knowledge = this.knowledge
+  ): DomainModel = new DomainModel(this.id, this.boundedContextId, ubiquitousName, englishName, knowledge)
 
-  override def toString = s"DomainModel($id, $boundedContextId, $japaneseName, $englishName, $specification)"
+  override def toString = s"DomainModel($id, $boundedContextId, $ubiquitousName, $englishName, $knowledge)"
 }
 
 object DomainModel {
   def reconstruct(
       id: DomainModelId,
       boundedContextId: BoundedContextId,
-      japaneseName: JapaneseName,
+      ubiquitousName: UbiquitousName,
       englishName: EnglishName,
-      specification: Specification
-  ): DomainModel = new DomainModel(id, boundedContextId, japaneseName, englishName, specification)
+      knowledge: Knowledge
+  ): DomainModel = new DomainModel(id, boundedContextId, ubiquitousName, englishName, knowledge)
 
   def create(
       boundedContextId: BoundedContextId,
-      japaneseName: JapaneseName,
+      ubiquitousName: UbiquitousName,
       englishName: EnglishName,
-      specification: Specification
+      knowledge: Knowledge
   ): DomainModel = {
     new DomainModel(
       id = DomainModelId.generate,
       boundedContextId = boundedContextId,
-      japaneseName = japaneseName,
+      ubiquitousName = ubiquitousName,
       englishName = englishName,
-      specification = specification
+      knowledge = knowledge
     )
   }
 }
