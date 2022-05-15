@@ -13,7 +13,7 @@ import dev.tchiba.sdmt.core.domainmodel.{
   DomainModelId,
   DomainModelRepository,
   EnglishName,
-  JapaneseName,
+  UbiquitousName,
   Specification
 }
 import dev.tchiba.sdmt.test.BaseTest
@@ -39,7 +39,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
         private val input = UpdateDomainModelInput(
           boundedContextId = BoundedContextId.generate,
           domainModelId = DomainModelId.generate,
-          updatedJapaneseName = JapaneseName("更新後名称"),
+          updatedUbiquitousName = UbiquitousName("更新後名称"),
           updatedEnglishName = EnglishName("UpdatedEnglishName"),
           updatedSpecification = Specification("仕様")
         )
@@ -66,7 +66,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
         private val input = UpdateDomainModelInput(
           boundedContextId = boundedContext.id,
           domainModelId = DomainModelId.generate,
-          updatedJapaneseName = JapaneseName("更新後名称"),
+          updatedUbiquitousName = UbiquitousName("更新後名称"),
           updatedEnglishName = EnglishName("UpdatedEnglishName"),
           updatedSpecification = Specification("仕様")
         )
@@ -96,7 +96,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
 
         private val domainModel = DomainModel.create(
           boundedContextId = boundedContext.id,
-          japaneseName = JapaneseName("名称"),
+          ubiquitousName = UbiquitousName("名称"),
           englishName = EnglishName("EnglishName"),
           specification = Specification("仕様")
         )
@@ -104,7 +104,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
         private val input = UpdateDomainModelInput(
           boundedContextId = boundedContext.id,
           domainModelId = domainModel.id,
-          updatedJapaneseName = JapaneseName("更新後名称"),
+          updatedUbiquitousName = UbiquitousName("更新後名称"),
           updatedEnglishName = EnglishName("UpdatedEnglishName"),
           updatedSpecification = Specification("更改後仕様")
         )
@@ -116,14 +116,14 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
         private val updateDomainModel = DomainModel.reconstruct(
           domainModel.id,
           boundedContext.id,
-          input.updatedJapaneseName,
+          input.updatedUbiquitousName,
           input.updatedEnglishName,
           input.updatedSpecification
         )
 
         private val englishNameConflictDomainModel = DomainModel.create(
           boundedContextId = boundedContext.id,
-          japaneseName = JapaneseName("英語名がコンフリクトしたドメインモデル名称"),
+          ubiquitousName = UbiquitousName("英語名がコンフリクトしたドメインモデル名称"),
           englishName = EnglishName("UpdatedEnglishName"),
           specification = Specification("仕様")
         )
@@ -154,7 +154,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
 
         private val domainModel = DomainModel.create(
           boundedContextId = boundedContext.id,
-          japaneseName = JapaneseName("名称"),
+          ubiquitousName = UbiquitousName("名称"),
           englishName = EnglishName("EnglishName"),
           specification = Specification("仕様")
         )
@@ -162,7 +162,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
         private val input = UpdateDomainModelInput(
           boundedContextId = boundedContext.id,
           domainModelId = domainModel.id,
-          updatedJapaneseName = JapaneseName("更新後名称"),
+          updatedUbiquitousName = UbiquitousName("更新後名称"),
           updatedEnglishName = EnglishName("UpdatedEnglishName"),
           updatedSpecification = Specification("更改後仕様")
         )
@@ -174,7 +174,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
         private val updateDomainModel = DomainModel.reconstruct(
           domainModel.id,
           boundedContext.id,
-          input.updatedJapaneseName,
+          input.updatedUbiquitousName,
           input.updatedEnglishName,
           input.updatedSpecification
         )

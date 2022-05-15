@@ -13,7 +13,7 @@ final class DomainModelResponse(domainModel: DomainModel) extends PlayJsonRespon
   private val response = Response(
     id = domainModel.id.value,
     boundedContextId = domainModel.boundedContextId.value,
-    japaneseName = domainModel.japaneseName.value,
+    ubiquitousName = domainModel.ubiquitousName.value,
     englishName = domainModel.englishName.value,
     specification = domainModel.specification.value
   )
@@ -28,7 +28,7 @@ object DomainModelResponse {
   private case class Response(
       id: UUID,
       boundedContextId: UUID,
-      japaneseName: String,
+      ubiquitousName: String,
       englishName: String,
       specification: String
   )

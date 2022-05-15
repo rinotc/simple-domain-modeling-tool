@@ -29,9 +29,9 @@ create table domain_models
     bounded_context_id char(36)     not null
         constraint domain_models_bounded_contexts_bounded_context_id_fk
             references bounded_contexts,
-    japanese_name      varchar(50)  not null,
+    ubiquitous_name    varchar(50)  not null,
     english_name       varchar(100) not null,
-    specification      text         not null
+    knowledge          text         not null
 );
 
 comment on table domain_models is 'ドメインモデルテーブル';
@@ -40,15 +40,15 @@ comment on column domain_models.domain_model_id is 'ドメインモデルID';
 
 comment on column domain_models.bounded_context_id is '紐づく境界づけられたコンテキストID';
 
-comment on column domain_models.japanese_name is 'ドメインモデル日本語名';
+comment on column domain_models.ubiquitous_name is 'ユビキタス名';
 
 comment on column domain_models.english_name is 'ドメインモデル英語名（プロジェクト内で一意）';
 
-comment on column domain_models.specification is 'モデルの仕様';
-
+comment on column domain_models.knowledge is 'モデルの知識';
 
 create unique index domain_model_project_id_english_name_uindex
     on domain_models (bounded_context_id, english_name);
+
 
 create table users
 (

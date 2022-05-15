@@ -1,7 +1,7 @@
 package interfaces.api.domainmodel.create
 
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
-import dev.tchiba.sdmt.core.domainmodel.{DomainModel, EnglishName, JapaneseName, Specification}
+import dev.tchiba.sdmt.core.domainmodel.{DomainModel, EnglishName, UbiquitousName, Specification}
 import dev.tchiba.sdmt.usecase.domainmodel.create.{CreateDomainModelOutput, CreateDomainModelUseCase}
 import interfaces.api.domainmodel.json.DomainModelResponse
 import interfaces.json.error.ErrorResponse
@@ -36,7 +36,7 @@ class CreateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           uri = s"/api/bounded-contexts/$invalidFormBoundedContextId/domain-models",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
           body = CreateDomainModelRequest(
-            japaneseName = "日本語名",
+            ubiquitousName = "日本語名",
             englishName = "EnglishName",
             specification = "仕様"
           )
@@ -57,7 +57,7 @@ class CreateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           uri = s"/api/bounded-contexts/${notFoundBoundedContextId.value}/domain-models",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
           body = CreateDomainModelRequest(
-            japaneseName = "日本語名",
+            ubiquitousName = "日本語名",
             englishName = "EnglishName",
             specification = "仕様"
           )
@@ -84,7 +84,7 @@ class CreateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           uri = s"/api/bounded-contexts/${boundedContextId.value}/domain-models",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
           body = CreateDomainModelRequest(
-            japaneseName = "日本語名",
+            ubiquitousName = "日本語名",
             englishName = "EnglishName",
             specification = "仕様"
           )
@@ -92,7 +92,7 @@ class CreateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
         val conflictedDomainModel: DomainModel = DomainModel.create(
           boundedContextId = boundedContextId,
-          japaneseName = JapaneseName("コンフリクトした日本語名"),
+          ubiquitousName = UbiquitousName("コンフリクトした日本語名"),
           englishName = EnglishName("EnglishName"),
           specification = Specification("コンフリクトした仕様")
         )
@@ -113,7 +113,7 @@ class CreateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           val boundedContextId: BoundedContextId = BoundedContextId.generate
 
           val createDomainModelRequest: CreateDomainModelRequest = CreateDomainModelRequest(
-            japaneseName = "日本語名",
+            ubiquitousName = "日本語名",
             englishName = "EnglishName",
             specification = "仕様"
           )
@@ -127,7 +127,7 @@ class CreateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
           val newDomainModel: DomainModel = DomainModel.create(
             boundedContextId = boundedContextId,
-            japaneseName = JapaneseName(createDomainModelRequest.japaneseName),
+            ubiquitousName = UbiquitousName(createDomainModelRequest.ubiquitousName),
             englishName = EnglishName(createDomainModelRequest.englishName),
             specification = Specification(createDomainModelRequest.specification)
           )

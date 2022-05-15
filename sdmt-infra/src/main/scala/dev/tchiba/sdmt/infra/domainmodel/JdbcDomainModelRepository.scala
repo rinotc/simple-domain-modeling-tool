@@ -6,7 +6,7 @@ import dev.tchiba.sdmt.core.domainmodel.{
   DomainModelId,
   DomainModelRepository,
   EnglishName,
-  JapaneseName,
+  UbiquitousName,
   Specification
 }
 import dev.tchiba.sdmt.infra.scalikejdbc.DomainModels
@@ -60,9 +60,9 @@ class JdbcDomainModelRepository extends DomainModelRepository {
           DomainModels.create(
             domainModelId = e.domainModelId,
             boundedContextId = e.boundedContextId,
-            japaneseName = e.japaneseName,
+            ubiquitousName = e.ubiquitousName,
             englishName = e.englishName,
-            specification = e.specification
+            knowledge = e.knowledge
           )
         }
         Right(())
@@ -114,18 +114,18 @@ object JdbcDomainModelRepository {
   def translate(m: DomainModels): DomainModel = DomainModel.reconstruct(
     id = DomainModelId.fromString(m.domainModelId),
     boundedContextId = BoundedContextId.fromString(m.boundedContextId),
-    japaneseName = JapaneseName(m.japaneseName),
+    ubiquitousName = UbiquitousName(m.ubiquitousName),
     englishName = EnglishName(m.englishName),
-    specification = Specification(m.specification)
+    specification = Specification(m.knowledge)
   )
 
   implicit class DomainModelConverterExtension(m: DomainModel) {
     def toEntity: DomainModels = DomainModels(
       domainModelId = m.id.string,
       boundedContextId = m.boundedContextId.string,
-      japaneseName = m.japaneseName.value,
+      ubiquitousName = m.ubiquitousName.value,
       englishName = m.englishName.value,
-      specification = m.specification.value
+      knowledge = m.specification.value
     )
   }
 }

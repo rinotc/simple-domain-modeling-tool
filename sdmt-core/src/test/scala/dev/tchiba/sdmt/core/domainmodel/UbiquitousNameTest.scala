@@ -2,13 +2,13 @@ package dev.tchiba.sdmt.core.domainmodel
 
 import dev.tchiba.sdmt.test.BaseTest
 
-class JapaneseNameTest extends BaseTest {
+class UbiquitousNameTest extends BaseTest {
 
   "requirement" when {
     "empty value String" should {
       "throw requirement error" in {
         assertThrows[IllegalArgumentException] {
-          JapaneseName("")
+          UbiquitousName("")
         }
       }
     }
@@ -18,7 +18,7 @@ class JapaneseNameTest extends BaseTest {
         val value = "あ" * 51
         value.length shouldBe 51
         assertThrows[IllegalArgumentException] {
-          JapaneseName(value)
+          UbiquitousName(value)
         }
       }
     }
@@ -27,7 +27,7 @@ class JapaneseNameTest extends BaseTest {
       "can create instance" in {
         val value = "あ" * 50
         value.length shouldBe 50
-        JapaneseName(value)
+        UbiquitousName(value)
       }
     }
   }
@@ -35,7 +35,7 @@ class JapaneseNameTest extends BaseTest {
   "validate" when {
     "empty value String" should {
       "return Left" in {
-        JapaneseName.validate("") shouldBe Symbol("left")
+        UbiquitousName.validate("") shouldBe Symbol("left")
       }
     }
 
@@ -43,7 +43,7 @@ class JapaneseNameTest extends BaseTest {
       "return Left" in {
         val value = "あ" * 51
         value.length shouldBe 51
-        JapaneseName.validate(value) shouldBe Symbol("left")
+        UbiquitousName.validate(value) shouldBe Symbol("left")
       }
     }
 
@@ -51,7 +51,7 @@ class JapaneseNameTest extends BaseTest {
       "can create instance" in {
         val value = "あ" * 50
         value.length shouldBe 50
-        val actual = JapaneseName.validate(value)
+        val actual = UbiquitousName.validate(value)
         actual shouldBe Symbol("right")
         actual.value.value shouldBe value
       }
@@ -61,16 +61,16 @@ class JapaneseNameTest extends BaseTest {
   "equals" when {
     "same underlying value" should {
       "return true" in {
-        val a = JapaneseName("日本語")
-        val b = JapaneseName("日本語")
+        val a = UbiquitousName("日本語")
+        val b = UbiquitousName("日本語")
         (a == b) shouldBe true
       }
     }
 
     "not same underlying value" should {
       "return false" in {
-        val a = JapaneseName("日本語")
-        val b = JapaneseName("英語")
+        val a = UbiquitousName("日本語")
+        val b = UbiquitousName("英語")
 
         (a == b) shouldBe false
       }

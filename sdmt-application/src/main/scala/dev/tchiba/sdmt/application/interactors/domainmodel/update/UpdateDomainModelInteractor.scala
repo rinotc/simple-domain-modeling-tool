@@ -25,7 +25,7 @@ class UpdateDomainModelInteractor @Inject() (
         UpdateDomainModelOutput.NotFoundSuchModel(context, input.domainModelId)
       }
       updatedModel = model
-        .changeJapaneseName(input.updatedJapaneseName)
+        .changeUbiquitousName(input.updatedUbiquitousName)
         .changeEnglishName(input.updatedEnglishName)
         .changeSpecification(input.updatedSpecification)
       _ <- domainModelRepository.update(updatedModel).left.map { conflict =>

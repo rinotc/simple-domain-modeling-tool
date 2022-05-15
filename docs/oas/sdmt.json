@@ -200,10 +200,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "japaneseName": {
+                  "ubiquitousName": {
                     "type": "string",
-                    "description": "ドメインモデル日本語名",
-                    "maxLength": 50
+                    "maxLength": 50,
+                    "description": "ユビキタス名"
                   },
                   "englishName": {
                     "type": "string",
@@ -216,7 +216,7 @@
                   }
                 },
                 "required": [
-                  "japaneseName",
+                  "ubiquitousName",
                   "englishName",
                   "specification"
                 ]
@@ -397,6 +397,7 @@
         "x-tags": [
           "DomainModel"
         ],
+        "description": "ドメインモデルのレスポンス",
         "properties": {
           "id": {
             "type": "string",
@@ -410,9 +411,9 @@
             "description": "境界づけられたコンテキストID",
             "readOnly": true
           },
-          "japaneseName": {
+          "ubiquitousName": {
             "type": "string",
-            "description": "ドメインモデル日本語名",
+            "description": "ユビキタス名",
             "maxLength": 50,
             "readOnly": true
           },
@@ -431,11 +432,10 @@
         "required": [
           "id",
           "boundedContextId",
-          "japaneseName",
+          "ubiquitousName",
           "englishName",
           "specification"
-        ],
-        "description": "ドメインモデルのレスポンス"
+        ]
       }
     }
   },
