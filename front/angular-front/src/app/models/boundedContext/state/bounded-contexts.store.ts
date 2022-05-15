@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Store, StoreConfig} from '@datorama/akita';
-import {BoundedContexts} from "../../models/boundedContext/bounded-contexts";
+import {BoundedContexts} from "../bounded-contexts";
 
 export interface BoundedContextsState {
   contexts: BoundedContexts

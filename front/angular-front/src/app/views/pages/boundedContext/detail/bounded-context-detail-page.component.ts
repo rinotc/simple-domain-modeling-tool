@@ -4,8 +4,8 @@ import {HeaderService} from "../../../../store/title/header.service";
 import {notNull, requirement} from "../../../../dbc/dbc";
 import {BoundedContextAlias} from "../../../../models/boundedContext/alias/bounded-context-alias";
 import {BoundedContext} from "../../../../models/boundedContext/bounded-context";
-import {BoundedContextsQuery} from "../../../../store/boundedContext/bounded-contexts.query";
-import {BoundedContextsService} from "../../../../store/boundedContext/bounded-contexts.service";
+import {BoundedContextsQuery} from "../../../../models/boundedContext/state/bounded-contexts.query";
+import {BoundedContextsService} from "../../../../models/boundedContext/state/bounded-contexts.service";
 import * as O from 'fp-ts/Option';
 
 @Component({
