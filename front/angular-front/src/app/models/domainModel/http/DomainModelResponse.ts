@@ -10,7 +10,7 @@ export interface DomainModelResponse {
   boundedContextId: string,
   ubiquitousName: string,
   englishName: string,
-  specification: string
+  knowledge: string
 }
 
 export const DomainModelResponse = {
@@ -20,7 +20,7 @@ export const DomainModelResponse = {
       new BoundedContextId(res.boundedContextId),
       new UbiquitousName(res.ubiquitousName),
       new EnglishName(res.englishName),
-      new Knowledge(res.specification)
+      new Knowledge(res.knowledge)
     )
   }
 }

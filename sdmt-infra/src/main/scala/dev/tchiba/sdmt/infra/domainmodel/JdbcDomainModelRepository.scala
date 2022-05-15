@@ -7,7 +7,7 @@ import dev.tchiba.sdmt.core.domainmodel.{
   DomainModelRepository,
   EnglishName,
   UbiquitousName,
-  Specification
+  Knowledge
 }
 import dev.tchiba.sdmt.infra.scalikejdbc.DomainModels
 import scalikejdbc._
@@ -116,7 +116,7 @@ object JdbcDomainModelRepository {
     boundedContextId = BoundedContextId.fromString(m.boundedContextId),
     ubiquitousName = UbiquitousName(m.ubiquitousName),
     englishName = EnglishName(m.englishName),
-    specification = Specification(m.knowledge)
+    knowledge = Knowledge(m.knowledge)
   )
 
   implicit class DomainModelConverterExtension(m: DomainModel) {
@@ -125,7 +125,7 @@ object JdbcDomainModelRepository {
       boundedContextId = m.boundedContextId.string,
       ubiquitousName = m.ubiquitousName.value,
       englishName = m.englishName.value,
-      knowledge = m.specification.value
+      knowledge = m.knowledge.value
     )
   }
 }

@@ -14,7 +14,7 @@ import dev.tchiba.sdmt.core.domainmodel.{
   DomainModelRepository,
   EnglishName,
   UbiquitousName,
-  Specification
+  Knowledge
 }
 import dev.tchiba.sdmt.test.BaseTest
 import dev.tchiba.sdmt.usecase.domainmodel.update.{UpdateDomainModelInput, UpdateDomainModelOutput}
@@ -41,7 +41,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           domainModelId = DomainModelId.generate,
           updatedUbiquitousName = UbiquitousName("更新後名称"),
           updatedEnglishName = EnglishName("UpdatedEnglishName"),
-          updatedSpecification = Specification("仕様")
+          updatedKnowledge = Knowledge("知識")
         )
 
         private val actual   = interactor.handle(input)
@@ -68,7 +68,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           domainModelId = DomainModelId.generate,
           updatedUbiquitousName = UbiquitousName("更新後名称"),
           updatedEnglishName = EnglishName("UpdatedEnglishName"),
-          updatedSpecification = Specification("仕様")
+          updatedKnowledge = Knowledge("知識")
         )
 
         (domainModelRepository.findById _)
@@ -98,7 +98,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           boundedContextId = boundedContext.id,
           ubiquitousName = UbiquitousName("名称"),
           englishName = EnglishName("EnglishName"),
-          specification = Specification("仕様")
+          knowledge = Knowledge("知識")
         )
 
         private val input = UpdateDomainModelInput(
@@ -106,7 +106,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           domainModelId = domainModel.id,
           updatedUbiquitousName = UbiquitousName("更新後名称"),
           updatedEnglishName = EnglishName("UpdatedEnglishName"),
-          updatedSpecification = Specification("更改後仕様")
+          updatedKnowledge = Knowledge("更改後知識")
         )
 
         (domainModelRepository.findById _)
@@ -118,14 +118,14 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           boundedContext.id,
           input.updatedUbiquitousName,
           input.updatedEnglishName,
-          input.updatedSpecification
+          input.updatedKnowledge
         )
 
         private val englishNameConflictDomainModel = DomainModel.create(
           boundedContextId = boundedContext.id,
           ubiquitousName = UbiquitousName("英語名がコンフリクトしたドメインモデル名称"),
           englishName = EnglishName("UpdatedEnglishName"),
-          specification = Specification("仕様")
+          knowledge = Knowledge("知識")
         )
 
         (domainModelRepository.update _)
@@ -156,7 +156,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           boundedContextId = boundedContext.id,
           ubiquitousName = UbiquitousName("名称"),
           englishName = EnglishName("EnglishName"),
-          specification = Specification("仕様")
+          knowledge = Knowledge("知識")
         )
 
         private val input = UpdateDomainModelInput(
@@ -164,7 +164,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           domainModelId = domainModel.id,
           updatedUbiquitousName = UbiquitousName("更新後名称"),
           updatedEnglishName = EnglishName("UpdatedEnglishName"),
-          updatedSpecification = Specification("更改後仕様")
+          updatedKnowledge = Knowledge("更改後知識")
         )
 
         (domainModelRepository.findById _)
@@ -176,7 +176,7 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           boundedContext.id,
           input.updatedUbiquitousName,
           input.updatedEnglishName,
-          input.updatedSpecification
+          input.updatedKnowledge
         )
 
         (domainModelRepository.update _)

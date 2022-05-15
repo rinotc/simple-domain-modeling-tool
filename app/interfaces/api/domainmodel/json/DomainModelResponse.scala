@@ -15,7 +15,7 @@ final class DomainModelResponse(domainModel: DomainModel) extends PlayJsonRespon
     boundedContextId = domainModel.boundedContextId.value,
     ubiquitousName = domainModel.ubiquitousName.value,
     englishName = domainModel.englishName.value,
-    specification = domainModel.specification.value
+    knowledge = domainModel.knowledge.value
   )
 
   override def json: JsValue = Json.toJson(response)
@@ -30,7 +30,7 @@ object DomainModelResponse {
       boundedContextId: UUID,
       ubiquitousName: String,
       englishName: String,
-      specification: String
+      knowledge: String
   )
 
   implicit private val jsonFormat: OFormat[Response] = Json.format[Response]

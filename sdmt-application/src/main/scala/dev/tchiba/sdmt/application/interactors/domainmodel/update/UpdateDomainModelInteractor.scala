@@ -27,7 +27,7 @@ class UpdateDomainModelInteractor @Inject() (
       updatedModel = model
         .changeUbiquitousName(input.updatedUbiquitousName)
         .changeEnglishName(input.updatedEnglishName)
-        .changeSpecification(input.updatedSpecification)
+        .changeKnowledge(input.updatedKnowledge)
       _ <- domainModelRepository.update(updatedModel).left.map { conflict =>
         UpdateDomainModelOutput.ConflictEnglishName(context, conflict.conflictedModel)
       }

@@ -23,7 +23,7 @@ class CreateDomainModelInteractor @Inject() (
           boundedContextId = context.id,
           ubiquitousName = input.ubiquitousName,
           englishName = input.englishName,
-          specification = input.specification
+          knowledge = input.knowledge
         )
         domainModelRepository.insert(newDomainModel) match {
           case Left(conflict) => CreateDomainModelOutput.ConflictEnglishName(conflict.conflictedModel)

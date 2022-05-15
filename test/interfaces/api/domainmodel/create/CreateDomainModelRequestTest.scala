@@ -18,7 +18,7 @@ class CreateDomainModelRequestTest extends PlaySpec {
           CreateDomainModelRequest(
             ubiquitousName,
             "EnglishName",
-            "Specification"
+            "Knowledge"
           )
         }
       }
@@ -33,9 +33,9 @@ class CreateDomainModelRequestTest extends PlaySpec {
 
         assertThrows[RequestValidationError] {
           CreateDomainModelRequest(
-            "日本語名",
+            "ユビキタス名",
             englishName,
-            "Specification"
+            "Knowledge"
           )
         }
       }

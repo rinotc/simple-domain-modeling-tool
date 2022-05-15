@@ -210,15 +210,15 @@
                     "description": "ドメインモデル英語名（境界づけられたコンテキスト内で一意）",
                     "maxLength": 100
                   },
-                  "specification": {
+                  "knowledge": {
                     "type": "string",
-                    "description": "仕様"
+                    "description": "モデルの知識（Markdown形式）"
                   }
                 },
                 "required": [
                   "ubiquitousName",
                   "englishName",
-                  "specification"
+                  "knowledge"
                 ]
               }
             }
@@ -423,9 +423,9 @@
             "maxLength": 100,
             "readOnly": true
           },
-          "specification": {
+          "knowledge": {
             "type": "string",
-            "description": "ドメインモデルの仕様（Markdown形式）",
+            "description": "モデルの知識（Markdown形式）",
             "readOnly": true
           }
         },
@@ -434,7 +434,7 @@
           "boundedContextId",
           "ubiquitousName",
           "englishName",
-          "specification"
+          "knowledge"
         ]
       }
     }

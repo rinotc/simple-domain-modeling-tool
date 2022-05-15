@@ -1,7 +1,7 @@
 package interfaces.api.domainmodel.create
 
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
-import dev.tchiba.sdmt.core.domainmodel.{EnglishName, UbiquitousName, Specification}
+import dev.tchiba.sdmt.core.domainmodel.{EnglishName, UbiquitousName, Knowledge}
 import dev.tchiba.sdmt.usecase.domainmodel.create.CreateDomainModelInput
 import interfaces.json.{JsonRequest, JsonValidator}
 import play.api.libs.json.{Json, OFormat}
@@ -12,15 +12,15 @@ import scala.concurrent.ExecutionContext
 case class CreateDomainModelRequest(
     ubiquitousName: String,
     englishName: String,
-    specification: String
+    knowledge: String
 ) extends JsonRequest {
 
   private val ubiName = UbiquitousName.validate(ubiquitousName).leftThrow
   private val engName = EnglishName.validate(englishName).leftThrow
-  private val spec    = Specification(specification)
+  private val know    = Knowledge(knowledge)
 
   val input: BoundedContextId => CreateDomainModelInput =
-    CreateDomainModelInput(_, ubiName, engName, spec)
+    CreateDomainModelInput(_, ubiName, engName, know)
 }
 
 object CreateDomainModelRequest {
