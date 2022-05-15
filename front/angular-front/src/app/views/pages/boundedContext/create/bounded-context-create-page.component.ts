@@ -4,7 +4,7 @@ import {requirement} from "../../../../dbc/dbc";
 import {BoundedContextAlias} from "../../../../models/boundedContext/alias/bounded-context-alias";
 import {BoundedContextOverview} from "../../../../models/boundedContext/overview/bounded-context-overview";
 import {Router} from "@angular/router";
-import {BoundedContextsService} from "../../../../store/boundedContext/bounded-contexts.service";
+import {BoundedContextsService} from "../../../../models/boundedContext/state/bounded-contexts.service";
 
 @Component({
   selector: 'app-project-create-page',

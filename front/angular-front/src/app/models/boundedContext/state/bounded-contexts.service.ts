@@ -2,14 +2,14 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {BoundedContextsStore} from './bounded-contexts.store';
 import {tap} from "rxjs";
-import {ApiCollectionResponse} from "../../models/ApiCollectionResponse";
-import {BoundedContextResponse} from "../../models/boundedContext/http/BoundedContextResponse";
-import {config} from "../../config";
-import {BoundedContextId} from "../../models/boundedContext/id/bounded-context-id";
-import {CreateBoundedContextRequest} from "../../models/boundedContext/http/CreateBoundedContextRequest";
-import {BoundedContextAlias} from "../../models/boundedContext/alias/bounded-context-alias";
-import {BoundedContextName} from "../../models/boundedContext/name/bounded-context-name";
-import {BoundedContextOverview} from "../../models/boundedContext/overview/bounded-context-overview";
+import {ApiCollectionResponse} from "../../ApiCollectionResponse";
+import {BoundedContextResponse} from "../http/BoundedContextResponse";
+import {config} from "../../../config";
+import {BoundedContextId} from "../id/bounded-context-id";
+import {CreateBoundedContextRequest} from "../http/CreateBoundedContextRequest";
+import {BoundedContextAlias} from "../alias/bounded-context-alias";
+import {BoundedContextName} from "../name/bounded-context-name";
+import {BoundedContextOverview} from "../overview/bounded-context-overview";
 
 @Injectable({ providedIn: 'root' })
 export class BoundedContextsService {

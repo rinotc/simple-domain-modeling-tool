@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BoundedContext} from "../../../../models/boundedContext/bounded-context";
-import {BoundedContextsQuery} from "../../../../store/boundedContext/bounded-contexts.query";
-import {BoundedContextsService} from "../../../../store/boundedContext/bounded-contexts.service";
+import {BoundedContextsQuery} from "../../../../models/boundedContext/state/bounded-contexts.query";
+import {BoundedContextsService} from "../../../../models/boundedContext/state/bounded-contexts.service";
 
 @Component({
   selector: 'app-bounded-context-list-component',
