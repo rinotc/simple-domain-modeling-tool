@@ -37,7 +37,7 @@ object BoundedContextName {
 
   private def mustNotEmpty(value: String): Boolean = value.nonEmpty
 
-  private def mustLessThan100Length(value: String): Boolean = value.length <= 100
+  private def mustLessThan100Length(value: String): Boolean = value.lengthIs <= 100
 
   private def projectNameRequirementMessage(value: String) =
     s"BoundedContextName length must 1 to 100 characters, but ${value.length}"

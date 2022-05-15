@@ -32,5 +32,5 @@ object JapaneseName {
   private def requirementErrorMessage(value: String): String =
     s"DomainModelJapaneseName must between 1 to 50 length, but value length is ${value.length}（$value）"
 
-  private def valueLengthMustBe1to50(value: String): Boolean = value.nonEmpty && value.length <= 50
+  private def valueLengthMustBe1to50(value: String): Boolean = value.nonEmpty && value.lengthIs <= 50
 }

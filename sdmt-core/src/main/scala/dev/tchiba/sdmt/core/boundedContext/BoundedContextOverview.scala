@@ -30,7 +30,7 @@ object BoundedContextOverview {
     mustLessThan500LengthMessage(value)
   )
 
-  private def mustLessThan500Length(value: String): Boolean = value.length <= 500
+  private def mustLessThan500Length(value: String): Boolean = value.lengthIs <= 500
 
   private def mustLessThan500LengthMessage(value: String): String =
     s"BoundedContextOverview must less than 500 length. but ${value.length}"
