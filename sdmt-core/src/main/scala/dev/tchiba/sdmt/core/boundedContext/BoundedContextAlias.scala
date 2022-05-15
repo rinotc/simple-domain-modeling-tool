@@ -41,7 +41,7 @@ object BoundedContextAlias {
 
   private def mustNotEmpty(value: String): Boolean = value.nonEmpty
 
-  private def mustLessThan32Length(value: String): Boolean = value.length <= 32
+  private def mustLessThan32Length(value: String): Boolean = value.lengthIs <= 32
 
   private def mustOnlyAlphanumerical(value: String): Boolean = "^[0-9a-zA-Z]{1,32}$".r.matches(value)
 }
