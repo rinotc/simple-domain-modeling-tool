@@ -28,8 +28,9 @@ export class BoundedContexts {
       if (c.equals(context)) {
         isConflict = true;
         contexts.push(context)
+      } else {
+        contexts.push(c);
       }
-      contexts.push(c);
     }
     if (!isConflict) { contexts.push(context) }
     return new BoundedContexts(contexts);

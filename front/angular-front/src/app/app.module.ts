@@ -18,14 +18,26 @@ import {
   BoundedContextListComponentComponent
 } from './views/components/boundedContext/bounded-context-list-component/bounded-context-list-component.component';
 import {MatTableModule} from "@angular/material/table";
-import { WelcomeComponent } from './views/components/welcome/welcome.component';
-import { BoundedContextDetailPageComponent } from './views/pages/boundedContext/detail/bounded-context-detail-page.component';
+import {WelcomeComponent} from './views/components/welcome/welcome.component';
+import {
+  BoundedContextDetailPageComponent
+} from './views/pages/boundedContext/detail/bounded-context-detail-page.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
-import { BoundedContextCreatePageComponent } from './views/pages/boundedContext/create/bounded-context-create-page.component';
+import {
+  BoundedContextCreatePageComponent
+} from './views/pages/boundedContext/create/bounded-context-create-page.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatMenuModule} from '@angular/material/menu';
+import {LayoutModule} from '@angular/cdk/layout';
+import {
+  ListDomainModelsComponent
+} from './views/components/domainModel/list-domain-models/list-domain-models.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -36,6 +48,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     WelcomeComponent,
     BoundedContextDetailPageComponent,
     BoundedContextCreatePageComponent,
+    ListDomainModelsComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +67,12 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatGridListModule,
+    MatMenuModule,
+    LayoutModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
