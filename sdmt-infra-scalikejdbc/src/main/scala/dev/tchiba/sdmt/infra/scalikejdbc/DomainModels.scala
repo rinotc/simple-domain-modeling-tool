@@ -5,9 +5,9 @@ import scalikejdbc._
 case class DomainModels(
   domainModelId: String,
   boundedContextId: String,
-  japaneseName: String,
+  ubiquitousName: String,
   englishName: String,
-  specification: String) {
+  knowledge: String) {
 
   def save()(implicit session: DBSession = DomainModels.autoSession): DomainModels = DomainModels.save(this)(session)
 
@@ -22,15 +22,15 @@ object DomainModels extends SQLSyntaxSupport[DomainModels] {
 
   override val tableName = "domain_models"
 
-  override val columns = Seq("domain_model_id", "bounded_context_id", "japanese_name", "english_name", "specification")
+  override val columns = Seq("domain_model_id", "bounded_context_id", "ubiquitous_name", "english_name", "knowledge")
 
   def apply(dm: SyntaxProvider[DomainModels])(rs: WrappedResultSet): DomainModels = apply(dm.resultName)(rs)
   def apply(dm: ResultName[DomainModels])(rs: WrappedResultSet): DomainModels = new DomainModels(
     domainModelId = rs.get(dm.domainModelId),
     boundedContextId = rs.get(dm.boundedContextId),
-    japaneseName = rs.get(dm.japaneseName),
+    ubiquitousName = rs.get(dm.ubiquitousName),
     englishName = rs.get(dm.englishName),
-    specification = rs.get(dm.specification)
+    knowledge = rs.get(dm.knowledge)
   )
 
   val dm = DomainModels.syntax("dm")
@@ -72,25 +72,25 @@ object DomainModels extends SQLSyntaxSupport[DomainModels] {
   def create(
     domainModelId: String,
     boundedContextId: String,
-    japaneseName: String,
+    ubiquitousName: String,
     englishName: String,
-    specification: String)(implicit session: DBSession = autoSession): DomainModels = {
+    knowledge: String)(implicit session: DBSession = autoSession): DomainModels = {
     withSQL {
       insert.into(DomainModels).namedValues(
         column.domainModelId -> domainModelId,
         column.boundedContextId -> boundedContextId,
-        column.japaneseName -> japaneseName,
+        column.ubiquitousName -> ubiquitousName,
         column.englishName -> englishName,
-        column.specification -> specification
+        column.knowledge -> knowledge
       )
     }.update.apply()
 
     DomainModels(
       domainModelId = domainModelId,
       boundedContextId = boundedContextId,
-      japaneseName = japaneseName,
+      ubiquitousName = ubiquitousName,
       englishName = englishName,
-      specification = specification)
+      knowledge = knowledge)
   }
 
   def batchInsert(entities: collection.Seq[DomainModels])(implicit session: DBSession = autoSession): List[Int] = {
@@ -98,21 +98,21 @@ object DomainModels extends SQLSyntaxSupport[DomainModels] {
       Seq(
         Symbol("domainModelId") -> entity.domainModelId,
         Symbol("boundedContextId") -> entity.boundedContextId,
-        Symbol("japaneseName") -> entity.japaneseName,
+        Symbol("ubiquitousName") -> entity.ubiquitousName,
         Symbol("englishName") -> entity.englishName,
-        Symbol("specification") -> entity.specification))
+        Symbol("knowledge") -> entity.knowledge))
     SQL("""insert into domain_models(
       domain_model_id,
       bounded_context_id,
-      japanese_name,
+      ubiquitous_name,
       english_name,
-      specification
+      knowledge
     ) values (
       {domainModelId},
       {boundedContextId},
-      {japaneseName},
+      {ubiquitousName},
       {englishName},
-      {specification}
+      {knowledge}
     )""").batchByName(params.toSeq: _*).apply[List]()
   }
 
@@ -121,9 +121,9 @@ object DomainModels extends SQLSyntaxSupport[DomainModels] {
       update(DomainModels).set(
         column.domainModelId -> entity.domainModelId,
         column.boundedContextId -> entity.boundedContextId,
-        column.japaneseName -> entity.japaneseName,
+        column.ubiquitousName -> entity.ubiquitousName,
         column.englishName -> entity.englishName,
-        column.specification -> entity.specification
+        column.knowledge -> entity.knowledge
       ).where.eq(column.domainModelId, entity.domainModelId)
     }.update.apply()
     entity
