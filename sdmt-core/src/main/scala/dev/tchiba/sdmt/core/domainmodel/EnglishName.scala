@@ -20,7 +20,7 @@ final class EnglishName private (val value: String) extends ValueObject {
 
   override def hashCode(): Int = 31 * value.##
 
-  override def toString = s"DomainModelEnglishName($value)"
+  override def toString = s"EnglishName($value)"
 }
 
 object EnglishName {
@@ -30,11 +30,11 @@ object EnglishName {
     Either.cond(requirement(value), apply(value), requirementErrorMessage(value))
 
   private def requirementErrorMessage(value: String): String =
-    s"DomainModelEnglishName must between 1 to 100 length and only use alphabet or numerical, but value is $value"
+    s"EnglishName must between 1 to 100 length and only use alphabet or numerical, but value is $value"
 
   private def requirement(value: String): Boolean = valueLengthMustBe1To100(value) && mustOnlyAlphanumerical(value)
 
-  private def valueLengthMustBe1To100(value: String): Boolean = value.nonEmpty && value.length <= 100
+  private def valueLengthMustBe1To100(value: String): Boolean = value.nonEmpty && value.lengthIs <= 100
 
   private def mustOnlyAlphanumerical(value: String): Boolean = "[a-zA-Z\\d]{1,100}".r.matches(value)
 }
