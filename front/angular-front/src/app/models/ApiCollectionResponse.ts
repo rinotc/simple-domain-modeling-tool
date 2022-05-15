@@ -1,3 +1,3 @@
 export interface ApiCollectionResponse <T> {
-  data: T[];
+  data: Array<T>;
 }

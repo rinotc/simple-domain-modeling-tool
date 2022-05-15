@@ -13,9 +13,9 @@ export class DomainModelsService {
 
   fetchAll(boundedContextId: BoundedContextId): void {
     this.http
-      .get<ApiCollectionResponse<DomainModelResponse>>(`${config.apiHost}/bounded-contexts/${boundedContextId.value}`)
+      .get<ApiCollectionResponse<DomainModelResponse>>(`${config.apiHost}/bounded-contexts/${boundedContextId.value}/domain-models`)
       .subscribe(res => {
-        const dms = res.data.map(r => DomainModelResponse.translate(r));
+        const dms = res.data.map((r) => DomainModelResponse.translate(r));
         this.domainModelsStore.update((state) => {
           return {
             models: state.models.replace(dms)

@@ -27,10 +27,6 @@ export class EnglishName {
   }
 
   static isValid(value: string): boolean {
-
-    console.log(this.mustBe1To100Characters(value));
-    console.log(this.mustOnlyAlphanumerical(value));
-
     return this.mustBe1To100Characters(value) && this.mustOnlyAlphanumerical(value);
   }
 

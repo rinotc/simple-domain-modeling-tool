@@ -15,7 +15,7 @@ export class DomainModels implements Iterable<DomainModel> {
     return this._models[Symbol.iterator]();
   }
 
-  get contexts(): DomainModel[] {
+  get models(): DomainModel[] {
     return this._models;
   }
 
@@ -60,7 +60,7 @@ export class DomainModels implements Iterable<DomainModel> {
 
   // 重複した要素は存在できない
   private static mustNotExistDuplicateValues(models: DomainModels): boolean {
-    const idStrings = models.contexts.map(c => c.id.value);
+    const idStrings = models.models.map(c => c.id.value);
     const idSet = new Set(idStrings);
     return idStrings.length === idSet.size;
   }
