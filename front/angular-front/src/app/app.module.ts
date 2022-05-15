@@ -18,10 +18,14 @@ import {
   BoundedContextListComponentComponent
 } from './views/components/boundedContext/bounded-context-list-component/bounded-context-list-component.component';
 import {MatTableModule} from "@angular/material/table";
-import { WelcomeComponent } from './views/components/welcome/welcome.component';
-import { BoundedContextDetailPageComponent } from './views/pages/boundedContext/detail/bounded-context-detail-page.component';
+import {WelcomeComponent} from './views/components/welcome/welcome.component';
+import {
+  BoundedContextDetailPageComponent
+} from './views/pages/boundedContext/detail/bounded-context-detail-page.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
-import { BoundedContextCreatePageComponent } from './views/pages/boundedContext/create/bounded-context-create-page.component';
+import {
+  BoundedContextCreatePageComponent
+} from './views/pages/boundedContext/create/bounded-context-create-page.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";

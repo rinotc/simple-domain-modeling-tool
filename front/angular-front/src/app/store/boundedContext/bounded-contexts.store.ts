@@ -6,10 +6,12 @@ export interface BoundedContextsState {
   contexts: BoundedContexts
 }
 
-export function createInitialState(): BoundedContextsState {
-  return {
-    contexts: BoundedContexts.empty()
-  };
+const BoundedContextsState = {
+  createInitialState(): BoundedContextsState {
+    return {
+      contexts: BoundedContexts.empty()
+    };
+  }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -17,6 +19,6 @@ export function createInitialState(): BoundedContextsState {
 export class BoundedContextsStore extends Store<BoundedContextsState> {
 
   constructor() {
-    super(createInitialState());
+    super(BoundedContextsState.createInitialState());
   }
 }
