@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HeaderService} from "../../../../store/title/header.service";
 import {notNull, requirement} from "../../../../dbc/dbc";
 import {BoundedContextAlias} from "../../../../models/boundedContext/alias/bounded-context-alias";
@@ -18,6 +18,7 @@ export class BoundedContextDetailPageComponent implements OnInit {
   private _boundedContext: BoundedContext | null = null;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private headerService: HeaderService,
     private boundedContextsService: BoundedContextsService,
@@ -50,5 +51,15 @@ export class BoundedContextDetailPageComponent implements OnInit {
   get boundedContext(): BoundedContext {
     requirement(!this.isLoading, 'assume this method call after loading.');
     return this._boundedContext!;
+  }
+
+  clickCreateDomainModelButton(): void {
+    this.router.navigateByUrl(`bounded-contexts/${this.boundedContext.alias.value}/domain-models/create`).then(isSuccess => {
+      if (isSuccess) {
+        console.log('success!')
+      } else {
+        console.log('failed!')
+      }
+    });
   }
 }

@@ -25,3 +25,11 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Angular関連URL
+
+- [Angular](https://angular.jp/)
+- [Akita](https://datorama.github.io/akita/)
+- [Angular Wiki](https://www.angularjswiki.com/)
+- [material icon list](https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/)
+- [Angular Material](https://material.angular.io/)

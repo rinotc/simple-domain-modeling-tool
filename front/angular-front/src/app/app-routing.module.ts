@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {BoundedContextsListPageComponent} from "./views/pages/boundedContext/list/bounded-contexts-list-page.component";
 import {BoundedContextDetailPageComponent} from "./views/pages/boundedContext/detail/bounded-context-detail-page.component";
 import {BoundedContextCreatePageComponent} from "./views/pages/boundedContext/create/bounded-context-create-page.component";
+import {CreateDomainModelPageComponent} from "./views/pages/domainModel/create/create-domain-model-page.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'bounded-contexts/:boundedContextAlias',
     component: BoundedContextDetailPageComponent
+  },
+  {
+    path: 'bounded-contexts/:boundedContextAlias/domain-models/create',
+    component: CreateDomainModelPageComponent
   }
 ];
 
