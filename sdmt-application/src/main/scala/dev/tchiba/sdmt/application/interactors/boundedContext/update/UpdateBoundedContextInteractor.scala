@@ -10,21 +10,21 @@ import dev.tchiba.sdmt.usecase.boundedContext.update.{
 import javax.inject.Inject
 
 final class UpdateBoundedContextInteractor @Inject() (
-    projectRepository: BoundedContextRepository
+    boundedContextRepository: BoundedContextRepository
 ) extends UpdateBoundedContextUseCase {
   override def handle(input: UpdateBoundedContextInput): UpdateBoundedContextOutput = {
     val result = for {
-      project <- projectRepository.findById(input.targetId).toRight {
+      boundedContext <- boundedContextRepository.findById(input.targetId).toRight {
         UpdateBoundedContextOutput.NotFound(input.targetId)
       }
-      updatedProject = project
+      updatedBoundedContext = boundedContext
         .changeAlias(input.alias)
         .changeName(input.name)
         .changeOverview(input.overview)
-      _ <- projectRepository.update(updatedProject).left.map { conflict =>
+      _ <- boundedContextRepository.update(updatedBoundedContext).left.map { conflict =>
         UpdateBoundedContextOutput.ConflictAlias(conflict.conflictedContext)
       }
-    } yield UpdateBoundedContextOutput.Success(updatedProject)
+    } yield UpdateBoundedContextOutput.Success(updatedBoundedContext)
 
     result.unwrap
   }
