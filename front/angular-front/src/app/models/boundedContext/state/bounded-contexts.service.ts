@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {BoundedContextsStore} from './bounded-contexts.store';
-import {tap} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {ApiCollectionResponse} from "../../ApiCollectionResponse";
 import {BoundedContextResponse} from "../http/BoundedContextResponse";
 import {config} from "../../../config";
@@ -47,7 +47,7 @@ export class BoundedContextsService {
       );
   }
 
-  create(alias: BoundedContextAlias, name: BoundedContextName, overview: BoundedContextOverview) {
+  create(alias: BoundedContextAlias, name: BoundedContextName, overview: BoundedContextOverview): Observable<BoundedContextResponse> {
     return this.http
       .post<BoundedContextResponse>(`${config.apiHost}/bounded-contexts`, CreateBoundedContextRequest.translate(alias, name, overview))
       .pipe(

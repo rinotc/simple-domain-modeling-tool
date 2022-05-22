@@ -1,0 +1,20 @@
+<h1>ドメインモデルを新規作成する</h1>
+
+<div id="create-domain-model-input" fxLayout="column">
+  <div *ngIf="hasUbiquitousNameValidationError">{{ubiquitousNameValidationErrorMessage}}</div>
+  <mat-form-field appearance="fill">
+    <mat-label>ユビキタス名称</mat-label>
+    <input matInput [(ngModel)]="inputUbiquitousName" />
+  </mat-form-field>
+  <div *ngIf="hasEnglishNameValidationError">{{englishNameValidationErrorMessage}}</div>
+  <mat-form-field appearance="fill">
+    <mat-label>英語名</mat-label>
+    <input matInput [(ngModel)]="inputEnglishName" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>知識</mat-label>
+    <textarea matInput [(ngModel)]="inputKnowledge"></textarea>
+  </mat-form-field>
+</div>
+
+<button mat-flat-button color="primary" [disabled]="!canSubmit" (click)="onSubmit()">作成する</button>

@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HeaderService} from "../../../../store/title/header.service";
 import {notNull, requirement} from "../../../../dbc/dbc";
 import {BoundedContextAlias} from "../../../../models/boundedContext/alias/bounded-context-alias";
 import {BoundedContext} from "../../../../models/boundedContext/bounded-context";
 import {BoundedContextsQuery} from "../../../../models/boundedContext/state/bounded-contexts.query";
 import {BoundedContextsService} from "../../../../models/boundedContext/state/bounded-contexts.service";
-import * as O from 'fp-ts/Option';
 
 @Component({
   selector: 'app-project-detail',
@@ -18,6 +17,7 @@ export class BoundedContextDetailPageComponent implements OnInit {
   private _boundedContext: BoundedContext | null = null;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private headerService: HeaderService,
     private boundedContextsService: BoundedContextsService,
@@ -29,17 +29,14 @@ export class BoundedContextDetailPageComponent implements OnInit {
     notNull(aliasString, `alias string must not be null but ${aliasString}`);
     const alias = new BoundedContextAlias(aliasString!);
     this.boundedContextsQuery.contexts$.subscribe(contexts => {
-      const maybeContext: O.Option<BoundedContext> = contexts.findByAlias(alias)
-      O.match<BoundedContext, void>(
-        () => {
-          this.boundedContextsService.fetchAll();
-        },
-        (context) => {
-          this.boundedContextsService.fetchById(context.id)
-          this.headerService.update(context.name.value);
-          this._boundedContext = context;
-        }
-      )(maybeContext)
+      const context = contexts.findByAlias(alias)
+      if (context !== undefined) {
+        this.boundedContextsService.fetchById(context.id)
+        this.headerService.update(context.name.value);
+        this._boundedContext = context;
+      } else {
+        this.boundedContextsService.fetchAll();
+      }
     });
   }
 
@@ -50,5 +47,15 @@ export class BoundedContextDetailPageComponent implements OnInit {
   get boundedContext(): BoundedContext {
     requirement(!this.isLoading, 'assume this method call after loading.');
     return this._boundedContext!;
+  }
+
+  clickCreateDomainModelButton(): void {
+    this.router.navigateByUrl(`bounded-contexts/${this.boundedContext.alias.value}/domain-models/create`).then(isSuccess => {
+      if (isSuccess) {
+        console.log('success!')
+      } else {
+        console.log('failed!')
+      }
+    });
   }
 }
