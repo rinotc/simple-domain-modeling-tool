@@ -14,7 +14,8 @@ PUT         /api/bounded-contexts/:boundedContextId                             
 POST        /api/bounded-contexts/:boundedContextId/domain-models                      interfaces.api.domainmodel.create.CreateDomainModelApiController.action(boundedContextId: String)
 GET         /api/bounded-contexts/:boundedContextId/domain-models                      interfaces.api.domainmodel.list.ListDomainModelsApiController.action(boundedContextId: String)
 
-PUT         /api/bounded-contexts/:boundedContextId/domain-models/:domainModelId        interfaces.api.domainmodel.update.UpdateDomainModelApiController.action(boundedContextId: String, domainModelId: String)
+PUT         /api/bounded-contexts/:boundedContextId/domain-models/:domainModelId       interfaces.api.domainmodel.update.UpdateDomainModelApiController.action(boundedContextId: String, domainModelId: String)
+DELETE      /api/bounded-contexts/:boundedContextId/domain-models/:domainModelId       interfaces.api.domainmodel.delete.DeleteDomainModelApiController.action(boundedContextId: String, domainModelId: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                              controllers.Assets.versioned(path="/public", file: Asset)
