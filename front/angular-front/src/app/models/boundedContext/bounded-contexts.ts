@@ -16,9 +16,8 @@ export class BoundedContexts {
     return O.fromNullable(maybeBc);
   }
 
-  findByAlias(alias: BoundedContextAlias): O.Option<BoundedContext> {
-    const maybeBc = this._contexts.find((c) => c.alias.equals(alias));
-    return O.fromNullable(maybeBc);
+  findByAlias(alias: BoundedContextAlias): BoundedContext | undefined {
+    return this._contexts.find((c) => c.alias.equals(alias));
   }
 
   append(context: BoundedContext): BoundedContexts {

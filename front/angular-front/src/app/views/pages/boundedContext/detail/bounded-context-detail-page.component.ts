@@ -6,7 +6,6 @@ import {BoundedContextAlias} from "../../../../models/boundedContext/alias/bound
 import {BoundedContext} from "../../../../models/boundedContext/bounded-context";
 import {BoundedContextsQuery} from "../../../../models/boundedContext/state/bounded-contexts.query";
 import {BoundedContextsService} from "../../../../models/boundedContext/state/bounded-contexts.service";
-import * as O from 'fp-ts/Option';
 
 @Component({
   selector: 'app-project-detail',
@@ -30,17 +29,14 @@ export class BoundedContextDetailPageComponent implements OnInit {
     notNull(aliasString, `alias string must not be null but ${aliasString}`);
     const alias = new BoundedContextAlias(aliasString!);
     this.boundedContextsQuery.contexts$.subscribe(contexts => {
-      const maybeContext: O.Option<BoundedContext> = contexts.findByAlias(alias)
-      O.match<BoundedContext, void>(
-        () => {
-          this.boundedContextsService.fetchAll();
-        },
-        (context) => {
-          this.boundedContextsService.fetchById(context.id)
-          this.headerService.update(context.name.value);
-          this._boundedContext = context;
-        }
-      )(maybeContext)
+      const context = contexts.findByAlias(alias)
+      if (context !== undefined) {
+        this.boundedContextsService.fetchById(context.id)
+        this.headerService.update(context.name.value);
+        this._boundedContext = context;
+      } else {
+        this.boundedContextsService.fetchAll();
+      }
     });
   }
 

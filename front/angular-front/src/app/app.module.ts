@@ -39,6 +39,7 @@ import {
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { CreateDomainModelPageComponent } from './views/pages/domainModel/create/create-domain-model-page.component';
+import { NotFoundComponent } from './views/pages/error/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { CreateDomainModelPageComponent } from './views/pages/domainModel/create
     BoundedContextCreatePageComponent,
     ListDomainModelsComponent,
     CreateDomainModelPageComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

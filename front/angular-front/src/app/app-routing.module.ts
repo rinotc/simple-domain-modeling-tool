@@ -4,12 +4,17 @@ import {BoundedContextsListPageComponent} from "./views/pages/boundedContext/lis
 import {BoundedContextDetailPageComponent} from "./views/pages/boundedContext/detail/bounded-context-detail-page.component";
 import {BoundedContextCreatePageComponent} from "./views/pages/boundedContext/create/bounded-context-create-page.component";
 import {CreateDomainModelPageComponent} from "./views/pages/domainModel/create/create-domain-model-page.component";
+import {NotFoundComponent} from "./views/pages/error/not-found/not-found.component";
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'bounded-contexts',
     pathMatch: 'full'
+  },
+  {
+    path: '404',
+    component: NotFoundComponent,
   },
   {
     path: 'bounded-contexts',
