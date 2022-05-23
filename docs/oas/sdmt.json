@@ -340,7 +340,10 @@
             "description": "No Content"
           }
         },
-        "description": "指定したIDのドメインモデルを削除する"
+        "description": "指定したIDのドメインモデルを削除する",
+        "tags": [
+          "DomainModel"
+        ]
       }
     }
   },
