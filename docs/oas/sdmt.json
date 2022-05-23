@@ -331,6 +331,16 @@
         },
         "operationId": "put-bounded-contexts-boundedContextId-domain-models-domainModelId",
         "description": "IDをもとに、対象のドメインモデルを更新する"
+      },
+      "delete": {
+        "summary": "ドメインモデル削除",
+        "operationId": "delete-bounded-contexts-boundedContextId-domain-models-domainModelId",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "description": "指定したIDのドメインモデルを削除する"
       }
     }
   },
