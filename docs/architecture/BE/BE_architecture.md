@@ -51,15 +51,7 @@ Clean Architectureとかに慣れていない人でも、アプリケーショ�
 - [Aggregate](types/Aggregate.md)
 - [JdbcRepository, XxxValidator etc...](types/impl.md)
 
-#### Output
 
-#### UseCase
-
-#### Interactor
-
-#### Repository, DomainService, Models
-
-#### JdbcRepository, XxxValidator, etc...
 
 
 ## 基本的な実装の流れ
