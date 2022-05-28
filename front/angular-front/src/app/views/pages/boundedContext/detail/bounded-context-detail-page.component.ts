@@ -58,4 +58,14 @@ export class BoundedContextDetailPageComponent implements OnInit {
       }
     });
   }
+
+  clickEditButton(): void {
+    this.router.navigateByUrl(`bounded-contexts/${this.boundedContext.alias.value}/edit`).then(isSuccess => {
+      if (isSuccess) {
+        console.log('success!');
+      } else {
+        console.log('failed!');
+      }
+    });
+  }
 }

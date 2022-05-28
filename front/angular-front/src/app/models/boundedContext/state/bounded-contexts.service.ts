@@ -10,6 +10,8 @@ import {CreateBoundedContextRequest} from "../http/CreateBoundedContextRequest";
 import {BoundedContextAlias} from "../alias/bounded-context-alias";
 import {BoundedContextName} from "../name/bounded-context-name";
 import {BoundedContextOverview} from "../overview/bounded-context-overview";
+import {BoundedContext} from "../bounded-context";
+import {UpdateBoundedContextRequest} from "../http/update-bounded-context-request";
 
 @Injectable({ providedIn: 'root' })
 export class BoundedContextsService {
@@ -60,4 +62,16 @@ export class BoundedContextsService {
       );
   }
 
+  update(boundedContext: BoundedContext): Observable<BoundedContextResponse> {
+    return this.http
+      .put<BoundedContextResponse>(`${config.apiHost}/bounded-contexts/${boundedContext.id.value}`, UpdateBoundedContextRequest.translate(boundedContext))
+      .pipe(
+        tap(res => {
+          const updatedBc = BoundedContextResponse.convert(res);
+          this.boundedContextStore.update(state => {
+            state.contexts.append(updatedBc);
+          });
+        })
+      )
+  }
 }
