@@ -6,10 +6,10 @@ name: Angular Front Test
 on:
   push:
     paths:
-      - 'front/angular-front/**'
+      - 'front/angular/**'
   pull_request:
     paths:
-      - 'front/angular-front/**'
+      - 'front/angular/**'
     branches: [ master ]
 
 jobs:
@@ -22,11 +22,11 @@ jobs:
         with:
           node-version: 16.x
           cache: 'npm'
-          cache-dependency-path: 'front/angular-front/package-lock.json'
+          cache-dependency-path: 'front/angular/package-lock.json'
       - run: npm ci
-        working-directory: ./front/angular-front
+        working-directory: ./front/angular
       - run: npm run build --if-present
-        working-directory: ./front/angular-front
+        working-directory: ./front/angular
       - run: npm test -- --watch=false --browsers=ChromeHeadless
-        working-directory: ./front/angular-front
+        working-directory: ./front/angular
 
