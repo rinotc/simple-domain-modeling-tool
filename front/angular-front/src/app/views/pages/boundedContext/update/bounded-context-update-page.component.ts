@@ -7,6 +7,7 @@ import {BoundedContextsQuery} from "../../../../models/boundedContext/state/boun
 import {BoundedContext} from "../../../../models/boundedContext/bounded-context";
 import {BoundedContextName} from "../../../../models/boundedContext/name/bounded-context-name";
 import {BoundedContextOverview} from "../../../../models/boundedContext/overview/bounded-context-overview";
+import {lastValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-bounded-context-update-page',
@@ -91,8 +92,10 @@ export class BoundedContextUpdatePageComponent implements OnInit {
       .changeOverview(overview);
     console.log('submit');
 
-    this.boundedContextsService.update(updatedBoundedContext).forEach(_ => {
-      this.router.navigateByUrl(`/bounded-contexts/${this.targetBoundedContext!.alias.value}`).then(_ => {});
-    });
+    lastValueFrom(this.boundedContextsService.update(updatedBoundedContext))
+      .then(r => {
+        this.router.navigateByUrl(`/bounded-contexts/${r.alias}`).then(_ => {});
+      }
+    );
   }
 }

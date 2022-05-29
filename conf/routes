@@ -8,7 +8,7 @@ GET         /api/users/:userId                                                  
 
 GET         /api/bounded-contexts                                                      interfaces.api.boundedContext.list.ListBoundedContextsApiController.action()
 POST        /api/bounded-contexts                                                      interfaces.api.boundedContext.create.CreateBoundedContextApiController.action()
-GET         /api/bounded-contexts/:boundedContextId                                    interfaces.api.boundedContext.find.FindBoundedContextApiController.action(boundedContextId: String)
+GET         /api/bounded-contexts/:idOrAlias                                           interfaces.api.boundedContext.find.FindBoundedContextApiController.action(idOrAlias: String)
 PUT         /api/bounded-contexts/:boundedContextId                                    interfaces.api.boundedContext.update.UpdateBoundedContextApiController.action(boundedContextId: String)
 
 POST        /api/bounded-contexts/:boundedContextId/domain-models                      interfaces.api.domainmodel.create.CreateDomainModelApiController.action(boundedContextId: String)

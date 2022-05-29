@@ -22,23 +22,22 @@ export class BoundedContextDetailPageComponent implements OnInit {
     private headerService: HeaderService,
     private boundedContextsService: BoundedContextsService,
     private boundedContextsQuery: BoundedContextsQuery
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     const aliasString = this.route.snapshot.paramMap.get('boundedContextAlias');
     notNull(aliasString, `alias string must not be null but ${aliasString}`);
     const alias = new BoundedContextAlias(aliasString!);
+    this.boundedContextsService.fetchAll();
     this.boundedContextsQuery.contexts$.subscribe(contexts => {
       const context = contexts.findByAlias(alias)
       if (context !== undefined) {
         this.boundedContextsService.fetchById(context.id)
         this.headerService.update(context.name.value);
         this._boundedContext = context;
-      } else {
-        this.boundedContextsService.fetchAll();
       }
     });
   }
+
+  ngOnInit(): void {}
 
   get isLoading(): boolean {
     return this._boundedContext == null;
