@@ -5,6 +5,9 @@ import {BoundedContextDetailPageComponent} from "./views/pages/boundedContext/de
 import {BoundedContextCreatePageComponent} from "./views/pages/boundedContext/create/bounded-context-create-page.component";
 import {CreateDomainModelPageComponent} from "./views/pages/domainModel/create/create-domain-model-page.component";
 import {NotFoundComponent} from "./views/pages/error/not-found/not-found.component";
+import {
+  BoundedContextUpdatePageComponent
+} from "./views/pages/boundedContext/update/bounded-context-update-page.component";
 
 const routes: Routes = [
   {
@@ -27,6 +30,10 @@ const routes: Routes = [
   {
     path: 'bounded-contexts/:boundedContextAlias',
     component: BoundedContextDetailPageComponent
+  },
+  {
+    path: 'bounded-contexts/:boundedContextAlias/edit',
+    component: BoundedContextUpdatePageComponent
   },
   {
     path: 'bounded-contexts/:boundedContextAlias/domain-models/create',

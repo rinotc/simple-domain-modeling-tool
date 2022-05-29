@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {BoundedContextsStore} from './bounded-contexts.store';
-import {Observable, tap} from "rxjs";
+import {lastValueFrom, Observable, tap} from "rxjs";
 import {ApiCollectionResponse} from "../../ApiCollectionResponse";
 import {BoundedContextResponse} from "../http/BoundedContextResponse";
 import {config} from "../../../config";
@@ -10,6 +10,8 @@ import {CreateBoundedContextRequest} from "../http/CreateBoundedContextRequest";
 import {BoundedContextAlias} from "../alias/bounded-context-alias";
 import {BoundedContextName} from "../name/bounded-context-name";
 import {BoundedContextOverview} from "../overview/bounded-context-overview";
+import {BoundedContext} from "../bounded-context";
+import {UpdateBoundedContextRequest} from "../http/update-bounded-context-request";
 
 @Injectable({ providedIn: 'root' })
 export class BoundedContextsService {
@@ -32,19 +34,18 @@ export class BoundedContextsService {
       });
   }
 
-  fetchById(id: BoundedContextId) {
-    this.http
-      .get<BoundedContextResponse>(`${config.apiHost}/bounded-contexts/${id.value}`)
+  fetchByIdOrAlias(idOrAlias: BoundedContextId | BoundedContextAlias): Promise<BoundedContextResponse> {
+    const observable = this.http
+      .get<BoundedContextResponse>(`${config.apiHost}/bounded-contexts/${idOrAlias.value}`)
       .pipe(
         tap(res => {
           const bc = BoundedContextResponse.convert(res)
-          this.boundedContextStore.update((state) => {
-            return {
-              contexts: state.contexts.append(bc)
-            };
-          })
+          this.boundedContextStore.update((state) => ({
+            contexts: state.contexts.append(bc)
+          }));
         })
-      );
+      )
+    return lastValueFrom(observable);
   }
 
   create(alias: BoundedContextAlias, name: BoundedContextName, overview: BoundedContextOverview): Observable<BoundedContextResponse> {
@@ -53,11 +54,23 @@ export class BoundedContextsService {
       .pipe(
         tap(res => {
           const newBc = BoundedContextResponse.convert(res);
-          this.boundedContextStore.update(state => {
-            state.contexts.append(newBc);
-          })
+          this.boundedContextStore.update(state => ({
+            contexts: state.contexts.append(newBc)
+          }));
         })
       );
   }
 
+  update(boundedContext: BoundedContext): Observable<BoundedContextResponse> {
+    return this.http
+      .put<BoundedContextResponse>(`${config.apiHost}/bounded-contexts/${boundedContext.id.value}`, UpdateBoundedContextRequest.translate(boundedContext))
+      .pipe(
+        tap(res => {
+          const updatedBc = BoundedContextResponse.convert(res);
+          this.boundedContextStore.update(state => ({
+            contexts: state.contexts.append(updatedBc)
+          }));
+        })
+      )
+  }
 }

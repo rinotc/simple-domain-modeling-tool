@@ -113,22 +113,21 @@
             }
           }
         },
-        "operationId": "get-projects",
+        "operationId": "get-bounded-contexts",
         "description": "プロジェクト一覧を取得する"
       },
       "parameters": []
     },
-    "/bounded-contexts/{boundedContextId}": {
+    "/bounded-contexts/{idOrAlias}": {
       "parameters": [
         {
           "schema": {
-            "type": "string",
-            "format": "uuid"
+            "type": "string"
           },
-          "name": "boundedContextId",
+          "name": "idOrAlias",
           "in": "path",
           "required": true,
-          "description": "境界づけられたコンテキストID"
+          "description": "境界づけられたコンテキストIDもしくはエイリアス"
         }
       ],
       "get": {
@@ -157,7 +156,7 @@
         },
         "operationId": "get-bounded-contexts-alias",
         "parameters": [],
-        "description": "境界づけられたコンテキストIDを元に、プロジェクト情報を取得する",
+        "description": "境界づけられたコンテキストIDもしくはエイリアスを元に、プロジェクト情報を取得する",
         "tags": [
           "BoundedContext"
         ]

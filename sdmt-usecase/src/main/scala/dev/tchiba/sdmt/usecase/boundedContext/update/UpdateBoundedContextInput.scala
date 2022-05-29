@@ -8,6 +8,14 @@ import dev.tchiba.sdmt.core.boundedContext.{
 }
 import dev.tchiba.sdmt.usecase.Input
 
+/**
+ * 境界づけられたコンテキストの入力
+ *
+ * @param targetId 更新対象の境界づけられたコンテキストID
+ * @param alias    更新しようとしているエイリアス
+ * @param name     更新しようとしている境界づけられたコンテキスト名称
+ * @param overview 更新しようとしている境界づけられたコンテキストの概要
+ */
 case class UpdateBoundedContextInput(
     targetId: BoundedContextId,
     alias: BoundedContextAlias,
