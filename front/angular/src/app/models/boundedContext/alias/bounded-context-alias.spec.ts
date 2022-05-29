@@ -1,10 +1,9 @@
-import {BoundedContextAlias} from './bounded-context-alias';
-import {expect} from "@angular/flex-layout/_private-utils/testing";
-import {BoundedContextId} from "../id/bounded-context-id";
+import { BoundedContextAlias } from './bounded-context-alias';
+import { expect } from '@angular/flex-layout/_private-utils/testing';
+import { BoundedContextId } from '../id/bounded-context-id';
 import * as E from 'fp-ts/Either';
 
 describe('BoundedContextAlias', () => {
-
   describe('requirement', () => {
     it('should throw error when value length is 0', () => {
       const value = '';
@@ -79,6 +78,6 @@ describe('BoundedContextAlias', () => {
       const b = new BoundedContextAlias('alias');
       expect(a === b).toBeFalse();
       expect(a.equals(b)).toBeFalse();
-    })
+    });
   });
 });

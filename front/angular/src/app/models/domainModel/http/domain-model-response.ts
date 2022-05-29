@@ -1,16 +1,16 @@
-import {DomainModel} from "../domain-model";
-import {BoundedContextId} from "../../boundedContext/id/bounded-context-id";
-import {UbiquitousName} from "../ubiquitousName/ubiquitous-name";
-import {EnglishName} from "../englishName/english-name";
-import {Knowledge} from "../knowledge/knowledge";
-import {DomainModelId} from "../id/domain-model-id";
+import { DomainModel } from '../domain-model';
+import { BoundedContextId } from '../../boundedContext/id/bounded-context-id';
+import { UbiquitousName } from '../ubiquitousName/ubiquitous-name';
+import { EnglishName } from '../englishName/english-name';
+import { Knowledge } from '../knowledge/knowledge';
+import { DomainModelId } from '../id/domain-model-id';
 
 export interface DomainModelResponse {
-  id: string,
-  boundedContextId: string,
-  ubiquitousName: string,
-  englishName: string,
-  knowledge: string
+  id: string;
+  boundedContextId: string;
+  ubiquitousName: string;
+  englishName: string;
+  knowledge: string;
 }
 
 export const DomainModelResponse = {
@@ -21,6 +21,6 @@ export const DomainModelResponse = {
       new UbiquitousName(res.ubiquitousName),
       new EnglishName(res.englishName),
       new Knowledge(res.knowledge)
-    )
-  }
-}
+    );
+  },
+};

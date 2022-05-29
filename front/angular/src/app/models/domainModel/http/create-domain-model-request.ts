@@ -1,4 +1,4 @@
-import {CreateDomainModelInput} from "../state/io/create-domain-model-input";
+import { CreateDomainModelInput } from '../state/io/create-domain-model-input';
 
 export interface CreateDomainModelRequest {
   ubiquitousName: string;
@@ -11,7 +11,7 @@ export const CreateDomainModelRequest = {
     return {
       ubiquitousName: input.ubiquitousName.value,
       englishName: input.englishName.value,
-      knowledge: input.knowledge.value
+      knowledge: input.knowledge.value,
     };
-  }
-}
+  },
+};

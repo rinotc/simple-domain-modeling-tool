@@ -1,12 +1,13 @@
-import {DomainModel} from "./domain-model";
-import {DomainModelId} from "./id/domain-model-id";
-import * as O from 'fp-ts/Option'
+import { DomainModel } from './domain-model';
+import { DomainModelId } from './id/domain-model-id';
+import * as O from 'fp-ts/Option';
 
 export class DomainModels implements Iterable<DomainModel> {
-
   constructor(readonly _models: Array<DomainModel>) {
     if (!DomainModels.isValid(this)) {
-      throw new TypeError(`DomainModels must not exists duplicate values: ${this._models}`);
+      throw new TypeError(
+        `DomainModels must not exists duplicate values: ${this._models}`
+      );
     }
   }
 
@@ -35,7 +36,9 @@ export class DomainModels implements Iterable<DomainModel> {
         dms.push(dm);
       }
     }
-    if (!isConflict) { dms.push(domainModel); }
+    if (!isConflict) {
+      dms.push(domainModel);
+    }
     return new DomainModels(dms);
   }
 
@@ -60,7 +63,7 @@ export class DomainModels implements Iterable<DomainModel> {
 
   // 重複した要素は存在できない
   private static mustNotExistDuplicateValues(models: DomainModels): boolean {
-    const idStrings = models.models.map(c => c.id.value);
+    const idStrings = models.models.map((c) => c.id.value);
     const idSet = new Set(idStrings);
     return idStrings.length === idSet.size;
   }

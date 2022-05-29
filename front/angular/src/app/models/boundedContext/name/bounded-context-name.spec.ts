@@ -1,12 +1,13 @@
-import {BoundedContextName} from './bounded-context-name';
-import {expect} from "@angular/flex-layout/_private-utils/testing";
-import * as E from 'fp-ts/Either'
+import { BoundedContextName } from './bounded-context-name';
+import { expect } from '@angular/flex-layout/_private-utils/testing';
+import * as E from 'fp-ts/Either';
 
 describe('BoundedContextName', () => {
-
   describe('requirement', () => {
     it('should create an instance', () => {
-      expect(new BoundedContextName('sample bounded context name')).toBeTruthy();
+      expect(
+        new BoundedContextName('sample bounded context name')
+      ).toBeTruthy();
     });
 
     it('should throw error when value length is 101.', () => {

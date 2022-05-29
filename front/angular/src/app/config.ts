@@ -1,7 +1,7 @@
 export interface Config {
-  apiHost: string
+  apiHost: string;
 }
 
 export const config: Config = {
-  apiHost: 'http://localhost:9000/api'
-}
+  apiHost: 'http://localhost:9000/api',
+};

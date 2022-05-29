@@ -1,21 +1,34 @@
 <h1>境界づけられたコンテキストを更新する</h1>
 
 <div id="update-bounded-context-update" fxLayout="column">
-  <div *ngIf="hasBoundedContextNameValidationError">{{boundedContextNameErrorMessage}}</div>
+  <div *ngIf="hasBoundedContextNameValidationError">
+    {{ boundedContextNameErrorMessage }}
+  </div>
   <mat-form-field appearance="fill">
     <mat-label>境界づけられたコンテキスト名称</mat-label>
     <input matInput [(ngModel)]="inputBoundedContextName" />
   </mat-form-field>
-  <div *ngIf="hasBoundedContextAliasValidationError">{{boundedContextAliasErrorMessage}}</div>
+  <div *ngIf="hasBoundedContextAliasValidationError">
+    {{ boundedContextAliasErrorMessage }}
+  </div>
   <mat-form-field appearance="fill">
     <mat-label>境界づけられたコンテキストのエイリアス</mat-label>
-    <input matInput [(ngModel)]="inputBoundedContextAlias"/>
+    <input matInput [(ngModel)]="inputBoundedContextAlias" />
   </mat-form-field>
-  <div *ngIf="hasBoundedContextOverviewValidationError">{{boundedContextOverviewErrorMessage}}</div>
+  <div *ngIf="hasBoundedContextOverviewValidationError">
+    {{ boundedContextOverviewErrorMessage }}
+  </div>
   <mat-form-field>
     <mat-label>境界づけられたコンテキスト概要</mat-label>
     <textarea matInput [(ngModel)]="inputBoundedContextOverview"></textarea>
   </mat-form-field>
 </div>
 
-<button mat-flat-button color="primary" [disabled]="!canSubmit" (click)="onSubmit()">更新する</button>
+<button
+  mat-flat-button
+  color="primary"
+  [disabled]="!canSubmit"
+  (click)="onSubmit()"
+>
+  更新する
+</button>

@@ -1,3 +1,3 @@
-export interface ApiCollectionResponse <T> {
+export interface ApiCollectionResponse<T> {
   data: Array<T>;
 }

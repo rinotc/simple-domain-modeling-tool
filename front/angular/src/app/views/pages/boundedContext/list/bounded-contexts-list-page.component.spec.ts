@@ -8,9 +8,8 @@ describe('ProjectListPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BoundedContextsListPageComponent ]
-    })
-    .compileComponents();
+      declarations: [BoundedContextsListPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

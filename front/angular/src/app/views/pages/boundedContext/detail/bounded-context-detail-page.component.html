@@ -1,20 +1,28 @@
 <div *ngIf="!isLoading; else Loading" fxLayout="column" fxLayoutGap="16px">
   <mat-card>
-    <mat-card-title>{{boundedContext.name.value}}</mat-card-title>
-    <mat-card-subtitle>{{boundedContext.alias.value}}</mat-card-subtitle>
+    <mat-card-title>{{ boundedContext.name.value }}</mat-card-title>
+    <mat-card-subtitle>{{ boundedContext.alias.value }}</mat-card-subtitle>
     <mat-card-content>
-      <p>{{boundedContext.overview.value}}</p>
+      <p>{{ boundedContext.overview.value }}</p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button (click)="clickEditButton()">Edit</button>
       <button mat-button>Delete</button>
     </mat-card-actions>
   </mat-card>
-  <app-list-domain-models [boundedContext]="boundedContext"></app-list-domain-models>
+  <app-list-domain-models
+    [boundedContext]="boundedContext"
+  ></app-list-domain-models>
 </div>
 <ng-template #Loading>
   <mat-spinner></mat-spinner>
 </ng-template>
-<button (click)="clickCreateDomainModelButton()" class="add-domain-model-button" mat-fab color="primary" aria-label="create new domain model button">
+<button
+  (click)="clickCreateDomainModelButton()"
+  class="add-domain-model-button"
+  mat-fab
+  color="primary"
+  aria-label="create new domain model button"
+>
   <mat-icon>add</mat-icon>
 </button>

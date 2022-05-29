@@ -1,20 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {HeaderService} from "../../../../store/title/header.service";
-import {notNull, requirement} from "../../../../dbc/dbc";
-import {BoundedContextAlias} from "../../../../models/boundedContext/alias/bounded-context-alias";
-import {BoundedContext} from "../../../../models/boundedContext/bounded-context";
-import {BoundedContextsQuery} from "../../../../models/boundedContext/state/bounded-contexts.query";
-import {BoundedContextsService} from "../../../../models/boundedContext/state/bounded-contexts.service";
-import {redirectTo404} from "../../../../helper/routing-helper";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HeaderService } from '../../../../store/title/header.service';
+import { notNull, requirement } from '../../../../dbc/dbc';
+import { BoundedContextAlias } from '../../../../models/boundedContext/alias/bounded-context-alias';
+import { BoundedContext } from '../../../../models/boundedContext/bounded-context';
+import { BoundedContextsQuery } from '../../../../models/boundedContext/state/bounded-contexts.query';
+import { BoundedContextsService } from '../../../../models/boundedContext/state/bounded-contexts.service';
+import { redirectTo404 } from '../../../../helper/routing-helper';
 
 @Component({
   selector: 'app-project-detail',
   templateUrl: './bounded-context-detail-page.component.html',
-  styleUrls: ['./bounded-context-detail-page.component.scss']
+  styleUrls: ['./bounded-context-detail-page.component.scss'],
 })
 export class BoundedContextDetailPageComponent implements OnInit {
-
   private _boundedContext: BoundedContext | null = null;
 
   constructor(
@@ -30,8 +29,8 @@ export class BoundedContextDetailPageComponent implements OnInit {
     notNull(aliasString, `alias string must not be null but ${aliasString}`);
     const alias = new BoundedContextAlias(aliasString!);
     await this.boundedContextsService.fetchByIdOrAlias(alias);
-    this.boundedContextsQuery.contexts$.subscribe(contexts => {
-      const context = contexts.findByAlias(alias)
+    this.boundedContextsQuery.contexts$.subscribe((contexts) => {
+      const context = contexts.findByAlias(alias);
       if (context === undefined) {
         redirectTo404(this.router);
       } else {
@@ -51,22 +50,28 @@ export class BoundedContextDetailPageComponent implements OnInit {
   }
 
   clickCreateDomainModelButton(): void {
-    this.router.navigateByUrl(`bounded-contexts/${this.boundedContext.alias.value}/domain-models/create`).then(isSuccess => {
-      if (isSuccess) {
-        console.log('success!')
-      } else {
-        console.log('failed!')
-      }
-    });
+    this.router
+      .navigateByUrl(
+        `bounded-contexts/${this.boundedContext.alias.value}/domain-models/create`
+      )
+      .then((isSuccess) => {
+        if (isSuccess) {
+          console.log('success!');
+        } else {
+          console.log('failed!');
+        }
+      });
   }
 
   clickEditButton(): void {
-    this.router.navigateByUrl(`bounded-contexts/${this.boundedContext.alias.value}/edit`).then(isSuccess => {
-      if (isSuccess) {
-        console.log('success!');
-      } else {
-        console.log('failed!');
-      }
-    });
+    this.router
+      .navigateByUrl(`bounded-contexts/${this.boundedContext.alias.value}/edit`)
+      .then((isSuccess) => {
+        if (isSuccess) {
+          console.log('success!');
+        } else {
+          console.log('failed!');
+        }
+      });
   }
 }

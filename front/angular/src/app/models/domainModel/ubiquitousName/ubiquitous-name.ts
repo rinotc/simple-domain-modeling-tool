@@ -1,5 +1,5 @@
-import {PreferNominal} from "../../prefer-nominal";
-import * as E from "fp-ts/Either";
+import { PreferNominal } from '../../prefer-nominal';
+import * as E from 'fp-ts/Either';
 
 export class UbiquitousName {
   // noinspection JSUnusedGlobalSymbols
@@ -12,7 +12,7 @@ export class UbiquitousName {
   }
 
   private get requirementErrorMessage(): string {
-    return `UbiquitousName must to be 1 to 50 characters. but value length is ${this.value.length}`
+    return `UbiquitousName must to be 1 to 50 characters. but value length is ${this.value.length}`;
   }
 
   equals(other: UbiquitousName): boolean {
@@ -30,7 +30,8 @@ export class UbiquitousName {
     return this.mustBe1To50Characters(value);
   }
 
-  static validationErrorMessage: string = 'ユビキタス名は1文字以上50文字以下である必要があります';
+  static validationErrorMessage: string =
+    'ユビキタス名は1文字以上50文字以下である必要があります';
 
   private static mustBe1To50Characters(value: string): boolean {
     return value.length >= 1 && value.length <= 50;
