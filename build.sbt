@@ -36,7 +36,8 @@ lazy val `web` = (project in file("."))
       Circe.`circe-generic`,
       Circe.`circe-generic-extras`,
       Circe.`play-circe`,
-      Pac4j.`play-pac4j`
+      Pac4j.`play-pac4j`,
+      Pac4j.`pac4j-http`
     )
   )
 

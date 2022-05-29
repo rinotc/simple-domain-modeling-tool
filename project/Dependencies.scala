@@ -87,5 +87,6 @@ object Dependencies {
    */
   object Pac4j {
     val `play-pac4j` = "org.pac4j" %% "play-pac4j" % "11.0.0-PLAY2.8"
+    val `pac4j-http` = "org.pac4j"  % "pac4j-http" % "5.4.3"
   }
 }
