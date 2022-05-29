@@ -81,4 +81,11 @@ object Dependencies {
     val `refined-scopt`      = "eu.timepit" %% "refined-scopt"      % "0.9.28" // optional
     val `refined-shapeless`  = "eu.timepit" %% "refined-shapeless"  % "0.9.28" // optional
   }
+
+  /**
+   * @see [[https://github.com/pac4j/play-pac4j]]
+   */
+  object Pac4j {
+    val `play-pac4j` = "org.pac4j" %% "play-pac4j" % "11.0.0-PLAY2.8"
+  }
 }
