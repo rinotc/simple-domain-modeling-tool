@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BoundedContextUpdatePageComponent } from './bounded-context-update-page.component';
 
-describe('BoundedContextUpdatePageComponent', () => {
+xdescribe('BoundedContextUpdatePageComponent', () => {
   let component: BoundedContextUpdatePageComponent;
   let fixture: ComponentFixture<BoundedContextUpdatePageComponent>;
 
