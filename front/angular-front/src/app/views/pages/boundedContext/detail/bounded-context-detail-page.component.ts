@@ -6,6 +6,7 @@ import {BoundedContextAlias} from "../../../../models/boundedContext/alias/bound
 import {BoundedContext} from "../../../../models/boundedContext/bounded-context";
 import {BoundedContextsQuery} from "../../../../models/boundedContext/state/bounded-contexts.query";
 import {BoundedContextsService} from "../../../../models/boundedContext/state/bounded-contexts.service";
+import {redirectTo404} from "../../../../helper/routing-helper";
 
 @Component({
   selector: 'app-project-detail',
@@ -22,22 +23,23 @@ export class BoundedContextDetailPageComponent implements OnInit {
     private headerService: HeaderService,
     private boundedContextsService: BoundedContextsService,
     private boundedContextsQuery: BoundedContextsQuery
-  ) {
+  ) {}
+
+  async ngOnInit(): Promise<void> {
     const aliasString = this.route.snapshot.paramMap.get('boundedContextAlias');
     notNull(aliasString, `alias string must not be null but ${aliasString}`);
     const alias = new BoundedContextAlias(aliasString!);
-    this.boundedContextsService.fetchAll();
+    await this.boundedContextsService.fetchByIdOrAlias(alias);
     this.boundedContextsQuery.contexts$.subscribe(contexts => {
       const context = contexts.findByAlias(alias)
-      if (context !== undefined) {
-        this.boundedContextsService.fetchById(context.id)
+      if (context === undefined) {
+        redirectTo404(this.router);
+      } else {
         this.headerService.update(context.name.value);
         this._boundedContext = context;
       }
     });
   }
-
-  ngOnInit(): void {}
 
   get isLoading(): boolean {
     return this._boundedContext == null;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {BoundedContextsService} from "../../../../models/boundedContext/state/bounded-contexts.service";
 import {notNull, requirement} from "../../../../dbc/dbc";
@@ -8,6 +8,7 @@ import {BoundedContext} from "../../../../models/boundedContext/bounded-context"
 import {BoundedContextName} from "../../../../models/boundedContext/name/bounded-context-name";
 import {BoundedContextOverview} from "../../../../models/boundedContext/overview/bounded-context-overview";
 import {lastValueFrom} from "rxjs";
+import {redirectTo404} from "../../../../helper/routing-helper";
 
 @Component({
   selector: 'app-bounded-context-update-page',
@@ -29,20 +30,20 @@ export class BoundedContextUpdatePageComponent implements OnInit {
     private boundedContextsQuery: BoundedContextsQuery
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const aliasString = this.route.snapshot.paramMap.get('boundedContextAlias');
     notNull(aliasString, `alias string must not be null but ${aliasString}`);
     const alias = new BoundedContextAlias(aliasString!);
+    await this.boundedContextsService.fetchByIdOrAlias(alias);
     this.boundedContextsQuery.contexts$.subscribe(contexts => {
       const context = contexts.findByAlias(alias);
-      if (context !== undefined) {
-        this.boundedContextsService.fetchById(context.id);
+      if (context === undefined) {
+        redirectTo404(this.router);
+      } else {
         this.targetBoundedContext = context;
         this.inputBoundedContextAlias = context.alias.value;
         this.inputBoundedContextName = context.name.value;
         this.inputBoundedContextOverview = context.overview.value;
-      } else {
-        this.boundedContextsService.fetchAll();
       }
     });
   }
