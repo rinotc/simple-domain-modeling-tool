@@ -1,4 +1,4 @@
-import {PreferNominal} from "../../prefer-nominal";
+import { PreferNominal } from '../../prefer-nominal';
 import * as E from 'fp-ts/Either';
 
 export class BoundedContextOverview {
@@ -16,7 +16,7 @@ export class BoundedContextOverview {
   }
 
   equals(other: BoundedContextOverview): boolean {
-    return this.value === other.value
+    return this.value === other.value;
   }
 
   static validate(value: string): E.Either<string, BoundedContextOverview> {
@@ -30,7 +30,8 @@ export class BoundedContextOverview {
     return this.mustLessThan500(value);
   }
 
-  static validationErrorMessage: string = '境界づけられたコンテキストの概要は500文字以下である必要があります';
+  static validationErrorMessage: string =
+    '境界づけられたコンテキストの概要は500文字以下である必要があります';
 
   private static mustLessThan500(value: string): boolean {
     return value.length <= 500;

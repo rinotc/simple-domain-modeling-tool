@@ -1,9 +1,8 @@
-import {BoundedContextOverview} from './bounded-context-overview';
-import {expect} from "@angular/flex-layout/_private-utils/testing";
+import { BoundedContextOverview } from './bounded-context-overview';
+import { expect } from '@angular/flex-layout/_private-utils/testing';
 import * as E from 'fp-ts/Either';
 
 describe('BoundedContextOverview', () => {
-
   describe('requirement', () => {
     it('should create an instance when value length 500', () => {
       const value = 'あ'.repeat(500);

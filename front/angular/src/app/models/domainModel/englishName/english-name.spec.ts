@@ -1,9 +1,8 @@
-import {expect} from "@angular/flex-layout/_private-utils/testing";
-import * as E from 'fp-ts/Either'
-import {EnglishName} from "./english-name";
+import { expect } from '@angular/flex-layout/_private-utils/testing';
+import * as E from 'fp-ts/Either';
+import { EnglishName } from './english-name';
 
 describe('EnglishName', () => {
-
   describe('requirement', () => {
     it('should create an instance', () => {
       expect(new EnglishName('EnglishName')).toBeTruthy();
@@ -40,7 +39,7 @@ describe('EnglishName', () => {
       const value = 'ABCあいうeo';
       const actual = EnglishName.validate(value);
       expect(E.isLeft(actual)).toBeTrue();
-    })
+    });
   });
 
   describe('equals', () => {

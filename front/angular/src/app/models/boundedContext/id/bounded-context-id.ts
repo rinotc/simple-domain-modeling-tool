@@ -1,5 +1,5 @@
-import {PreferNominal} from "../../prefer-nominal";
-import * as E from "fp-ts/Either";
+import { PreferNominal } from '../../prefer-nominal';
+import * as E from 'fp-ts/Either';
 
 export class BoundedContextId {
   // noinspection JSUnusedGlobalSymbols
@@ -17,8 +17,8 @@ export class BoundedContextId {
 
   static validate(value: string): E.Either<string, BoundedContextId> {
     if (this.mustValueLengthEqual36(value)) {
-      const id = new BoundedContextId(value)
-      return E.right(id)
+      const id = new BoundedContextId(value);
+      return E.right(id);
     }
     return E.left(this.requirementErrorMessage(value));
   }

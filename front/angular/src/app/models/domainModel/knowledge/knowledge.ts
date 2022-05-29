@@ -1,4 +1,4 @@
-import {PreferNominal} from "../../prefer-nominal";
+import { PreferNominal } from '../../prefer-nominal';
 
 export class Knowledge {
   // noinspection JSUnusedGlobalSymbols

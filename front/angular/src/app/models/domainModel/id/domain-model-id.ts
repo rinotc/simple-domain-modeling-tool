@@ -1,5 +1,5 @@
-import {PreferNominal} from "../../prefer-nominal";
-import * as E from "fp-ts/Either";
+import { PreferNominal } from '../../prefer-nominal';
+import * as E from 'fp-ts/Either';
 
 export class DomainModelId {
   // noinspection JSUnusedGlobalSymbols
@@ -17,8 +17,8 @@ export class DomainModelId {
 
   static validate(value: string): E.Either<string, DomainModelId> {
     if (this.mustValueLengthEqual36(value)) {
-      const id = new DomainModelId(value)
-      return E.right(id)
+      const id = new DomainModelId(value);
+      return E.right(id);
     }
     return E.left(this.requirementErrorMessage(value));
   }

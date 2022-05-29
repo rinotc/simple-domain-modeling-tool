@@ -8,9 +8,8 @@ xdescribe('ProjectCreateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BoundedContextCreatePageComponent ]
-    })
-    .compileComponents();
+      declarations: [BoundedContextCreatePageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

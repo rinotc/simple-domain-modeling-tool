@@ -1,5 +1,5 @@
-import {PreferNominal} from "../../prefer-nominal";
-import * as E from "fp-ts/Either";
+import { PreferNominal } from '../../prefer-nominal';
+import * as E from 'fp-ts/Either';
 
 export class EnglishName {
   // noinspection JSUnusedGlobalSymbols
@@ -27,10 +27,13 @@ export class EnglishName {
   }
 
   static isValid(value: string): boolean {
-    return this.mustBe1To100Characters(value) && this.mustOnlyAlphanumerical(value);
+    return (
+      this.mustBe1To100Characters(value) && this.mustOnlyAlphanumerical(value)
+    );
   }
 
-  static validationErrorMessage: string = '英語名は1文字以上100文字以下である必要があります';
+  static validationErrorMessage: string =
+    '英語名は1文字以上100文字以下である必要があります';
 
   private static mustBe1To100Characters(value: string): boolean {
     return value.length >= 1 && value.length <= 100;

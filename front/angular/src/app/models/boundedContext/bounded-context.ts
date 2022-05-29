@@ -1,10 +1,9 @@
-import {BoundedContextId} from "./id/bounded-context-id";
-import {BoundedContextAlias} from "./alias/bounded-context-alias";
-import {BoundedContextName} from "./name/bounded-context-name";
-import {BoundedContextOverview} from "./overview/bounded-context-overview";
+import { BoundedContextId } from './id/bounded-context-id';
+import { BoundedContextAlias } from './alias/bounded-context-alias';
+import { BoundedContextName } from './name/bounded-context-name';
+import { BoundedContextOverview } from './overview/bounded-context-overview';
 
 export class BoundedContext {
-
   constructor(
     readonly id: BoundedContextId,
     readonly alias: BoundedContextAlias,

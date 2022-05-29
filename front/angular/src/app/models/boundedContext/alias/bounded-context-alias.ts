@@ -1,5 +1,5 @@
-import {PreferNominal} from "../../prefer-nominal";
-import * as E from "fp-ts/Either"
+import { PreferNominal } from '../../prefer-nominal';
+import * as E from 'fp-ts/Either';
 
 export class BoundedContextAlias {
   // noinspection JSUnusedGlobalSymbols
@@ -27,17 +27,22 @@ export class BoundedContextAlias {
   }
 
   static isValid(value: string): boolean {
-    return this.mustNonEmpty(value) && this.mustLessThan32Length(value) && this.mustOnlyAlphanumerical(value);
+    return (
+      this.mustNonEmpty(value) &&
+      this.mustLessThan32Length(value) &&
+      this.mustOnlyAlphanumerical(value)
+    );
   }
 
-  static validationErrorMessage: string = '境界づけられたコンテキストのエイリアスは1文字以上32文字以下で、英数のみ利用可能です'
+  static validationErrorMessage: string =
+    '境界づけられたコンテキストのエイリアスは1文字以上32文字以下で、英数のみ利用可能です';
 
   private static mustNonEmpty(value: string): boolean {
     return value.length > 0;
   }
 
   private static mustLessThan32Length(value: string): boolean {
-    return value.length <= 32
+    return value.length <= 32;
   }
 
   private static mustOnlyAlphanumerical(value: string): boolean {

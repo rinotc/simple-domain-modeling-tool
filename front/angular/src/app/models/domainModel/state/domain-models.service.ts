@@ -1,27 +1,31 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {DomainModelsStore} from './domain-models.store';
-import {ApiCollectionResponse} from "../../ApiCollectionResponse";
-import {DomainModelResponse} from "../http/domain-model-response";
-import {config} from "../../../config";
-import {BoundedContextId} from "../../boundedContext/id/bounded-context-id";
-import {CreateDomainModelInput} from "./io/create-domain-model-input";
-import {CreateDomainModelRequest} from "../http/create-domain-model-request";
-import {Observable, tap} from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { DomainModelsStore } from './domain-models.store';
+import { ApiCollectionResponse } from '../../ApiCollectionResponse';
+import { DomainModelResponse } from '../http/domain-model-response';
+import { config } from '../../../config';
+import { BoundedContextId } from '../../boundedContext/id/bounded-context-id';
+import { CreateDomainModelInput } from './io/create-domain-model-input';
+import { CreateDomainModelRequest } from '../http/create-domain-model-request';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DomainModelsService {
-
-  constructor(private domainModelsStore: DomainModelsStore, private http: HttpClient) {}
+  constructor(
+    private domainModelsStore: DomainModelsStore,
+    private http: HttpClient
+  ) {}
 
   fetchAll(boundedContextId: BoundedContextId): void {
     this.http
-      .get<ApiCollectionResponse<DomainModelResponse>>(`${config.apiHost}/bounded-contexts/${boundedContextId.value}/domain-models`)
-      .subscribe(res => {
+      .get<ApiCollectionResponse<DomainModelResponse>>(
+        `${config.apiHost}/bounded-contexts/${boundedContextId.value}/domain-models`
+      )
+      .subscribe((res) => {
         const dms = res.data.map((r) => DomainModelResponse.translate(r));
         this.domainModelsStore.update((state) => {
           return {
-            models: state.models.replace(dms)
+            models: state.models.replace(dms),
           };
         });
       });
@@ -34,14 +38,14 @@ export class DomainModelsService {
         CreateDomainModelRequest.from(input)
       )
       .pipe(
-        tap(res => {
+        tap((res) => {
           const newDM = DomainModelResponse.translate(res);
-          this.domainModelsStore.update(state => {
+          this.domainModelsStore.update((state) => {
             return {
-              models: state.models.append(newDM)
-            }
-          })
+              models: state.models.append(newDM),
+            };
+          });
         })
-      )
+      );
   }
 }

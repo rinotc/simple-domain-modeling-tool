@@ -1,16 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {DomainModel} from "../../../../models/domainModel/domain-model";
-import {BoundedContext} from "../../../../models/boundedContext/bounded-context";
-import {DomainModelsService} from "../../../../models/domainModel/state/domain-models.service";
-import {DomainModelsQuery} from "../../../../models/domainModel/state/domain-models.query";
+import { Component, Input, OnInit } from '@angular/core';
+import { DomainModel } from '../../../../models/domainModel/domain-model';
+import { BoundedContext } from '../../../../models/boundedContext/bounded-context';
+import { DomainModelsService } from '../../../../models/domainModel/state/domain-models.service';
+import { DomainModelsQuery } from '../../../../models/domainModel/state/domain-models.query';
 
 @Component({
   selector: 'app-list-domain-models',
   templateUrl: './list-domain-models.component.html',
-  styleUrls: ['./list-domain-models.component.scss']
+  styleUrls: ['./list-domain-models.component.scss'],
 })
 export class ListDomainModelsComponent implements OnInit {
-
   @Input() boundedContext!: BoundedContext;
 
   domainModels: DomainModel[] = [];
@@ -21,9 +20,9 @@ export class ListDomainModelsComponent implements OnInit {
     private domainModelsService: DomainModelsService,
     private domainModelsQuery: DomainModelsQuery
   ) {
-    this.domainModelsQuery.models$.subscribe(dms => {
-      this.domainModels = dms.models
-    })
+    this.domainModelsQuery.models$.subscribe((dms) => {
+      this.domainModels = dms.models;
+    });
   }
 
   ngOnInit(): void {

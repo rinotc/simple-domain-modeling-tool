@@ -1,9 +1,8 @@
-import {expect} from "@angular/flex-layout/_private-utils/testing";
-import * as E from 'fp-ts/Either'
-import {UbiquitousName} from "./ubiquitous-name";
+import { expect } from '@angular/flex-layout/_private-utils/testing';
+import * as E from 'fp-ts/Either';
+import { UbiquitousName } from './ubiquitous-name';
 
 describe('UbiquitousName', () => {
-
   describe('requirement', () => {
     it('should create an instance', () => {
       expect(new UbiquitousName('sample bounded context name')).toBeTruthy();

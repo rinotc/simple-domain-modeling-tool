@@ -8,9 +8,8 @@ xdescribe('ProjectListComponentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BoundedContextListComponentComponent ]
-    })
-    .compileComponents();
+      declarations: [BoundedContextListComponentComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

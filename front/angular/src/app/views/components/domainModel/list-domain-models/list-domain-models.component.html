@@ -2,19 +2,19 @@
 <table mat-table [dataSource]="domainModels" class="mat-elevation-z8">
   <ng-container matColumnDef="ubiquitous-name">
     <th mat-header-cell *matHeaderCellDef>ユビキタス名</th>
-    <td mat-cell *matCellDef="let dm"> {{ ubiquitousName(dm) }}</td>
+    <td mat-cell *matCellDef="let dm">{{ ubiquitousName(dm) }}</td>
   </ng-container>
 
   <ng-container matColumnDef="english-name">
     <th mat-header-cell *matHeaderCellDef>英語名</th>
-    <td mat-cell *matCellDef="let dm"> {{ englishName(dm) }}</td>
+    <td mat-cell *matCellDef="let dm">{{ englishName(dm) }}</td>
   </ng-container>
 
   <ng-container matColumnDef="knowledge">
     <th mat-header-cell *matHeaderCellDef>知識</th>
-    <td mat-cell *matCellDef="let dm"> {{ knowledge(dm) }}</td>
+    <td mat-cell *matCellDef="let dm">{{ knowledge(dm) }}</td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>

@@ -1,5 +1,5 @@
-import {PreferNominal} from "../../prefer-nominal";
-import * as E from "fp-ts/Either";
+import { PreferNominal } from '../../prefer-nominal';
+import * as E from 'fp-ts/Either';
 
 export class BoundedContextName {
   // noinspection JSUnusedGlobalSymbols
@@ -12,7 +12,7 @@ export class BoundedContextName {
   }
 
   private get requirementErrorMessage(): string {
-    return `BoundedContextName must to be 1 to 100 characters. but value length is ${this.value.length}`
+    return `BoundedContextName must to be 1 to 100 characters. but value length is ${this.value.length}`;
   }
 
   equals(other: BoundedContextName): boolean {
@@ -30,7 +30,8 @@ export class BoundedContextName {
     return this.mustBe1To100Characters(value);
   }
 
-  static validationErrorMessage: string = '境界づけられたコンテキストの名称は1文字以上100文字以下である必要があります';
+  static validationErrorMessage: string =
+    '境界づけられたコンテキストの名称は1文字以上100文字以下である必要があります';
 
   private static mustBe1To100Characters(value: string): boolean {
     return value.length >= 1 && value.length <= 100;

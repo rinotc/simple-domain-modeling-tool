@@ -1,10 +1,9 @@
-import {BoundedContext} from "./bounded-context";
-import {BoundedContextAlias} from "./alias/bounded-context-alias";
+import { BoundedContext } from './bounded-context';
+import { BoundedContextAlias } from './alias/bounded-context-alias';
 import * as O from 'fp-ts/Option';
-import {BoundedContextId} from "./id/bounded-context-id";
+import { BoundedContextId } from './id/bounded-context-id';
 
 export class BoundedContexts {
-
   constructor(private readonly _contexts: BoundedContext[]) {}
 
   get contexts(): BoundedContext[] {
@@ -26,12 +25,14 @@ export class BoundedContexts {
     for (const c of this._contexts) {
       if (c.equals(context)) {
         isConflict = true;
-        contexts.push(context)
+        contexts.push(context);
       } else {
         contexts.push(c);
       }
     }
-    if (!isConflict) { contexts.push(context) }
+    if (!isConflict) {
+      contexts.push(context);
+    }
     return new BoundedContexts(contexts);
   }
 
@@ -43,4 +44,3 @@ export class BoundedContexts {
     return new BoundedContexts([]);
   }
 }
-

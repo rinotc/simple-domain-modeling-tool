@@ -8,9 +8,8 @@ xdescribe('BoundedContextUpdatePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BoundedContextUpdatePageComponent ]
-    })
-    .compileComponents();
+      declarations: [BoundedContextUpdatePageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

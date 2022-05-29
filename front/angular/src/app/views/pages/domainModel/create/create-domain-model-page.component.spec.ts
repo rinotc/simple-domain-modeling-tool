@@ -8,9 +8,8 @@ xdescribe('CreateDomainModelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateDomainModelPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CreateDomainModelPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
