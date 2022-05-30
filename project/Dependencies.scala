@@ -2,6 +2,9 @@ import sbt._
 
 object Dependencies {
 
+  private val PlayVersion = "2.8.15"
+  val `play-cache`        = "com.typesafe.play" %% "play-cache" % PlayVersion
+
   object Google {
     val `guice`                = "com.google.inject"            % "guice"                % "5.1.0"
     val `guice-assistedinject` = "com.google.inject.extensions" % "guice-assistedinject" % "5.1.0"
@@ -89,7 +92,9 @@ object Dependencies {
   object Pac4j {
     val `play-pac4j` = "org.pac4j" %% "play-pac4j" % "11.0.0-PLAY2.8"
     val `pac4j-http` =
-      "org.pac4j" % "pac4j-http" % "5.4.3" excludeAll (ExclusionRule(organization = "com.fasterxml.jackson.core"))
+      "org.pac4j" % "pac4j-http" % "5.4.3" excludeAll ExclusionRule(organization = "com.fasterxml.jackson.core")
+
+    val `pac4j-jwt` = "org.pac4j" % "pac4j-jwt" % "5.4.3"
   }
 
   object Apache {

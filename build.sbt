@@ -26,6 +26,7 @@ lazy val `web` = (project in file("."))
     ),
     libraryDependencies ++= Seq(
       guice,
+      filters,
       Google.`guice`,
       Google.`guice-assistedinject`,
       ScalaTest.`scalatestplus-play` % Test,
@@ -38,7 +39,9 @@ lazy val `web` = (project in file("."))
       Circe.`play-circe`,
       Pac4j.`play-pac4j`,
       Pac4j.`pac4j-http`,
-      Apache.`shiro`
+      Pac4j.`pac4j-jwt`,
+      Apache.`shiro`,
+      `play-cache`
     )
   )
 

@@ -1,4 +1,4 @@
-package filters
+package settings.filters
 
 import org.pac4j.play.filters.SecurityFilter
 import play.api.http.HttpFilters
