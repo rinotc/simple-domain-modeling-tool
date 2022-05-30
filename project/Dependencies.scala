@@ -84,9 +84,15 @@ object Dependencies {
 
   /**
    * @see [[https://github.com/pac4j/play-pac4j]]
+   * @see [[https://github.com/pac4j/play-pac4j-scala-demo/blob/master/build.sbt]]
    */
   object Pac4j {
     val `play-pac4j` = "org.pac4j" %% "play-pac4j" % "11.0.0-PLAY2.8"
-    val `pac4j-http` = "org.pac4j"  % "pac4j-http" % "5.4.3"
+    val `pac4j-http` =
+      "org.pac4j" % "pac4j-http" % "5.4.3" excludeAll (ExclusionRule(organization = "com.fasterxml.jackson.core"))
+  }
+
+  object Apache {
+    val `shiro` = "org.apache.shiro" % "shiro-core" % "1.9.0"
   }
 }
