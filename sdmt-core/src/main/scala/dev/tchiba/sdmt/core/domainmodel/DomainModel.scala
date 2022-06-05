@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.core.domainmodel
 
+import dev.tchiba.arch.ddd.{Aggregate, Entity}
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
-import dev.tchiba.sdmt.core.{Aggregate, Entity}
 
 /**
  * ドメインモデル

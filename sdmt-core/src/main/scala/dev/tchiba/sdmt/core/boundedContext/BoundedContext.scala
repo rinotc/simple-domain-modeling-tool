@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.core.boundedContext
 
+import dev.tchiba.arch.ddd.{Aggregate, Entity}
 import dev.tchiba.sdmt.core.domainmodel.DomainModel
-import dev.tchiba.sdmt.core.{Aggregate, Entity}
 
 /**
  * 境界づけられたコンテキスト

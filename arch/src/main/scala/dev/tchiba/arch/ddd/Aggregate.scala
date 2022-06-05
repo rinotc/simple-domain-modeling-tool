@@ -1,3 +1,3 @@
-package dev.tchiba.sdmt.core
+package dev.tchiba.arch.ddd
 
 trait Aggregate { self: Entity[_] => }

@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.core.boundedContext
 
-import dev.tchiba.sdmt.core.Repository
+import dev.tchiba.arch.ddd.Repository
 
 trait BoundedContextRepository extends Repository[BoundedContext] {
 

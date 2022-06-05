@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.core.domainmodel
 
-import dev.tchiba.sdmt.core.{EntityId, EntityIdCompanionUUID}
+import dev.tchiba.arch.ddd.{EntityId, EntityIdCompanionUUID}
 
 import java.util.UUID
 

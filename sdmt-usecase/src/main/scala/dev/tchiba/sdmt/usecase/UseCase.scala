@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.usecase
 
-import dev.tchiba.sdmt.core.ApplicationService
+import dev.tchiba.arch.ddd.ApplicationService
 
 /**
  * ユースケース

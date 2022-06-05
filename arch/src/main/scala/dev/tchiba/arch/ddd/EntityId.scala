@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.core
+package dev.tchiba.arch.ddd
 
 import java.util.UUID
 

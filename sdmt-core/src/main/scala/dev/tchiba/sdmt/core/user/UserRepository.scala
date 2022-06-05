@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.core.user
 
-import dev.tchiba.sdmt.core.Repository
+import dev.tchiba.arch.ddd.Repository
 
 trait UserRepository extends Repository[User] {
 

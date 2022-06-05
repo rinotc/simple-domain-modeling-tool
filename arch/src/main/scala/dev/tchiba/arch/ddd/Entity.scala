@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.core
+package dev.tchiba.arch.ddd
 
 trait Entity[ID <: EntityId[_]] {
   val id: ID
