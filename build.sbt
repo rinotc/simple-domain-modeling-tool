@@ -48,7 +48,7 @@ lazy val `web` = (project in file("."))
   )
 
 lazy val `sdmt-core` = (project in file("sdmt-core"))
-  .dependsOn(testDependency, `arch`)
+  .dependsOn(testDependency, `arch`, `sub`)
   .settings(
     name := "sdmt-core",
     scalacOptions := ScalacOptions,
@@ -122,7 +122,7 @@ lazy val `test-core` = (project in file("test-core"))
 lazy val testDependency: ClasspathDependency = `test-core` % "test->test"
 
 lazy val `auth-core` = (project in file("auth-core"))
-  .dependsOn(`arch`, testDependency)
+  .dependsOn(`arch`, `sub`, testDependency)
   .settings(
     name := "auth-core",
     scalacOptions := ScalacOptions,
@@ -142,4 +142,12 @@ lazy val `auth-infra` = (project in file("auth-infra"))
       ScalikeJDBC.`scalikejdbc-config`,
       ScalikeJDBC.`scalikejdbc-test` % Test
     )
+  )
+
+lazy val `sub` = (project in file("sub"))
+  .dependsOn(`arch`, testDependency)
+  .settings(
+    name := "sub",
+    scalacOptions := ScalacOptions,
+    libraryDependencies ++= Seq()
   )

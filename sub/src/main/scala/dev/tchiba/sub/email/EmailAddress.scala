@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.core.sub.email
+package dev.tchiba.sub.email
 
 import dev.tchiba.arch.ddd.ValueObject
 

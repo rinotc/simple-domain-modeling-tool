@@ -1,8 +1,8 @@
 package interfaces.api.auth
 
-import dev.tchiba.sdmt.core.sub.email.EmailAddress
-import dev.tchiba.sdmt.core.sub.url.Url
 import dev.tchiba.sdmt.core.user.{User, UserRepository}
+import dev.tchiba.sub.email.EmailAddress
+import dev.tchiba.sub.url.Url
 import interfaces.api.auth.json.{SignUpResponse, SingUpRequest}
 import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
 
