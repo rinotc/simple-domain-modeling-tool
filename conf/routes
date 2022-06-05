@@ -1,6 +1,8 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
+GET         /login                                                                     interfaces.api.auth.LoginController.action()
+
 POST        /api/signup                                                                interfaces.api.auth.AuthApiController.singUp()
 
 GET         /api/users                                                                 interfaces.api.user.UserApiController.allUsers()

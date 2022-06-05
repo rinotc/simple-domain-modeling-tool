@@ -14,7 +14,7 @@ final class ListBoundedContextsApiController @Inject() (
     boundedContextRepository: BoundedContextRepository
 ) extends Security[CommonProfile] {
 
-  def action(): Action[AnyContent] = Secure {
+  def action(): Action[AnyContent] = Secure("ParameterClient") {
     val boundedContexts = boundedContextRepository.all
     val jsons           = boundedContexts.map(BoundedContextResponse.apply).map(_.json)
     val response        = CollectionResponse(jsons)

@@ -1,4 +1,4 @@
-package settings.adapter
+package settings.pac4j.adapter
 
 import org.pac4j.core.context.{HttpConstants, WebContext}
 import org.pac4j.core.exception.http.HttpAction
@@ -9,6 +9,8 @@ import play.mvc.Result
 
 final class ActionAdapter extends PlayHttpActionAdapter with Results {
   override def adapt(action: HttpAction, context: WebContext): Result = {
+    println("Action Adapter Now")
+    println(action)
     val playWebContext = context.asInstanceOf[PlayWebContext]
     Option(action) match {
       case Some(action) if action.getCode == HttpConstants.UNAUTHORIZED =>
