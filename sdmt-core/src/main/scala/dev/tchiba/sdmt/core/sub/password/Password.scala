@@ -23,6 +23,12 @@ object Password {
 
   def apply(plainPassword: String) = new Password(plainPassword)
 
+  def validate(plainPassword: String): Either[String, Password] = Either.cond(
+    isValid(plainPassword),
+    apply(plainPassword),
+    validationErrorMessage
+  )
+
   def isValid(plainPassword: String): Boolean =
     validatePasswordLength(plainPassword) && validatePasswordRegex(plainPassword)
 
