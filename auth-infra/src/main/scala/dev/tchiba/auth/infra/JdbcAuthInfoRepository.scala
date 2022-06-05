@@ -10,7 +10,7 @@ class JdbcAuthInfoRepository extends AuthInfoRepository with SQLInterpolation {
 
   override def findBy(email: EmailAddress): Option[AuthInfo] = DB.readOnly { implicit session =>
     sql"""
-        select auth_info_id, email, hashed_password from auth_info where email = ${email.value}
+        select auth_info_id, email, hashed_password, salt from auth_info where email = ${email.value}
        """
       .single()
       .map(convertAuthInfo)
@@ -20,11 +20,12 @@ class JdbcAuthInfoRepository extends AuthInfoRepository with SQLInterpolation {
 
   override def insert(authInfo: AuthInfo): Unit = DB.localTx { implicit session =>
     sql"""
-        insert into auth_info (auth_info_id, email, hashed_password) 
+        insert into auth_info (auth_info_id, email, hashed_password, salt) 
         values (
             ${authInfo.id.value},
             ${authInfo.email.value},
-            ${authInfo.hashedPassword.value}
+            ${authInfo.hashedPassword.hashedPassword},
+            ${authInfo.hashedPassword.salt}
         )
        """
       .update()
@@ -38,7 +39,7 @@ object JdbcAuthInfoRepository {
     AuthInfo.reconstruct(
       id = AuthId.fromString(ws.string("auth_info_id")),
       email = EmailAddress(ws.string("email")),
-      hashedPassword = HashedPassword(ws.string("hashed_password"))
+      hashedPassword = HashedPassword(ws.string("hashed_password"), ws.string("salt"))
     )
   }
 }

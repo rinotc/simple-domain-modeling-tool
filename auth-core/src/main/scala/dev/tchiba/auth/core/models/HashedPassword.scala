@@ -4,6 +4,8 @@ import dev.tchiba.arch.ddd.ValueObject
 
 /**
  * ハッシュ済みパスワード
- * @param value ハッシュ済みパスワード
+ *
+ * @param hashedPassword ハッシュ済みパスワード
+ * @param salt           ソルト
  */
-final case class HashedPassword private (value: String) extends ValueObject
+final case class HashedPassword private (hashedPassword: String, salt: String) extends ValueObject

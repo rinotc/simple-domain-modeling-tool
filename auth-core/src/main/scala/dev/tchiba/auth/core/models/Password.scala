@@ -23,7 +23,7 @@ final class Password private (@transient private val plainPassword: String) exte
   /**
    * ハッシュ済みパスワード
    */
-  def hashedPassword: HashedPassword = HashedPassword(hashResult.getResult)
+  def hashedPassword: HashedPassword = HashedPassword(hashResult.getResult, salt)
 
   /**
    * ハッシュに利用されたソルト
@@ -34,7 +34,8 @@ final class Password private (@transient private val plainPassword: String) exte
    * パスワードを検証する
    * @param hash ハッシュ済みパスワード
    */
-  def verify(hash: HashedPassword): Boolean = com.password4j.Password.check(plainPassword, hash.value).withBCrypt()
+  def verify(hash: HashedPassword): Boolean =
+    com.password4j.Password.check(plainPassword, hash.hashedPassword).withBCrypt()
 
   override def writeExternal(out: ObjectOutput): Unit = deny
 
