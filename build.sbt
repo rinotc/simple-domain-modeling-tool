@@ -23,8 +23,8 @@ lazy val `arch` = (project in file("arch"))
 
 lazy val `web` = (project in file("."))
   .enablePlugins(PlayScala)
-  .aggregate(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`)
-  .dependsOn(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`)
+  .aggregate(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`, `auth-module`)
+  .dependsOn(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`, `auth-module`)
   .settings(
     name := "sdmt-web",
     scalacOptions := ScalacOptions ++ Seq(
@@ -59,13 +59,11 @@ lazy val `sdmt-core` = (project in file("sdmt-core"))
   )
 
 lazy val `sdmt-usecase` = (project in file("sdmt-usecase"))
-  .dependsOn(`sdmt-core`, `arch`)
+  .dependsOn(`sdmt-core`, `arch`, testDependency)
   .settings(
     name := "sdmt-usecase",
     scalacOptions := ScalacOptions,
-    libraryDependencies ++= Seq(
-      ScalaTest.`scalatest` % Test
-    )
+    libraryDependencies ++= Seq()
   )
 
 lazy val `sdmt-application` = (project in file("sdmt-application"))
@@ -131,6 +129,24 @@ lazy val `auth-core` = (project in file("auth-core"))
     )
   )
 
+lazy val `auth-usecase` = (project in file("auth-usecase"))
+  .dependsOn(`auth-core`)
+  .settings(
+    name := "auth-usecase",
+    scalacOptions := ScalacOptions,
+    libraryDependencies ++= Seq()
+  )
+
+lazy val `auth-application` = (project in file("auth-application"))
+  .dependsOn(`auth-usecase`)
+  .settings(
+    name := "auth-application",
+    scalacOptions := ScalacOptions,
+    libraryDependencies ++= Seq(
+      Google.`guice`
+    )
+  )
+
 lazy val `auth-infra` = (project in file("auth-infra"))
   .dependsOn(`auth-core`, testDependency)
   .settings(
@@ -141,6 +157,17 @@ lazy val `auth-infra` = (project in file("auth-infra"))
       ScalikeJDBC.`scalikejdbc`,
       ScalikeJDBC.`scalikejdbc-config`,
       ScalikeJDBC.`scalikejdbc-test` % Test
+    )
+  )
+
+lazy val `auth-module` = (project in file("auth-module"))
+  .dependsOn(`auth-core`, `auth-usecase`, `auth-application`, `auth-infra`)
+  .settings(
+    name := "auth-module",
+    scalacOptions := ScalacOptions,
+    libraryDependencies ++= Seq(
+      Google.`guice`,
+      CodingWell.`scala-guice`
     )
   )
 
