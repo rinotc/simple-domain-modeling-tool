@@ -122,25 +122,22 @@ lazy val `test-core` = (project in file("test-core"))
 lazy val testDependency: ClasspathDependency = `test-core` % "test->test"
 
 lazy val `auth-core` = (project in file("auth-core"))
+  .dependsOn(`arch`, testDependency)
   .settings(
     name := "auth-core",
     scalacOptions := ScalacOptions,
-    libraryDependencies ++= Seq(
-      ScalaTest.`scalatest` % Test,
-      ScalaMock.`scalamock` % Test
-    )
+    libraryDependencies ++= Seq()
   )
 
 lazy val `auth-infra` = (project in file("auth-infra"))
-  .dependsOn(`auth-core`)
+  .dependsOn(`auth-core`, testDependency)
   .settings(
     name := "auth-infra",
     scalacOptions := ScalacOptions,
     libraryDependencies ++= Seq(
+      Postgresql.`postgresql`,
       ScalikeJDBC.`scalikejdbc`,
       ScalikeJDBC.`scalikejdbc-config`,
-      ScalikeJDBC.`scalikejdbc-test` % Test,
-      ScalaTest.`scalatest`          % Test,
-      ScalaMock.`scalamock`          % Test
+      ScalikeJDBC.`scalikejdbc-test` % Test
     )
   )
