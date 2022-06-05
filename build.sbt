@@ -59,7 +59,7 @@ lazy val `sdmt-core` = (project in file("sdmt-core"))
   )
 
 lazy val `sdmt-usecase` = (project in file("sdmt-usecase"))
-  .dependsOn(`sdmt-core`)
+  .dependsOn(`sdmt-core`, `arch`)
   .settings(
     name := "sdmt-usecase",
     scalacOptions := ScalacOptions,

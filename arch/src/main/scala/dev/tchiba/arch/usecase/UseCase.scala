@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.usecase
+package dev.tchiba.arch.usecase
 
 import dev.tchiba.arch.ddd.ApplicationService
 

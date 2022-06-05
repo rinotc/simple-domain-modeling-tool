@@ -1,8 +1,8 @@
 package dev.tchiba.sdmt.usecase.domainmodel.create
 
+import dev.tchiba.arch.usecase.Input
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.core.domainmodel.{EnglishName, UbiquitousName, Knowledge}
-import dev.tchiba.sdmt.usecase.Input
 
 final case class CreateDomainModelInput(
     boundedContextId: BoundedContextId,

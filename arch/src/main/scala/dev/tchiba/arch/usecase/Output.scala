@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.usecase
+package dev.tchiba.arch.usecase
 
 /**
  * これを継承して出力を定義する。例のコードのように、継承先を `sealed` にして、コンパニオンオブジェクトで
