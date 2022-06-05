@@ -81,4 +81,11 @@ object Dependencies {
     val `refined-scopt`      = "eu.timepit" %% "refined-scopt"      % "0.9.28" // optional
     val `refined-shapeless`  = "eu.timepit" %% "refined-shapeless"  % "0.9.28" // optional
   }
+
+  /**
+   * @see [[https://github.com/Password4j/password4j]]
+   */
+  object Password4j {
+    val `password4j` = "com.password4j" % "password4j" % "1.5.4"
+  }
 }

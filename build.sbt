@@ -126,7 +126,9 @@ lazy val `auth-core` = (project in file("auth-core"))
   .settings(
     name := "auth-core",
     scalacOptions := ScalacOptions,
-    libraryDependencies ++= Seq()
+    libraryDependencies ++= Seq(
+      Password4j.`password4j`
+    )
   )
 
 lazy val `auth-infra` = (project in file("auth-infra"))

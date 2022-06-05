@@ -1,14 +1,40 @@
 package dev.tchiba.auth.core.models
 
+import com.password4j.Hash
 import dev.tchiba.arch.ddd.ValueObject
 
 import java.io.{Externalizable, ObjectInput, ObjectOutput}
 
+/**
+ * パスワード
+ *
+ * @param plainPassword プレーンパスワード
+ */
 final class Password private (@transient private val plainPassword: String) extends Externalizable with ValueObject {
 
   import Password._
 
   require(isValid(plainPassword), validationErrorMessage)
+
+  private lazy val hashResult: Hash = {
+    com.password4j.Password.hash(plainPassword).withBCrypt()
+  }
+
+  /**
+   * ハッシュ済みパスワード
+   */
+  def hashedPassword: String = hashResult.getResult
+
+  /**
+   * ハッシュに利用されたソルト
+   */
+  def salt: String = hashResult.getSalt
+
+  /**
+   * パスワードを検証する
+   * @param hash ハッシュ済みパスワード
+   */
+  def verify(hash: String): Boolean = com.password4j.Password.check(plainPassword, hash).withBCrypt()
 
   override def writeExternal(out: ObjectOutput): Unit = deny
 
@@ -23,7 +49,13 @@ object Password {
 
   def apply(plainPassword: String) = new Password(plainPassword)
 
-  def isValid(plainPassword: String): Boolean =
+  def validate(plainPassword: String): Either[String, Password] = Either.cond(
+    isValid(plainPassword),
+    apply(plainPassword),
+    validationErrorMessage
+  )
+
+  private def isValid(plainPassword: String): Boolean =
     validatePasswordLength(plainPassword) && validatePasswordRegex(plainPassword)
 
   private val validationErrorMessage =
