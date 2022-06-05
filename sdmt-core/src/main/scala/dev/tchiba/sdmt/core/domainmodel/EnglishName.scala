@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.core.domainmodel
 
-import dev.tchiba.sdmt.core.ValueObject
+import dev.tchiba.arch.ddd.ValueObject
 
 /**
  * ドメインモデルの英語名

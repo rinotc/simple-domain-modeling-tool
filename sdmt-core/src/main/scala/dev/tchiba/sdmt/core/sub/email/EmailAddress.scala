@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.core.sub.email
 
-import dev.tchiba.sdmt.core.ValueObject
+import dev.tchiba.arch.ddd.ValueObject
 
 import scala.util.matching.Regex
 

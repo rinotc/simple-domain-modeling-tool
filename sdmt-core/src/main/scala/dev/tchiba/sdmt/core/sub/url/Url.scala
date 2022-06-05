@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.core.sub.url
 
-import dev.tchiba.sdmt.core.ValueObject
+import dev.tchiba.arch.ddd.ValueObject
 
 final class Url(val value: String) extends ValueObject {
   import Url._

@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.test
+package dev.tchiba.test.core
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec

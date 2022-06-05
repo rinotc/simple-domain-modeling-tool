@@ -16,8 +16,8 @@ import dev.tchiba.sdmt.core.domainmodel.{
   UbiquitousName,
   Knowledge
 }
-import dev.tchiba.sdmt.test.BaseTest
 import dev.tchiba.sdmt.usecase.domainmodel.update.{UpdateDomainModelInput, UpdateDomainModelOutput}
+import dev.tchiba.test.core.BaseTest
 import org.scalamock.scalatest.MockFactory
 
 class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {

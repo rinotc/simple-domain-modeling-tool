@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.core
+package dev.tchiba.arch.ddd
 
 /**
  * <h2>値オブジェクト</h2>

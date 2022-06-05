@@ -7,8 +7,8 @@ import dev.tchiba.sdmt.core.boundedContext.{
   BoundedContextOverview,
   BoundedContextRepository
 }
-import dev.tchiba.sdmt.test.BaseTest
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateBoundedContextInput, CreateBoundedContextOutput}
+import dev.tchiba.test.core.BaseTest
 import org.scalamock.scalatest.MockFactory
 
 class CreateProjectInteractorTest extends BaseTest with MockFactory {
