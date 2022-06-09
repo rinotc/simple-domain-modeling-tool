@@ -1,7 +1,7 @@
 package dev.tchiba.auth.module
 
 import com.google.inject.AbstractModule
-import dev.tchiba.auth.core.models.AuthInfoRepository
+import dev.tchiba.auth.core.authInfo.AuthInfoRepository
 import dev.tchiba.auth.infra.JdbcAuthInfoRepository
 import net.codingwell.scalaguice.ScalaModule
 

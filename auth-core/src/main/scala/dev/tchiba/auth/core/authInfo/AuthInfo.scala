@@ -1,6 +1,7 @@
-package dev.tchiba.auth.core.models
+package dev.tchiba.auth.core.authInfo
 
 import dev.tchiba.arch.ddd.{Aggregate, Entity}
+import dev.tchiba.auth.core.password.{HashedPassword, Password}
 import dev.tchiba.sub.email.EmailAddress
 
 /**
@@ -15,6 +16,8 @@ final class AuthInfo private (
 ) extends Entity[AuthId]
     with Aggregate {
   override def canEqual(that: Any): Boolean = that.isInstanceOf[AuthInfo]
+
+  def validatePassword(password: Password): Boolean = password.verify(hashedPassword)
 }
 
 object AuthInfo {

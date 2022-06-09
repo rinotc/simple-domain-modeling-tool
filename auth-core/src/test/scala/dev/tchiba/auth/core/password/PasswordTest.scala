@@ -1,4 +1,4 @@
-package dev.tchiba.auth.core.models
+package dev.tchiba.auth.core.password
 
 import dev.tchiba.test.core.BaseTest
 import org.scalamock.scalatest.MockFactory

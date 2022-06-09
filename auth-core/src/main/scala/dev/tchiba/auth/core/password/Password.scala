@@ -1,4 +1,4 @@
-package dev.tchiba.auth.core.models
+package dev.tchiba.auth.core.password
 
 import com.password4j.Hash
 import dev.tchiba.arch.ddd.ValueObject

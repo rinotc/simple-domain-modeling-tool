@@ -177,5 +177,7 @@ lazy val `sub` = (project in file("sub"))
   .settings(
     name := "sub",
     scalacOptions := ScalacOptions,
-    libraryDependencies ++= Seq()
+    libraryDependencies ++= Seq(
+      TypeSafe.`config`
+    )
   )

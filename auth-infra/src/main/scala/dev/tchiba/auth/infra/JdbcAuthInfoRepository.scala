@@ -1,6 +1,7 @@
 package dev.tchiba.auth.infra
 
-import dev.tchiba.auth.core.models.{AuthId, AuthInfo, AuthInfoRepository, HashedPassword}
+import dev.tchiba.auth.core.authInfo.{AuthId, AuthInfo, AuthInfoRepository}
+import dev.tchiba.auth.core.password.HashedPassword
 import dev.tchiba.sub.email.EmailAddress
 import scalikejdbc._
 

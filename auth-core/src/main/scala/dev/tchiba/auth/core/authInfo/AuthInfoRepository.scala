@@ -1,4 +1,4 @@
-package dev.tchiba.auth.core.models
+package dev.tchiba.auth.core.authInfo
 
 import dev.tchiba.arch.ddd.Repository
 import dev.tchiba.sub.email.EmailAddress
