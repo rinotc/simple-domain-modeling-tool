@@ -161,6 +161,7 @@ lazy val `auth-infra` = (project in file("auth-infra"))
   )
 
 lazy val `auth-module` = (project in file("auth-module"))
+  .aggregate(`auth-core`, `auth-usecase`, `auth-application`, `auth-infra`)
   .dependsOn(`auth-core`, `auth-usecase`, `auth-application`, `auth-infra`)
   .settings(
     name := "auth-module",
