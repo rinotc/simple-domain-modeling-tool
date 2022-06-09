@@ -1,7 +1,6 @@
 package dev.tchiba.sdmt.core.user
 
-import dev.tchiba.sdmt.core.EntityId
-
+import dev.tchiba.arch.ddd.EntityId
 import java.util.UUID
 
 final class UserId(val value: UUID) extends EntityId[UUID] {

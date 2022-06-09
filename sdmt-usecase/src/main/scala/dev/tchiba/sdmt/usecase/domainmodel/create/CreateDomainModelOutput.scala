@@ -1,8 +1,8 @@
 package dev.tchiba.sdmt.usecase.domainmodel.create
 
+import dev.tchiba.arch.usecase.Output
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.core.domainmodel.DomainModel
-import dev.tchiba.sdmt.usecase.Output
 
 /**
  * 新規ドメインモデル作成ユースケースの出力

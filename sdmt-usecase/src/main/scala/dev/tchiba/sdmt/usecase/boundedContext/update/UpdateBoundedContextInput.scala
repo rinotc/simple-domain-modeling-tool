@@ -1,12 +1,12 @@
 package dev.tchiba.sdmt.usecase.boundedContext.update
 
+import dev.tchiba.arch.usecase.Input
 import dev.tchiba.sdmt.core.boundedContext.{
   BoundedContextAlias,
   BoundedContextId,
   BoundedContextName,
   BoundedContextOverview
 }
-import dev.tchiba.sdmt.usecase.Input
 
 /**
  * 境界づけられたコンテキストの入力

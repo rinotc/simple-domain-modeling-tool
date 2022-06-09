@@ -9,8 +9,8 @@ import dev.tchiba.sdmt.core.boundedContext.{
   BoundedContextRepository
 }
 import dev.tchiba.sdmt.core.domainmodel.{DomainModel, DomainModelRepository, EnglishName, UbiquitousName, Knowledge}
-import dev.tchiba.sdmt.test.BaseTest
 import dev.tchiba.sdmt.usecase.domainmodel.create.{CreateDomainModelInput, CreateDomainModelOutput}
+import dev.tchiba.test.core.BaseTest
 import org.scalamock.scalatest.MockFactory
 
 class CreateDomainModelInteractorTest extends BaseTest with MockFactory {

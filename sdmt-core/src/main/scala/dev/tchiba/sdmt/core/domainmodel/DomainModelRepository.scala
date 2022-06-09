@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.core.domainmodel
 
-import dev.tchiba.sdmt.core.Repository
+import dev.tchiba.arch.ddd.Repository
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 
 trait DomainModelRepository extends Repository[DomainModel] {

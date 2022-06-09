@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.usecase.boundedContext.update
 
+import dev.tchiba.arch.usecase.Output
 import dev.tchiba.sdmt.core.boundedContext.{BoundedContext, BoundedContextId}
-import dev.tchiba.sdmt.usecase.Output
 
 /**
  * 境界づけられたコンテキストを更新するユースケースの出力

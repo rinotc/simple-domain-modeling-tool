@@ -79,3 +79,22 @@ comment on column users.updated_at is '更新日時';
 create unique index users_email_address_uindex
     on users (email_address);
 
+create table auth_info
+(
+    auth_info_id    char(36)     not null
+        constraint auth_info_pk
+            primary key,
+    email           varchar(255) not null,
+    hashed_password varchar(255) not null
+);
+
+comment on table auth_info is '認証情報';
+
+comment on column auth_info.auth_info_id is '認証情報ID';
+
+comment on column auth_info.email is 'メールアドレス';
+
+comment on column auth_info.hashed_password is 'ハッシュ済みパスワード';
+
+create unique index auth_info_email_uindex
+    on auth_info (email);

@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.usecase.domainmodel.update
 
-import dev.tchiba.sdmt.usecase.UseCase
+import dev.tchiba.arch.usecase.UseCase
 
 /**
  * ドメインモデル更新ユースケース

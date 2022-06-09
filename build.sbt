@@ -14,10 +14,17 @@ lazy val ScalacOptions = Seq(
 
 resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
 
+lazy val `arch` = (project in file("arch"))
+  .dependsOn(testDependency)
+  .settings(
+    name := "arch",
+    scalacOptions := ScalacOptions
+  )
+
 lazy val `web` = (project in file("."))
   .enablePlugins(PlayScala)
-  .aggregate(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`)
-  .dependsOn(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`)
+  .aggregate(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`, `auth-module`)
+  .dependsOn(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`, `auth-module`)
   .settings(
     name := "sdmt-web",
     scalacOptions := ScalacOptions ++ Seq(
@@ -41,7 +48,7 @@ lazy val `web` = (project in file("."))
   )
 
 lazy val `sdmt-core` = (project in file("sdmt-core"))
-  .dependsOn(sdmtTestDependency)
+  .dependsOn(testDependency, `arch`, `sub`)
   .settings(
     name := "sdmt-core",
     scalacOptions := ScalacOptions,
@@ -52,17 +59,15 @@ lazy val `sdmt-core` = (project in file("sdmt-core"))
   )
 
 lazy val `sdmt-usecase` = (project in file("sdmt-usecase"))
-  .dependsOn(`sdmt-core`)
+  .dependsOn(`sdmt-core`, `arch`, testDependency)
   .settings(
     name := "sdmt-usecase",
     scalacOptions := ScalacOptions,
-    libraryDependencies ++= Seq(
-      ScalaTest.`scalatest` % Test
-    )
+    libraryDependencies ++= Seq()
   )
 
 lazy val `sdmt-application` = (project in file("sdmt-application"))
-  .dependsOn(`sdmt-core`, `sdmt-usecase`, sdmtTestDependency)
+  .dependsOn(`sdmt-core`, `sdmt-usecase`, testDependency)
   .settings(
     name := "sdmt-application",
     scalacOptions := ScalacOptions,
@@ -102,9 +107,9 @@ lazy val `sdmt-infra-scalikejdbc` = (project in file("sdmt-infra-scalikejdbc"))
     )
   )
 
-lazy val `sdmt-test` = (project in file("sdmt-test"))
+lazy val `test-core` = (project in file("test-core"))
   .settings(
-    name := "sdmt-test",
+    name := "test-core",
     scalacOptions := ScalacOptions,
     libraryDependencies ++= Seq(
       ScalaTest.`scalatest` % Test,
@@ -112,4 +117,67 @@ lazy val `sdmt-test` = (project in file("sdmt-test"))
     )
   )
 
-lazy val sdmtTestDependency: ClasspathDependency = `sdmt-test` % "test->test"
+lazy val testDependency: ClasspathDependency = `test-core` % "test->test"
+
+lazy val `auth-core` = (project in file("auth-core"))
+  .dependsOn(`arch`, `sub`, testDependency)
+  .settings(
+    name := "auth-core",
+    scalacOptions := ScalacOptions,
+    libraryDependencies ++= Seq(
+      Password4j.`password4j`
+    )
+  )
+
+lazy val `auth-usecase` = (project in file("auth-usecase"))
+  .dependsOn(`auth-core`)
+  .settings(
+    name := "auth-usecase",
+    scalacOptions := ScalacOptions,
+    libraryDependencies ++= Seq()
+  )
+
+lazy val `auth-application` = (project in file("auth-application"))
+  .dependsOn(`auth-usecase`)
+  .settings(
+    name := "auth-application",
+    scalacOptions := ScalacOptions,
+    libraryDependencies ++= Seq(
+      Google.`guice`
+    )
+  )
+
+lazy val `auth-infra` = (project in file("auth-infra"))
+  .dependsOn(`auth-core`, testDependency)
+  .settings(
+    name := "auth-infra",
+    scalacOptions := ScalacOptions,
+    libraryDependencies ++= Seq(
+      Postgresql.`postgresql`,
+      ScalikeJDBC.`scalikejdbc`,
+      ScalikeJDBC.`scalikejdbc-config`,
+      ScalikeJDBC.`scalikejdbc-test` % Test
+    )
+  )
+
+lazy val `auth-module` = (project in file("auth-module"))
+  .aggregate(`auth-core`, `auth-usecase`, `auth-application`, `auth-infra`)
+  .dependsOn(`auth-core`, `auth-usecase`, `auth-application`, `auth-infra`)
+  .settings(
+    name := "auth-module",
+    scalacOptions := ScalacOptions,
+    libraryDependencies ++= Seq(
+      Google.`guice`,
+      CodingWell.`scala-guice`
+    )
+  )
+
+lazy val `sub` = (project in file("sub"))
+  .dependsOn(`arch`, testDependency)
+  .settings(
+    name := "sub",
+    scalacOptions := ScalacOptions,
+    libraryDependencies ++= Seq(
+      TypeSafe.`config`
+    )
+  )

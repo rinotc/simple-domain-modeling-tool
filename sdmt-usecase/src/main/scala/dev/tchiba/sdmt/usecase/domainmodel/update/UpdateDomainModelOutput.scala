@@ -1,8 +1,8 @@
 package dev.tchiba.sdmt.usecase.domainmodel.update
 
+import dev.tchiba.arch.usecase.Output
 import dev.tchiba.sdmt.core.boundedContext.{BoundedContext, BoundedContextId}
 import dev.tchiba.sdmt.core.domainmodel.{DomainModel, DomainModelId}
-import dev.tchiba.sdmt.usecase.Output
 
 /**
  * ドメインモデル更新ユースケースの出力

@@ -6,8 +6,13 @@ object Dependencies {
     val `guice`                = "com.google.inject"            % "guice"                % "5.1.0"
     val `guice-assistedinject` = "com.google.inject.extensions" % "guice-assistedinject" % "5.1.0"
   }
+
   object Logback {
     val `logback-classic` = "ch.qos.logback" % "logback-classic" % "1.2.11"
+  }
+
+  object TypeSafe {
+    val `config` = "com.typesafe" % "config" % "1.4.2"
   }
 
   /**
@@ -80,5 +85,12 @@ object Dependencies {
     val `refined-scodec`     = "eu.timepit" %% "refined-scodec"     % "0.9.28" // optional
     val `refined-scopt`      = "eu.timepit" %% "refined-scopt"      % "0.9.28" // optional
     val `refined-shapeless`  = "eu.timepit" %% "refined-shapeless"  % "0.9.28" // optional
+  }
+
+  /**
+   * @see [[https://github.com/Password4j/password4j]]
+   */
+  object Password4j {
+    val `password4j` = "com.password4j" % "password4j" % "1.5.4"
   }
 }

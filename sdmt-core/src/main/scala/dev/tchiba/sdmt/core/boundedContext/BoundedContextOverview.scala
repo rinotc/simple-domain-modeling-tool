@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.core.boundedContext
 
-import dev.tchiba.sdmt.core.ValueObject
+import dev.tchiba.arch.ddd.ValueObject
 
 /**
  * 境界づけられたコンテキストの概要

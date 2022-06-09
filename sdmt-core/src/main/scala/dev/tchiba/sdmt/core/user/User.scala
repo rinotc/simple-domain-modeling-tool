@@ -1,8 +1,8 @@
 package dev.tchiba.sdmt.core.user
 
-import dev.tchiba.sdmt.core.sub.email.EmailAddress
-import dev.tchiba.sdmt.core.sub.url.Url
-import dev.tchiba.sdmt.core.{Aggregate, Entity}
+import dev.tchiba.arch.ddd.{Aggregate, Entity}
+import dev.tchiba.sub.email.EmailAddress
+import dev.tchiba.sub.url.Url
 
 /**
  * ユーザー

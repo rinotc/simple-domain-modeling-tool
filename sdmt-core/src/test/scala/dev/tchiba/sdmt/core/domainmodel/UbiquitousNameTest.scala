@@ -1,6 +1,6 @@
 package dev.tchiba.sdmt.core.domainmodel
 
-import dev.tchiba.sdmt.test.BaseTest
+import dev.tchiba.test.core.BaseTest
 
 class UbiquitousNameTest extends BaseTest {
 

@@ -1,9 +1,9 @@
 package dev.tchiba.sdmt.infra.user
 
-import dev.tchiba.sdmt.core.sub.email.EmailAddress
-import dev.tchiba.sdmt.core.sub.url.Url
 import dev.tchiba.sdmt.core.user.{User, UserId, UserRepository}
 import dev.tchiba.sdmt.infra.scalikejdbc.Users
+import dev.tchiba.sub.email.EmailAddress
+import dev.tchiba.sub.url.Url
 import scalikejdbc._
 
 final class JdbcUserRepository extends UserRepository {
