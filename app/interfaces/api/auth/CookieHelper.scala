@@ -11,7 +11,7 @@ trait CookieHelper {
     maxAge = None,
     path = "",
     domain = Some(request.domain),
-    secure = true,
+    secure = false,
     httpOnly = true,
     sameSite = Some(Cookie.SameSite.Lax)
   )
