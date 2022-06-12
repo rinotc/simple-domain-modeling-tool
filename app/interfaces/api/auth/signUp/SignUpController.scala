@@ -19,7 +19,7 @@ final class SignUpController @Inject() (
     signUpUseCase.handle(request.body.input) match {
 
       case SignUpOutput.EmailConflictError(email) =>
-        BadRequest(ErrorResponse(s"${email.value} is conflicted").json.play)
+        Conflict(ErrorResponse(s"${email.value} is conflicted").json.play)
       case SignUpOutput.Success(accessToken) =>
         val accessTokenCookie = Cookie(
           name = "apiAccessToken",
