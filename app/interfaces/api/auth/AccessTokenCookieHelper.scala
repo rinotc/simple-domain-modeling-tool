@@ -5,10 +5,10 @@ import play.api.mvc.{Cookie, Request}
 
 trait AccessTokenCookieHelper {
 
-  private val tokenName = "apiAccessToken"
+  val accessTokenCookieName = "apiAccessToken"
 
   def generateAccessTokenCookie[R](accessToken: AccessToken)(implicit request: Request[R]): Cookie = Cookie(
-    name = tokenName,
+    name = accessTokenCookieName,
     value = accessToken.token,
     maxAge = None,
     path = "",
@@ -19,7 +19,7 @@ trait AccessTokenCookieHelper {
   )
 
   def getAccessToken(request: Request[_]): Option[AccessToken] = {
-    request.cookies.get(tokenName).map { cookie =>
+    request.cookies.get(accessTokenCookieName).map { cookie =>
       AccessToken(cookie.value)
     }
   }
