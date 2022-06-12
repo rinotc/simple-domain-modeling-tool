@@ -12,10 +12,10 @@ import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success}
 
 final class MemcachedAccessTokenService extends AccessTokenService {
-  private val config              = ConfigFactory.load()
-  private val tokenExpiryDuration = Duration.fromNanos(config.getDuration("dev.tchiba.auth.token.expiry").toNanos)
-
-  implicit val memcachedCache: Cache[String] = MemcachedCache("localhost:11211")
+  private val config                         = ConfigFactory.load()
+  private val tokenExpiryDuration            = Duration.fromNanos(config.getDuration("dev.tchiba.auth.token.expiry").toNanos)
+  private val memcachedAddress               = config.getString("dev.tchiba.auth.memcached.address")
+  implicit val memcachedCache: Cache[String] = MemcachedCache(memcachedAddress)
 
   override def register(accessToken: AccessToken, authId: AuthId): Unit = {
     put(accessToken.token)(authId.value.toString, ttl = Some(tokenExpiryDuration)) match {
