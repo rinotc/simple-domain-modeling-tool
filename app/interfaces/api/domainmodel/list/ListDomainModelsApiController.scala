@@ -8,7 +8,6 @@ import interfaces.json.CollectionResponse
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
 
 class ListDomainModelsApiController @Inject() (
     cc: ControllerComponents,

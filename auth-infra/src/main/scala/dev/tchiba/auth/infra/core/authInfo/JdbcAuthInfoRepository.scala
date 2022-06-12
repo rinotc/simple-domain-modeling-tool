@@ -1,4 +1,4 @@
-package dev.tchiba.auth.infra
+package dev.tchiba.auth.infra.core.authInfo
 
 import dev.tchiba.auth.core.authInfo.{AuthId, AuthInfo, AuthInfoRepository}
 import dev.tchiba.auth.core.password.HashedPassword
