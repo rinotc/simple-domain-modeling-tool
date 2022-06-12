@@ -93,4 +93,8 @@ object Dependencies {
   object Password4j {
     val `password4j` = "com.password4j" % "password4j" % "1.5.4"
   }
+
+  object ScalaCache {
+    val `scalacache-memcached` = "com.github.cb372" %% "scalacache-memcached" % "0.28.0"
+  }
 }

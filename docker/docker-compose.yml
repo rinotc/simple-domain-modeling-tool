@@ -13,6 +13,12 @@ services:
     volumes:
       - ./postgres/initdb:/docker-entrypoint-initdb.d
   # https://docs.localstack.cloud/get-started/
+
+  memcached:
+    image: memcached:1.6.6
+    ports:
+      - "11211:11211"
+
   localstack:
     container_name: localstack
     image: localstack/localstack

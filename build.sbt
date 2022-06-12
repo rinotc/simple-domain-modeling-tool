@@ -156,7 +156,8 @@ lazy val `auth-infra` = (project in file("auth-infra"))
       Postgresql.`postgresql`,
       ScalikeJDBC.`scalikejdbc`,
       ScalikeJDBC.`scalikejdbc-config`,
-      ScalikeJDBC.`scalikejdbc-test` % Test
+      ScalikeJDBC.`scalikejdbc-test` % Test,
+      ScalaCache.`scalacache-memcached`
     )
   )
 

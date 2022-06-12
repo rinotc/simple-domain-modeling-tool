@@ -13,7 +13,7 @@ case class SingUpRequest(
     password: String
 )
 
-object SingUpRequest extends {
+object SingUpRequest {
   implicit val jsonFormat: OFormat[SingUpRequest] = Json.format[SingUpRequest]
 
   def validateJson(implicit parse: PlayBodyParsers, ec: ExecutionContext): BodyParser[SingUpRequest] =
