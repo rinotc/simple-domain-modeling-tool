@@ -1,7 +1,7 @@
 package interfaces.api.auth.signUp
 
 import dev.tchiba.auth.usecase.signUp.{SignUpOutput, SignUpUseCase}
-import interfaces.api.auth.CookieHelper
+import interfaces.api.auth.AccessTokenCookieHelper
 import interfaces.json.error.ErrorResponse
 import play.api.mvc.{AbstractController, Action, ControllerComponents, Cookie, PlayBodyParsers}
 
@@ -13,7 +13,7 @@ final class SignUpController @Inject() (
     signUpUseCase: SignUpUseCase
 )(implicit ec: ExecutionContext)
     extends AbstractController(cc)
-    with CookieHelper {
+    with AccessTokenCookieHelper {
 
   implicit private val parser: PlayBodyParsers = cc.parsers
 

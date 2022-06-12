@@ -3,6 +3,7 @@
 # ~~~~
 POST        /api/sign-up                                                               interfaces.api.auth.signUp.SignUpController.action()
 POST        /api/sign-in                                                               interfaces.api.auth.signIn.SignInController.action()
+POST        /api/sign-out                                                              interfaces.api.auth.signOut.SignOutController.action()
 
 GET         /api/users                                                                 interfaces.api.user.UserApiController.allUsers()
 GET         /api/users/:userId                                                         interfaces.api.user.UserApiController.findUser(userId: String)
