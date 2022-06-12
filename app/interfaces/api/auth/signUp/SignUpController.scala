@@ -1,6 +1,7 @@
 package interfaces.api.auth.signUp
 
 import dev.tchiba.auth.usecase.signUp.{SignUpOutput, SignUpUseCase}
+import interfaces.api.auth.CookieHelper
 import interfaces.json.error.ErrorResponse
 import play.api.mvc.{AbstractController, Action, ControllerComponents, Cookie, PlayBodyParsers}
 
@@ -11,7 +12,8 @@ final class SignUpController @Inject() (
     cc: ControllerComponents,
     signUpUseCase: SignUpUseCase
 )(implicit ec: ExecutionContext)
-    extends AbstractController(cc) {
+    extends AbstractController(cc)
+    with CookieHelper {
 
   implicit private val parser: PlayBodyParsers = cc.parsers
 
@@ -21,16 +23,7 @@ final class SignUpController @Inject() (
       case SignUpOutput.EmailConflictError(email) =>
         Conflict(ErrorResponse(s"${email.value} is conflicted").json.play)
       case SignUpOutput.Success(accessToken) =>
-        val accessTokenCookie = Cookie(
-          name = "apiAccessToken",
-          value = accessToken.token,
-          maxAge = None,
-          path = "",
-          domain = Some(request.domain),
-          secure = true,
-          httpOnly = true,
-          sameSite = Some(Cookie.SameSite.Lax)
-        )
+        val accessTokenCookie = generateAccessTokenCookie(accessToken)
         Ok.withCookies(accessTokenCookie)
     }
   }
