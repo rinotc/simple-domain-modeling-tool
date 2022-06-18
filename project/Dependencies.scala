@@ -26,20 +26,21 @@ object Dependencies {
    * @see [[https://www.scalatest.org/]]
    */
   object ScalaTest {
-    val `scalatest`          = "org.scalatest"          %% "scalatest"          % "3.2.11"
-    val `scalatestplus-play` = "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0"
+    val `scalatest`             = "org.scalatest"          %% "scalatest"          % "3.2.12"
+    val `scalatestplus-play`    = "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0"
+    val `scalatestplus-mockito` = "org.scalatestplus"      %% "mockito-4-5"        % "3.2.12.0"
   }
 
   object CodingWell {
-    val `scala-guice` = "net.codingwell" %% "scala-guice" % "5.0.2"
+    val `scala-guice` = "net.codingwell" %% "scala-guice" % "5.1.0"
   }
 
   object Postgresql {
-    val `postgresql` = "org.postgresql" % "postgresql" % "42.3.3"
+    val `postgresql` = "org.postgresql" % "postgresql" % "42.3.6"
   }
 
   object Planet42 {
-    val `laika-core` = "org.planet42" %% "laika-core" % "0.18.1"
+    val `laika-core` = "org.planet42" %% "laika-core" % "0.18.2"
   }
 
   /**
@@ -62,7 +63,7 @@ object Dependencies {
    */
   object Circe {
 
-    private val Version = "0.14.1"
+    private val Version = "0.14.2"
 
     val `circe-core`           = "io.circe"     %% "circe-core"           % Version
     val `circe-generic`        = "io.circe"     %% "circe-generic"        % Version
@@ -75,16 +76,19 @@ object Dependencies {
    * @see [[https://github.com/fthomas/refined#documentation]]
    */
   object Refined {
-    val `refined`            = "eu.timepit" %% "refined"            % "0.9.28"
-    val `refined-cats`       = "eu.timepit" %% "refined-cats"       % "0.9.28" // optional
-    val `refined-eval`       = "eu.timepit" %% "refined-eval"       % "0.9.28" // optional, JVM-only
-    val `refined-jsonpath`   = "eu.timepit" %% "refined-jsonpath"   % "0.9.28" // optional, JVM-only
-    val `refined-pureconfig` = "eu.timepit" %% "refined-pureconfig" % "0.9.28" // optional, JVM-only
-    val `refined-scalacheck` = "eu.timepit" %% "refined-scalacheck" % "0.9.28" // optional
-    val `refined-scalaz`     = "eu.timepit" %% "refined-scalaz"     % "0.9.28" // optional
-    val `refined-scodec`     = "eu.timepit" %% "refined-scodec"     % "0.9.28" // optional
-    val `refined-scopt`      = "eu.timepit" %% "refined-scopt"      % "0.9.28" // optional
-    val `refined-shapeless`  = "eu.timepit" %% "refined-shapeless"  % "0.9.28" // optional
+
+    private val Version = "0.9.29"
+
+    val `refined`            = "eu.timepit" %% "refined"            % Version
+    val `refined-cats`       = "eu.timepit" %% "refined-cats"       % Version // optional
+    val `refined-eval`       = "eu.timepit" %% "refined-eval"       % Version // optional, JVM-only
+    val `refined-jsonpath`   = "eu.timepit" %% "refined-jsonpath"   % Version // optional, JVM-only
+    val `refined-pureconfig` = "eu.timepit" %% "refined-pureconfig" % Version // optional, JVM-only
+    val `refined-scalacheck` = "eu.timepit" %% "refined-scalacheck" % Version // optional
+    val `refined-scalaz`     = "eu.timepit" %% "refined-scalaz"     % Version // optional
+    val `refined-scodec`     = "eu.timepit" %% "refined-scodec"     % Version // optional
+    val `refined-scopt`      = "eu.timepit" %% "refined-scopt"      % Version // optional
+    val `refined-shapeless`  = "eu.timepit" %% "refined-shapeless"  % Version // optional
   }
 
   /**

@@ -112,8 +112,9 @@ lazy val `test-core` = (project in file("test-core"))
     name := "test-core",
     scalacOptions := ScalacOptions,
     libraryDependencies ++= Seq(
-      ScalaTest.`scalatest` % Test,
-      ScalaMock.`scalamock` % Test
+      ScalaTest.`scalatest`             % Test,
+      ScalaTest.`scalatestplus-mockito` % Test,
+      ScalaMock.`scalamock`             % Test
     )
   )
 
