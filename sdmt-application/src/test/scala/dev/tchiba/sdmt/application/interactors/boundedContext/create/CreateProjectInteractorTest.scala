@@ -1,24 +1,20 @@
 package dev.tchiba.sdmt.application.interactors.boundedContext.create
 
-import dev.tchiba.sdmt.core.boundedContext.{
-  BoundedContext,
-  BoundedContextAlias,
-  BoundedContextName,
-  BoundedContextOverview,
-  BoundedContextRepository
-}
+import dev.tchiba.sdmt.core.boundedContext._
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateBoundedContextInput, CreateBoundedContextOutput}
 import dev.tchiba.test.core.BaseTest
-import org.scalamock.scalatest.MockFactory
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
 
-class CreateProjectInteractorTest extends BaseTest with MockFactory {
+class CreateProjectInteractorTest extends BaseTest with MockitoSugar {
 
   "handle" when {
     "there is no same alias project" should {
       "return Success with new project" in {
         val mockProjectRepository = mock[BoundedContextRepository]
-        (mockProjectRepository.findByAlias _).expects(*).returning(None)
-        (mockProjectRepository.insert _).expects(*).returning(())
+
+        when(mockProjectRepository.findByAlias(any)).thenReturn(None)
 
         val interactor = new CreateBoundedContextInteractor(mockProjectRepository)
         val input = CreateBoundedContextInput(
@@ -46,7 +42,8 @@ class CreateProjectInteractorTest extends BaseTest with MockFactory {
           name = BoundedContextName("既存プロジェクト名"),
           overview = BoundedContextOverview("既存プロジェクト概要")
         )
-        (mockProjectRepository.findByAlias _).expects(*).returning(existProject.some)
+
+        when(mockProjectRepository.findByAlias(any[BoundedContextAlias])).thenReturn(existProject.some)
 
         val interactor = new CreateBoundedContextInteractor(mockProjectRepository)
         val input = CreateBoundedContextInput(

@@ -1,11 +1,12 @@
 package interfaces.api.domainmodel.update
 
 import dev.tchiba.sdmt.core.boundedContext._
-import dev.tchiba.sdmt.core.domainmodel.{DomainModel, DomainModelId, EnglishName, UbiquitousName, Knowledge}
+import dev.tchiba.sdmt.core.domainmodel._
 import dev.tchiba.sdmt.usecase.domainmodel.update.{UpdateDomainModelOutput, UpdateDomainModelUseCase}
 import interfaces.api.domainmodel.json.DomainModelResponse
 import interfaces.json.error.ErrorResponse
-import org.scalamock.scalatest.MockFactory
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import play.api.http.HeaderNames
 import play.api.http.Status.{BAD_REQUEST, CONFLICT, NOT_FOUND, OK}
@@ -16,7 +17,7 @@ import play.api.test.{FakeHeaders, FakeRequest, Helpers}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class UpdateDomainModelApiControllerTest extends PlaySpec with Results with MockFactory {
+class UpdateDomainModelApiControllerTest extends PlaySpec with Results with MockitoSugar {
 
   trait WithMock {
     val cc: ControllerComponents                           = Helpers.stubControllerComponents()
@@ -88,9 +89,8 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
         private val input = request.body.input(bcId, dmId)
 
-        (updateDomainModelUseCase.handle _)
-          .expects(input)
-          .returning(UpdateDomainModelOutput.NotFoundBoundedContext(bcId))
+        when(updateDomainModelUseCase.handle(input))
+          .thenReturn(UpdateDomainModelOutput.NotFoundBoundedContext(bcId))
 
         val result: Future[Result] = controller.action(bcId.string, dmId.string).apply(request)
         status(result) mustBe NOT_FOUND
@@ -121,9 +121,8 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           overview = BoundedContextOverview("概要")
         )
 
-        (updateDomainModelUseCase.handle _)
-          .expects(input)
-          .returning(UpdateDomainModelOutput.NotFoundSuchModel(bc, dmId))
+        when(updateDomainModelUseCase.handle(input))
+          .thenReturn(UpdateDomainModelOutput.NotFoundSuchModel(bc, dmId))
 
         val result: Future[Result] = controller.action(bcId.string, dmId.string).apply(request)
         status(result) mustBe NOT_FOUND
@@ -161,9 +160,8 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           knowledge = Knowledge("知識")
         )
 
-        (updateDomainModelUseCase.handle _)
-          .expects(input)
-          .returning(UpdateDomainModelOutput.ConflictEnglishName(bc, conflictDomainModel))
+        when(updateDomainModelUseCase.handle(input))
+          .thenReturn(UpdateDomainModelOutput.ConflictEnglishName(bc, conflictDomainModel))
 
         val result: Future[Result] = controller.action(bcId.string, dmId.string).apply(request)
         status(result) mustBe CONFLICT
@@ -204,9 +202,8 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           knowledge = input.updatedKnowledge
         )
 
-        (updateDomainModelUseCase.handle _)
-          .expects(input)
-          .returning(UpdateDomainModelOutput.Success(updatedDomainModel, bc))
+        when(updateDomainModelUseCase.handle(input))
+          .thenReturn(UpdateDomainModelOutput.Success(updatedDomainModel, bc))
 
         val result: Future[Result] = controller.action(bcId.string, dmId.string).apply(request)
         status(result) mustBe OK
