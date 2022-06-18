@@ -18,7 +18,7 @@ final class DomainModelResponse(domainModel: DomainModel) extends PlayJsonRespon
     knowledge = domainModel.knowledge.value
   )
 
-  override def json: JsValue = Json.toJson(response)
+  override def json: JsValue = toJson(response)
 }
 
 object DomainModelResponse {
