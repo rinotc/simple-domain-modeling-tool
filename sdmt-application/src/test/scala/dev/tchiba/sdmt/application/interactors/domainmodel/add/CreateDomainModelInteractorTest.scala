@@ -1,14 +1,19 @@
 package dev.tchiba.sdmt.application.interactors.domainmodel.add
 
-import dev.tchiba.sdmt.core.boundedContext._
-import dev.tchiba.sdmt.core.domainmodel._
+import dev.tchiba.sdmt.core.boundedContext.{
+  BoundedContext,
+  BoundedContextAlias,
+  BoundedContextId,
+  BoundedContextName,
+  BoundedContextOverview,
+  BoundedContextRepository
+}
+import dev.tchiba.sdmt.core.domainmodel.{DomainModel, DomainModelRepository, EnglishName, UbiquitousName, Knowledge}
 import dev.tchiba.sdmt.usecase.domainmodel.create.{CreateDomainModelInput, CreateDomainModelOutput}
 import dev.tchiba.test.core.BaseTest
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import org.scalamock.scalatest.MockFactory
 
-class CreateDomainModelInteractorTest extends BaseTest with MockitoSugar {
+class CreateDomainModelInteractorTest extends BaseTest with MockFactory {
 
   trait WithMock {
     val boundedContextRepository: BoundedContextRepository = mock[BoundedContextRepository]
@@ -20,8 +25,9 @@ class CreateDomainModelInteractorTest extends BaseTest with MockitoSugar {
   "handle" when {
     "not found BoundedContext" should {
       "return  NoSuchBoundedContext" in new WithMock {
-        when(boundedContextRepository.findById(any[BoundedContextId]))
-          .thenReturn(None)
+        (boundedContextRepository.findById _)
+          .expects(*)
+          .returning(None)
 
         private val input = CreateDomainModelInput(
           boundedContextId = BoundedContextId.generate,
@@ -47,8 +53,9 @@ class CreateDomainModelInteractorTest extends BaseTest with MockitoSugar {
           overview = BoundedContextOverview("境界づけられたコンテキスト概要")
         )
 
-        when(boundedContextRepository.findById(any[BoundedContextId]))
-          .thenReturn(boundedContext.some)
+        (boundedContextRepository.findById _)
+          .expects(*)
+          .returning(boundedContext.some)
 
         private val input = CreateDomainModelInput(
           boundedContextId = boundedContext.id,
@@ -64,8 +71,9 @@ class CreateDomainModelInteractorTest extends BaseTest with MockitoSugar {
           knowledge = Knowledge("コンフリクトしたドメインモデル知識")
         )
 
-        when(domainModelRepository.insert(any[DomainModel]))
-          .thenReturn(DomainModelRepository.ConflictEnglishName(conflictedDomainModel).left)
+        (domainModelRepository.insert _)
+          .expects(*)
+          .returning(DomainModelRepository.ConflictEnglishName(conflictedDomainModel).left)
 
         val actual: CreateDomainModelOutput = interactor.handle(input)
 
@@ -84,8 +92,9 @@ class CreateDomainModelInteractorTest extends BaseTest with MockitoSugar {
           overview = BoundedContextOverview("境界づけられたコンテキスト概要")
         )
 
-        when(boundedContextRepository.findById(any[BoundedContextId]))
-          .thenReturn(boundedContext.some)
+        (boundedContextRepository.findById _)
+          .expects(*)
+          .returning(boundedContext.some)
 
         private val input = CreateDomainModelInput(
           boundedContextId = boundedContext.id,
@@ -94,7 +103,9 @@ class CreateDomainModelInteractorTest extends BaseTest with MockitoSugar {
           knowledge = Knowledge("知識")
         )
 
-        when(domainModelRepository.insert(any[DomainModel])).thenReturn(unit.right)
+        (domainModelRepository.insert _)
+          .expects(*)
+          .returning(unit.right)
 
         private val actual = interactor.handle(input)
 

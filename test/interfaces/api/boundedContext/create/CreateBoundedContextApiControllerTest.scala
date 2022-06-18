@@ -9,9 +9,7 @@ import dev.tchiba.sdmt.core.boundedContext.{
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateBoundedContextOutput, CreateBoundedContextUseCase}
 import interfaces.api.boundedContext.json.BoundedContextResponse
 import interfaces.json.error.ErrorResponse
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import org.scalamock.scalatest.MockFactory
 import org.scalatestplus.play._
 import play.api.http.HeaderNames
 import play.api.mvc.Results
@@ -20,22 +18,22 @@ import play.api.test.{FakeHeaders, FakeRequest}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class CreateBoundedContextApiControllerTest extends PlaySpec with Results with MockitoSugar {
+class CreateBoundedContextApiControllerTest extends PlaySpec with Results with MockFactory {
 
   "action" when {
     "successful request has been sent" should {
       "returns new BoundedContext in json format and OK status" in {
-
         val mockCreateBoundedContextUseCase = mock[CreateBoundedContextUseCase]
         val newBoundedContext = BoundedContext.create(
           BoundedContextAlias("TEST"),
           BoundedContextName("境界づけられたコンテキスト名"),
           BoundedContextOverview("境界づけられたコンテキスト概要")
         )
-
-        when(mockCreateBoundedContextUseCase.handle(any))
-          .thenReturn(CreateBoundedContextOutput.Success(newBoundedContext))
-
+        (mockCreateBoundedContextUseCase.handle _)
+          .expects(*)
+          .returning(
+            CreateBoundedContextOutput.Success(newBoundedContext)
+          )
         val controller = new CreateBoundedContextApiController(
           stubControllerComponents(),
           mockCreateBoundedContextUseCase
@@ -68,10 +66,11 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
           BoundedContextName("既存境界づけられたコンテキスト名"),
           BoundedContextOverview("既存境界づけられたコンテキスト概要")
         )
-
-        when(mockCreateBoundedContextUseCase.handle(any))
-          .thenReturn(CreateBoundedContextOutput.ConflictAlias(conflictBoundedContext.alias))
-
+        (mockCreateBoundedContextUseCase.handle _)
+          .expects(*)
+          .returning(
+            CreateBoundedContextOutput.ConflictAlias(conflictBoundedContext.alias)
+          )
         val controller = new CreateBoundedContextApiController(
           stubControllerComponents(),
           mockCreateBoundedContextUseCase

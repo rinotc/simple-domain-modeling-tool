@@ -35,8 +35,8 @@ lazy val `web` = (project in file("."))
       guice,
       Google.`guice`,
       Google.`guice-assistedinject`,
-      ScalaTest.`scalatestplus-play`    % Test,
-      ScalaTest.`scalatestplus-mockito` % Test,
+      ScalaTest.`scalatestplus-play` % Test,
+      ScalaMock.`scalamock`          % Test,
       CodingWell.`scala-guice`,
       Planet42.`laika-core`,
       Circe.`circe-core`,
@@ -113,7 +113,8 @@ lazy val `test-core` = (project in file("test-core"))
     scalacOptions := ScalacOptions,
     libraryDependencies ++= Seq(
       ScalaTest.`scalatest`             % Test,
-      ScalaTest.`scalatestplus-mockito` % Test
+      ScalaTest.`scalatestplus-mockito` % Test,
+      ScalaMock.`scalamock`             % Test
     )
   )
 

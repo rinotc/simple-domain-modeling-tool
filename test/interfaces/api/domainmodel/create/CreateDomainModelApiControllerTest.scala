@@ -1,17 +1,11 @@
 package interfaces.api.domainmodel.create
 
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
-import dev.tchiba.sdmt.core.domainmodel.{DomainModel, EnglishName, Knowledge, UbiquitousName}
-import dev.tchiba.sdmt.usecase.domainmodel.create.{
-  CreateDomainModelInput,
-  CreateDomainModelOutput,
-  CreateDomainModelUseCase
-}
+import dev.tchiba.sdmt.core.domainmodel.{DomainModel, EnglishName, UbiquitousName, Knowledge}
+import dev.tchiba.sdmt.usecase.domainmodel.create.{CreateDomainModelOutput, CreateDomainModelUseCase}
 import interfaces.api.domainmodel.json.DomainModelResponse
 import interfaces.json.error.ErrorResponse
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import org.scalamock.scalatest.MockFactory
 import org.scalatestplus.play.PlaySpec
 import play.api.http.HeaderNames
 import play.api.http.Status.{BAD_REQUEST, CONFLICT, CREATED, NOT_FOUND}
@@ -22,7 +16,7 @@ import play.api.test.{FakeHeaders, FakeRequest, Helpers}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class CreateDomainModelApiControllerTest extends PlaySpec with Results with MockitoSugar {
+class CreateDomainModelApiControllerTest extends PlaySpec with Results with MockFactory {
 
   trait WithMock {
     val cc: ControllerComponents                           = Helpers.stubControllerComponents()
@@ -69,8 +63,9 @@ class CreateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           )
         )
 
-        when(createDomainModelUseCase.handle(any[CreateDomainModelInput]))
-          .thenReturn(CreateDomainModelOutput.NoSuchBoundedContext(notFoundBoundedContextId))
+        (createDomainModelUseCase.handle _)
+          .expects(*)
+          .returning(CreateDomainModelOutput.NoSuchBoundedContext(notFoundBoundedContextId))
 
         val result: Future[Result] = controller.action(notFoundBoundedContextId.value.toString).apply(request)
         status(result) mustBe NOT_FOUND
@@ -102,8 +97,9 @@ class CreateDomainModelApiControllerTest extends PlaySpec with Results with Mock
           knowledge = Knowledge("コンフリクトした知識")
         )
 
-        when(createDomainModelUseCase.handle(any[CreateDomainModelInput]))
-          .thenReturn(CreateDomainModelOutput.ConflictEnglishName(conflictedDomainModel))
+        (createDomainModelUseCase.handle _)
+          .expects(*)
+          .returning(CreateDomainModelOutput.ConflictEnglishName(conflictedDomainModel))
 
         val result: Future[Result] = controller.action(boundedContextId.value.toString).apply(request)
         status(result) mustBe CONFLICT
@@ -136,8 +132,9 @@ class CreateDomainModelApiControllerTest extends PlaySpec with Results with Mock
             knowledge = Knowledge(createDomainModelRequest.knowledge)
           )
 
-          when(createDomainModelUseCase.handle(any[CreateDomainModelInput]))
-            .thenReturn(CreateDomainModelOutput.Success(newDomainModel))
+          (createDomainModelUseCase.handle _)
+            .expects(*)
+            .returning(CreateDomainModelOutput.Success(newDomainModel))
 
           val result: Future[Result] = controller.action(boundedContextId.value.toString).apply(request)
           status(result) mustBe CREATED
