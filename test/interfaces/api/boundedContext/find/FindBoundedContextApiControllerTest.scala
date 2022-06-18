@@ -1,23 +1,17 @@
 package interfaces.api.boundedContext.find
 
-import dev.tchiba.sdmt.core.boundedContext.{
-  BoundedContext,
-  BoundedContextAlias,
-  BoundedContextId,
-  BoundedContextName,
-  BoundedContextOverview,
-  BoundedContextRepository
-}
+import dev.tchiba.sdmt.core.boundedContext._
 import interfaces.api.boundedContext.json.BoundedContextResponse
 import interfaces.json.error.ErrorResponse
-import org.scalamock.scalatest.MockFactory
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import play.api.http.Status.{NOT_FOUND, OK}
 import play.api.mvc.Results
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsJson, defaultAwaitTimeout, status, stubControllerComponents}
 
-class FindBoundedContextApiControllerTest extends PlaySpec with Results with MockFactory {
+class FindBoundedContextApiControllerTest extends PlaySpec with Results with MockitoSugar {
 
   "action" when {
     "requested BoundedContextId is exist" should {
@@ -30,11 +24,9 @@ class FindBoundedContextApiControllerTest extends PlaySpec with Results with Moc
           BoundedContextName("境界づけられたコンテキスト名称"),
           BoundedContextOverview("境界づけられたコンテキスト概要")
         )
-        (mockBoundedContextRepository.findById _)
-          .expects(boundedContextId)
-          .returning(
-            Some(existingProject)
-          )
+
+        when(mockBoundedContextRepository.findById(boundedContextId))
+          .thenReturn(Some(existingProject))
 
         val controller =
           new FindBoundedContextApiController(stubControllerComponents(), mockBoundedContextRepository)
@@ -49,9 +41,9 @@ class FindBoundedContextApiControllerTest extends PlaySpec with Results with Moc
       "return NotFound" in {
         val mockBoundedContextRepository = mock[BoundedContextRepository]
         val boundedContextId             = BoundedContextId.generate
-        (mockBoundedContextRepository.findById _)
-          .expects(boundedContextId)
-          .returning(None)
+
+        when(mockBoundedContextRepository.findById(boundedContextId))
+          .thenReturn(None)
 
         val controller =
           new FindBoundedContextApiController(stubControllerComponents(), mockBoundedContextRepository)
