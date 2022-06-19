@@ -16,13 +16,6 @@ object Dependencies {
   }
 
   /**
-   * @see [[https://scalamock.org/]]
-   */
-  object ScalaMock {
-    val `scalamock` = "org.scalamock" %% "scalamock" % "5.2.0"
-  }
-
-  /**
    * @see [[https://www.scalatest.org/]]
    */
   object ScalaTest {
