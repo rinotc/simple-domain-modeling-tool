@@ -1,26 +1,14 @@
 package dev.tchiba.sdmt.application.interactors.domainmodel.update
 
-import dev.tchiba.sdmt.core.boundedContext.{
-  BoundedContext,
-  BoundedContextAlias,
-  BoundedContextId,
-  BoundedContextName,
-  BoundedContextOverview,
-  BoundedContextRepository
-}
-import dev.tchiba.sdmt.core.domainmodel.{
-  DomainModel,
-  DomainModelId,
-  DomainModelRepository,
-  EnglishName,
-  UbiquitousName,
-  Knowledge
-}
+import dev.tchiba.sdmt.core.boundedContext._
+import dev.tchiba.sdmt.core.domainmodel._
 import dev.tchiba.sdmt.usecase.domainmodel.update.{UpdateDomainModelInput, UpdateDomainModelOutput}
 import dev.tchiba.test.core.BaseTest
-import org.scalamock.scalatest.MockFactory
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
 
-class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
+class UpdateDomainModelInteractorTest extends BaseTest with MockitoSugar {
 
   trait WithMock {
     val boundedContextRepository: BoundedContextRepository = mock[BoundedContextRepository]
@@ -32,9 +20,8 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
   "handle" when {
     "not found BoundedContext" should {
       "return NotFoundBoundedContext" in new WithMock {
-        (boundedContextRepository.findById _)
-          .expects(*)
-          .returning(None)
+
+        when(boundedContextRepository.findById(any[BoundedContextId])).thenReturn(None)
 
         private val input = UpdateDomainModelInput(
           boundedContextId = BoundedContextId.generate,
@@ -59,9 +46,8 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           overview = BoundedContextOverview("概要")
         )
 
-        (boundedContextRepository.findById _)
-          .expects(boundedContext.id)
-          .returning(boundedContext.some)
+        when(boundedContextRepository.findById(boundedContext.id))
+          .thenReturn(boundedContext.some)
 
         private val input = UpdateDomainModelInput(
           boundedContextId = boundedContext.id,
@@ -71,9 +57,8 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           updatedKnowledge = Knowledge("知識")
         )
 
-        (domainModelRepository.findById _)
-          .expects(input.domainModelId)
-          .returning(None)
+        when(domainModelRepository.findById(input.domainModelId))
+          .thenReturn(None)
 
         private val actual   = interactor.handle(input)
         private val expected = UpdateDomainModelOutput.NotFoundSuchModel(boundedContext, input.domainModelId)
@@ -90,9 +75,8 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           overview = BoundedContextOverview("概要")
         )
 
-        (boundedContextRepository.findById _)
-          .expects(boundedContext.id)
-          .returning(boundedContext.some)
+        when(boundedContextRepository.findById(boundedContext.id))
+          .thenReturn(boundedContext.some)
 
         private val domainModel = DomainModel.create(
           boundedContextId = boundedContext.id,
@@ -109,9 +93,8 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           updatedKnowledge = Knowledge("更改後知識")
         )
 
-        (domainModelRepository.findById _)
-          .expects(input.domainModelId)
-          .returning(domainModel.some)
+        when(domainModelRepository.findById(input.domainModelId))
+          .thenReturn(domainModel.some)
 
         private val updateDomainModel = DomainModel.reconstruct(
           domainModel.id,
@@ -128,9 +111,8 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           knowledge = Knowledge("知識")
         )
 
-        (domainModelRepository.update _)
-          .expects(updateDomainModel)
-          .returning(DomainModelRepository.ConflictEnglishName(englishNameConflictDomainModel).left)
+        when(domainModelRepository.update(updateDomainModel))
+          .thenReturn(DomainModelRepository.ConflictEnglishName(englishNameConflictDomainModel).left)
 
         private val actual = interactor.handle(input)
         private val expected =
@@ -148,9 +130,8 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           overview = BoundedContextOverview("概要")
         )
 
-        (boundedContextRepository.findById _)
-          .expects(boundedContext.id)
-          .returning(boundedContext.some)
+        when(boundedContextRepository.findById(boundedContext.id))
+          .thenReturn(boundedContext.some)
 
         private val domainModel = DomainModel.create(
           boundedContextId = boundedContext.id,
@@ -167,9 +148,8 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           updatedKnowledge = Knowledge("更改後知識")
         )
 
-        (domainModelRepository.findById _)
-          .expects(input.domainModelId)
-          .returning(domainModel.some)
+        when(domainModelRepository.findById(input.domainModelId))
+          .thenReturn(domainModel.some)
 
         private val updateDomainModel = DomainModel.reconstruct(
           domainModel.id,
@@ -179,9 +159,8 @@ class UpdateDomainModelInteractorTest extends BaseTest with MockFactory {
           input.updatedKnowledge
         )
 
-        (domainModelRepository.update _)
-          .expects(updateDomainModel)
-          .returning(unit.right)
+        when(domainModelRepository.update(updateDomainModel))
+          .thenReturn(unit.right)
 
         private val actual   = interactor.handle(input)
         private val expected = UpdateDomainModelOutput.Success(updateDomainModel, boundedContext)
