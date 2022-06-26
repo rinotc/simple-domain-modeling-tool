@@ -1,5 +1,7 @@
 package dev.tchiba.arch.ddd
 
+import java.util.Currency
+
 /**
  * <h2>値オブジェクト</h2>
  *
@@ -26,7 +28,7 @@ package dev.tchiba.arch.ddd
  *
  * @example シンプルに `case class` 実装する場合
  * {{{
- * case class ZipCode(value: String) extends ValueObject {
+ * final case class ZipCode(value: String) extends ValueObject {
  *   // クラス不変表明を入れて、その値の仕様を示すと良い
  *   require("^[0-9]{3}-[0-9]{4}$".r.matches(value), "ZipCode must be ...(some error message)")
  *
@@ -34,6 +36,78 @@ package dev.tchiba.arch.ddd
  *     // このクラスが行うに相応しい振る舞いを書く
  *   }
  * }
+ * }}}
+ * @example 通常の `class` で実装する例。必ずしもこちらで書く必要はないが、こちらで書ける方が応用が効く。
+ * {{{
+ * /**
+ *  * 金額を表すクラス
+ *  *
+ *  * @param amount   量
+ *  * @param currency 通貨
+ *  */
+ * final class Money(val amount: BigDecimal, val currency: Currency) extends ValueObject with Ordered[Money] {
+ *
+ *  import Money._
+ *
+ *  // クラス不変表明
+ *  require(isValid(amount, currency), validateDigitsErrorMessage(amount, currency))
+ *
+ *  // これは各演算で利用される事前条件
+ *  private def requireSameCurrency(that: Money): Unit = {
+ *    require(currency == that.currency, s"currency must be same, this: $currency, that: ${that.currency}")
+ *  }
+ *
+ *  // オブジェクトが行える操作を表現する
+ *  def plus(that: Money): Money = {
+ *    requireSameCurrency(that) // 事前条件
+ *    apply(amount + that.amount, this.currency)
+ *  }
+ *
+ *  def times(factor: BigDecimal): Money = {
+ *    apply(amount * factor, this.currency)
+ *  }
+ *
+ *  // 値オブジェクトは属性同値。必ずしも値が一つである必要はなく、概念的な統一体を表現できれば良い
+ *  override def equals(other: Any): Boolean = other match {
+ *    case that: Money =>
+ *      amount == that.amount &&
+ *        currency == that.currency
+ *    case _ => false
+ *  }
+ *
+ *  override def hashCode(): Int = { // hashCodeの実装はIntelliJで自動生成できる
+ *    Seq(amount, currency).map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
+ *  }
+ *
+ *  // 値の性質として、比較ができることを示す
+ *  override def compare(that: Money): Int = {
+ *    requireSameCurrency(that)
+ *    amount.compare(that.amount)
+ *  }
+ *
+ *  override def toString = s"Money($amount, $currency)"
+ *
+ * }
+ *
+ * object Money {
+ *  val JPY: Currency = Currency.getInstance("JPY")
+ *  val USD: Currency = Currency.getInstance("USD")
+ *  val EUR: Currency = Currency.getInstance("EUR")
+ *
+ *  def apply(amount: BigDecimal, currency: Currency) = new Money(amount, currency)
+ *
+ *  // スマートコンストラクタ
+ *  def validate(amount: BigDecimal, currency: Currency) = Either.cond(isValid(amount, currency), apply(amount, currency), validateDigitErrorMessage(amount, currency))
+ *
+ *  private def validateDigits(amount: BigDecimal, currency: Currency): Boolean =
+ *    amount.scale <= currency.getDefaultFractionDigits
+ *
+ *  private def validateDigitsErrorMessage(amount: BigDecimal, currency: Currency): String =
+ *    s"Scale of amount does not match currency, amount scale: ${amount.scale}, currency: $currency, currency scale: ${currency.getDefaultFractionDigits}"
+ *
+ *  private def isValid(amount: BigDecimal, currency: Currency): Boolean = validateDigits(amount, currency)
+ * }
+ *
  * }}}
  */
 trait ValueObject
