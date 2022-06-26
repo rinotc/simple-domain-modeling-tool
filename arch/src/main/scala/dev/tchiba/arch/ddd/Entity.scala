@@ -1,7 +1,5 @@
 package dev.tchiba.arch.ddd
 
-import java.util.UUID
-
 /**
  * <h2>エンティティ</h2>
  *
