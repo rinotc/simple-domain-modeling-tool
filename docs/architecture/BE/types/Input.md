@@ -8,9 +8,8 @@ import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextN
 import dev.tchiba.sdmt.usecase.boundedContext.create.CreateBoundedContextOutput
 
 case class CreateBoundedContextInput(
-                                      alias: BoundedContextAlias,
-                                      name: BoundedContextName,
-                                      overview: BoundedContextOverview
-                                    ) extends Input[CreateBoundedContextOutput]
-
+  alias: BoundedContextAlias,
+  name: BoundedContextName,
+  overview: BoundedContextOverview
+) extends Input[CreateBoundedContextOutput]
 ```
