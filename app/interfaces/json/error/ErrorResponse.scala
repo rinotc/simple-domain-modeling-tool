@@ -39,9 +39,6 @@ object ErrorResponse {
 
   implicit private val jsonFormatter: OFormat[Response] = PlayJson.format[Response]
 
-  @deprecated
-  def apply(message: String) = new ErrorResponse(code = "", message = message, params = Map.empty)
-
   private[error] def apply(code: String, message: String, params: Map[String, Any]) =
     new ErrorResponse(code, message, params)
 }
