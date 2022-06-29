@@ -1,6 +1,5 @@
 package interfaces.json.error
 
-import play.api.libs.json.{JsPath, JsonValidationError}
 import play.api.mvc.{Result, Results}
 
 trait ErrorResults extends Results {
