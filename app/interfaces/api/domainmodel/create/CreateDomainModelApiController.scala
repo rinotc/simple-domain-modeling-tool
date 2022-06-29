@@ -30,7 +30,7 @@ final class CreateDomainModelApiController @Inject() (
             notFound(
               code = "sdmt.domainmodel.create.notFound.boundedContextId",
               message = s"no such bounded context id: ${id.value}",
-              params = Map("boundedContextId" -> id)
+              params = Map("boundedContextId" -> id.value)
             )
           case CreateDomainModelOutput.ConflictEnglishName(conflictedModel) =>
             conflict(

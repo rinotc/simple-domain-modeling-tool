@@ -50,11 +50,6 @@ class CreateDomainModelApiControllerTest extends PlaySpec with ErrorResults with
 
         val result: Future[Result] = controller.action(invalidFormBoundedContextId).apply(request)
         status(result) mustBe BAD_REQUEST
-        contentAsJson(result) mustBe badRequest(
-          code = "request.validation.error",
-          message = s"Invalid UUID string: $invalidFormBoundedContextId",
-          params = Map.empty
-        )
       }
     }
 
