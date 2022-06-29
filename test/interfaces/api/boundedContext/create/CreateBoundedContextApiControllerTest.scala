@@ -7,8 +7,6 @@ import dev.tchiba.sdmt.core.boundedContext.{
   BoundedContextOverview
 }
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateBoundedContextOutput, CreateBoundedContextUseCase}
-import interfaces.api.boundedContext.json.BoundedContextResponse
-import interfaces.json.error.ErrorResponse
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
