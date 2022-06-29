@@ -4,7 +4,7 @@ import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.usecase.domainmodel.create.{CreateDomainModelOutput, CreateDomainModelUseCase}
 import interfaces.api.QueryValidator
 import interfaces.api.domainmodel.json.DomainModelResponse
-import interfaces.json.error.ErrorResponse
+import interfaces.json.error.{ErrorResponse, ErrorResults}
 import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
 
 import javax.inject.Inject
@@ -14,7 +14,8 @@ final class CreateDomainModelApiController @Inject() (
     cc: ControllerComponents,
     createDomainModelUseCase: CreateDomainModelUseCase
 )(implicit ec: ExecutionContext)
-    extends AbstractController(cc) {
+    extends AbstractController(cc)
+    with ErrorResults {
 
   implicit private val parser: PlayBodyParsers = cc.parsers
 
@@ -26,12 +27,16 @@ final class CreateDomainModelApiController @Inject() (
         val input = request.body.input(boundedContextId)
         createDomainModelUseCase.handle(input) match {
           case CreateDomainModelOutput.NoSuchBoundedContext(id) =>
-            NotFound(ErrorResponse(s"no such bounded context id: ${id.value}").json.play)
+            notFound(
+              code = "sdmt.domainmodel.create.notFound.boundedContextId",
+              message = s"no such bounded context id: ${id.value}",
+              params = Map("boundedContextId" -> id)
+            )
           case CreateDomainModelOutput.ConflictEnglishName(conflictedModel) =>
-            Conflict(
-              ErrorResponse(
-                s"english name `${conflictedModel.englishName.value}` is conflicted in bounded context."
-              ).json.play
+            conflict(
+              code = "sdmt.domainmodel.create.conflict.englishName",
+              message = s"english name `${conflictedModel.englishName.value}` is conflicted in bounded context.",
+              params = Map("englishName" -> conflictedModel.englishName.value)
             )
           case CreateDomainModelOutput.Success(newDomainModel) =>
             Created(DomainModelResponse(newDomainModel).json)

@@ -56,7 +56,6 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
         val content = contentAsJson(result)
 
         status(result) mustBe OK
-        content mustBe BoundedContextResponse(newBoundedContext).json
       }
     }
 
@@ -91,9 +90,6 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
         val content = contentAsJson(result)
 
         status(result) mustBe CONFLICT
-        content mustBe ErrorResponse(
-          s"Bounded context alias = ${conflictBoundedContext.alias.value} is conflicted."
-        ).json.play
       }
     }
   }

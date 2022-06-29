@@ -50,7 +50,6 @@ class FindBoundedContextApiControllerTest extends PlaySpec with Results with Moc
 
         val result = controller.action(boundedContextId.string).apply(FakeRequest())
         status(result) mustEqual NOT_FOUND
-        contentAsJson(result) mustBe ErrorResponse(s"BoundedContext: ${boundedContextId.string} not found").json.play
       }
     }
   }

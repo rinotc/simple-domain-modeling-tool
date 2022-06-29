@@ -2,7 +2,7 @@ package interfaces.api.boundedContext.create
 
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateBoundedContextOutput, CreateBoundedContextUseCase}
 import interfaces.api.boundedContext.json.BoundedContextResponse
-import interfaces.json.error.ErrorResponse
+import interfaces.json.error.{ErrorResponse, ErrorResults}
 import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
 
 import javax.inject.Inject
@@ -13,7 +13,8 @@ final class CreateBoundedContextApiController @Inject() (
     createBoundedContextUseCase: CreateBoundedContextUseCase
 )(implicit
     ec: ExecutionContext
-) extends AbstractController(cc) {
+) extends AbstractController(cc)
+    with ErrorResults {
 
   implicit private val parser: PlayBodyParsers = cc.parsers
 
@@ -22,7 +23,11 @@ final class CreateBoundedContextApiController @Inject() (
       val input = request.body.input
       createBoundedContextUseCase.handle(input) match {
         case CreateBoundedContextOutput.ConflictAlias(alias) =>
-          Conflict(ErrorResponse(s"Bounded context alias = ${alias.value} is conflicted.").json.play)
+          conflict(
+            code = "sdmt.boundedContext.create.conflict",
+            message = s"Bounded context alias = ${alias.value} is conflicted.",
+            params = Map("alias" -> alias.value)
+          )
         case CreateBoundedContextOutput.Success(boundedContext) =>
           val response = BoundedContextResponse(boundedContext)
           Ok(response.json)

@@ -10,7 +10,7 @@ import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.usecase.domainmodel.create.{CreateDomainModelOutput, CreateDomainModelUseCase}
 import interfaces.api.QueryValidator
 import interfaces.api.domainmodel.json.DomainModelResponse
-import interfaces.json.error.ErrorResponse
+import interfaces.json.error.{ErrorResponse, ErrorResults}
 import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
 
 import javax.inject.Inject
@@ -19,16 +19,18 @@ import scala.concurrent.ExecutionContext
 final class CreateDomainModelApiController @Inject() (
     cc: ControllerComponents,
     createDomainModelUseCase: CreateDomainModelUseCase
-)(implicit ec: ExecutionContext) extends AbstractController(cc) {
+)(implicit ec: ExecutionContext)
+  extends AbstractController(cc)
+    with ErrorResults {
 
   implicit private val parser: PlayBodyParsers = cc.parsers
-  
+
   // 最初から1Controller 1メソッドにしてしまうのが良い気がしてきている。
   // 最初からクラスを分けるのは大したコストではない。
   // 何より、UnitTestが書きやすいし、コード設計への関心がよっぽど強い開発者でない限り、
   // fatになったControllerを分割するモチベーションは出ないだろう。
   // そもそも、命名に無頓着な開発者は思っているよりも多く、そもそもクラスを分けることができない（しようとしない）
-  // ので、最初から命名に気をつけないといけないような実装にして仕舞えばいい。
+  // ので、最初から命名に気をつけないといけないような実装にしてしまえばいい。
   def action(id: String): Action[CreateDomainModelRequest] = Action(CreateDomainModelRequest.validateJson) {
     implicit request =>
       QueryValidator.sync {
@@ -38,12 +40,16 @@ final class CreateDomainModelApiController @Inject() (
         createDomainModelUseCase.handle(input) match {
           // こんな感じで`Output`のパターンマッチで書ける。一眼でどういう時にどのようなレスポンスを返すのかが分かる。
           case CreateDomainModelOutput.NoSuchBoundedContext(id) =>
-            NotFound(ErrorResponse(s"no such bounded context id: ${id.value}").json.play)
+            notFound(
+              code = "sdmt.domainmodel.create.notFound.boundedContextId",
+              message = s"no such bounded context id: ${id.value}",
+              params = Map("boundedContextId" -> id)
+            )
           case CreateDomainModelOutput.ConflictEnglishName(conflictedModel) =>
-            Conflict(
-              ErrorResponse(
-                s"english name `${conflictedModel.englishName.value}` is conflicted in bounded context."
-              ).json.play
+            conflict(
+              code = "sdmt.domainmodel.create.conflict.englishName",
+              message = s"english name `${conflictedModel.englishName.value}` is conflicted in bounded context.",
+              params = Map("englishName" -> conflictedModel.englishName.value)
             )
           case CreateDomainModelOutput.Success(newDomainModel) =>
             Created(DomainModelResponse(newDomainModel).json)

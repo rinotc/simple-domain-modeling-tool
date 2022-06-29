@@ -1,8 +1,7 @@
 package interfaces.api
 
-import interfaces.json.error.ErrorResponse
+import interfaces.json.error.ErrorResults
 import play.api.mvc.Result
-import play.api.mvc.Results.BadRequest
 
 import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
@@ -10,7 +9,7 @@ import scala.util.{Failure, Success, Try}
 /**
  * APIリクエストのクエリパラメータまたはパスパラメーターのバリデーションを行う
  */
-object QueryValidator {
+object QueryValidator extends ErrorResults {
   def async[R](f: => R)(g: R => Future[Result]): Future[Result] = {
     Try(f) match {
       case Failure(exception) => Future.successful(BadRequest(exception.getMessage))
@@ -27,7 +26,7 @@ object QueryValidator {
 
   def sync[R](e: Either[String, R])(f: R => Result): Result = {
     e match {
-      case Left(errorMessage) => BadRequest(ErrorResponse(errorMessage).json.play)
+      case Left(errorMessage) => badRequest("query.invalid", errorMessage, Map.empty)
       case Right(value)       => f(value)
     }
   }
