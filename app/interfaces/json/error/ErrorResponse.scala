@@ -2,6 +2,8 @@ package interfaces.json.error
 
 import play.api.libs.json.{JsArray, JsBoolean, JsNumber, JsString, JsValue, OFormat, Json => PlayJson}
 
+import java.util.UUID
+
 final class ErrorResponse private (
     private val code: String,
     private val message: String,
@@ -29,6 +31,7 @@ object ErrorResponse {
     case v: BigDecimal => JsNumber(v)
     case v: String     => JsString(v)
     case v: Boolean    => JsBoolean(v)
+    case v: UUID       => JsString(v.toString)
     case v: Seq[_]     => JsArray(v.map(parseJson))
 
     case other => throw new IllegalArgumentException(s"Unsupported type: ${other.getClass}")

@@ -34,7 +34,7 @@ class UpdateDomainModelApiController @Inject() (
             notFound(
               code = "sdmt.domainmode.update.notFound.boundedContext",
               message = s"Not Found BoundedContext: ${boundedContextId.string}",
-              params = Map("boundedContextId" -> boundedContextId)
+              params = Map("boundedContextId" -> boundedContextId.value)
             )
           case UpdateDomainModelOutput.NotFoundSuchModel(_, domainModelId) =>
             notFound(
