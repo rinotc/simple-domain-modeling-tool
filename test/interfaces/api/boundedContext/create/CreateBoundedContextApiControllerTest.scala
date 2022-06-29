@@ -83,8 +83,7 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
           )
         )
 
-        val result  = controller.action().apply(request)
-        val content = contentAsJson(result)
+        val result = controller.action().apply(request)
 
         status(result) mustBe CONFLICT
       }
