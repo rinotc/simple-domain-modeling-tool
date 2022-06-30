@@ -14,11 +14,6 @@ final class ErrorResponse private (
   private val response = Response(code, message, params.map { case (key, value) => key -> parseJson(value) })
 
   def json: JsValue = PlayJson.toJson(response)
-
-  object oldJson {
-    @deprecated
-    def play: JsValue = PlayJson.toJson(response)
-  }
 }
 
 object ErrorResponse {
