@@ -7,8 +7,6 @@ import dev.tchiba.sdmt.core.boundedContext.{
   BoundedContextOverview
 }
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateBoundedContextOutput, CreateBoundedContextUseCase}
-import interfaces.api.boundedContext.json.BoundedContextResponse
-import interfaces.json.error.ErrorResponse
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
@@ -52,11 +50,9 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
           )
         )
 
-        val result  = controller.action().apply(request)
-        val content = contentAsJson(result)
+        val result = controller.action().apply(request)
 
         status(result) mustBe OK
-        content mustBe BoundedContextResponse(newBoundedContext).json
       }
     }
 
@@ -87,13 +83,9 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
           )
         )
 
-        val result  = controller.action().apply(request)
-        val content = contentAsJson(result)
+        val result = controller.action().apply(request)
 
         status(result) mustBe CONFLICT
-        content mustBe ErrorResponse(
-          s"Bounded context alias = ${conflictBoundedContext.alias.value} is conflicted."
-        ).json.play
       }
     }
   }

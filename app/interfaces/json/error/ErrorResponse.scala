@@ -1,30 +1,39 @@
 package interfaces.json.error
 
-import io.circe.generic.semiauto.deriveEncoder
-import io.circe.syntax.EncoderOps
-import io.circe.{Encoder, Json}
-import play.api.libs.json.{JsValue, OFormat, Json => PlayJson}
+import play.api.libs.json.{JsArray, JsBoolean, JsNumber, JsString, JsValue, OFormat, Json => PlayJson}
+
+import java.util.UUID
 
 final class ErrorResponse private (
-    private val message: String
+    private val code: String,
+    private val message: String,
+    private val params: Map[String, Any]
 ) {
   import ErrorResponse._
 
-  implicit private val encoder: Encoder[Response] = deriveEncoder[Response]
+  private val response = Response(code, message, params.map { case (key, value) => key -> parseJson(value) })
 
-  private val response = Response(message)
-
-  object json {
-    def circe: Json = response.asJson
-
-    def play: JsValue = PlayJson.toJson(response)
-  }
+  def json: JsValue = PlayJson.toJson(response)
 }
 
 object ErrorResponse {
-  private case class Response(message: String)
+  private case class Response(code: String, message: String, params: Map[String, JsValue])
+
+  private def parseJson(value: Any): JsValue = value match {
+    case v: Int        => JsNumber(v)
+    case v: Long       => JsNumber(v)
+    case v: Double     => JsNumber(v)
+    case v: BigDecimal => JsNumber(v)
+    case v: String     => JsString(v)
+    case v: Boolean    => JsBoolean(v)
+    case v: UUID       => JsString(v.toString)
+    case v: Seq[_]     => JsArray(v.map(parseJson))
+
+    case other => throw new IllegalArgumentException(s"Unsupported type: ${other.getClass}")
+  }
 
   implicit private val jsonFormatter: OFormat[Response] = PlayJson.format[Response]
 
-  def apply(message: String) = new ErrorResponse(message)
+  private[error] def apply(code: String, message: String, params: Map[String, Any]) =
+    new ErrorResponse(code, message, params)
 }

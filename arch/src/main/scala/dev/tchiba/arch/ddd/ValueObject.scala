@@ -1,7 +1,5 @@
 package dev.tchiba.arch.ddd
 
-import java.util.Currency
-
 /**
  * <h2>値オブジェクト</h2>
  *

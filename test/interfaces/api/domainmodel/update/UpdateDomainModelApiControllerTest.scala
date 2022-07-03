@@ -45,7 +45,6 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
         val result: Future[Result] = controller.action(invalidFormBoundedContextId, domainModelId.string).apply(request)
         status(result) mustBe BAD_REQUEST
-        contentAsJson(result) mustBe ErrorResponse(s"Invalid UUID string: $invalidFormBoundedContextId").json.play
       }
     }
 
@@ -67,7 +66,6 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
         val result: Future[Result] = controller.action(boundedContextId.string, invalidDomainModelId).apply(request)
         status(result) mustBe BAD_REQUEST
-        contentAsJson(result) mustBe ErrorResponse(s"Invalid UUID string: $invalidDomainModelId").json.play
       }
     }
 
@@ -94,7 +92,6 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
         val result: Future[Result] = controller.action(bcId.string, dmId.string).apply(request)
         status(result) mustBe NOT_FOUND
-        contentAsJson(result) mustBe ErrorResponse(s"Not Found BoundedContext: ${bcId.string}").json.play
       }
     }
 
@@ -126,7 +123,6 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
         val result: Future[Result] = controller.action(bcId.string, dmId.string).apply(request)
         status(result) mustBe NOT_FOUND
-        contentAsJson(result) mustBe ErrorResponse(s"Not Found DomainModel: ${dmId.string}").json.play
       }
     }
 
@@ -165,9 +161,6 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
         val result: Future[Result] = controller.action(bcId.string, dmId.string).apply(request)
         status(result) mustBe CONFLICT
-        contentAsJson(result) mustBe ErrorResponse(
-          s"Conflict EnglishName: ${conflictDomainModel.englishName.value}"
-        ).json.play
       }
     }
 

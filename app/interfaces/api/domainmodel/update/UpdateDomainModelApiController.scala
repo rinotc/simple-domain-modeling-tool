@@ -5,7 +5,7 @@ import dev.tchiba.sdmt.core.domainmodel.DomainModelId
 import dev.tchiba.sdmt.usecase.domainmodel.update.{UpdateDomainModelOutput, UpdateDomainModelUseCase}
 import interfaces.api.QueryValidator
 import interfaces.api.domainmodel.json.DomainModelResponse
-import interfaces.json.error.ErrorResponse
+import interfaces.json.error.ErrorResults
 import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
 
 import javax.inject.Inject
@@ -15,7 +15,8 @@ class UpdateDomainModelApiController @Inject() (
     cc: ControllerComponents,
     updateDomainModelUseCase: UpdateDomainModelUseCase
 )(implicit ec: ExecutionContext)
-    extends AbstractController(cc) {
+    extends AbstractController(cc)
+    with ErrorResults {
 
   implicit private val parser: PlayBodyParsers = cc.parsers
 
@@ -30,11 +31,23 @@ class UpdateDomainModelApiController @Inject() (
         val input = request.body.input(boundedContextId, domainModelId)
         updateDomainModelUseCase.handle(input) match {
           case UpdateDomainModelOutput.NotFoundBoundedContext(boundedContextId) =>
-            NotFound(ErrorResponse(s"Not Found BoundedContext: ${boundedContextId.string}").json.play)
+            notFound(
+              code = "sdmt.domainmode.update.notFound.boundedContext",
+              message = s"Not Found BoundedContext: ${boundedContextId.string}",
+              params = Map("boundedContextId" -> boundedContextId.value)
+            )
           case UpdateDomainModelOutput.NotFoundSuchModel(_, domainModelId) =>
-            NotFound(ErrorResponse(s"Not Found DomainModel: ${domainModelId.string}").json.play)
+            notFound(
+              code = "sdmt.domainmodel.update.notFound.domainModel",
+              message = s"Not Found DomainModel: ${domainModelId.string}",
+              params = Map("domainModelId" -> domainModelId.value)
+            )
           case UpdateDomainModelOutput.ConflictEnglishName(_, conflictModel) =>
-            Conflict(ErrorResponse(s"Conflict EnglishName: ${conflictModel.englishName.value}").json.play)
+            conflict(
+              code = "sdmt.domainmodel.update.conflict.englishName",
+              message = s"Conflict EnglishName: ${conflictModel.englishName.value}",
+              params = Map("englishName" -> conflictModel.englishName.value)
+            )
           case UpdateDomainModelOutput.Success(updatedDomainModel, _) =>
             val response = DomainModelResponse(updatedDomainModel).json
             Ok(response)

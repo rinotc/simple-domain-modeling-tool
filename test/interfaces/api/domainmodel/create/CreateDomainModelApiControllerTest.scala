@@ -8,7 +8,7 @@ import dev.tchiba.sdmt.usecase.domainmodel.create.{
   CreateDomainModelUseCase
 }
 import interfaces.api.domainmodel.json.DomainModelResponse
-import interfaces.json.error.ErrorResponse
+import interfaces.json.error.{ErrorResponse, ErrorResults}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
@@ -22,7 +22,7 @@ import play.api.test.{FakeHeaders, FakeRequest, Helpers}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class CreateDomainModelApiControllerTest extends PlaySpec with Results with MockitoSugar {
+class CreateDomainModelApiControllerTest extends PlaySpec with ErrorResults with MockitoSugar {
 
   trait WithMock {
     val cc: ControllerComponents                           = Helpers.stubControllerComponents()
@@ -50,7 +50,6 @@ class CreateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
         val result: Future[Result] = controller.action(invalidFormBoundedContextId).apply(request)
         status(result) mustBe BAD_REQUEST
-        contentAsJson(result) mustBe ErrorResponse(s"Invalid UUID string: $invalidFormBoundedContextId").json.play
       }
     }
 
@@ -74,9 +73,6 @@ class CreateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
         val result: Future[Result] = controller.action(notFoundBoundedContextId.value.toString).apply(request)
         status(result) mustBe NOT_FOUND
-        contentAsJson(result) mustBe ErrorResponse(
-          s"no such bounded context id: ${notFoundBoundedContextId.value}"
-        ).json.play
       }
     }
 
@@ -107,9 +103,6 @@ class CreateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
         val result: Future[Result] = controller.action(boundedContextId.value.toString).apply(request)
         status(result) mustBe CONFLICT
-        contentAsJson(result) mustBe ErrorResponse(
-          s"english name `${conflictedDomainModel.englishName.value}` is conflicted in bounded context."
-        ).json.play
       }
 
       "create DomainModel Success" should {
