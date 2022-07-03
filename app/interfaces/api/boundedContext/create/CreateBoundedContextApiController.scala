@@ -2,7 +2,7 @@ package interfaces.api.boundedContext.create
 
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateBoundedContextOutput, CreateBoundedContextUseCase}
 import interfaces.api.boundedContext.json.BoundedContextResponse
-import interfaces.json.error.{ErrorResponse, ErrorResults}
+import interfaces.json.error.ErrorResults
 import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
 
 import javax.inject.Inject

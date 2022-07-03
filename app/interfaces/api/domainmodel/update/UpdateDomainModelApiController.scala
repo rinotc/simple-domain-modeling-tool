@@ -5,7 +5,7 @@ import dev.tchiba.sdmt.core.domainmodel.DomainModelId
 import dev.tchiba.sdmt.usecase.domainmodel.update.{UpdateDomainModelOutput, UpdateDomainModelUseCase}
 import interfaces.api.QueryValidator
 import interfaces.api.domainmodel.json.DomainModelResponse
-import interfaces.json.error.{ErrorResponse, ErrorResults}
+import interfaces.json.error.ErrorResults
 import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
 
 import javax.inject.Inject

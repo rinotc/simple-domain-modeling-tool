@@ -2,8 +2,8 @@ package interfaces.api.auth.signUp
 
 import dev.tchiba.auth.usecase.signUp.{SignUpOutput, SignUpUseCase}
 import interfaces.api.auth.AccessTokenCookieHelper
-import interfaces.json.error.{ErrorResponse, ErrorResults}
-import play.api.mvc.{AbstractController, Action, ControllerComponents, Cookie, PlayBodyParsers}
+import interfaces.json.error.ErrorResults
+import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext

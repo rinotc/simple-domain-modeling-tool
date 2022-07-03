@@ -3,7 +3,7 @@ package interfaces.api.boundedContext.find
 import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextId, BoundedContextRepository}
 import interfaces.api.QueryValidator
 import interfaces.api.boundedContext.json.BoundedContextResponse
-import interfaces.json.error.{ErrorResponse, ErrorResults}
+import interfaces.json.error.ErrorResults
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 
 import javax.inject.Inject

@@ -1,6 +1,6 @@
 package interfaces.json
 
-import interfaces.json.error.{ErrorResponse, ErrorResults}
+import interfaces.json.error.ErrorResults
 import play.api.libs.json.Reads
 import play.api.mvc.{BodyParser, PlayBodyParsers}
 
