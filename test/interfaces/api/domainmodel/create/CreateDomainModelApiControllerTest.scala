@@ -8,21 +8,20 @@ import dev.tchiba.sdmt.usecase.domainmodel.create.{
   CreateDomainModelUseCase
 }
 import interfaces.api.domainmodel.json.DomainModelResponse
-import interfaces.json.error.{ErrorResponse, ErrorResults}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import play.api.http.HeaderNames
 import play.api.http.Status.{BAD_REQUEST, CONFLICT, CREATED, NOT_FOUND}
-import play.api.mvc.{ControllerComponents, Result, Results}
+import play.api.mvc.{ControllerComponents, Result}
 import play.api.test.Helpers.{POST, contentAsJson, defaultAwaitTimeout, status}
 import play.api.test.{FakeHeaders, FakeRequest, Helpers}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class CreateDomainModelApiControllerTest extends PlaySpec with ErrorResults with MockitoSugar {
+class CreateDomainModelApiControllerTest extends PlaySpec with MockitoSugar {
 
   trait WithMock {
     val cc: ControllerComponents                           = Helpers.stubControllerComponents()

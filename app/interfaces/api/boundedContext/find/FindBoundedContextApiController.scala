@@ -33,8 +33,7 @@ class FindBoundedContextApiController @Inject() (
         case None =>
           notFound(
             code = "sdmt.boundedContext.find.notFound",
-            message = s"BoundedContext: $idOrAlias not found",
-            params = Map("idOrAlias" -> idOrAlias)
+            message = s"BoundedContext: $idOrAlias not found"
           )
         case Some(context) =>
           val response = BoundedContextResponse(context)

@@ -34,19 +34,19 @@ class UpdateDomainModelApiController @Inject() (
             notFound(
               code = "sdmt.domainmode.update.notFound.boundedContext",
               message = s"Not Found BoundedContext: ${boundedContextId.string}",
-              params = Map("boundedContextId" -> boundedContextId.value)
+              params = "boundedContextId" -> boundedContextId.value
             )
           case UpdateDomainModelOutput.NotFoundSuchModel(_, domainModelId) =>
             notFound(
               code = "sdmt.domainmodel.update.notFound.domainModel",
               message = s"Not Found DomainModel: ${domainModelId.string}",
-              params = Map("domainModelId" -> domainModelId.value)
+              params = "domainModelId" -> domainModelId.value
             )
           case UpdateDomainModelOutput.ConflictEnglishName(_, conflictModel) =>
             conflict(
               code = "sdmt.domainmodel.update.conflict.englishName",
               message = s"Conflict EnglishName: ${conflictModel.englishName.value}",
-              params = Map("englishName" -> conflictModel.englishName.value)
+              params = "englishName" -> conflictModel.englishName.value
             )
           case UpdateDomainModelOutput.Success(updatedDomainModel, _) =>
             val response = DomainModelResponse(updatedDomainModel).json
