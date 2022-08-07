@@ -17,7 +17,7 @@ final class Password private (@transient private val plainPassword: String) exte
   require(isValid(plainPassword), validationErrorMessage)
 
   private lazy val hashResult: Hash = {
-    com.password4j.Password.hash(plainPassword).withBCrypt()
+    com.password4j.Password.hash(plainPassword).withBcrypt()
   }
 
   /**
@@ -35,7 +35,7 @@ final class Password private (@transient private val plainPassword: String) exte
    * @param hash ハッシュ済みパスワード
    */
   def verify(hash: HashedPassword): Boolean =
-    com.password4j.Password.check(plainPassword, hash.hashedPassword).withBCrypt()
+    com.password4j.Password.check(plainPassword, hash.hashedPassword).withBcrypt()
 
   override def writeExternal(out: ObjectOutput): Unit = deny
 
