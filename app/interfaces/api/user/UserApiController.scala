@@ -25,9 +25,7 @@ final class UserApiController @Inject() (cc: ControllerComponents, userRepositor
         notFound(
           code = "user.notFound",
           message = s"not found user: ${userId.value}",
-          params = Map(
-            "userId" -> userId.value
-          )
+          params = "userId" -> userId.value
         )
       case Some(user) => Ok(UserResponse(user).json)
     }

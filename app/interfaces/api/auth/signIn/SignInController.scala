@@ -24,13 +24,12 @@ final class SignInController @Inject() (
         notFound(
           code = "auth.signIn.notFound.account",
           message = s"not found account: ${email.value}",
-          params = Map("email" -> email.value)
+          params = "email" -> email.value
         )
       case SignInOutput.InvalidPassword =>
         badRequest(
           code = "auth.signIn.invalid.password",
-          message = "invalid password",
-          params = Map.empty
+          message = "invalid password"
         )
       case SignInOutput.Success(accessToken) =>
         val accessTokenCookie = generateAccessTokenCookie(accessToken)
