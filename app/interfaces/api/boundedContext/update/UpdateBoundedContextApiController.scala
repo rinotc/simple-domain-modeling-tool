@@ -30,14 +30,12 @@ class UpdateBoundedContextApiController @Inject() (
           case UpdateBoundedContextOutput.NotFound(targetId) =>
             notFound(
               code = "sdmt.boundedContext.update.notFound.id",
-              message = s"Bounded context that id = ${targetId.value} is not found.",
-              params = Map()
+              message = s"Bounded context that id = ${targetId.value} is not found."
             )
           case UpdateBoundedContextOutput.ConflictAlias(conflictedBoundedContext) =>
             conflict(
               code = "sdmt.boundedContext.update.conflict.alias",
-              message = s"Bounded context alias ${conflictedBoundedContext.alias.value} is conflicted.",
-              params = Map()
+              message = s"Bounded context alias ${conflictedBoundedContext.alias.value} is conflicted."
             )
         }
       }

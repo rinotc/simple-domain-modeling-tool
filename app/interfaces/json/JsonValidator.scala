@@ -15,8 +15,7 @@ object JsonValidator extends ErrorResults {
           value.asEither.left.map { _ =>
             badRequest(
               code = "json.request.parse.error",
-              message = "parse error",
-              params = Map.empty
+              message = "parse error"
             )
           }
         case Failure(e) =>
@@ -25,8 +24,7 @@ object JsonValidator extends ErrorResults {
               Left(
                 badRequest(
                   code = "request.validation.error",
-                  message = e.message,
-                  params = Map.empty
+                  message = e.message
                 )
               )
           }

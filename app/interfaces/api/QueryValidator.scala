@@ -26,7 +26,7 @@ object QueryValidator extends ErrorResults {
 
   def sync[R](e: Either[String, R])(f: R => Result): Result = {
     e match {
-      case Left(errorMessage) => badRequest("query.invalid", errorMessage, Map.empty)
+      case Left(errorMessage) => badRequest("query.invalid", errorMessage)
       case Right(value)       => f(value)
     }
   }

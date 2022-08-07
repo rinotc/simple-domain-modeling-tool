@@ -26,7 +26,7 @@ final class CreateBoundedContextApiController @Inject() (
           conflict(
             code = "sdmt.boundedContext.create.conflict",
             message = s"Bounded context alias = ${alias.value} is conflicted.",
-            params = Map("alias" -> alias.value)
+            params = "alias" -> alias.value
           )
         case CreateBoundedContextOutput.Success(boundedContext) =>
           val response = BoundedContextResponse(boundedContext)

@@ -1,39 +1,18 @@
 package interfaces.json.error
 
-import play.api.libs.json.{JsArray, JsBoolean, JsNumber, JsString, JsValue, OFormat, Json => PlayJson}
+import play.api.libs.json.{JsValue, OFormat, Json => PlayJson}
 
-import java.util.UUID
-
-final class ErrorResponse private (
+final case class ErrorResponse private (
     private val code: String,
     private val message: String,
-    private val params: Map[String, Any]
+    private val params: Map[String, JsValue]
 ) {
   import ErrorResponse._
 
-  private val response = Response(code, message, params.map { case (key, value) => key -> parseJson(value) })
-
-  def json: JsValue = PlayJson.toJson(response)
+  def json: JsValue = PlayJson.toJson(this)
 }
 
 object ErrorResponse {
-  private case class Response(code: String, message: String, params: Map[String, JsValue])
 
-  private def parseJson(value: Any): JsValue = value match {
-    case v: Int        => JsNumber(v)
-    case v: Long       => JsNumber(v)
-    case v: Double     => JsNumber(v)
-    case v: BigDecimal => JsNumber(v)
-    case v: String     => JsString(v)
-    case v: Boolean    => JsBoolean(v)
-    case v: UUID       => JsString(v.toString)
-    case v: Seq[_]     => JsArray(v.map(parseJson))
-
-    case other => throw new IllegalArgumentException(s"Unsupported type: ${other.getClass}")
-  }
-
-  implicit private val jsonFormatter: OFormat[Response] = PlayJson.format[Response]
-
-  private[error] def apply(code: String, message: String, params: Map[String, Any]) =
-    new ErrorResponse(code, message, params)
+  implicit private val jsonFormatter: OFormat[ErrorResponse] = PlayJson.format[ErrorResponse]
 }

@@ -24,7 +24,7 @@ final class SignUpController @Inject() (
         conflict(
           code = "auth.signUp.email.conflict",
           message = s"${email.value} is conflicted",
-          params = Map("email" -> email.value)
+          params = "email" -> email.value
         )
       case SignUpOutput.Success(accessToken) =>
         val accessTokenCookie = generateAccessTokenCookie(accessToken)
