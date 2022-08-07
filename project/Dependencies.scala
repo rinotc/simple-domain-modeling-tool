@@ -70,7 +70,7 @@ object Dependencies {
    */
   object Refined {
 
-    private val Version = "0.9.29"
+    private val Version = "0.10.1"
 
     val `refined`            = "eu.timepit" %% "refined"            % Version
     val `refined-cats`       = "eu.timepit" %% "refined-cats"       % Version // optional
@@ -88,7 +88,7 @@ object Dependencies {
    * @see [[https://github.com/Password4j/password4j]]
    */
   object Password4j {
-    val `password4j` = "com.password4j" % "password4j" % "1.5.4"
+    val `password4j` = "com.password4j" % "password4j" % "1.6.0"
   }
 
   object ScalaCache {
