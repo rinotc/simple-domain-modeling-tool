@@ -7,6 +7,8 @@ import { BoundedContext } from '../../../../models/boundedContext/bounded-contex
 import { BoundedContextsQuery } from '../../../../models/boundedContext/state/bounded-contexts.query';
 import { BoundedContextsService } from '../../../../models/boundedContext/state/bounded-contexts.service';
 import { redirectTo404 } from '../../../../helper/routing-helper';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBoundedContextDialogComponent } from './delete-bounded-context-dialog/delete-bounded-context-dialog.component';
 
 @Component({
   selector: 'app-project-detail',
@@ -21,7 +23,8 @@ export class BoundedContextDetailPageComponent implements OnInit {
     private route: ActivatedRoute,
     private headerService: HeaderService,
     private boundedContextsService: BoundedContextsService,
-    private boundedContextsQuery: BoundedContextsQuery
+    private boundedContextsQuery: BoundedContextsQuery,
+    public dialog: MatDialog
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -77,5 +80,21 @@ export class BoundedContextDetailPageComponent implements OnInit {
 
   clickDeleteButton(): void {
     console.log('click delete button');
+    this.openDialog();
+  }
+
+  private openDialog() {
+    console.log(this.boundedContext);
+    const dialogRef = this.dialog.open(DeleteBoundedContextDialogComponent, {
+      width: '50vw',
+      height: '50vh',
+      data: {
+        boundedContextName: this.boundedContext.name.value,
+        boundedContextAlias: this.boundedContext.alias.value,
+      },
+    });
+    dialogRef.afterClosed().subscribe((_) => {
+      console.log('close dialog.');
+    });
   }
 }
