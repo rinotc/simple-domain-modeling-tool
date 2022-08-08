@@ -27,7 +27,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
-import { ListDomainModelsComponent } from './views/components/domainModel/list-domain-models/list-domain-models.component';
+import { ListDomainModelsComponent } from './views/pages/boundedContext/detail/list-domain-models/list-domain-models.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CreateDomainModelPageComponent } from './views/pages/domainModel/create/create-domain-model-page.component';

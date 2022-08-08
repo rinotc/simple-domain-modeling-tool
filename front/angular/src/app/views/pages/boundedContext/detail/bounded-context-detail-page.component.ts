@@ -74,4 +74,8 @@ export class BoundedContextDetailPageComponent implements OnInit {
         }
       });
   }
+
+  clickDeleteButton(): void {
+    console.log('click delete button');
+  }
 }
