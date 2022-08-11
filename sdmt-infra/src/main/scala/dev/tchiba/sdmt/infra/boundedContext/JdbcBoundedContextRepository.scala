@@ -88,10 +88,10 @@ class JdbcBoundedContextRepository extends BoundedContextRepository { // SQLInte
   override def delete(id: BoundedContextId): Unit = {
     DB localTx { implicit session =>
       withSQL {
-        QueryDSL.delete.from(BoundedContexts).where.eq(BoundedContexts.column.boundedContextId, id.string)
+        QueryDSL.delete.from(DomainModels).where.eq(DomainModels.column.boundedContextId, id.string)
       }.update().apply()
       withSQL {
-        QueryDSL.delete.from(DomainModels).where.eq(DomainModels.column.boundedContextId, id.string)
+        QueryDSL.delete.from(BoundedContexts).where.eq(BoundedContexts.column.boundedContextId, id.string)
       }.update().apply()
     }
   }

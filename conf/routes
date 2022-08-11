@@ -12,6 +12,7 @@ GET         /api/bounded-contexts                                               
 POST        /api/bounded-contexts                                                      interfaces.api.boundedContext.create.CreateBoundedContextApiController.action()
 GET         /api/bounded-contexts/:idOrAlias                                           interfaces.api.boundedContext.find.FindBoundedContextApiController.action(idOrAlias: String)
 PUT         /api/bounded-contexts/:boundedContextId                                    interfaces.api.boundedContext.update.UpdateBoundedContextApiController.action(boundedContextId: String)
+DELETE      /api/bounded-contexts/:boundedContextId                                    interfaces.api.boundedContext.delete.DeleteBoundedContextApiController.action(boundedContextId: String)
 
 POST        /api/bounded-contexts/:boundedContextId/domain-models                      interfaces.api.domainmodel.create.CreateDomainModelApiController.action(boundedContextId: String)
 GET         /api/bounded-contexts/:boundedContextId/domain-models                      interfaces.api.domainmodel.list.ListDomainModelsApiController.action(boundedContextId: String)
