@@ -18,8 +18,8 @@ comment on column bounded_contexts.bounded_context_name is '境界づけられ�
 
 comment on column bounded_contexts.bounded_context_overview is '境界づけられたコンテキストの概要';
 
-create unique index project_project_name_uindex
-    on bounded_contexts (bounded_context_name);
+create unique index uq_bounded_contexts_bounded_context_alias
+    on bounded_contexts (bounded_context_alias);
 
 create table domain_models
 (
