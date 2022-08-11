@@ -13,6 +13,8 @@ on:
 jobs:
   test-and-coverage:
     runs-on: ubuntu-latest
+    outputs:
+      done: ${{ steps.check.outputs.message }}
     steps:
       - name: Chcek out
         uses: actions/checkout@v3
@@ -23,3 +25,8 @@ jobs:
           java-version: 17
       - name: Build, test and coverage report
         run: sbt clean coverage test coverageAggregate
+      - id: check
+        if: ${{ always() }}
+        run: |
+          echo "::set-output name=message::Test A ${{ (job.status == 'success' && '✅') || '❌' }}"
+          echo "- TestA : ${{ (job.status == 'success' && '✅') || '❌' }}" >> $GITHUB_STEP_SUMMARY
