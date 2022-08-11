@@ -93,7 +93,10 @@ export class BoundedContextDetailPageComponent implements OnInit {
         boundedContextAlias: this.boundedContext.alias.value,
       },
     });
-    dialogRef.afterClosed().subscribe((_) => {
+    dialogRef.afterClosed().subscribe((isDeleted) => {
+      if (isDeleted) {
+        console.log('deleted');
+      }
       console.log('close dialog.');
     });
   }

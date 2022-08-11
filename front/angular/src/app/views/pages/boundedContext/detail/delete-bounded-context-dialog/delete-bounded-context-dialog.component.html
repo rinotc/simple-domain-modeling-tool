@@ -13,5 +13,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">やめる</button>
-  <button mat-button (click)="onClickDelete()" [mat-dialog-close]="">削除する</button>
+  <button mat-button (click)="onClickDelete()" [mat-dialog-close]="true" [disabled]="!canDelete">削除する</button>
 </div>
