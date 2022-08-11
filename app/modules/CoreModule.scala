@@ -2,6 +2,7 @@ package modules
 
 import com.google.inject.AbstractModule
 import dev.tchiba.sdmt.application.interactors.boundedContext.create.CreateBoundedContextInteractor
+import dev.tchiba.sdmt.application.interactors.boundedContext.delete.DeleteBoundedContextInteractor
 import dev.tchiba.sdmt.application.interactors.boundedContext.update.UpdateBoundedContextInteractor
 import dev.tchiba.sdmt.application.interactors.domainmodel.add.CreateDomainModelInteractor
 import dev.tchiba.sdmt.application.interactors.domainmodel.update.UpdateDomainModelInteractor
@@ -12,6 +13,7 @@ import dev.tchiba.sdmt.infra.boundedContext.JdbcBoundedContextRepository
 import dev.tchiba.sdmt.infra.domainmodel.JdbcDomainModelRepository
 import dev.tchiba.sdmt.infra.user.JdbcUserRepository
 import dev.tchiba.sdmt.usecase.boundedContext.create.CreateBoundedContextUseCase
+import dev.tchiba.sdmt.usecase.boundedContext.delete.DeleteBoundedContextUseCase
 import dev.tchiba.sdmt.usecase.boundedContext.update.UpdateBoundedContextUseCase
 import dev.tchiba.sdmt.usecase.domainmodel.create.CreateDomainModelUseCase
 import dev.tchiba.sdmt.usecase.domainmodel.update.UpdateDomainModelUseCase
@@ -24,6 +26,7 @@ class CoreModule extends AbstractModule with ScalaModule {
 
     bind[CreateBoundedContextUseCase].to[CreateBoundedContextInteractor]
     bind[UpdateBoundedContextUseCase].to[UpdateBoundedContextInteractor]
+    bind[DeleteBoundedContextUseCase].to[DeleteBoundedContextInteractor]
     bind[CreateDomainModelUseCase].to[CreateDomainModelInteractor]
 
     bind[UpdateDomainModelUseCase].to[UpdateDomainModelInteractor]
