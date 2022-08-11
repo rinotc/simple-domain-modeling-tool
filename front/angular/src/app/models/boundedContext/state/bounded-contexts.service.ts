@@ -88,4 +88,9 @@ export class BoundedContextsService {
         })
       );
   }
+
+  delete(id: BoundedContextId) {
+    return this.http.delete(`${config.apiHost}/bounded-contexts/${id.value}`);
+    // TODO
+  }
 }
