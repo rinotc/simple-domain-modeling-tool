@@ -40,6 +40,11 @@ export class BoundedContexts {
     return new BoundedContexts(contexts);
   }
 
+  excludeById(id: BoundedContextId): BoundedContexts {
+    const newContexts = this._contexts.filter((c) => !c.id.equals(id));
+    return new BoundedContexts(newContexts);
+  }
+
   static empty(): BoundedContexts {
     return new BoundedContexts([]);
   }

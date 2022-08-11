@@ -92,9 +92,15 @@ export class BoundedContextsService {
   }
 
   delete(id: BoundedContextId) {
-    const response$ = this.http.delete(
-      `${config.apiHost}/bounded-contexts/${id.value}`
-    );
+    const response$ = this.http
+      .delete(`${config.apiHost}/bounded-contexts/${id.value}`)
+      .pipe(
+        tap((_) => {
+          this.boundedContextStore.update((state) => ({
+            contexts: state.contexts.excludeById(id),
+          }));
+        })
+      );
     return lastValueFrom(response$);
   }
 }

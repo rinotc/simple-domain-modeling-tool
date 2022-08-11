@@ -32,15 +32,14 @@ export class BoundedContextDetailPageComponent implements OnInit {
     notNull(aliasString, `alias string must not be null but ${aliasString}`);
     const alias = new BoundedContextAlias(aliasString!);
     await this.boundedContextsService.fetchByIdOrAlias(alias);
-    this.boundedContextsQuery.contexts$.subscribe((contexts) => {
-      const context = contexts.findByAlias(alias);
-      if (context === undefined) {
-        redirectTo404(this.router);
-      } else {
-        this.headerService.update(context.name.value);
-        this._boundedContext = context;
-      }
-    });
+    const contexts = await this.boundedContextsQuery.contexts;
+    const context = contexts.findByAlias(alias);
+    if (context === undefined) {
+      redirectTo404(this.router);
+    } else {
+      this.headerService.update(context.name.value);
+      this._boundedContext = context;
+    }
   }
 
   get isLoading(): boolean {
