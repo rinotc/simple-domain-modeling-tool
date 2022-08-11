@@ -32,7 +32,7 @@ lazy val `web` = (project in file("."))
       "-Wconf:src=routes/.*:is,src=twirl/.*:is"
     ),
     coverageEnabled := true,
-    coverageExcludedPackages := "<empty>;Reverse.*;router",
+    coverageExcludedPackages := "Reverse.*;router",
     libraryDependencies ++= Seq(
       guice,
       Google.`guice`,
