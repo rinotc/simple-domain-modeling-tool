@@ -73,8 +73,8 @@ export class BoundedContextsService {
       );
   }
 
-  update(boundedContext: BoundedContext): Observable<BoundedContextResponse> {
-    return this.http
+  update(boundedContext: BoundedContext): Promise<BoundedContextResponse> {
+    const response$ = this.http
       .put<BoundedContextResponse>(
         `${config.apiHost}/bounded-contexts/${boundedContext.id.value}`,
         UpdateBoundedContextRequest.translate(boundedContext)
@@ -87,6 +87,8 @@ export class BoundedContextsService {
           }));
         })
       );
+
+    return lastValueFrom(response$);
   }
 
   delete(id: BoundedContextId) {

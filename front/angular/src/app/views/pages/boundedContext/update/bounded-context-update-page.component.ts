@@ -7,7 +7,6 @@ import { BoundedContextsQuery } from '../../../../models/boundedContext/state/bo
 import { BoundedContext } from '../../../../models/boundedContext/bounded-context';
 import { BoundedContextName } from '../../../../models/boundedContext/name/bounded-context-name';
 import { BoundedContextOverview } from '../../../../models/boundedContext/overview/bounded-context-overview';
-import { lastValueFrom } from 'rxjs';
 import { redirectTo404 } from '../../../../helper/routing-helper';
 
 @Component({
@@ -107,9 +106,7 @@ export class BoundedContextUpdatePageComponent implements OnInit {
       .changeOverview(overview);
     console.log('submit');
 
-    lastValueFrom(
-      this.boundedContextsService.update(updatedBoundedContext)
-    ).then((r) => {
+    this.boundedContextsService.update(updatedBoundedContext).then((r) => {
       this.router.navigateByUrl(`/bounded-contexts/${r.alias}`).then((_) => {});
     });
   }
