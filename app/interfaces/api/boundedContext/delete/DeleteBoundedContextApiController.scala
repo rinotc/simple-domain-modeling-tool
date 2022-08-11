@@ -7,7 +7,7 @@ import play.api.mvc.{Action, AnyContent, ControllerComponents}
 
 import javax.inject.Inject
 
-class DeleteBoundedContextApiController @Inject() (
+final class DeleteBoundedContextApiController @Inject() (
     cc: ControllerComponents,
     deleteBoundedContextUseCase: DeleteBoundedContextUseCase
 ) extends SdmtApiController(cc) {
