@@ -7,6 +7,8 @@ import { BoundedContext } from '../../../../models/boundedContext/bounded-contex
 import { BoundedContextsQuery } from '../../../../models/boundedContext/state/bounded-contexts.query';
 import { BoundedContextsService } from '../../../../models/boundedContext/state/bounded-contexts.service';
 import { redirectTo404 } from '../../../../helper/routing-helper';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBoundedContextDialogComponent } from './delete-bounded-context-dialog/delete-bounded-context-dialog.component';
 
 @Component({
   selector: 'app-project-detail',
@@ -21,7 +23,8 @@ export class BoundedContextDetailPageComponent implements OnInit {
     private route: ActivatedRoute,
     private headerService: HeaderService,
     private boundedContextsService: BoundedContextsService,
-    private boundedContextsQuery: BoundedContextsQuery
+    private boundedContextsQuery: BoundedContextsQuery,
+    public dialog: MatDialog
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -29,15 +32,14 @@ export class BoundedContextDetailPageComponent implements OnInit {
     notNull(aliasString, `alias string must not be null but ${aliasString}`);
     const alias = new BoundedContextAlias(aliasString!);
     await this.boundedContextsService.fetchByIdOrAlias(alias);
-    this.boundedContextsQuery.contexts$.subscribe((contexts) => {
-      const context = contexts.findByAlias(alias);
-      if (context === undefined) {
-        redirectTo404(this.router);
-      } else {
-        this.headerService.update(context.name.value);
-        this._boundedContext = context;
-      }
-    });
+    const contexts = await this.boundedContextsQuery.contexts;
+    const context = contexts.findByAlias(alias);
+    if (context === undefined) {
+      redirectTo404(this.router);
+    } else {
+      this.headerService.update(context.name.value);
+      this._boundedContext = context;
+    }
   }
 
   get isLoading(): boolean {
@@ -73,5 +75,30 @@ export class BoundedContextDetailPageComponent implements OnInit {
           console.log('failed!');
         }
       });
+  }
+
+  clickDeleteButton(): void {
+    console.log('click delete button');
+    this.openDialog();
+  }
+
+  private openDialog() {
+    const dialogRef = this.dialog.open(DeleteBoundedContextDialogComponent, {
+      width: '50vw',
+      height: '50vh',
+      data: {
+        boundedContextName: this.boundedContext.name.value,
+        boundedContextAlias: this.boundedContext.alias.value,
+      },
+    });
+    dialogRef.afterClosed().subscribe(async (wantDelete) => {
+      if (wantDelete) {
+        await this.boundedContextsService
+          .delete(this.boundedContext.id)
+          .then((_) =>
+            this.router.navigateByUrl('/bounded-contexts').then((_) => {})
+          );
+      }
+    });
   }
 }

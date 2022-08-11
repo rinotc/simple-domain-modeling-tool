@@ -15,6 +15,10 @@ export class BoundedContextId {
     return this.value === other.value;
   }
 
+  static isValid(value: string): boolean {
+    return this.mustValueLengthEqual36(value);
+  }
+
   static validate(value: string): E.Either<string, BoundedContextId> {
     if (this.mustValueLengthEqual36(value)) {
       const id = new BoundedContextId(value);

@@ -27,12 +27,14 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
-import { ListDomainModelsComponent } from './views/components/domainModel/list-domain-models/list-domain-models.component';
+import { ListDomainModelsComponent } from './views/pages/boundedContext/detail/list-domain-models/list-domain-models.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CreateDomainModelPageComponent } from './views/pages/domainModel/create/create-domain-model-page.component';
 import { NotFoundComponent } from './views/pages/error/not-found/not-found.component';
 import { BoundedContextUpdatePageComponent } from './views/pages/boundedContext/update/bounded-context-update-page.component';
+import { DeleteBoundedContextDialogComponent } from './views/pages/boundedContext/detail/delete-bounded-context-dialog/delete-bounded-context-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { BoundedContextUpdatePageComponent } from './views/pages/boundedContext/
     CreateDomainModelPageComponent,
     NotFoundComponent,
     BoundedContextUpdatePageComponent,
+    DeleteBoundedContextDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +74,7 @@ import { BoundedContextUpdatePageComponent } from './views/pages/boundedContext/
     LayoutModule,
     MatPaginatorModule,
     MatSortModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

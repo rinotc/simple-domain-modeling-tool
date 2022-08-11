@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DomainModel } from '../../../../models/domainModel/domain-model';
-import { BoundedContext } from '../../../../models/boundedContext/bounded-context';
-import { DomainModelsService } from '../../../../models/domainModel/state/domain-models.service';
-import { DomainModelsQuery } from '../../../../models/domainModel/state/domain-models.query';
+import { DomainModel } from '../../../../../models/domainModel/domain-model';
+import { BoundedContext } from '../../../../../models/boundedContext/bounded-context';
+import { DomainModelsService } from '../../../../../models/domainModel/state/domain-models.service';
+import { DomainModelsQuery } from '../../../../../models/domainModel/state/domain-models.query';
 
 @Component({
   selector: 'app-list-domain-models',

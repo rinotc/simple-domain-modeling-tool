@@ -73,8 +73,8 @@ export class BoundedContextsService {
       );
   }
 
-  update(boundedContext: BoundedContext): Observable<BoundedContextResponse> {
-    return this.http
+  update(boundedContext: BoundedContext): Promise<BoundedContextResponse> {
+    const response$ = this.http
       .put<BoundedContextResponse>(
         `${config.apiHost}/bounded-contexts/${boundedContext.id.value}`,
         UpdateBoundedContextRequest.translate(boundedContext)
@@ -87,5 +87,20 @@ export class BoundedContextsService {
           }));
         })
       );
+
+    return lastValueFrom(response$);
+  }
+
+  delete(id: BoundedContextId) {
+    const response$ = this.http
+      .delete(`${config.apiHost}/bounded-contexts/${id.value}`)
+      .pipe(
+        tap((_) => {
+          this.boundedContextStore.update((state) => ({
+            contexts: state.contexts.excludeById(id),
+          }));
+        })
+      );
+    return lastValueFrom(response$);
   }
 }
