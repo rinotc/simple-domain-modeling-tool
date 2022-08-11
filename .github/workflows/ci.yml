@@ -21,7 +21,5 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - name: Build and Test and coverage
-        run: sbt clean coverage test
-      - name: Report coverage
-        run: sbt coverageAggregate
+      - name: Build, test and coverage report
+        run: sbt clean coverage test coverageAggregate
