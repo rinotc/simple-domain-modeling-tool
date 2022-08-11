@@ -84,7 +84,6 @@ export class BoundedContextDetailPageComponent implements OnInit {
   }
 
   private openDialog() {
-    console.log(this.boundedContext);
     const dialogRef = this.dialog.open(DeleteBoundedContextDialogComponent, {
       width: '50vw',
       height: '50vh',
@@ -93,15 +92,14 @@ export class BoundedContextDetailPageComponent implements OnInit {
         boundedContextAlias: this.boundedContext.alias.value,
       },
     });
-    dialogRef.afterClosed().subscribe((wantDelete) => {
+    dialogRef.afterClosed().subscribe(async (wantDelete) => {
       if (wantDelete) {
-        console.log('deleted');
+        await this.boundedContextsService
+          .delete(this.boundedContext.id)
+          .then((_) =>
+            this.router.navigateByUrl('/bounded-contexts').then((_) => {})
+          );
       }
-      console.log('close dialog.');
     });
-  }
-
-  private deleteBoundedContext() {
-    // TODO
   }
 }
