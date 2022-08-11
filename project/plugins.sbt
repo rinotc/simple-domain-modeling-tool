@@ -9,3 +9,6 @@ addSbtPlugin("io.github.todokr" % "sbt-zugen" % "2021.12.0")
 
 // https://github.com/scoverage/sbt-scoverage
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.9.3")
+
+// https://github.com/scoverage/sbt-coveralls
+addSbtPlugin("org.scoverage" % "sbt-coveralls" % "1.3.1")

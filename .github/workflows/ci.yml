@@ -13,8 +13,6 @@ on:
 jobs:
   test-and-coverage:
     runs-on: ubuntu-latest
-    outputs:
-      done: ${{ steps.check.outputs.message }}
     steps:
       - name: Chcek out
         uses: actions/checkout@v3
@@ -24,8 +22,10 @@ jobs:
           distribution: temurin
           java-version: 17
       - name: Build, test and coverage report
-        run: sbt clean coverage test coverageAggregate
-      - id: check
-        if: ${{ always() }}
-        run: |
-          cat target/scala-2.13/scoverage-report/overview.html | sed '1,56d' | sed -e '$d' | sed -e '$d' >> $GITHUB_STEP_SUMMARY
+        run: sbt clean coverage test
+      - name: Upload coverage data to Coveralls
+        run: sbt coverageAggregate coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_FLAG_NAME: Scala ${{ matrix.scala }}
+
