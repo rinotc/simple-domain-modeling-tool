@@ -31,6 +31,8 @@ lazy val `web` = (project in file("."))
       // Suggested here https://github.com/playframework/twirl/issues/105#issuecomment-782985171
       "-Wconf:src=routes/.*:is,src=twirl/.*:is"
     ),
+    coverageEnabled := true,
+    coverageExcludedPackages := "<empty>;Reverse.*;router",
     libraryDependencies ++= Seq(
       guice,
       Google.`guice`,

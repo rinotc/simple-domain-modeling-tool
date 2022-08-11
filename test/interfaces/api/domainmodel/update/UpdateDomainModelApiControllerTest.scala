@@ -4,7 +4,6 @@ import dev.tchiba.sdmt.core.boundedContext._
 import dev.tchiba.sdmt.core.domainmodel._
 import dev.tchiba.sdmt.usecase.domainmodel.update.{UpdateDomainModelOutput, UpdateDomainModelUseCase}
 import interfaces.api.domainmodel.json.DomainModelResponse
-import interfaces.json.error.ErrorResponse
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
