@@ -29,4 +29,4 @@ jobs:
         if: ${{ always() }}
         run: |
           echo "::set-output name=message::Test A ${{ (job.status == 'success' && '✅') || '❌' }}"
-          echo "- TestA : ${{ (job.status == 'success' && '✅') || '❌' }}" >> $GITHUB_STEP_SUMMARY
+#          echo "- TestA : ${{ (job.status == 'success' && '✅') || '❌' }}" >> $GITHUB_STEP_SUMMARY
