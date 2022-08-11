@@ -2,7 +2,6 @@ package interfaces.api.boundedContext.find
 
 import dev.tchiba.sdmt.core.boundedContext._
 import interfaces.api.boundedContext.json.BoundedContextResponse
-import interfaces.json.error.ErrorResponse
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
