@@ -32,6 +32,5 @@ export class DeleteBoundedContextDialogComponent implements OnInit {
 
   onClickDelete() {
     requirement(this.canDelete, 'can delete only same alias input.');
-    console.log('削除');
   }
 }
