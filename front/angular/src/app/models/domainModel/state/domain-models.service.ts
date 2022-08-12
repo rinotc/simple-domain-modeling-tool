@@ -7,7 +7,10 @@ import { config } from '../../../config';
 import { BoundedContextId } from '../../boundedContext/id/bounded-context-id';
 import { CreateDomainModelInput } from './io/create-domain-model-input';
 import { CreateDomainModelRequest } from '../http/create-domain-model-request';
-import { Observable, tap } from 'rxjs';
+import { lastValueFrom, Observable, tap } from 'rxjs';
+import { DomainModelId } from '../id/domain-model-id';
+import { EnglishName } from '../englishName/english-name';
+import { BoundedContextAlias } from '../../boundedContext/alias/bounded-context-alias';
 
 @Injectable({ providedIn: 'root' })
 export class DomainModelsService {
@@ -29,6 +32,26 @@ export class DomainModelsService {
           };
         });
       });
+  }
+
+  fetchByIdOrEnglishName(
+    idOrEnglishName: DomainModelId | EnglishName,
+    idOrAlias: BoundedContextId | BoundedContextAlias
+  ): Promise<DomainModelResponse> {
+    const response$ = this.http
+      .get<DomainModelResponse>(
+        `${config.apiHost}/bounded-contexts/${idOrAlias.value}/domain-models/${idOrEnglishName.value}`
+      )
+      .pipe(
+        tap((res) => {
+          const dm = DomainModelResponse.translate(res);
+          this.domainModelsStore.update((state) => ({
+            models: state.models.append(dm),
+          }));
+        })
+      );
+
+    return lastValueFrom(response$);
   }
 
   create(input: CreateDomainModelInput): Observable<DomainModelResponse> {

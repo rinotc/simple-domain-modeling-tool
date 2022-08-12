@@ -53,7 +53,7 @@ const routes: Routes = [
                 component: CreateDomainModelPageComponent,
               },
               {
-                path: ':domainModelEnglishName',
+                path: ':englishName',
                 component: DomainModelDetailPageComponent,
               },
             ],
