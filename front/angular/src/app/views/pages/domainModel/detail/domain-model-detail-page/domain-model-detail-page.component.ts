@@ -40,6 +40,7 @@ export class DomainModelDetailPageComponent implements OnInit {
     if (context) {
       await this.domainModelService.fetchByIdOrEnglishName(englishName, alias);
       const domainModels = await this.domainModelQuery.models;
+      console.log(domainModels);
       const domainModel = domainModels.findByEnglishName(
         englishName,
         context.id
