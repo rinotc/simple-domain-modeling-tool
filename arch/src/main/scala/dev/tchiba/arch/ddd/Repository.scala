@@ -2,7 +2,6 @@ package dev.tchiba.arch.ddd
 
 trait Repository[A <: Aggregate] {
 
-  //noinspection UnitMethodIsParameterless
   final protected val unit: Unit = ()
 
   implicit protected class ValueRepositoryExtension[T](value: T) {
