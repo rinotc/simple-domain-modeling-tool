@@ -19,23 +19,38 @@ const routes: Routes = [
   },
   {
     path: 'bounded-contexts',
-    component: BoundedContextsListPageComponent,
-  },
-  {
-    path: 'bounded-contexts/create',
-    component: BoundedContextCreatePageComponent,
-  },
-  {
-    path: 'bounded-contexts/:boundedContextAlias',
-    component: BoundedContextDetailPageComponent,
-  },
-  {
-    path: 'bounded-contexts/:boundedContextAlias/edit',
-    component: BoundedContextUpdatePageComponent,
-  },
-  {
-    path: 'bounded-contexts/:boundedContextAlias/domain-models/create',
-    component: CreateDomainModelPageComponent,
+    children: [
+      {
+        path: '',
+        component: BoundedContextsListPageComponent,
+      },
+      {
+        path: 'create',
+        component: BoundedContextCreatePageComponent,
+      },
+      {
+        path: ':boundedContextAlias',
+        children: [
+          {
+            path: '',
+            redirectTo: 'domain-models',
+            pathMatch: 'full',
+          },
+          {
+            path: 'domain-models',
+            component: BoundedContextDetailPageComponent,
+          },
+          {
+            path: 'edit',
+            component: BoundedContextUpdatePageComponent,
+          },
+          {
+            path: 'domain-models/create',
+            component: CreateDomainModelPageComponent,
+          },
+        ],
+      },
+    ],
   },
 ];
 
