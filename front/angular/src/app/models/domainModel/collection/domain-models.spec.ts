@@ -5,6 +5,7 @@ import { UbiquitousName } from '../ubiquitousName/ubiquitous-name';
 import { EnglishName } from '../englishName/english-name';
 import { Knowledge } from '../knowledge/knowledge';
 import { DomainModels } from './domain-models';
+import { expect } from '@angular/flex-layout/_private-utils/testing';
 
 describe('DomainModels', () => {
   describe('事前条件', () => {
@@ -51,7 +52,36 @@ describe('DomainModels', () => {
     });
   });
 
-  describe('findById', () => {});
+  describe('findById', () => {
+    const dm1 = new DomainModel(
+      new DomainModelId('abcde-fghij-klmno-pqrst-uvwxy-z12345'),
+      new BoundedContextId('xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-x12345'),
+      new UbiquitousName('ユビキタス名称'),
+      new EnglishName('UbiqitousName'),
+      new Knowledge('知識')
+    );
+
+    const dm2 = new DomainModel(
+      new DomainModelId('abcde-fghij-klmno-pqrst-uvwxy-z99999'),
+      new BoundedContextId('xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-x12349'),
+      new UbiquitousName('ユビキタス名称2'),
+      new EnglishName('UbiqitousName2'),
+      new Knowledge('知識2')
+    );
+
+    const domainModels = new DomainModels([dm1, dm2]);
+    it('IDと一致するドメインモデルを取得する', () => {
+      const actual = domainModels.findById(dm2.id);
+      expect(actual).toBe(dm2);
+    });
+
+    it('存在しないIDを渡した場合に、ドメインモデルは取得できない', () => {
+      const actual = domainModels.findById(
+        new DomainModelId('zzzzz-fghij-klmno-pqrst-uvwxy-z12345')
+      );
+      expect(actual).toBeUndefined();
+    });
+  });
 
   describe('findByEnglishName', () => {
     describe('英語名と境界づけられたコンテキストIDで一意なドメインモデルを取得する', () => {
@@ -97,7 +127,7 @@ describe('DomainModels', () => {
         domainModels.models.forEach((dm) => {
           expect(
             dm.boundedContextId.equals(notExistBoundedContextId)
-          ).toBeTrue();
+          ).toBeFalse();
         });
         const actual = domainModels.findByEnglishName(
           englishName2,
@@ -109,9 +139,90 @@ describe('DomainModels', () => {
     });
   });
 
-  describe('append', () => {});
+  describe('append', () => {
+    it('重複した要素がない時、引数に渡した要素を追加した新たなインスタンスを返す', () => {
+      const dm1 = new DomainModel(
+        new DomainModelId('abcde-fghij-klmno-pqrst-uvwxy-z12345'),
+        new BoundedContextId('xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-x12345'),
+        new UbiquitousName('ユビキタス名称'),
+        new EnglishName('UbiqitousName'),
+        new Knowledge('知識')
+      );
+      const domainModels = new DomainModels([dm1]);
 
-  describe('replace', () => {});
+      const dm2 = new DomainModel(
+        new DomainModelId('abcde-fghij-klmno-pqrst-uvwxy-z99999'),
+        new BoundedContextId('xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-x12349'),
+        new UbiquitousName('ユビキタス名称2'),
+        new EnglishName('UbiqitousName2'),
+        new Knowledge('知識2')
+      );
 
-  describe('empty', () => {});
+      const actual = domainModels.append(dm2);
+      expect(actual.models.length).toBe(2);
+    });
+
+    it('重複した要素がある時、引数にわたした要素で置き換えた新しいインスタンスを返す', () => {
+      const dm1 = new DomainModel(
+        new DomainModelId('abcde-fghij-klmno-pqrst-uvwxy-z12345'),
+        new BoundedContextId('xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-x12345'),
+        new UbiquitousName('ユビキタス名称'),
+        new EnglishName('UbiqitousName'),
+        new Knowledge('知識')
+      );
+
+      const dm2 = new DomainModel(
+        new DomainModelId('abcde-fghij-klmno-pqrst-uvwxy-z99999'),
+        new BoundedContextId('xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-x12349'),
+        new UbiquitousName('ユビキタス名称2'),
+        new EnglishName('UbiqitousName2'),
+        new Knowledge('知識2')
+      );
+      const domainModels = new DomainModels([dm1, dm2]);
+
+      const newDm2 = new DomainModel(
+        dm2.id,
+        dm2.boundedContextId,
+        new UbiquitousName('更新後ユビキタス名称2'),
+        new EnglishName('UpdatedUbiqitousName2'),
+        new Knowledge('更新後知識2')
+      );
+
+      const actual = domainModels.append(newDm2);
+      expect(actual.models.length).toBe(2);
+      expect(actual.findById(dm2.id)).not.toBe(dm2);
+      expect(actual.findById(dm2.id)).toBe(newDm2);
+    });
+  });
+
+  describe('replace', () => {
+    it('引数に渡された配列で置き換える', () => {
+      const dm1 = new DomainModel(
+        new DomainModelId('abcde-fghij-klmno-pqrst-uvwxy-z12345'),
+        new BoundedContextId('xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-x12345'),
+        new UbiquitousName('ユビキタス名称'),
+        new EnglishName('UbiqitousName'),
+        new Knowledge('知識')
+      );
+
+      const dm2 = new DomainModel(
+        new DomainModelId('abcde-fghij-klmno-pqrst-uvwxy-z99999'),
+        new BoundedContextId('xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-x12349'),
+        new UbiquitousName('ユビキタス名称2'),
+        new EnglishName('UbiqitousName2'),
+        new Knowledge('知識2')
+      );
+      const domainModels = new DomainModels([dm1, dm2]);
+
+      const actual = domainModels.replace([dm1]);
+      expect(actual.models.length).toBe(1);
+    });
+  });
+
+  describe('empty', () => {
+    it('空の配列でインスタンスを生成する', () => {
+      const actual = DomainModels.empty();
+      expect(actual.models.length).toBe(0);
+    });
+  });
 });
