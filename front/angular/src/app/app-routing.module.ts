@@ -6,6 +6,7 @@ import { BoundedContextCreatePageComponent } from './views/pages/boundedContext/
 import { CreateDomainModelPageComponent } from './views/pages/domainModel/create/create-domain-model-page.component';
 import { NotFoundComponent } from './views/pages/error/not-found/not-found.component';
 import { BoundedContextUpdatePageComponent } from './views/pages/boundedContext/update/bounded-context-update-page.component';
+import { DomainModelDetailPageComponent } from './views/pages/domainModel/detail/domain-model-detail-page/domain-model-detail-page.component';
 
 const routes: Routes = [
   {
@@ -37,16 +38,25 @@ const routes: Routes = [
             pathMatch: 'full',
           },
           {
-            path: 'domain-models',
-            component: BoundedContextDetailPageComponent,
-          },
-          {
             path: 'edit',
             component: BoundedContextUpdatePageComponent,
           },
           {
-            path: 'domain-models/create',
-            component: CreateDomainModelPageComponent,
+            path: 'domain-models',
+            children: [
+              {
+                path: '',
+                component: BoundedContextDetailPageComponent,
+              },
+              {
+                path: 'create',
+                component: CreateDomainModelPageComponent,
+              },
+              {
+                path: ':domainModelEnglishName',
+                component: DomainModelDetailPageComponent,
+              },
+            ],
           },
         ],
       },
