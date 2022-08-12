@@ -1,7 +1,7 @@
 package dev.tchiba.sdmt.core.domainmodel
 
 import dev.tchiba.arch.ddd.Repository
-import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
+import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextId}
 
 trait DomainModelRepository extends Repository[DomainModel] {
 
@@ -10,6 +10,8 @@ trait DomainModelRepository extends Repository[DomainModel] {
   def findById(id: DomainModelId): Option[DomainModel]
 
   def findByEnglishName(englishName: EnglishName, boundedContextId: BoundedContextId): Option[DomainModel]
+
+  def findByEnglishName(englishName: EnglishName, alias: BoundedContextAlias): Option[DomainModel]
 
   def listBy(boundedContextId: BoundedContextId): Seq[DomainModel]
 
