@@ -1,8 +1,8 @@
 package dev.tchiba.sdmt.core.domainmodel
 
-import dev.tchiba.test.core.BaseTest
+import dev.tchiba.test.core.BaseWordTest
 
-class EnglishNameTest extends BaseTest {
+class EnglishNameTest extends BaseWordTest {
 
   "requirement" when {
     "empty String" should {

@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.{EitherValues, Inside, OptionValues}
 
-trait BaseTest extends AnyWordSpec with Matchers with OptionValues with EitherValues with Inside {
+trait BaseWordTest extends AnyWordSpec with Matchers with OptionValues with EitherValues with Inside {
   implicit protected class ValueTestContextOps[A](value: A) {
     def some: Option[A] = Some(value)
 

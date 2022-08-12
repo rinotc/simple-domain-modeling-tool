@@ -1,11 +1,11 @@
 package dev.tchiba.auth.core.password
 
-import dev.tchiba.test.core.BaseTest
+import dev.tchiba.test.core.BaseWordTest
 import org.scalatestplus.mockito.MockitoSugar
 
 import java.io.{ObjectInput, ObjectOutput}
 
-class PasswordTest extends BaseTest with MockitoSugar {
+class PasswordTest extends BaseWordTest with MockitoSugar {
 
   "readExternal" when {
     "call this method" should {

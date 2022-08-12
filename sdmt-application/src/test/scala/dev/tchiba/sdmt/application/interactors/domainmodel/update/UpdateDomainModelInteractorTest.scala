@@ -3,12 +3,12 @@ package dev.tchiba.sdmt.application.interactors.domainmodel.update
 import dev.tchiba.sdmt.core.boundedContext._
 import dev.tchiba.sdmt.core.domainmodel._
 import dev.tchiba.sdmt.usecase.domainmodel.update.{UpdateDomainModelInput, UpdateDomainModelOutput}
-import dev.tchiba.test.core.BaseTest
+import dev.tchiba.test.core.BaseWordTest
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 
-class UpdateDomainModelInteractorTest extends BaseTest with MockitoSugar {
+class UpdateDomainModelInteractorTest extends BaseWordTest with MockitoSugar {
 
   trait WithMock {
     val boundedContextRepository: BoundedContextRepository = mock[BoundedContextRepository]

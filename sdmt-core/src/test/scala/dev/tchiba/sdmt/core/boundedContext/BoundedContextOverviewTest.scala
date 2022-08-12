@@ -1,9 +1,9 @@
 package dev.tchiba.sdmt.core.boundedContext
 
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextOverview
-import dev.tchiba.test.core.BaseTest
+import dev.tchiba.test.core.BaseWordTest
 
-class BoundedContextOverviewTest extends BaseTest {
+class BoundedContextOverviewTest extends BaseWordTest {
 
   "BoundeContextOverview Requirement" when {
     "501 length value" should {

@@ -1,9 +1,8 @@
 package dev.tchiba.sdmt.core.boundedContext
 
-import dev.tchiba.sdmt.core.boundedContext.BoundedContextAlias
-import dev.tchiba.test.core.BaseTest
+import dev.tchiba.test.core.BaseWordTest
 
-class BoundedContextAliasTest extends BaseTest {
+class BoundedContextAliasTest extends BaseWordTest {
   "BoundedContextAlias Requirement" when {
     "empty value" should {
       "throw requirement error" in {

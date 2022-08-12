@@ -1,8 +1,8 @@
 package dev.tchiba.sdmt.core.domainmodel
 
-import dev.tchiba.test.core.BaseTest
+import dev.tchiba.test.core.BaseWordTest
 
-class UbiquitousNameTest extends BaseTest {
+class UbiquitousNameTest extends BaseWordTest {
 
   "requirement" when {
     "empty value String" should {

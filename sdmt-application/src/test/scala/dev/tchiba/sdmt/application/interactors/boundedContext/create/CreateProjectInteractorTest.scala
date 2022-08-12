@@ -2,12 +2,12 @@ package dev.tchiba.sdmt.application.interactors.boundedContext.create
 
 import dev.tchiba.sdmt.core.boundedContext._
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateBoundedContextInput, CreateBoundedContextOutput}
-import dev.tchiba.test.core.BaseTest
+import dev.tchiba.test.core.BaseWordTest
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 
-class CreateProjectInteractorTest extends BaseTest with MockitoSugar {
+class CreateProjectInteractorTest extends BaseWordTest with MockitoSugar {
 
   "handle" when {
     "there is no same alias project" should {
