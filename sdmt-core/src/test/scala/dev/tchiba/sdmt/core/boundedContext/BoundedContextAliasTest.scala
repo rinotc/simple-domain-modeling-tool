@@ -1,20 +1,19 @@
 package dev.tchiba.sdmt.core.boundedContext
 
-import dev.tchiba.sdmt.core.boundedContext.BoundedContextAlias
-import dev.tchiba.test.core.BaseTest
+import dev.tchiba.test.core.BaseFunTest
 
-class BoundedContextAliasTest extends BaseTest {
-  "BoundedContextAlias Requirement" when {
-    "empty value" should {
-      "throw requirement error" in {
+class BoundedContextAliasTest extends BaseFunTest {
+  describe("BoundedContextAlias Requirement") {
+    describe("空文字を渡した時") {
+      it("事前条件違反で例外を投げる") {
         assertThrows[IllegalArgumentException] {
           BoundedContextAlias("")
         }
       }
     }
 
-    "over 32 length value" should {
-      "throw requirement error" in {
+    describe("32文字以上の文字列を渡した時") {
+      it("事前条件違反で例外を投げる") {
         assertThrows[IllegalArgumentException] {
           val over32Alias = "A" * 33
           BoundedContextAlias(over32Alias)
@@ -22,8 +21,8 @@ class BoundedContextAliasTest extends BaseTest {
       }
     }
 
-    "not alphanumerical value" should {
-      "throw requirement error" in {
+    describe("英数字以外の文字列を渡した時") {
+      it("事前条件違反で例外を投げる") {
         assertThrows[IllegalArgumentException] {
           BoundedContextAlias("境界づけられたコンテキストエイリアス")
         }
@@ -31,9 +30,9 @@ class BoundedContextAliasTest extends BaseTest {
     }
   }
 
-  "equals" when {
-    "same underlying value" should {
-      "return true" in {
+  describe("equals") {
+    describe("内部プロパティの値が一致する時") {
+      it("trueを返す") {
         val aliasA = BoundedContextAlias("azAZ123")
         val aliasB = BoundedContextAlias("azAZ123")
 
@@ -41,8 +40,8 @@ class BoundedContextAliasTest extends BaseTest {
       }
     }
 
-    "not same underlying value" should {
-      "return false" in {
+    describe("内部プロパティの値が一致しない時") {
+      it("falseを返す") {
         val aliasA = BoundedContextAlias("azAZ123")
         val aliasB = BoundedContextAlias("321ZAza")
 
@@ -51,34 +50,35 @@ class BoundedContextAliasTest extends BaseTest {
     }
   }
 
-  "validate" when {
-    "empty value" should {
-      "return left" in {
-        BoundedContextAlias.validate("").isLeft shouldBe true
+  describe("validate") {
+    describe("空文字を渡した時") {
+      it("Left を返す") {
+        BoundedContextAlias.validate("") shouldBe Symbol("left")
       }
     }
 
-    "over 32 length value" should {
-      "return left" in {
+    describe("32文字より多い文字数の文字列を渡した時") {
+      it("Leftを返す") {
         val value = "A" * 33
-        BoundedContextAlias.validate(value).isLeft shouldBe true
+        value.length shouldBe 33
+        BoundedContextAlias.validate(value) shouldBe Symbol("left")
       }
     }
 
-    "not alphanumerical value" should {
-      "return left" in {
-        BoundedContextAlias.validate("境界づけられたコンテキストエイリアス").isLeft shouldBe true
+    describe("英数以外の文字を含む文字列を渡した時") {
+      it("Leftを返す") {
+        BoundedContextAlias.validate("境界づけられたコンテキストエイリアス") shouldBe Symbol("left")
       }
     }
 
-    "1 characters value" should {
-      "return right" in {
-        BoundedContextAlias.validate("A").isRight shouldBe true
+    describe("1文字の文字列を渡した時") {
+      it("Rightを返す") {
+        BoundedContextAlias.validate("A") shouldBe Symbol("right")
       }
     }
 
-    "32 characters value" should {
-      "return right" in {
+    describe("32文字の文字列を渡した時") {
+      it("Rightを返す") {
         val value = "ABCDE" + "fghij" + "KLMNO" + "pqrst" + "UVWXY" + "12345" + "67"
         value.length shouldBe 32
         val actual = BoundedContextAlias.validate(value)

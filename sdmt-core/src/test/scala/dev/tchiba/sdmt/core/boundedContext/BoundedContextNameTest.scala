@@ -1,9 +1,9 @@
 package dev.tchiba.sdmt.core.boundedContext
 
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextName
-import dev.tchiba.test.core.BaseTest
+import dev.tchiba.test.core.BaseWordTest
 
-class BoundedContextNameTest extends BaseTest {
+class BoundedContextNameTest extends BaseWordTest {
 
   "BoundedContextName Requirement" when {
     "empty value" should {
