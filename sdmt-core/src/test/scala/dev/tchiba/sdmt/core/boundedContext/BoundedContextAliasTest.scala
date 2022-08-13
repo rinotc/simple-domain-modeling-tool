@@ -1,8 +1,8 @@
 package dev.tchiba.sdmt.core.boundedContext
 
-import dev.tchiba.test.core.BaseFunSpec
+import dev.tchiba.test.core.BaseFunTest
 
-class BoundedContextAliasTest extends BaseFunSpec {
+class BoundedContextAliasTest extends BaseFunTest {
   describe("BoundedContextAlias Requirement") {
     describe("空文字を渡した時") {
       it("事前条件違反で例外を投げる") {

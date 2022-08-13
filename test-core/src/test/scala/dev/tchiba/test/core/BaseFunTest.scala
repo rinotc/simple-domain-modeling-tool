@@ -4,7 +4,7 @@ import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.{EitherValues, Inside, OptionValues}
 
-trait BaseFunSpec extends AnyFunSpec with Matchers with OptionValues with EitherValues with Inside {
+trait BaseFunTest extends AnyFunSpec with Matchers with OptionValues with EitherValues with Inside {
   implicit protected class ValueTestContextOps[A](value: A) {
     def some: Option[A] = Some(value)
 
