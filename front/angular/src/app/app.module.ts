@@ -36,6 +36,7 @@ import { BoundedContextUpdatePageComponent } from './views/pages/boundedContext/
 import { DeleteBoundedContextDialogComponent } from './views/pages/boundedContext/detail/delete-bounded-context-dialog/delete-bounded-context-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DomainModelDetailPageComponent } from './views/pages/domainModel/detail/domain-model-detail-page/domain-model-detail-page.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { DomainModelDetailPageComponent } from './views/pages/domainModel/detail
     MatPaginatorModule,
     MatSortModule,
     MatDialogModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

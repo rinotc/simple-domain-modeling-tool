@@ -1,11 +1,23 @@
 <div *ngIf="!isLoading; else Loading">
   <h2>ドメインモデル詳細</h2>
-  <ul>
-    <li>ID: {{ domainModel.id.value }}</li>
-    <li>ユビキタス言語: {{ domainModel.ubiquitousName.value }}</li>
-    <li>英語名: {{ domainModel.englishName.value }}</li>
-    <li>知識: {{ domainModel.knowledge.value }}</li>
-  </ul>
+  <mat-list>
+    <mat-list-item>
+      <h3 matLine>ID</h3>
+      <p matLine>{{ domainModel.id.value }}</p>
+    </mat-list-item>
+    <mat-list-item>
+      <h3 matLine>ユビキタス言語</h3>
+      <p matLine>{{ domainModel.ubiquitousName.value }}</p>
+    </mat-list-item>
+    <mat-list-item>
+      <h3 matLine>英語名</h3>
+      <p matLine>{{ domainModel.englishName.value }}</p>
+    </mat-list-item>
+    <mat-list-item>
+      <h3 matLine>知識</h3>
+      <p matLine>{{ domainModel.knowledge.value }}</p>
+    </mat-list-item>
+  </mat-list>
 </div>
 <ng-template #Loading>
   <mat-spinner></mat-spinner>
