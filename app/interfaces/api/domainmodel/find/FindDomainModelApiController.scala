@@ -1,6 +1,7 @@
 package interfaces.api.domainmodel.find
 
-import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextId}
+import dev.tchiba.arch.extensions.EitherExtensions
+import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextId, BoundedContextRepository}
 import dev.tchiba.sdmt.core.domainmodel.{DomainModelId, DomainModelRepository, EnglishName}
 import interfaces.api.domainmodel.json.DomainModelResponse
 import interfaces.api.{QueryValidator, SdmtApiController}
@@ -11,7 +12,8 @@ import javax.inject.Inject
 final class FindDomainModelApiController @Inject() (
     cc: ControllerComponents,
     domainModelRepository: DomainModelRepository
-) extends SdmtApiController(cc) {
+) extends SdmtApiController(cc)
+    with EitherExtensions {
 
   /**
    * IDもしくは英語名からドメインモデルを取得する
@@ -21,26 +23,35 @@ final class FindDomainModelApiController @Inject() (
    * @return ドメインモデル
    */
   def action(idOrEnglishName: String, boundedContextIdOrAlias: String): Action[AnyContent] = Action {
+
+    val notFoundResponse = notFound(
+      code = "sdmt.domainModel.find.notFound",
+      message = s"DomainModel: $idOrEnglishName not found."
+    )
+
     QueryValidator.sync {
-      for {
-        dIdOrEName <- validateDomainModelIdOrEnglishName(idOrEnglishName)
-        bIdOrAlias <- validateBoundedContextIdOrAlias(boundedContextIdOrAlias)
-      } yield (dIdOrEName, bIdOrAlias)
-    } { v =>
-      val maybeDomainModel = v match {
-        case (Left(domainModelId), _) => domainModelRepository.findById(domainModelId)
-        case (Right(englishName), Left(boundedContextId)) =>
-          domainModelRepository.findByEnglishName(englishName, boundedContextId)
-        case (Right(englishName), Right(alias)) => domainModelRepository.findByEnglishName(englishName, alias)
+      validateDomainModelIdOrEnglishName(idOrEnglishName)
+    } { domainModelIdOrEnglishName =>
+      val maybeDomainModel = domainModelIdOrEnglishName match {
+        case Left(domainModelId) => domainModelRepository.findById(domainModelId).toRight(notFoundResponse)
+        case Right(englishName) =>
+          validateBoundedContextIdOrAlias(boundedContextIdOrAlias) match {
+            case Right(Right(alias)) =>
+              domainModelRepository.findByEnglishName(englishName, alias).toRight(notFoundResponse)
+            case Right(Left(id)) => domainModelRepository.findByEnglishName(englishName, id).toRight(notFoundResponse)
+            case Left(errorMessage) =>
+              Left(
+                badRequest(
+                  code = "sdmt.domainModel.find.boundedContextIdOrAlias.invalid",
+                  message = errorMessage
+                )
+              )
+          }
       }
-      maybeDomainModel match {
-        case Some(domainModel) => Ok(DomainModelResponse(domainModel).json)
-        case None =>
-          notFound(
-            code = "sdmt.domainModel.find.notFound",
-            message = s"DomainModel: $idOrEnglishName not found."
-          )
-      }
+
+      maybeDomainModel.map { dm =>
+        Ok(DomainModelResponse(dm).json)
+      }.unwrap
     }
   }
 
