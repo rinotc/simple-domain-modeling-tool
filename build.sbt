@@ -24,7 +24,7 @@ lazy val `arch` = (project in file("arch"))
 lazy val `web` = (project in file("."))
   .enablePlugins(PlayScala)
   .aggregate(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`, `auth-module`)
-  .dependsOn(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`, `auth-module`)
+  .dependsOn(`sdmt-core`, `sdmt-usecase`, `sdmt-application`, `sdmt-infra`, `auth-module`, testDependency)
   .settings(
     name := "sdmt-web",
     scalacOptions := ScalacOptions ++ Seq(

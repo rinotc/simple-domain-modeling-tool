@@ -1,7 +1,7 @@
 package interfaces.api.domainmodel.find
 
 import dev.tchiba.arch.extensions.EitherExtensions
-import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextId, BoundedContextRepository}
+import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextId}
 import dev.tchiba.sdmt.core.domainmodel.{DomainModelId, DomainModelRepository, EnglishName}
 import interfaces.api.domainmodel.json.DomainModelResponse
 import interfaces.api.{QueryValidator, SdmtApiController}
