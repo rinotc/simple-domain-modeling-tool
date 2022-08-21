@@ -1,8 +1,11 @@
 <div *ngIf="!isLoading; else Loading">
-  Detail
-  <div>
-    {{ domainModel }}
-  </div>
+  <h2>ドメインモデル詳細</h2>
+  <ul>
+    <li>ID: {{ domainModel.id.value }}</li>
+    <li>ユビキタス言語: {{ domainModel.ubiquitousName.value }}</li>
+    <li>英語名: {{ domainModel.englishName.value }}</li>
+    <li>知識: {{ domainModel.knowledge.value }}</li>
+  </ul>
 </div>
 <ng-template #Loading>
   <mat-spinner></mat-spinner>
