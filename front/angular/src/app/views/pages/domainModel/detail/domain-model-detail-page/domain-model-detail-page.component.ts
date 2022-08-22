@@ -47,13 +47,10 @@ export class DomainModelDetailPageComponent implements OnInit {
       );
       if (domainModel) {
         this._domainModel = domainModel;
-        console.log(this._domainModel);
       } else {
-        console.log('domain model undefined');
         redirectTo404(this.router);
       }
     } else {
-      console.log('context is undefined');
       redirectTo404(this.router);
     }
   }
