@@ -4,7 +4,7 @@ import { BoundedContextAlias } from './alias/bounded-context-alias';
 import { BoundedContextName } from './name/bounded-context-name';
 import { BoundedContextOverview } from './overview/bounded-context-overview';
 
-describe('BoundedContexts', () => {
+describe('BoundedContext', () => {
   it('should create an instance', () => {
     const id = new BoundedContextId('abcde-fghij-klmno-pqrst-uvwxy-z12345');
     const alias = new BoundedContextAlias('ALIAS');

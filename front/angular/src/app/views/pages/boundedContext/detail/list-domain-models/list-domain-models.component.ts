@@ -14,7 +14,7 @@ export class ListDomainModelsComponent implements OnInit {
 
   domainModels: DomainModel[] = [];
 
-  displayedColumns = ['ubiquitous-name', 'english-name', 'knowledge'];
+  displayedColumns = ['ubiquitous-name', 'english-name', 'knowledge', 'detail'];
 
   constructor(
     private domainModelsService: DomainModelsService,

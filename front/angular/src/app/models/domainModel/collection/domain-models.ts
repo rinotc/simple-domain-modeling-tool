@@ -1,6 +1,7 @@
-import { DomainModel } from './domain-model';
-import { DomainModelId } from './id/domain-model-id';
-import * as O from 'fp-ts/Option';
+import { DomainModel } from '../domain-model';
+import { DomainModelId } from '../id/domain-model-id';
+import { EnglishName } from '../englishName/english-name';
+import { BoundedContextId } from '../../boundedContext/id/bounded-context-id';
 
 export class DomainModels implements Iterable<DomainModel> {
   constructor(readonly _models: Array<DomainModel>) {
@@ -20,9 +21,20 @@ export class DomainModels implements Iterable<DomainModel> {
     return this._models;
   }
 
-  findById(id: DomainModelId): O.Option<DomainModel> {
-    const maybeDm = this._models.find((dm) => dm.id.equals(id));
-    return O.fromNullable(maybeDm);
+  findById(id: DomainModelId): DomainModel | undefined {
+    return this._models.find((dm) => dm.id.equals(id));
+  }
+
+  findByEnglishName(
+    englishName: EnglishName,
+    boundedContextId: BoundedContextId
+  ): DomainModel | undefined {
+    return this._models.find((dm) => {
+      return (
+        dm.englishName.equals(englishName) &&
+        dm.boundedContextId.equals(boundedContextId)
+      );
+    });
   }
 
   append(domainModel: DomainModel): DomainModels {

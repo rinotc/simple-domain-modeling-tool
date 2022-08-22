@@ -35,6 +35,8 @@ import { NotFoundComponent } from './views/pages/error/not-found/not-found.compo
 import { BoundedContextUpdatePageComponent } from './views/pages/boundedContext/update/bounded-context-update-page.component';
 import { DeleteBoundedContextDialogComponent } from './views/pages/boundedContext/detail/delete-bounded-context-dialog/delete-bounded-context-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DomainModelDetailPageComponent } from './views/pages/domainModel/detail/domain-model-detail-page/domain-model-detail-page.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     NotFoundComponent,
     BoundedContextUpdatePageComponent,
     DeleteBoundedContextDialogComponent,
+    DomainModelDetailPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +78,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatPaginatorModule,
     MatSortModule,
     MatDialogModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

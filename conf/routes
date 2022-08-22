@@ -17,6 +17,7 @@ DELETE      /api/bounded-contexts/:boundedContextId                             
 POST        /api/bounded-contexts/:boundedContextId/domain-models                      interfaces.api.domainmodel.create.CreateDomainModelApiController.action(boundedContextId: String)
 GET         /api/bounded-contexts/:boundedContextId/domain-models                      interfaces.api.domainmodel.list.ListDomainModelsApiController.action(boundedContextId: String)
 
+GET         /api/bounded-contexts/:boundedContextId/domain-models/:idOrEnglishName     interfaces.api.domainmodel.find.FindDomainModelApiController.action(idOrEnglishName: String, boundedContextId: String)
 PUT         /api/bounded-contexts/:boundedContextId/domain-models/:domainModelId       interfaces.api.domainmodel.update.UpdateDomainModelApiController.action(boundedContextId: String, domainModelId: String)
 DELETE      /api/bounded-contexts/:boundedContextId/domain-models/:domainModelId       interfaces.api.domainmodel.delete.DeleteDomainModelApiController.action(boundedContextId: String, domainModelId: String)
 

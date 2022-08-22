@@ -1,0 +1,24 @@
+<div *ngIf="!isLoading; else Loading">
+  <h2>{{ domainModel.ubiquitousName.value }}</h2>
+  <mat-list>
+    <mat-list-item>
+      <h3 matLine>ID</h3>
+      <p matLine>{{ domainModel.id.value }}</p>
+    </mat-list-item>
+    <mat-list-item>
+      <h3 matLine>ユビキタス言語</h3>
+      <p matLine>{{ domainModel.ubiquitousName.value }}</p>
+    </mat-list-item>
+    <mat-list-item>
+      <h3 matLine>英語名</h3>
+      <p matLine>{{ domainModel.englishName.value }}</p>
+    </mat-list-item>
+    <mat-list-item>
+      <h3 matLine>知識</h3>
+      <p matLine>{{ domainModel.knowledge.value }}</p>
+    </mat-list-item>
+  </mat-list>
+</div>
+<ng-template #Loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

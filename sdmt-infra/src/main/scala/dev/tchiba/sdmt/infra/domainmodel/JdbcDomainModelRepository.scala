@@ -1,15 +1,15 @@
 package dev.tchiba.sdmt.infra.domainmodel
 
-import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
+import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextId}
 import dev.tchiba.sdmt.core.domainmodel.{
   DomainModel,
   DomainModelId,
   DomainModelRepository,
   EnglishName,
-  UbiquitousName,
-  Knowledge
+  Knowledge,
+  UbiquitousName
 }
-import dev.tchiba.sdmt.infra.scalikejdbc.DomainModels
+import dev.tchiba.sdmt.infra.scalikejdbc.{BoundedContexts, DomainModels}
 import scalikejdbc._
 
 class JdbcDomainModelRepository extends DomainModelRepository {
@@ -18,6 +18,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
   import JdbcDomainModelRepository._
 
   private val dm = DomainModels.dm
+  private val bc = BoundedContexts.bc
 
   override def findById(id: DomainModelId): Option[DomainModel] = DB readOnly { implicit session =>
     DomainModels.find(id.string).map(translate)
@@ -37,6 +38,24 @@ class JdbcDomainModelRepository extends DomainModelRepository {
         .apply()
         .map(translate)
     }
+
+  override def findByEnglishName(englishName: EnglishName, alias: BoundedContextAlias): Option[DomainModel] = {
+    DB readOnly { implicit session =>
+      withSQL {
+        select
+          .from(DomainModels.as(dm))
+          .join(BoundedContexts.as(bc))
+          .on(bc.boundedContextId, dm.boundedContextId)
+          .where
+          .eq(bc.boundedContextAlias, alias.value)
+          .and
+          .eq(dm.englishName, englishName.value)
+      }.map(DomainModels(dm))
+        .single()
+        .apply()
+        .map(translate)
+    }
+  }
 
   override def listBy(boundedContextId: BoundedContextId): Seq[DomainModel] = DB readOnly { implicit session =>
     withSQL {
@@ -65,7 +84,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
             knowledge = e.knowledge
           )
         }
-        Right(())
+        Right(unit)
     }
   }
 
@@ -74,7 +93,7 @@ class JdbcDomainModelRepository extends DomainModelRepository {
       case Some(conflict) => Left(ConflictEnglishName(conflict))
       case None =>
         DomainModels.save(model.toEntity)
-        Right(())
+        Right(unit)
     }
   }
 

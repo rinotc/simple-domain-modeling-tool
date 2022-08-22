@@ -1,6 +1,7 @@
 package dev.tchiba.arch.usecase
 
 import dev.tchiba.arch.ddd.ApplicationService
+import dev.tchiba.arch.extensions.EitherExtensions
 
 /**
  * ユースケース
@@ -24,13 +25,6 @@ import dev.tchiba.arch.ddd.ApplicationService
  * @tparam TInput  入力
  * @tparam TOutput 出力
  */
-abstract class UseCase[TInput <: Input[TOutput], TOutput <: Output] extends ApplicationService {
+abstract class UseCase[TInput <: Input[TOutput], TOutput <: Output] extends ApplicationService with EitherExtensions {
   def handle(input: TInput): TOutput
-
-  implicit protected class EitherUseCaseContextExtensions[O <: Output](either: Either[O, O]) {
-    def unwrap: O = either match {
-      case Left(value)  => value
-      case Right(value) => value
-    }
-  }
 }
