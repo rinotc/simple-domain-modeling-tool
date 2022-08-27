@@ -29,8 +29,6 @@ export class DomainModelsService {
       .subscribe((res) => {
         const dms = res.data.map((r) => DomainModelResponse.translate(r));
         this.domainModelsStore.update((state) => {
-          console.log(state);
-          console.log(state.models.replace(dms));
           return {
             models: state.models.replace(dms),
           };
@@ -50,8 +48,6 @@ export class DomainModelsService {
         tap((res) => {
           const dm = DomainModelResponse.translate(res);
           this.domainModelsStore.update((state) => {
-            console.log(state);
-            console.log(state.models.append(dm));
             return {
               models: state.models.append(dm),
             };
