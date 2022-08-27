@@ -54,4 +54,28 @@ describe('DomainModelId', () => {
       expect(a.equals(b)).toBeFalse();
     });
   });
+
+  describe('isValid', () => {
+    describe('ドメインモデルIDの仕様を満たしていない時はfalseを返す', () => {
+      it('35文字の時はfalseを返す', () => {
+        const valueA = 'abcde-fghij-klmno-pqrst-uvwxy-z1234';
+        expect(valueA.length).toBe(35);
+        expect(DomainModelId.isValid(valueA)).toBeFalse();
+      });
+
+      it('37文字の時はfalseを返す', () => {
+        const valueA = 'abcde-fghij-klmno-pqrst-uvwxy-z123456';
+        expect(valueA.length).toBe(37);
+        expect(DomainModelId.isValid(valueA)).toBeFalse();
+      });
+    });
+
+    describe('ドメインモデルIDの仕様を満たしていればtrueを返す', () => {
+      it('36文字の時はtrueを返す', () => {
+        const valueA = 'abcde-fghij-klmno-pqrst-uvwxy-z12345';
+        expect(valueA.length).toBe(36);
+        expect(DomainModelId.isValid(valueA)).toBeTrue();
+      });
+    });
+  });
 });

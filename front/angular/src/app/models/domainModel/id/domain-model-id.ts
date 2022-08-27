@@ -23,6 +23,10 @@ export class DomainModelId {
     return E.left(this.requirementErrorMessage(value));
   }
 
+  static isValid(value: string): boolean {
+    return this.mustValueLengthEqual36(value);
+  }
+
   private static requirementErrorMessage(value: string): string {
     return `DomainModelId value length must be 36 length, but ${value.length}. value is ${value}`;
   }
