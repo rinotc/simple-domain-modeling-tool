@@ -11,6 +11,8 @@ import { lastValueFrom, Observable, tap } from 'rxjs';
 import { DomainModelId } from '../id/domain-model-id';
 import { EnglishName } from '../englishName/english-name';
 import { BoundedContextAlias } from '../../boundedContext/alias/bounded-context-alias';
+import { DomainModel } from '../domain-model';
+import { DomainModelHttpIO } from './http/io/domain-model-http-io';
 
 @Injectable({ providedIn: 'root' })
 export class DomainModelsService {
@@ -27,8 +29,6 @@ export class DomainModelsService {
       .subscribe((res) => {
         const dms = res.data.map((r) => DomainModelResponse.translate(r));
         this.domainModelsStore.update((state) => {
-          console.log(state);
-          console.log(state.models.replace(dms));
           return {
             models: state.models.replace(dms),
           };
@@ -48,8 +48,6 @@ export class DomainModelsService {
         tap((res) => {
           const dm = DomainModelResponse.translate(res);
           this.domainModelsStore.update((state) => {
-            console.log(state);
-            console.log(state.models.append(dm));
             return {
               models: state.models.append(dm),
             };
@@ -72,6 +70,24 @@ export class DomainModelsService {
           this.domainModelsStore.update((state) => {
             return {
               models: state.models.append(newDM),
+            };
+          });
+        })
+      );
+  }
+
+  update(domainModel: DomainModel): Observable<DomainModelHttpIO> {
+    return this.http
+      .put<DomainModelHttpIO>(
+        `${config.apiHost}/bounded-contexts/${domainModel.boundedContextId.value}/domain-models/${domainModel.id.value}`,
+        DomainModelHttpIO.update(domainModel)
+      )
+      .pipe(
+        tap((res) => {
+          const updatedDM = DomainModelHttpIO.convert(res);
+          this.domainModelsStore.update((state) => {
+            return {
+              models: state.models.append(updatedDM),
             };
           });
         })

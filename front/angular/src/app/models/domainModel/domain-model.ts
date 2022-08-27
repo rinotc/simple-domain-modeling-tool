@@ -16,4 +16,34 @@ export class DomainModel {
   equals(other: DomainModel): boolean {
     return this.id.equals(other.id);
   }
+
+  changeUbiquitousName(ubiquitousName: UbiquitousName): DomainModel {
+    return new DomainModel(
+      this.id,
+      this.boundedContextId,
+      ubiquitousName,
+      this.englishName,
+      this.knowledge
+    );
+  }
+
+  changeEnglishName(englishName: EnglishName): DomainModel {
+    return new DomainModel(
+      this.id,
+      this.boundedContextId,
+      this.ubiquitousName,
+      englishName,
+      this.knowledge
+    );
+  }
+
+  changeKnowledge(knowledge: Knowledge): DomainModel {
+    return new DomainModel(
+      this.id,
+      this.boundedContextId,
+      this.ubiquitousName,
+      this.englishName,
+      knowledge
+    );
+  }
 }
