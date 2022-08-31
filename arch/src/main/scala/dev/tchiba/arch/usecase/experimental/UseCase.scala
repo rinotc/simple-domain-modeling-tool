@@ -1,6 +1,8 @@
 package dev.tchiba.arch.usecase.experimental
 
-trait UseCase[TInput <: Input, TSucceeded <: Succeeded, TFailed <: Failed] {
+import dev.tchiba.arch.extensions.EitherExtensions
+
+trait UseCase[TInput <: Input, TSucceeded <: Succeeded, TFailed <: Failed] extends EitherExtensions {
 
   def handle[TPolicy <: Policy[TInput, TFailed]](input: TInput, policy: TPolicy): Either[TFailed, TSucceeded] = {
     for {
