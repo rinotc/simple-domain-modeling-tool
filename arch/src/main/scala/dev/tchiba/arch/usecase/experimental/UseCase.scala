@@ -2,7 +2,7 @@ package dev.tchiba.arch.usecase.experimental
 
 import dev.tchiba.arch.extensions.EitherExtensions
 
-trait UseCase[TInput <: Input, TSucceeded <: Succeeded, TFailed <: Failed] extends EitherExtensions {
+trait UseCase[TInput <: Input, TFailed <: Failed, TSucceeded <: Succeeded] extends EitherExtensions {
 
   def handle[TPolicy <: Policy[TInput, TFailed]](
       input: TInput,
