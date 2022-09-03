@@ -5,6 +5,7 @@ import interfaces.api.QueryValidator
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 
 import javax.inject.Inject
+import scala.annotation.unused
 
 class DeleteDomainModelApiController @Inject() (
     cc: ControllerComponents,
@@ -17,7 +18,7 @@ class DeleteDomainModelApiController @Inject() (
    * @param dmId ドメインモデルID文字列
    * @return [[NoContent]]
    */
-  def action(bcId: String, dmId: String): Action[AnyContent] = Action {
+  def action(@unused bcId: String, dmId: String): Action[AnyContent] = Action {
     QueryValidator.sync {
       DomainModelId.validate(dmId)
     } { domainModelId =>
