@@ -4,7 +4,10 @@ import dev.tchiba.arch.extensions.EitherExtensions
 
 trait UseCase[TInput <: Input, TSucceeded <: Succeeded, TFailed <: Failed] extends EitherExtensions {
 
-  def handle[TPolicy <: Policy[TInput, TFailed]](input: TInput, policy: TPolicy): Either[TFailed, TSucceeded] = {
+  def handle[TPolicy <: Policy[TInput, TFailed]](
+      input: TInput,
+      policy: TPolicy = NoPolicy
+  ): Either[TFailed, TSucceeded] = {
     for {
       _ <- policy.check(input)
       o <- handleImpl(input)

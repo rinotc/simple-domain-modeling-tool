@@ -1,6 +1,5 @@
 package dev.tchiba.sdmt.application.interactors.domainmodel.delete
 
-import dev.tchiba.arch.usecase.experimental.Policy
 import dev.tchiba.sdmt.usecase.domainmodel.delete.{
   DeleteDomainModelPolicy,
   DeleteDomainModelUseCaseFailed,
