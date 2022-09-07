@@ -1,7 +1,7 @@
 package interfaces.api.boundedContext.json
 
 import dev.tchiba.sdmt.core.boundedContext.BoundedContext
-import interfaces.json.PlayJsonResponse
+import interfaces.json.response.play.PlayJsonResponse
 import play.api.libs.json.{JsValue, Json, OFormat}
 
 import java.util.UUID
@@ -29,5 +29,6 @@ object BoundedContextResponse {
       name: String,
       overview: String
   )
+
   implicit private val jsonFormat: OFormat[Response] = Json.format[Response]
 }
