@@ -6,6 +6,8 @@ import dev.tchiba.sub.email.EmailAddress
 import dev.tchiba.sub.url.Url
 import scalikejdbc._
 
+import java.time.LocalDateTime
+
 final class JdbcUserRepository extends UserRepository {
 
   import JdbcUserRepository._
@@ -51,6 +53,11 @@ final class JdbcUserRepository extends UserRepository {
       QueryDSL.delete.from(Users).where.eq(c.userId, user.id.string)
     }.update().apply()
   }
+
+  override def batchInset(users: Seq[User]): Unit = DB localTx { implicit session =>
+    val entities = users.map(translate)
+    Users.batchInsert(entities)
+  }
 }
 
 object JdbcUserRepository {
@@ -58,5 +65,16 @@ object JdbcUserRepository {
     val emailAddress = EmailAddress(row.emailAddress)
     val avatarUrl    = row.avatarUrl.map(Url.apply)
     User.reconstruct(row.userId, row.userName, emailAddress, avatarUrl)
+  }
+
+  def translate(user: User): Users = {
+    Users(
+      userId = user.id.value.toString,
+      userName = user.name,
+      emailAddress = user.email.value,
+      avatarUrl = user.avatarUrl.map(_.value),
+      createdAt = LocalDateTime.now(),
+      updatedAt = LocalDateTime.now()
+    )
   }
 }
