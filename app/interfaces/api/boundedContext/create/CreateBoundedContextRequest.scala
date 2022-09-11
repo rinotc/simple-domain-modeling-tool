@@ -1,29 +1,32 @@
 package interfaces.api.boundedContext.create
 
+import cats.data.{NonEmptyList, Validated}
 import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextName, BoundedContextOverview}
-import dev.tchiba.sdmt.usecase.boundedContext.create.CreateBoundedContextInput
-import interfaces.json.{JsonRequest, JsonValidator}
+import interfaces.json.request.play.{PlayJsonRequest, PlayJsonRequestCompanion}
 import play.api.libs.json.{Json, OFormat}
-import play.api.mvc.{BodyParser, PlayBodyParsers}
-
-import scala.concurrent.ExecutionContext
 
 case class CreateBoundedContextRequest(
     private val name: String,
     private val alias: String,
     private val overview: String
-) extends JsonRequest {
-  private val boundedContextName: BoundedContextName         = BoundedContextName.validate(name).leftThrow
-  private val boundedContextAlias: BoundedContextAlias       = BoundedContextAlias.validate(alias).leftThrow
-  private val boundedContextOverview: BoundedContextOverview = BoundedContextOverview.validate(overview).leftThrow
+) extends PlayJsonRequest {
+  final case class ValidModel(
+      name: BoundedContextName,
+      alias: BoundedContextAlias,
+      overview: BoundedContextOverview
+  )
 
-  val input: CreateBoundedContextInput =
-    CreateBoundedContextInput(boundedContextAlias, boundedContextName, boundedContextOverview)
+  override type VM = ValidModel
+
+  override val validateParameters: Validated[NonEmptyList[(String, String)], ValidModel] = {
+    (
+      BoundedContextName.validate(name).toValidated.leftMap { e => NonEmptyList.of("name" -> e) },
+      BoundedContextAlias.validate(alias).toValidated.leftMap { e => NonEmptyList.of("alias" -> e) },
+      BoundedContextOverview.validate(overview).toValidated.leftMap { e => NonEmptyList.of("overview" -> e) }
+    ).mapN { case (n, a, o) => ValidModel(n, a, o) }
+  }
 }
 
-object CreateBoundedContextRequest {
-  implicit val jsonFormat: OFormat[CreateBoundedContextRequest] = Json.format[CreateBoundedContextRequest]
-
-  def validateJson(implicit parse: PlayBodyParsers, ec: ExecutionContext): BodyParser[CreateBoundedContextRequest] =
-    JsonValidator.validate
+object CreateBoundedContextRequest extends PlayJsonRequestCompanion[CreateBoundedContextRequest] {
+  override implicit val jsonFormat: OFormat[CreateBoundedContextRequest] = Json.format[CreateBoundedContextRequest]
 }
