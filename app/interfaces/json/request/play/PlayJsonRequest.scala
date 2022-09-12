@@ -49,7 +49,17 @@ trait PlayJsonRequest extends TupleSemigroupalSyntax {
   type VM
 
   /**
+   * バリデーション通過後の値を格納したモデルを取得する
+   *
+   * @throws IllegalStateException バリデーションを通過せずに呼んだ場合
+   */
+  def get: VM = validateParameters.getOrElse {
+    throw new IllegalStateException("this method can call after validation passed.")
+  }
+
+  /**
    * リクエストパラメータを検証する。
+   *
    * [[PlayJsonRequestCompanion.validateJson]] のところで利用される想定。
    */
   def validateParameters: Validated[NonEmptyList[(String, String)], VM]

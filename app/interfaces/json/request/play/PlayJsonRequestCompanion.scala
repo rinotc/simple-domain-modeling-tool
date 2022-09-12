@@ -25,7 +25,7 @@ trait PlayJsonRequestCompanion[RequestModel <: PlayJsonRequest] extends ErrorRes
    */
   implicit val jsonFormat: OFormat[RequestModel]
 
-  def validateJson(implicit parse: PlayBodyParsers, ec: ExecutionContext): BodyParser[RequestModel#VM] =
+  def validateJson(implicit parse: PlayBodyParsers, ec: ExecutionContext): BodyParser[RequestModel] =
     parse.json.validate { jsValue =>
       jsValue.validate[RequestModel].asEither match {
         case Left(_) =>
@@ -37,7 +37,7 @@ trait PlayJsonRequestCompanion[RequestModel <: PlayJsonRequest] extends ErrorRes
           )
         case Right(request) =>
           request.validateParameters match {
-            case Validated.Valid(vm) => Right(vm)
+            case Validated.Valid(_) => Right(request)
             case Validated.Invalid(e) =>
               val errorParams: Seq[(String, JsValue)] = e.toList.map { case (key, value) => key -> JsString(value) }
               Left(

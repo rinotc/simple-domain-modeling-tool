@@ -22,11 +22,11 @@ final class CreateBoundedContextApiController @Inject() (
 
   implicit private val parser: PlayBodyParsers = cc.parsers
 
-  def action(): Action[CreateBoundedContextRequest#ValidModel] = Action(CreateBoundedContextRequest.validateJson) {
+  def action(): Action[CreateBoundedContextRequest] = Action(CreateBoundedContextRequest.validateJson) {
     implicit request =>
-      val name     = request.body.name
-      val alias    = request.body.alias
-      val overview = request.body.overview
+      val name     = request.body.get.name
+      val alias    = request.body.get.alias
+      val overview = request.body.get.overview
 
       val input = CreateBoundedContextInput(alias, name, overview)
       createBoundedContextUseCase.handle(input) match {

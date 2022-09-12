@@ -12,11 +12,12 @@ import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play._
 import play.api.http.HeaderNames
-import play.api.mvc.Results
+import play.api.mvc.{Request, Result, Results}
 import play.api.test.Helpers._
 import play.api.test.{FakeHeaders, FakeRequest}
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class CreateBoundedContextApiControllerTest extends PlaySpec with Results with MockitoSugar {
 
@@ -39,7 +40,7 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
           mockCreateBoundedContextUseCase
         )
 
-        val request: FakeRequest[CreateBoundedContextRequest] = FakeRequest.apply(
+        val request: Request[CreateBoundedContextRequest] = FakeRequest.apply(
           method = POST,
           uri = "/api/bounded-contexts",
           headers = FakeHeaders(Seq(HeaderNames.HOST -> "localhost")),
@@ -50,7 +51,7 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
           )
         )
 
-        val result = controller.action().apply(request)
+        val result: Future[Result] = controller.action().apply(request)
 
         status(result) mustBe OK
       }
