@@ -7,11 +7,25 @@ import play.api.mvc.{BodyParser, PlayBodyParsers}
 
 import scala.concurrent.ExecutionContext
 
+/**
+ * リクエストモデルのコンパニオンオブジェクトにミックスインする。
+ *
+ * @tparam RequestModel リクエストモデル. [[PlayJsonRequest]] をミックスインしており、これを継承するコンパニオンオブジェクト
+ *                      と対になるモデルを設定する
+ */
 trait PlayJsonRequestCompanion[RequestModel <: PlayJsonRequest] extends ErrorResults {
 
+  /**
+   * 継承先で実装する
+   *
+   * @example
+   * {{{
+   *   override implicit val jsonFormat: OFormat[SampleRequest] = Json.format[SampleRequest]
+   * }}}
+   */
   implicit val jsonFormat: OFormat[RequestModel]
 
-  def validateJson(implicit parse: PlayBodyParsers, ec: ExecutionContext): BodyParser[RequestModel] =
+  def validateJson(implicit parse: PlayBodyParsers, ec: ExecutionContext): BodyParser[RequestModel#VM] =
     parse.json.validate { jsValue =>
       jsValue.validate[RequestModel].asEither match {
         case Left(_) =>
@@ -23,7 +37,7 @@ trait PlayJsonRequestCompanion[RequestModel <: PlayJsonRequest] extends ErrorRes
           )
         case Right(request) =>
           request.validateParameters match {
-            case Validated.Valid(_) => Right(request)
+            case Validated.Valid(vm) => Right(vm)
             case Validated.Invalid(e) =>
               val errorParams: Seq[(String, JsValue)] = e.toList.map { case (key, value) => key -> JsString(value) }
               Left(
