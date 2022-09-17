@@ -1,6 +1,10 @@
 package interfaces.api.boundedContext.create
 
-import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateBoundedContextOutput, CreateBoundedContextUseCase}
+import dev.tchiba.sdmt.usecase.boundedContext.create.{
+  CreateBoundedContextInput,
+  CreateBoundedContextOutput,
+  CreateBoundedContextUseCase
+}
 import interfaces.api.boundedContext.json.BoundedContextResponse
 import interfaces.json.error.ErrorResults
 import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
@@ -20,7 +24,11 @@ final class CreateBoundedContextApiController @Inject() (
 
   def action(): Action[CreateBoundedContextRequest] = Action(CreateBoundedContextRequest.validateJson) {
     implicit request =>
-      val input = request.body.input
+      val name     = request.body.get.name
+      val alias    = request.body.get.alias
+      val overview = request.body.get.overview
+
+      val input = CreateBoundedContextInput(alias, name, overview)
       createBoundedContextUseCase.handle(input) match {
         case CreateBoundedContextOutput.ConflictAlias(alias) =>
           conflict(

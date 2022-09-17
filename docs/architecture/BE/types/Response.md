@@ -17,7 +17,7 @@ ResponseモデルはDTO的に `case class` で定義され、そのまま使わ�
 
 ```scala
 import dev.tchiba.sdmt.core.boundedContext.BoundedContext
-import interfaces.json.PlayJsonResponse
+import interfaces.json.response.play.PlayJsonResponse
 import play.api.libs.json.{JsValue, Json, OFormat}
 
 import java.util.UUID
