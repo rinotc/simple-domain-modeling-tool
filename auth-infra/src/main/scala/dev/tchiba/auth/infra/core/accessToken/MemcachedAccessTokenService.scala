@@ -1,6 +1,6 @@
 package dev.tchiba.auth.infra.core.accessToken
 
-import com.typesafe.config.ConfigFactory
+import com.typesafe.config.{Config, ConfigFactory}
 import dev.tchiba.auth.core.accessToken.{AccessToken, AccessTokenService}
 import dev.tchiba.auth.core.authInfo.AuthId
 import scalacache._
@@ -8,13 +8,14 @@ import scalacache.memcached._
 import scalacache.modes.try_._
 import scalacache.serialization.binary._
 
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration.{Duration, FiniteDuration}
 import scala.util.{Failure, Success}
 
 final class MemcachedAccessTokenService extends AccessTokenService {
-  private val config                         = ConfigFactory.load()
-  private val tokenExpiryDuration            = Duration.fromNanos(config.getDuration("dev.tchiba.auth.token.expiry").toNanos)
-  private val memcachedAddress               = config.getString("dev.tchiba.auth.memcached.address")
+  private val config: Config = ConfigFactory.load()
+  private val tokenExpiryDuration: FiniteDuration =
+    Duration.fromNanos(config.getDuration("dev.tchiba.auth.token.expiry").toNanos)
+  private val memcachedAddress: String       = config.getString("dev.tchiba.auth.memcached.address")
   implicit val memcachedCache: Cache[String] = MemcachedCache(memcachedAddress)
 
   override def register(accessToken: AccessToken, authId: AuthId): Unit = {

@@ -85,7 +85,8 @@ create table auth_info
         constraint auth_info_pk
             primary key,
     email           varchar(255) not null,
-    hashed_password varchar(255) not null
+    hashed_password varchar(255) not null,
+    salt            varchar(255) not null
 );
 
 comment on table auth_info is '認証情報';
@@ -95,6 +96,8 @@ comment on column auth_info.auth_info_id is '認証情報ID';
 comment on column auth_info.email is 'メールアドレス';
 
 comment on column auth_info.hashed_password is 'ハッシュ済みパスワード';
+
+comment on column auth_info.salt is 'ソルト';
 
 create unique index auth_info_email_uindex
     on auth_info (email);
