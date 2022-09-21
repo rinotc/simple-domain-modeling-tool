@@ -34,7 +34,7 @@ trait AccessTokenCookieHelper {
   val discardingCookie: DiscardingCookie = DiscardingCookie(
     name = accessTokenCookieName,
     path = "",
-    domain = Some(domainName), // FIXME
+    domain = Some(domainName),
     secure = false
   )
 }
