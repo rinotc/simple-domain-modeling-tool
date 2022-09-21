@@ -7,7 +7,7 @@ import dev.tchiba.sdmt.usecase.boundedContext.create.{
 }
 import interfaces.api.SdmtApiController
 import interfaces.api.boundedContext.json.BoundedContextResponse
-import play.api.mvc.{Action, ControllerComponents, PlayBodyParsers}
+import play.api.mvc.{Action, ControllerComponents}
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext

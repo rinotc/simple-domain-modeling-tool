@@ -4,7 +4,7 @@ import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.usecase.domainmodel.create.{CreateDomainModelOutput, CreateDomainModelUseCase}
 import interfaces.api.domainmodel.json.DomainModelResponse
 import interfaces.api.{QueryValidator, SdmtApiController}
-import play.api.mvc.{Action, ControllerComponents, PlayBodyParsers}
+import play.api.mvc.{Action, ControllerComponents}
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext

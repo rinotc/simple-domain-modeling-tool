@@ -2,7 +2,7 @@ package interfaces.api.domainmodel.delete
 
 import dev.tchiba.sdmt.core.domainmodel.{DomainModelId, DomainModelRepository}
 import interfaces.api.{QueryValidator, SdmtApiController}
-import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
+import play.api.mvc.{Action, AnyContent, ControllerComponents}
 
 import javax.inject.Inject
 import scala.annotation.unused
