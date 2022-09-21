@@ -11,16 +11,16 @@ trait AccessTokenCookieHelper {
   val accessTokenCookieName = "apiAccessToken"
 
   private val domainName = AppConfigs.Domain
-  private val maxAge     = Try(AppConfigs.MemCached.TokenExpiry.toSeconds.toInt).getOrElse(Int.MaxValue)
+  private val maxAge     = Try(AppConfigs.MemCached.TokenExpiry.toSeconds.toInt).toOption
 
   def generateAccessTokenCookie(accessToken: AccessToken): Cookie = Cookie(
     name = accessTokenCookieName,
     value = accessToken.token,
-    maxAge = Some(maxAge),
+    maxAge = maxAge,
     path = "",
     domain = Some(domainName),
     secure = false,
-    httpOnly = false,
+    httpOnly = true,
     sameSite = Some(Cookie.SameSite.Lax)
   )
 
