@@ -1,4 +1,4 @@
-package dev.tchiba.sdmt.core.user
+package dev.tchiba.auth.core.user
 
 import dev.tchiba.arch.ddd.EntityId
 import java.util.UUID

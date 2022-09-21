@@ -150,7 +150,7 @@ lazy val `auth-application` = (project in file("auth-application"))
   )
 
 lazy val `auth-infra` = (project in file("auth-infra"))
-  .dependsOn(`auth-core`, testDependency)
+  .dependsOn(`auth-core`, `auth-application`, `sdmt-infra-scalikejdbc`, testDependency)
   .settings(
     name := "auth-infra",
     scalacOptions := ScalacOptions,

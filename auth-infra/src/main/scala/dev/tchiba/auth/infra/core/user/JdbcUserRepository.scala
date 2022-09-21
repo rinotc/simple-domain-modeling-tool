@@ -1,16 +1,10 @@
-package dev.tchiba.sdmt.infra.user
+package dev.tchiba.auth.infra.core.user
 
-import dev.tchiba.sdmt.core.user.{User, UserId, UserRepository}
+import dev.tchiba.auth.core.user.{User, UserId, UserRepository}
 import dev.tchiba.sdmt.infra.scalikejdbc.Users
-import dev.tchiba.sub.email.EmailAddress
-import dev.tchiba.sub.url.Url
 import scalikejdbc._
 
-import java.time.LocalDateTime
-
-final class JdbcUserRepository extends UserRepository {
-
-  import JdbcUserRepository._
+final class JdbcUserRepository extends UserRepository with UsersTranslator {
 
   override def listAll(): Seq[User] = Users.findAll().map(translate)
 
@@ -57,24 +51,5 @@ final class JdbcUserRepository extends UserRepository {
   override def batchInset(users: Seq[User]): Unit = DB localTx { implicit session =>
     val entities = users.map(translate)
     Users.batchInsert(entities)
-  }
-}
-
-object JdbcUserRepository {
-  def translate(row: Users): User = {
-    val emailAddress = EmailAddress(row.emailAddress)
-    val avatarUrl    = row.avatarUrl.map(Url.apply)
-    User.reconstruct(row.userId, row.userName, emailAddress, avatarUrl)
-  }
-
-  def translate(user: User): Users = {
-    Users(
-      userId = user.id.value.toString,
-      userName = user.name,
-      emailAddress = user.email.value,
-      avatarUrl = user.avatarUrl.map(_.value),
-      createdAt = LocalDateTime.now(),
-      updatedAt = LocalDateTime.now()
-    )
   }
 }

@@ -3,7 +3,7 @@ package interfaces.api.auth.signIn
 import dev.tchiba.auth.usecase.signIn.{SignInOutput, SignInUseCase}
 import interfaces.api.auth.AccessTokenCookieHelper
 import interfaces.json.error.ErrorResults
-import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
+import play.api.mvc.{AbstractController, Action, ControllerComponents, Cookie, PlayBodyParsers}
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext

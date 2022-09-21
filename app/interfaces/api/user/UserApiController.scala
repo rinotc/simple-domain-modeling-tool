@@ -1,7 +1,6 @@
 package interfaces.api.user
 
-import dev.tchiba.sdmt.core.user.{User, UserId, UserRepository}
-import dev.tchiba.sub.email.EmailAddress
+import dev.tchiba.auth.core.user.{UserId, UserRepository}
 import interfaces.api.user.json.UserResponse
 import interfaces.json.CollectionResponse
 import interfaces.json.error.ErrorResults
@@ -30,20 +29,5 @@ final class UserApiController @Inject() (cc: ControllerComponents, userRepositor
         )
       case Some(user) => Ok(UserResponse(user).json)
     }
-  }
-
-  // bulkInsertのテスト用
-  def bulkInsert(): Action[AnyContent] = Action {
-    val users = (1 to 10).map(createUser)
-    userRepository.batchInset(users)
-    NoContent
-  }
-
-  private def createUser(i: Int) = {
-    User.create(
-      name = s"User$i",
-      email = EmailAddress(s"use$i@gmail.com"),
-      avatarUrl = None
-    )
   }
 }

@@ -2,7 +2,7 @@ package dev.tchiba.auth.core.authInfo
 
 import dev.tchiba.arch.ddd.{Aggregate, Entity}
 import dev.tchiba.auth.core.password.{HashedPassword, Password}
-import dev.tchiba.sub.email.EmailAddress
+import dev.tchiba.auth.core.user.UserId
 
 /**
  * 認証情報
@@ -11,7 +11,7 @@ import dev.tchiba.sub.email.EmailAddress
  */
 final class AuthInfo private (
     val id: AuthId,
-    val email: EmailAddress,
+    val userId: UserId,
     val hashedPassword: HashedPassword
 ) extends Entity[AuthId]
     with Aggregate {
@@ -21,18 +21,18 @@ final class AuthInfo private (
 }
 
 object AuthInfo {
-  def create(email: EmailAddress, password: Password): AuthInfo = {
+  def create(userId: UserId, password: Password): AuthInfo = {
     new AuthInfo(
       id = AuthId.generate,
-      email = email,
+      userId = userId,
       hashedPassword = password.hashedPassword
     )
   }
 
-  def reconstruct(id: AuthId, email: EmailAddress, hashedPassword: HashedPassword): AuthInfo =
+  def reconstruct(id: AuthId, userId: UserId, hashedPassword: HashedPassword): AuthInfo =
     new AuthInfo(
       id,
-      email,
+      userId,
       hashedPassword
     )
 }

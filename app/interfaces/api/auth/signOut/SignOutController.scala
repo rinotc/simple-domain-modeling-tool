@@ -20,7 +20,7 @@ final class SignOutController @Inject() (
       case Some(token) =>
         val input = SignOutInput(token)
         signOutUseCase.handle(input) match {
-          case SignOutOutput.Success => NoContent.discardingCookies(DiscardingCookie(accessTokenCookieName))
+          case SignOutOutput.Success => NoContent.discardingCookies(discardingCookie)
         }
     }
   }

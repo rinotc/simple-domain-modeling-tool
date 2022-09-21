@@ -1,21 +1,26 @@
 package dev.tchiba.auth.infra.core.accessToken
 
-import com.typesafe.config.{Config, ConfigFactory}
+import com.typesafe.config.Config
 import dev.tchiba.auth.core.accessToken.{AccessToken, AccessTokenService}
 import dev.tchiba.auth.core.authInfo.AuthId
+import org.slf4j.LoggerFactory
 import scalacache._
 import scalacache.memcached._
 import scalacache.modes.try_._
 import scalacache.serialization.binary._
 
+import javax.inject.Inject
 import scala.concurrent.duration.{Duration, FiniteDuration}
 import scala.util.{Failure, Success}
 
-final class MemcachedAccessTokenService extends AccessTokenService {
-  private val config: Config = ConfigFactory.load()
+final class MemcachedAccessTokenService @Inject() (
+    config: Config
+) extends AccessTokenService {
+
+  private val logger = LoggerFactory.getLogger(this.getClass)
   private val tokenExpiryDuration: FiniteDuration =
-    Duration.fromNanos(config.getDuration("dev.tchiba.auth.token.expiry").toNanos)
-  private val memcachedAddress: String       = config.getString("dev.tchiba.auth.memcached.address")
+    Duration.fromNanos(config.getDuration("memcached.token.expiry").toNanos)
+  private val memcachedAddress: String       = config.getString("memcached.address")
   implicit val memcachedCache: Cache[String] = MemcachedCache(memcachedAddress)
 
   override def register(accessToken: AccessToken, authId: AuthId): Unit = {
@@ -34,7 +39,7 @@ final class MemcachedAccessTokenService extends AccessTokenService {
 
   override def delete(accessToken: AccessToken): Unit = {
     remove(accessToken.token) match {
-      case Failure(exception) => throw exception
+      case Failure(exception) => logger.warn("maybe token not found", exception)
       case Success(_)         => ()
     }
   }
