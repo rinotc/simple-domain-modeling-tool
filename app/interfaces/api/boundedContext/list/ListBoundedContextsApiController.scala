@@ -15,7 +15,7 @@ final class ListBoundedContextsApiController @Inject() (
     boundedContextsUseCase: ListBoundedContextsUseCase
 ) extends AbstractController(cc) {
 
-  def action(): Action[AnyContent] = userAction { implicit request =>
+  def action(): Action[AnyContent] = userAction {
     val boundedContexts = boundedContextsUseCase.handle(NoInput[ListBoundedContextsOutput]).boundedContexts
     val jsons           = boundedContexts.map(BoundedContextResponse.apply).map(_.json)
     val response        = CollectionResponse(jsons)

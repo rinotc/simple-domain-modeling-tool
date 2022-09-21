@@ -4,16 +4,19 @@ import dev.tchiba.auth.core.accessToken.AccessToken
 import dev.tchiba.sub.config.AppConfigs
 import play.api.mvc.{Cookie, DiscardingCookie, Request}
 
+import scala.util.Try
+
 trait AccessTokenCookieHelper {
 
   val accessTokenCookieName = "apiAccessToken"
 
   private val domainName = AppConfigs.Domain
+  private val maxAge     = Try(AppConfigs.MemCached.TokenExpiry.toSeconds.toInt).getOrElse(Int.MaxValue)
 
-  def generateAccessTokenCookie[R](accessToken: AccessToken)(implicit request: Request[R]): Cookie = Cookie(
+  def generateAccessTokenCookie(accessToken: AccessToken): Cookie = Cookie(
     name = accessTokenCookieName,
     value = accessToken.token,
-    maxAge = None,
+    maxAge = Some(maxAge),
     path = "",
     domain = Some(domainName),
     secure = false,
