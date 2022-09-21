@@ -1,15 +1,14 @@
 package interfaces.api.auth
 
-import com.typesafe.config.{Config, ConfigFactory}
 import dev.tchiba.auth.core.accessToken.AccessToken
+import dev.tchiba.sub.config.AppConfigs
 import play.api.mvc.{Cookie, DiscardingCookie, Request}
 
 trait AccessTokenCookieHelper {
 
   val accessTokenCookieName = "apiAccessToken"
 
-  private val config: Config = ConfigFactory.load()
-  private val domainName     = config.getString("domain")
+  private val domainName = AppConfigs.Domain
 
   def generateAccessTokenCookie[R](accessToken: AccessToken)(implicit request: Request[R]): Cookie = Cookie(
     name = accessTokenCookieName,
