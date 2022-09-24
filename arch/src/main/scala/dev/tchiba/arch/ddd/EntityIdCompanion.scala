@@ -8,5 +8,5 @@ trait EntityIdCompanion[U, E <: EntityId[U]] {
 
   def validate(value: ValidateValueType): Either[String, E]
 
-  def generate: E
+  def generate(): E
 }

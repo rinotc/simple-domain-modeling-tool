@@ -19,8 +19,8 @@ class FindDomainModelApiControllerTest extends BaseFunTest with Results with Moc
       val englishName = "DomainModel"
       val alias       = "ALIAS"
       val domainModel = DomainModel.reconstruct(
-        id = DomainModelId.generate,
-        boundedContextId = BoundedContextId.generate,
+        id = DomainModelId.generate(),
+        boundedContextId = BoundedContextId.generate(),
         ubiquitousName = UbiquitousName("ドメインモデル"),
         englishName = EnglishName(englishName),
         knowledge = Knowledge("知識")
@@ -44,9 +44,9 @@ class FindDomainModelApiControllerTest extends BaseFunTest with Results with Moc
 
     describe("リクエストされた英語名と境界づけられたコンテキストIDが正しく、ドメインモデルが存在する場合") {
       val englishNameStr      = "DomainModel"
-      val boundedContextIdStr = BoundedContextId.generate.value.toString
+      val boundedContextIdStr = BoundedContextId.generate().value.toString
       val domainModel = DomainModel.reconstruct(
-        id = DomainModelId.generate,
+        id = DomainModelId.generate(),
         boundedContextId = BoundedContextId.fromString(boundedContextIdStr),
         ubiquitousName = UbiquitousName("ドメインモデル"),
         englishName = EnglishName(englishNameStr),
@@ -89,10 +89,10 @@ class FindDomainModelApiControllerTest extends BaseFunTest with Results with Moc
     }
 
     describe("リクエストされたドメインモデルIDのドメインモデルが存在しする場合") {
-      val domainModelIdStr = DomainModelId.generate.value.toString
+      val domainModelIdStr = DomainModelId.generate().value.toString
       val domainModel = DomainModel.reconstruct(
         id = DomainModelId.fromString(domainModelIdStr),
-        boundedContextId = BoundedContextId.generate,
+        boundedContextId = BoundedContextId.generate(),
         ubiquitousName = UbiquitousName("ドメインモデル"),
         englishName = EnglishName("DomainModel"),
         knowledge = Knowledge("知識")
@@ -113,7 +113,7 @@ class FindDomainModelApiControllerTest extends BaseFunTest with Results with Moc
     }
 
     describe("リクエストされたドメインモデルIDのドメインモデルが存在しない場合") {
-      val domainModelIdStr          = DomainModelId.generate.value.toString
+      val domainModelIdStr          = DomainModelId.generate().value.toString
       val mockDomainModelRepository = mock[DomainModelRepository]
       when(mockDomainModelRepository.findById(DomainModelId.fromString(domainModelIdStr)))
         .thenReturn(None)

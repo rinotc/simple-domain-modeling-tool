@@ -24,7 +24,7 @@ class CreateDomainModelInteractorTest extends BaseWordTest with MockitoSugar {
           .thenReturn(None)
 
         private val input = CreateDomainModelInput(
-          boundedContextId = BoundedContextId.generate,
+          boundedContextId = BoundedContextId.generate(),
           ubiquitousName = UbiquitousName("ユビキタス名"),
           englishName = EnglishName("EnglishName"),
           knowledge = Knowledge("知識")
@@ -41,7 +41,7 @@ class CreateDomainModelInteractorTest extends BaseWordTest with MockitoSugar {
       "return ConflictEnglishName" in new WithMock {
 
         private val boundedContext = BoundedContext.reconstruct(
-          id = BoundedContextId.generate,
+          id = BoundedContextId.generate(),
           alias = BoundedContextAlias("ALIAS"),
           name = BoundedContextName("境界づけられたコンテキスト名称"),
           overview = BoundedContextOverview("境界づけられたコンテキスト概要")
@@ -78,7 +78,7 @@ class CreateDomainModelInteractorTest extends BaseWordTest with MockitoSugar {
     "found BoundedContext and english name is not conflicted" should {
       "return Success" in new WithMock {
         private val boundedContext = BoundedContext.reconstruct(
-          id = BoundedContextId.generate,
+          id = BoundedContextId.generate(),
           alias = BoundedContextAlias("ALIAS"),
           name = BoundedContextName("境界づけられたコンテキスト名称"),
           overview = BoundedContextOverview("境界づけられたコンテキスト概要")

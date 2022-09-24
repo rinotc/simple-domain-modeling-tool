@@ -35,7 +35,7 @@ class SignInInteractorTest extends BaseFunTest with MockitoSugar {
 
       val authInfoRepository = mock[AuthInfoRepository]
       when(authInfoRepository.findBy(email))
-        .thenReturn(Some(AuthInfo.reconstruct(AuthId.generate, UserId.generate(), notMatchPassword.hashedPassword)))
+        .thenReturn(Some(AuthInfo.reconstruct(AuthId.generate(), UserId.generate(), notMatchPassword.hashedPassword)))
       val accessTokenService = mock[AccessTokenService]
 
       val interactor = new SignInInteractor(authInfoRepository, accessTokenService)
@@ -51,7 +51,7 @@ class SignInInteractorTest extends BaseFunTest with MockitoSugar {
 
       val authInfoRepository = mock[AuthInfoRepository]
       when(authInfoRepository.findBy(email))
-        .thenReturn(Some(AuthInfo.reconstruct(AuthId.generate, UserId.generate(), password.hashedPassword)))
+        .thenReturn(Some(AuthInfo.reconstruct(AuthId.generate(), UserId.generate(), password.hashedPassword)))
 
       val accessTokenService = mock[AccessTokenService]
       val interactor         = new SignInInteractor(authInfoRepository, accessTokenService)

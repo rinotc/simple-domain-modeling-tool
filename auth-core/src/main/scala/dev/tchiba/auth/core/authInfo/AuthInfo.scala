@@ -23,7 +23,7 @@ final class AuthInfo private (
 object AuthInfo {
   def create(userId: UserId, password: Password): AuthInfo = {
     new AuthInfo(
-      id = AuthId.generate,
+      id = AuthId.generate(),
       userId = userId,
       hashedPassword = password.hashedPassword
     )
