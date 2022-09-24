@@ -18,6 +18,8 @@ final class User private (
 ) extends Entity[UserId]
     with Aggregate {
   override def canEqual(that: Any): Boolean = that.isInstanceOf[User]
+
+  override def toString = s"User(id=${id.value}, name=$name, email=${email.value}, avatarUrl=${avatarUrl.map(_.value)})"
 }
 
 object User {
@@ -28,6 +30,6 @@ object User {
     None
   )
 
-  def reconstruct(id: String, name: Option[String], emailAddress: EmailAddress, avatarUrl: Option[Url]) =
-    new User(UserId.fromString(id), name, emailAddress, avatarUrl)
+  def reconstruct(id: UserId, name: Option[String], emailAddress: EmailAddress, avatarUrl: Option[Url]) =
+    new User(id, name, emailAddress, avatarUrl)
 }
