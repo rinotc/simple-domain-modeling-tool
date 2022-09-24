@@ -140,7 +140,7 @@ lazy val `auth-usecase` = (project in file("auth-usecase"))
   )
 
 lazy val `auth-application` = (project in file("auth-application"))
-  .dependsOn(`auth-usecase`)
+  .dependsOn(`auth-usecase`, testDependency)
   .settings(
     name := "auth-application",
     scalacOptions := ScalacOptions,
