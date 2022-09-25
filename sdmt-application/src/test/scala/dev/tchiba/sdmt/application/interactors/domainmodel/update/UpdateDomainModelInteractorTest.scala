@@ -24,8 +24,8 @@ class UpdateDomainModelInteractorTest extends BaseWordTest with MockitoSugar {
         when(boundedContextRepository.findById(any[BoundedContextId])).thenReturn(None)
 
         private val input = UpdateDomainModelInput(
-          boundedContextId = BoundedContextId.generate,
-          domainModelId = DomainModelId.generate,
+          boundedContextId = BoundedContextId.generate(),
+          domainModelId = DomainModelId.generate(),
           updatedUbiquitousName = UbiquitousName("更新後名称"),
           updatedEnglishName = EnglishName("UpdatedEnglishName"),
           updatedKnowledge = Knowledge("知識")
@@ -51,7 +51,7 @@ class UpdateDomainModelInteractorTest extends BaseWordTest with MockitoSugar {
 
         private val input = UpdateDomainModelInput(
           boundedContextId = boundedContext.id,
-          domainModelId = DomainModelId.generate,
+          domainModelId = DomainModelId.generate(),
           updatedUbiquitousName = UbiquitousName("更新後名称"),
           updatedEnglishName = EnglishName("UpdatedEnglishName"),
           updatedKnowledge = Knowledge("知識")

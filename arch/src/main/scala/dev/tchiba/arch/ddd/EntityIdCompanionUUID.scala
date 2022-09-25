@@ -15,5 +15,5 @@ trait EntityIdCompanionUUID[E <: EntityId[UUID]] extends EntityIdCompanion[UUID,
     case Failure(e)                           => throw e
   }
 
-  override def generate: E = apply(UUID.randomUUID())
+  override def generate(): E = apply(UUID.randomUUID())
 }

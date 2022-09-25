@@ -3,10 +3,9 @@ package interfaces.api.domainmodel.update
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.core.domainmodel.DomainModelId
 import dev.tchiba.sdmt.usecase.domainmodel.update.{UpdateDomainModelOutput, UpdateDomainModelUseCase}
-import interfaces.api.QueryValidator
 import interfaces.api.domainmodel.json.DomainModelResponse
-import interfaces.json.error.ErrorResults
-import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
+import interfaces.api.{QueryValidator, SdmtApiController}
+import play.api.mvc.{Action, ControllerComponents}
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
@@ -15,10 +14,7 @@ class UpdateDomainModelApiController @Inject() (
     cc: ControllerComponents,
     updateDomainModelUseCase: UpdateDomainModelUseCase
 )(implicit ec: ExecutionContext)
-    extends AbstractController(cc)
-    with ErrorResults {
-
-  implicit private val parser: PlayBodyParsers = cc.parsers
+    extends SdmtApiController(cc) {
 
   def action(boundedContextId: String, domainModelId: String): Action[UpdateDomainModelRequest] =
     Action(UpdateDomainModelRequest.validateJson) { implicit request =>
@@ -32,7 +28,7 @@ class UpdateDomainModelApiController @Inject() (
         updateDomainModelUseCase.handle(input) match {
           case UpdateDomainModelOutput.NotFoundBoundedContext(boundedContextId) =>
             notFound(
-              code = "sdmt.domainmode.update.notFound.boundedContext",
+              code = "sdmt.domainmodel.update.notFound.boundedContext",
               message = s"Not Found BoundedContext: ${boundedContextId.string}",
               params = "boundedContextId" -> boundedContextId.value
             )

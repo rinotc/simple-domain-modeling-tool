@@ -47,5 +47,5 @@ object BoundedContext {
     new BoundedContext(id, alias, name, overview)
 
   def create(alias: BoundedContextAlias, name: BoundedContextName, overview: BoundedContextOverview) =
-    new BoundedContext(BoundedContextId.generate, alias, name, overview)
+    new BoundedContext(BoundedContextId.generate(), alias, name, overview)
 }

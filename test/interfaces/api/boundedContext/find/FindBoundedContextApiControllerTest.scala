@@ -16,7 +16,7 @@ class FindBoundedContextApiControllerTest extends PlaySpec with Results with Moc
     "requested BoundedContextId is exist" should {
       "return OK and response that id's BoundedContext" in {
         val mockBoundedContextRepository = mock[BoundedContextRepository]
-        val boundedContextId             = BoundedContextId.generate
+        val boundedContextId             = BoundedContextId.generate()
         val existingProject = BoundedContext.reconstruct(
           boundedContextId,
           BoundedContextAlias("TEST"),
@@ -39,7 +39,7 @@ class FindBoundedContextApiControllerTest extends PlaySpec with Results with Moc
     "requested id's BoundedContext is not exist" should {
       "return NotFound" in {
         val mockBoundedContextRepository = mock[BoundedContextRepository]
-        val boundedContextId             = BoundedContextId.generate
+        val boundedContextId             = BoundedContextId.generate()
 
         when(mockBoundedContextRepository.findById(boundedContextId))
           .thenReturn(None)

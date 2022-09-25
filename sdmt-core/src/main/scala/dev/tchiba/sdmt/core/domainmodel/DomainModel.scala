@@ -54,7 +54,7 @@ object DomainModel {
       knowledge: Knowledge
   ): DomainModel = {
     new DomainModel(
-      id = DomainModelId.generate,
+      id = DomainModelId.generate(),
       boundedContextId = boundedContextId,
       ubiquitousName = ubiquitousName,
       englishName = englishName,

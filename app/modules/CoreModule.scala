@@ -1,6 +1,8 @@
 package modules
 
 import com.google.inject.AbstractModule
+import dev.tchiba.auth.core.user.UserRepository
+import dev.tchiba.auth.infra.core.user.JdbcUserRepository
 import dev.tchiba.sdmt.application.interactors.boundedContext.create.CreateBoundedContextInteractor
 import dev.tchiba.sdmt.application.interactors.boundedContext.delete.DeleteBoundedContextInteractor
 import dev.tchiba.sdmt.application.interactors.boundedContext.list.ListBoundedContextsInteractor
@@ -9,10 +11,8 @@ import dev.tchiba.sdmt.application.interactors.domainmodel.add.CreateDomainModel
 import dev.tchiba.sdmt.application.interactors.domainmodel.update.UpdateDomainModelInteractor
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextRepository
 import dev.tchiba.sdmt.core.domainmodel.DomainModelRepository
-import dev.tchiba.sdmt.core.user.UserRepository
 import dev.tchiba.sdmt.infra.boundedContext.JdbcBoundedContextRepository
 import dev.tchiba.sdmt.infra.domainmodel.JdbcDomainModelRepository
-import dev.tchiba.sdmt.infra.user.JdbcUserRepository
 import dev.tchiba.sdmt.usecase.boundedContext.create.CreateBoundedContextUseCase
 import dev.tchiba.sdmt.usecase.boundedContext.delete.DeleteBoundedContextUseCase
 import dev.tchiba.sdmt.usecase.boundedContext.list.ListBoundedContextsUseCase

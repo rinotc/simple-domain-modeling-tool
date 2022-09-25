@@ -54,7 +54,7 @@ class CreateDomainModelApiControllerTest extends PlaySpec with MockitoSugar {
 
     "BoundedContext not found" should {
       "return NotFound" in new WithMock {
-        val notFoundBoundedContextId: BoundedContextId = BoundedContextId.generate
+        val notFoundBoundedContextId: BoundedContextId = BoundedContextId.generate()
 
         val request: FakeRequest[CreateDomainModelRequest] = FakeRequest.apply(
           method = POST,
@@ -77,7 +77,7 @@ class CreateDomainModelApiControllerTest extends PlaySpec with MockitoSugar {
 
     "EnglishName conflicted" should {
       "return Conflict" in new WithMock {
-        val boundedContextId: BoundedContextId = BoundedContextId.generate
+        val boundedContextId: BoundedContextId = BoundedContextId.generate()
 
         val request: FakeRequest[CreateDomainModelRequest] = FakeRequest.apply(
           method = POST,
@@ -106,7 +106,7 @@ class CreateDomainModelApiControllerTest extends PlaySpec with MockitoSugar {
 
       "create DomainModel Success" should {
         "return new DomainModel" in new WithMock {
-          val boundedContextId: BoundedContextId = BoundedContextId.generate
+          val boundedContextId: BoundedContextId = BoundedContextId.generate()
 
           val createDomainModelRequest: CreateDomainModelRequest = CreateDomainModelRequest(
             ubiquitousName = "ユビキタス名",

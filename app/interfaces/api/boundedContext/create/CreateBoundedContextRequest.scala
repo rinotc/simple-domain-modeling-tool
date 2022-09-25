@@ -10,7 +10,7 @@ case class CreateBoundedContextRequest(
     private val alias: String,
     private val overview: String
 ) extends PlayJsonRequest {
-  final case class ValidModel(
+  case class ValidModel(
       name: BoundedContextName,
       alias: BoundedContextAlias,
       overview: BoundedContextOverview

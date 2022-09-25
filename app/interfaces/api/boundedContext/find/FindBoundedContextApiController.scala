@@ -1,18 +1,16 @@
 package interfaces.api.boundedContext.find
 
 import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextId, BoundedContextRepository}
-import interfaces.api.QueryValidator
 import interfaces.api.boundedContext.json.BoundedContextResponse
-import interfaces.json.error.ErrorResults
-import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
+import interfaces.api.{QueryValidator, SdmtApiController}
+import play.api.mvc.{Action, AnyContent, ControllerComponents}
 
 import javax.inject.Inject
 
 class FindBoundedContextApiController @Inject() (
     cc: ControllerComponents,
     boundedContextRepository: BoundedContextRepository
-) extends AbstractController(cc)
-    with ErrorResults {
+) extends SdmtApiController(cc) {
 
   /**
    * IDもしくはエイリアスから境界づけられたコンテキストを取得する

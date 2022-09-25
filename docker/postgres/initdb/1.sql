@@ -55,8 +55,8 @@ create table users
     user_id       char(36)                not null
         constraint users_pk
             primary key,
-    user_name     varchar(50)             not null,
-    email_address varchar(100)            not null,
+    user_name     varchar(50),
+    email_address varchar(255)            not null,
     avatar_url    varchar(1000),
     created_at    timestamp default now() not null,
     updated_at    timestamp default now() not null
@@ -79,22 +79,22 @@ comment on column users.updated_at is '更新日時';
 create unique index users_email_address_uindex
     on users (email_address);
 
-create table auth_info
+create table auth_infos
 (
     auth_info_id    char(36)     not null
         constraint auth_info_pk
             primary key,
-    email           varchar(255) not null,
-    hashed_password varchar(255) not null
+    user_id         char(36)     not null,
+    hashed_password varchar(255) not null,
+    salt            varchar(255) not null
 );
 
-comment on table auth_info is '認証情報';
+comment on table auth_infos is '認証情報';
 
-comment on column auth_info.auth_info_id is '認証情報ID';
+comment on column auth_infos.auth_info_id is '認証情報ID';
 
-comment on column auth_info.email is 'メールアドレス';
+comment on column auth_infos.user_id is 'ユーザーID';
 
-comment on column auth_info.hashed_password is 'ハッシュ済みパスワード';
+comment on column auth_infos.hashed_password is 'ハッシュ済みパスワード';
 
-create unique index auth_info_email_uindex
-    on auth_info (email);
+comment on column auth_infos.salt is 'ソルト';

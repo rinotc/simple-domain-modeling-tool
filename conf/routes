@@ -6,7 +6,6 @@ POST        /api/sign-in                                                        
 POST        /api/sign-out                                                              interfaces.api.auth.signOut.SignOutController.action()
 
 GET         /api/users                                                                 interfaces.api.user.UserApiController.allUsers()
-POST        /api/users/bulk                                                            interfaces.api.user.UserApiController.bulkInsert()
 GET         /api/users/:userId                                                         interfaces.api.user.UserApiController.findUser(userId: String)
 
 GET         /api/bounded-contexts                                                      interfaces.api.boundedContext.list.ListBoundedContextsApiController.action()

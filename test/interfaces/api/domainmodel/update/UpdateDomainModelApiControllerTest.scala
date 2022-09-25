@@ -29,7 +29,7 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
     "invalid format boundedContextId String" should {
       "return BadRequest" in new WithMock {
         private val invalidFormBoundedContextId = "invalid-bd"
-        private val domainModelId               = DomainModelId.generate
+        private val domainModelId               = DomainModelId.generate()
 
         val request: FakeRequest[UpdateDomainModelRequest] = FakeRequest.apply(
           method = POST,
@@ -49,7 +49,7 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
     "invalid format domainModelId String" should {
       "return BadRequest" in new WithMock {
-        private val boundedContextId     = BoundedContextId.generate
+        private val boundedContextId     = BoundedContextId.generate()
         private val invalidDomainModelId = "invalid-domainModelId"
 
         val request: FakeRequest[UpdateDomainModelRequest] = FakeRequest.apply(
@@ -70,8 +70,8 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
     "NotFound BoundedContext" should {
       "return NotFound" in new WithMock {
-        private val bcId = BoundedContextId.generate
-        private val dmId = DomainModelId.generate
+        private val bcId = BoundedContextId.generate()
+        private val dmId = DomainModelId.generate()
 
         val request: FakeRequest[UpdateDomainModelRequest] = FakeRequest.apply(
           method = POST,
@@ -96,8 +96,8 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
     "NotFound DomainModel" should {
       "return NotFound" in new WithMock {
-        private val bcId = BoundedContextId.generate
-        private val dmId = DomainModelId.generate
+        private val bcId = BoundedContextId.generate()
+        private val dmId = DomainModelId.generate()
 
         val request: FakeRequest[UpdateDomainModelRequest] = FakeRequest.apply(
           method = POST,
@@ -127,8 +127,8 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
     "Conflict EnglishName" should {
       "return Conflict" in new WithMock {
-        private val bcId = BoundedContextId.generate
-        private val dmId = DomainModelId.generate
+        private val bcId = BoundedContextId.generate()
+        private val dmId = DomainModelId.generate()
 
         val request: FakeRequest[UpdateDomainModelRequest] = FakeRequest.apply(
           method = POST,
@@ -165,8 +165,8 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
 
     "Update DomainModel Success" should {
       "return OK and updated DomainModel" in new WithMock {
-        private val bcId = BoundedContextId.generate
-        private val dmId = DomainModelId.generate
+        private val bcId = BoundedContextId.generate()
+        private val dmId = DomainModelId.generate()
 
         val request: FakeRequest[UpdateDomainModelRequest] = FakeRequest.apply(
           method = POST,
