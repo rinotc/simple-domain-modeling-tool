@@ -2,6 +2,10 @@
 
 ドメインモデリングのためのツール
 
+## インセプションデッキ
+
+- [インセプションデッキ](inception-deck/index.md)
+
 ## Open API Schema
 
 - [OAS](oas/index.html)
