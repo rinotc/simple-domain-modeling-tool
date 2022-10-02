@@ -1,6 +1,6 @@
 package interfaces.api.user.json
 
-import dev.tchiba.sdmt.core.user.User
+import dev.tchiba.auth.core.user.User
 import play.api.libs.json.{JsValue, Json, OFormat}
 
 final class UserResponse(private val user: User) {
@@ -14,7 +14,7 @@ final class UserResponse(private val user: User) {
 
 object UserResponse {
 
-  private case class Response(id: String, name: String)
+  private case class Response(id: String, name: Option[String])
 
   implicit private val jsonFormat: OFormat[Response] = Json.format[Response]
 

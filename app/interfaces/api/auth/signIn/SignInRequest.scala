@@ -1,28 +1,39 @@
 package interfaces.api.auth.signIn
 
+import cats.data.{NonEmptyList, Validated}
 import dev.tchiba.auth.core.password.Password
 import dev.tchiba.auth.usecase.signIn.SignInInput
 import dev.tchiba.sub.email.EmailAddress
-import interfaces.json.{JsonRequest, JsonValidator}
+import interfaces.json.request.play.{PlayJsonRequest, PlayJsonRequestCompanion}
 import play.api.libs.json.{Json, OFormat}
-import play.api.mvc.{BodyParser, PlayBodyParsers}
 
-import scala.concurrent.ExecutionContext
-
+/**
+ * サインインリクエスト
+ *
+ * @param email    メールアドレス
+ * @param password プレーンパスワード
+ */
 final case class SignInRequest(
     private val email: String,
     private val password: String
-) extends JsonRequest {
+) extends PlayJsonRequest {
 
-  private val emailAddress = EmailAddress.validate(email).leftThrow
-  private val passwd       = Password.validate(password).leftThrow
+  case class ValidModel(
+      email: EmailAddress,
+      password: Password
+  )
 
-  val input: SignInInput = SignInInput(emailAddress, passwd)
+  override type VM = ValidModel
+
+  override def validateParameters: Validated[NonEmptyList[(String, String)], ValidModel] =
+    (
+      EmailAddress.validate(email).toValidated.leftMap { e => NonEmptyList.of("email" -> e) },
+      Password.validate(password).toValidated.leftMap { e => NonEmptyList.of("password" -> e) }
+    ).mapN { (e, p) => ValidModel(e, p) }
+
+  lazy val input: SignInInput = SignInInput(get.email, get.password)
 }
 
-object SignInRequest {
-  implicit val jsonFormat: OFormat[SignInRequest] = Json.format[SignInRequest]
-
-  def validateJson(implicit parser: PlayBodyParsers, ec: ExecutionContext): BodyParser[SignInRequest] =
-    JsonValidator.validate
+object SignInRequest extends PlayJsonRequestCompanion[SignInRequest] {
+  override implicit val jsonFormat: OFormat[SignInRequest] = Json.format[SignInRequest]
 }

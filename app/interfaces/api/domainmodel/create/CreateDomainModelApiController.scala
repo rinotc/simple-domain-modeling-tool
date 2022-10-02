@@ -2,10 +2,9 @@ package interfaces.api.domainmodel.create
 
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.usecase.domainmodel.create.{CreateDomainModelOutput, CreateDomainModelUseCase}
-import interfaces.api.QueryValidator
 import interfaces.api.domainmodel.json.DomainModelResponse
-import interfaces.json.error.ErrorResults
-import play.api.mvc.{AbstractController, Action, ControllerComponents, PlayBodyParsers}
+import interfaces.api.{QueryValidator, SdmtApiController}
+import play.api.mvc.{Action, ControllerComponents}
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
@@ -14,10 +13,7 @@ final class CreateDomainModelApiController @Inject() (
     cc: ControllerComponents,
     createDomainModelUseCase: CreateDomainModelUseCase
 )(implicit ec: ExecutionContext)
-    extends AbstractController(cc)
-    with ErrorResults {
-
-  implicit private val parser: PlayBodyParsers = cc.parsers
+    extends SdmtApiController(cc) {
 
   def action(id: String): Action[CreateDomainModelRequest] = Action(CreateDomainModelRequest.validateJson) {
     implicit request =>

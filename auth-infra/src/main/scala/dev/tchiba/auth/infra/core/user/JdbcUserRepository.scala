@@ -1,14 +1,10 @@
-package dev.tchiba.sdmt.infra.user
+package dev.tchiba.auth.infra.core.user
 
-import dev.tchiba.sdmt.core.user.{User, UserId, UserRepository}
+import dev.tchiba.auth.core.user.{User, UserId, UserRepository}
 import dev.tchiba.sdmt.infra.scalikejdbc.Users
-import dev.tchiba.sub.email.EmailAddress
-import dev.tchiba.sub.url.Url
 import scalikejdbc._
 
-final class JdbcUserRepository extends UserRepository {
-
-  import JdbcUserRepository._
+final class JdbcUserRepository extends UserRepository with UsersTranslator {
 
   override def listAll(): Seq[User] = Users.findAll().map(translate)
 
@@ -51,12 +47,9 @@ final class JdbcUserRepository extends UserRepository {
       QueryDSL.delete.from(Users).where.eq(c.userId, user.id.string)
     }.update().apply()
   }
-}
 
-object JdbcUserRepository {
-  def translate(row: Users): User = {
-    val emailAddress = EmailAddress(row.emailAddress)
-    val avatarUrl    = row.avatarUrl.map(Url.apply)
-    User.reconstruct(row.userId, row.userName, emailAddress, avatarUrl)
+  override def batchInset(users: Seq[User]): Unit = DB localTx { implicit session =>
+    val entities = users.map(translate)
+    Users.batchInsert(entities)
   }
 }

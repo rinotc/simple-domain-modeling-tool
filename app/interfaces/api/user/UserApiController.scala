@@ -1,6 +1,6 @@
 package interfaces.api.user
 
-import dev.tchiba.sdmt.core.user.{UserId, UserRepository}
+import dev.tchiba.auth.core.user.{UserId, UserRepository}
 import interfaces.api.user.json.UserResponse
 import interfaces.json.CollectionResponse
 import interfaces.json.error.ErrorResults

@@ -1,7 +1,7 @@
 package interfaces.api.domainmodel.json
 
 import dev.tchiba.sdmt.core.domainmodel.DomainModel
-import interfaces.json.PlayJsonResponse
+import interfaces.json.response.play.PlayJsonResponse
 import play.api.libs.json.{JsValue, Json, OFormat}
 
 import java.util.UUID

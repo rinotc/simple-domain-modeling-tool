@@ -1,3 +1,6 @@
 package dev.tchiba.arch.ddd
 
-trait Aggregate { self: Entity[_] => }
+/**
+ * DDDの集約であることを示すマーカートレイト
+ */
+trait Aggregate
