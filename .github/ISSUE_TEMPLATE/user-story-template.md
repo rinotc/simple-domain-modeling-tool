@@ -2,7 +2,7 @@
 name: User Story template
 about: ユーザーストーリーを記述するテンプレート
 title: "[Story]"
-labels: ''
+labels: user-story
 assignees: ''
 
 ---
