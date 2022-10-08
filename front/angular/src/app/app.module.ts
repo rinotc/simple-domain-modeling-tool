@@ -38,6 +38,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DomainModelDetailPageComponent } from './views/pages/domainModel/detail/domain-model-detail-page/domain-model-detail-page.component';
 import { MatListModule } from '@angular/material/list';
 import { EditDomainModelPageComponent } from './views/pages/domainModel/edit/edit-domain-model-page.component';
+import { LoginPageComponent } from './views/pages/login/login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { EditDomainModelPageComponent } from './views/pages/domainModel/edit/edi
     DeleteBoundedContextDialogComponent,
     DomainModelDetailPageComponent,
     EditDomainModelPageComponent,
+    LoginPageComponent,
   ],
   imports: [
     BrowserModule,

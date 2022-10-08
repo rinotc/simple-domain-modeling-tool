@@ -1,0 +1,34 @@
+<div fxLayout="row" fxLayoutAlign="center">
+  <div id="login-form" fxLayout="column" fxLayoutAlign="center-start">
+    <div id="login-header">
+      Login
+    </div>
+    <p>
+      <mat-form-field class="login-form-fields" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="sample@example.com">
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-hint>メールアドレスを入力してください</mat-hint>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="login-form-fields" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-hint>8文字以上かつ英数記号</mat-hint>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <button id="login-button" mat-raised-button color="primary">Login</button>
+    </p>
+
+    <a href="javascript:void(0)">新規登録</a>
+    <a href="javascript:void(0)">パスワードをお忘れですか？</a>
+  </div>
+</div>
