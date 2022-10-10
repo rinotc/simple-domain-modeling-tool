@@ -11,10 +11,14 @@ export class AuthService {
 
   login(email: EmailAddress, password: Password): Promise<void> {
     return this.http
-      .post(`${config.apiHost}/sign-in`, {
-        email: email.value,
-        password: password.value,
-      })
+      .post(
+        `${config.apiHost}/sign-in`,
+        {
+          email: email.value,
+          password: password.value,
+        },
+        { withCredentials: true }
+      )
       .pipe(catchError(this.handleError('login', [])))
       .forEach((_) => {});
   }
