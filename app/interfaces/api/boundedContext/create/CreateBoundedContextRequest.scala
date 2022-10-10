@@ -1,6 +1,6 @@
 package interfaces.api.boundedContext.create
 
-import cats.data.{NonEmptyList, Validated}
+import cats.data.{NonEmptyList, ValidatedNel}
 import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextName, BoundedContextOverview}
 import interfaces.json.request.play.{PlayJsonRequest, PlayJsonRequestCompanion}
 import play.api.libs.json.{Json, OFormat}
@@ -18,11 +18,11 @@ case class CreateBoundedContextRequest(
 
   override type VM = ValidModel
 
-  override val validateParameters: Validated[NonEmptyList[(String, String)], ValidModel] = {
+  override val validateParameters: ValidatedNel[(String, String), ValidModel] = {
     (
-      BoundedContextName.validate(name).toValidated.leftMap { e => NonEmptyList.of("name" -> e) },
-      BoundedContextAlias.validate(alias).toValidated.leftMap { e => NonEmptyList.of("alias" -> e) },
-      BoundedContextOverview.validate(overview).toValidated.leftMap { e => NonEmptyList.of("overview" -> e) }
+      BoundedContextName.validate(name).toValidated("name"),
+      BoundedContextAlias.validate(alias).toValidated("alias"),
+      BoundedContextOverview.validate(overview).toValidated("overview")
     ).mapN { case (n, a, o) => ValidModel(n, a, o) }
   }
 }

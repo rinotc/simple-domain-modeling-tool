@@ -38,6 +38,11 @@
     margin-right: auto;
     width: 328px;
     height: 36px;
+
+    &:disabled {
+      background-color: #c9c9c9;
+      color: white;
+    }
   }
 
   mat-icon {

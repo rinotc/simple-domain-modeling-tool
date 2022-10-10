@@ -21,7 +21,7 @@ import cats.syntax.TupleSemigroupalSyntax
  *
  *      override type VM =  ValidModel
  *
- *      override def validateParameters: Validated[NonEmptyList[(String, String)], ValidModel] =
+ *      override def validateParameters: ValidatedNel[(String, String), VM] =
  *        (
  *           Name.validate(name).toValidated.leftMap { e => NonEmptyList.of("name" -> e) },
  *           Age.validate(age).toValidated.leftMap { e => NonEmptyList.of("age" -> e) },
@@ -79,9 +79,10 @@ trait PlayJsonRequest extends TupleSemigroupalSyntax {
    *
    * [[PlayJsonRequestCompanion.validateJson]] のところで利用される想定。
    */
-  def validateParameters: Validated[NonEmptyList[(String, String)], VM]
+  def validateParameters: ValidatedNel[(String, String), VM]
 
-  protected implicit class EitherOps[L, R](either: Either[L, R]) {
-    def toValidated: Validated[L, R] = Validated.fromEither(either)
+  protected implicit class LeftStringEitherOps[R](either: Either[String, R]) {
+    def toValidated(key: String): ValidatedNel[(String, String), R] =
+      Validated.fromEither(either).leftMap { e => NonEmptyList.of(key -> e) }
   }
 }
