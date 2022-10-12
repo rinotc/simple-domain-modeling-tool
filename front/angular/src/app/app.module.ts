@@ -39,6 +39,7 @@ import { DomainModelDetailPageComponent } from './views/pages/domainModel/detail
 import { MatListModule } from '@angular/material/list';
 import { EditDomainModelPageComponent } from './views/pages/domainModel/edit/edit-domain-model-page.component';
 import { LoginPageComponent } from './views/pages/login/login-page/login-page.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { LoginPageComponent } from './views/pages/login/login-page/login-page.co
     MatSortModule,
     MatDialogModule,
     MatListModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
