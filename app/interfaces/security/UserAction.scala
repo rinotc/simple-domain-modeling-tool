@@ -22,13 +22,13 @@ class UserAction @Inject() (
   override def invokeBlock[A](request: Request[A], block: UserRequest[A] => Future[Result]): Future[Result] = {
     val result = for {
       token <- getAccessToken(request).toRight(
-        forbidden(
+        unauthorized(
           code = "not.authenticated",
           message = "this api must be login"
         ).future
       )
       verified <- verifyUserUseCase.handle(VerifyUserInput(token)).asEither.left.map { _ =>
-        forbidden(
+        unauthorized(
           code = "not.authenticated",
           message = "maybe user not found."
         ).future

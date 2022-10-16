@@ -38,14 +38,12 @@ export class LoginPageComponent implements OnInit {
     requirement(this.canSubmit());
     const email: EmailAddress = new EmailAddress(this.control.value.email);
     const password: Password = new Password(this.control.value.password);
-    await this.authService
-      .login(email, password)
-      .then(() => {
-        this.toastService.success('ログインに成功しました');
-        this.router.navigateByUrl('');
-      })
-      .catch((_) => {
-        this.toastService.error('ログインに失敗しました');
-      });
+    await this.authService.login(email, password).then(() => {
+      this.toastService.success('ログインに成功しました');
+      this.router.navigateByUrl('');
+    });
+    // .catch((_) => {
+    //   this.toastService.error('ログインに失敗しました');
+    // });
   }
 }
