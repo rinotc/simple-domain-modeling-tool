@@ -45,6 +45,11 @@ describe('Password', () => {
         const plainPassword = 'Abc123Def';
         expect(() => new Password(plainPassword)).toThrow();
       });
+
+      it('パスワードに日本語を含むとき、例外を投げる', () => {
+        const plainPassword = 'Abc123@#$アイウエオ';
+        expect(() => new Password(plainPassword)).toThrow();
+      });
     });
   });
 });

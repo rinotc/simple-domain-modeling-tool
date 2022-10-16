@@ -20,7 +20,7 @@ export class Password {
   }
 
   private static passwordRegex = new RegExp(
-    '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,50}$'
+    '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@\\[-`{-~])[!-~]{8,50}$'
   );
 
   private static mustBetween8to50LengthCharacters(value: string): boolean {
