@@ -12,7 +12,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ToastService {
   private actionMessage = 'Close';
-  private duration = 5000;
 
   constructor(private snackBar: MatSnackBar) {}
 
@@ -20,25 +19,55 @@ export class ToastService {
    * トーストを表示する
    *
    * @param message トーストに表示するメッセージ
+   * @param duration トーストの表示時間
    * @memberOf ToastService
    */
-  public success(message: string): void {
+  public success(
+    message: string,
+    duration: ToastDuration = ToastDuration.Default
+  ): void {
     this.snackBar.open(message, this.actionMessage, {
-      // duration: 5000,
+      duration: this.getDuration(duration),
       panelClass: ['green-snackbar'],
     });
   }
 
-  public error(message: string): void {
+  public error(
+    message: string,
+    duration: ToastDuration = ToastDuration.Default
+  ): void {
     this.snackBar.open(message, this.actionMessage, {
-      duration: this.duration,
+      duration: this.getDuration(duration),
       panelClass: ['red-snackbar'],
     });
   }
 
-  public open(message: string): void {
+  public open(
+    message: string,
+    duration: ToastDuration = ToastDuration.Default
+  ): void {
     this.snackBar.open(message, this.actionMessage, {
-      duration: this.duration,
+      duration: this.getDuration(duration),
     });
   }
+
+  private getDuration(d: ToastDuration): number | undefined {
+    switch (d) {
+      case ToastDuration.Short:
+        return 3_000;
+      case ToastDuration.Default:
+        return 5_000;
+      case ToastDuration.Long:
+        return 10_000;
+      case ToastDuration.Infinite:
+        return undefined;
+    }
+  }
+}
+
+export enum ToastDuration {
+  Short = 'Short',
+  Default = 'Default',
+  Long = 'Long',
+  Infinite = 'Infinite',
 }

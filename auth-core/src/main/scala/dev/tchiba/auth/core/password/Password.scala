@@ -23,12 +23,12 @@ final class Password private (@transient private val plainPassword: String) exte
   /**
    * ハッシュ済みパスワード
    */
-  def hashedPassword: HashedPassword = HashedPassword(hashResult.getResult, salt)
+  lazy val hashedPassword: HashedPassword = HashedPassword(hashResult.getResult, salt)
 
   /**
    * ハッシュに利用されたソルト
    */
-  def salt: String = hashResult.getSalt
+  lazy val salt: String = hashResult.getSalt
 
   /**
    * パスワードを検証する

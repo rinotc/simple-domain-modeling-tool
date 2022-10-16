@@ -1,5 +1,7 @@
 import { PreferNominal } from '../prefer-nominal';
-import { requirement } from '../../dbc/dbc';
+import { requirement, RequirementError } from '../../dbc/dbc';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { isString } from '../../dbc/user-defined-type-guards';
 
 export class Password {
   // noinspection JSUnusedGlobalSymbols
@@ -14,7 +16,7 @@ export class Password {
 
   static isValid(value: string): boolean {
     return (
-      this.mustBetween8to50LengthCharacters(value) &&
+      this.mustBetweenMinToMaxLengthCharacters(value) &&
       this.passwordRegex.test(value)
     );
   }
@@ -23,7 +25,20 @@ export class Password {
     '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@\\[-`{-~])[!-~]{8,50}$'
   );
 
-  private static mustBetween8to50LengthCharacters(value: string): boolean {
-    return value.length >= 8 && value.length <= 50;
+  private static mustBetweenMinToMaxLengthCharacters(value: string): boolean {
+    return value.length >= this.MIN_LENGTH && value.length <= this.MAX_LENGTH;
   }
+
+  static MIN_LENGTH = 8;
+  static MAX_LENGTH = 50;
+
+  static validator: ValidatorFn = (
+    control: AbstractControl
+  ): ValidationErrors | null => {
+    const value: any = control.value;
+    if (isString(value)) {
+      return Password.isValid(value) ? null : { invalidPassword: value };
+    }
+    throw new RequirementError('invalid value type.');
+  };
 }
