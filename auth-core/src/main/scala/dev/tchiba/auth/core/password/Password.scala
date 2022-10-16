@@ -48,6 +48,10 @@ final class Password private (@transient private val plainPassword: String) exte
 
 object Password {
 
+  final val MinLength = 8
+
+  final val MaxLength = 50
+
   def apply(plainPassword: String) = new Password(plainPassword)
 
   def validate(plainPassword: String): Either[String, Password] = Either.cond(
@@ -60,12 +64,23 @@ object Password {
     validatePasswordLength(plainPassword) && validatePasswordRegex(plainPassword)
 
   private val validationErrorMessage =
-    "password must be 8 to 50 characters and can only use alphabet numbers, and symbols"
+    s"password must be $MinLength to $MaxLength characters and can only use alphabet numbers, and symbols"
 
-  private val passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,50}$".r
+  /**
+   * パスワードの仕様を示す正規表現
+   *
+   * 以下を全て少なくとも一文字以上含む必要がある。
+   * <ul>
+   * <li>小文字の半角アルファベット</li>
+   * <li>大文字の半角アルファベット</li>
+   * <li>半角数字</li>
+   * <li>記号（使用可能記号 {{{!"#$%&'()*+,-./:;<=>?@[]^_`{|}~}}}）</li>
+   * </ul>
+   */
+  private val passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@\\[-`{-~])[!-~]{8,50}$".r
 
   private def validatePasswordLength(plainPassword: String): Boolean =
-    plainPassword.lengthIs >= 8 && plainPassword.lengthIs <= 50
+    plainPassword.lengthIs >= MinLength && plainPassword.lengthIs <= MaxLength
 
   private def validatePasswordRegex(plainPassword: String): Boolean = passwordRegex.matches(plainPassword)
 }

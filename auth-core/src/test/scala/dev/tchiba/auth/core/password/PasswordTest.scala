@@ -37,7 +37,7 @@ class PasswordTest extends BaseFunTest with MockitoSugar {
         assert(Password(plainPassword).isInstanceOf[Password])
       }
 
-      ignore("パスワードに日本語が含まれるとき、例外を投げる") {
+      it("パスワードに日本語が含まれるとき、例外を投げる") {
         val plainPassword = "Abc123@あああ"
         assertThrows[IllegalArgumentException] {
           Password(plainPassword)
