@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './views/components/header/header/header.component';
@@ -38,6 +38,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DomainModelDetailPageComponent } from './views/pages/domainModel/detail/domain-model-detail-page/domain-model-detail-page.component';
 import { MatListModule } from '@angular/material/list';
 import { EditDomainModelPageComponent } from './views/pages/domainModel/edit/edit-domain-model-page.component';
+import { LoginPageComponent } from './views/pages/login/login-page/login-page.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DefaultErrorHandler } from './system/default-error-handler';
+import { DefaultInterceptor } from './system/default-interceptor';
 
 @NgModule({
   declarations: [
@@ -55,6 +59,7 @@ import { EditDomainModelPageComponent } from './views/pages/domainModel/edit/edi
     DeleteBoundedContextDialogComponent,
     DomainModelDetailPageComponent,
     EditDomainModelPageComponent,
+    LoginPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,8 +86,12 @@ import { EditDomainModelPageComponent } from './views/pages/domainModel/edit/edi
     MatSortModule,
     MatDialogModule,
     MatListModule,
+    MatSnackBarModule,
   ],
-  providers: [],
+  providers: [
+    { provide: ErrorHandler, useClass: DefaultErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

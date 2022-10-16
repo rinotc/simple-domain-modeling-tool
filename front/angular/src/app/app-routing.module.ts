@@ -8,6 +8,7 @@ import { NotFoundComponent } from './views/pages/error/not-found/not-found.compo
 import { BoundedContextUpdatePageComponent } from './views/pages/boundedContext/update/bounded-context-update-page.component';
 import { DomainModelDetailPageComponent } from './views/pages/domainModel/detail/domain-model-detail-page/domain-model-detail-page.component';
 import { EditDomainModelPageComponent } from './views/pages/domainModel/edit/edit-domain-model-page.component';
+import { LoginPageComponent } from './views/pages/login/login-page/login-page.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: '404',
     component: NotFoundComponent,
+  },
+  {
+    path: 'login',
+    component: LoginPageComponent,
   },
   {
     path: 'bounded-contexts',

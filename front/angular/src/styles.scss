@@ -8,3 +8,18 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.green-snackbar {
+  background-color: mediumseagreen;
+  button {
+    color: white;
+  }
+}
+
+.red-snackbar {
+  background-color: #f93e3e;
+
+  button {
+    color: white;
+  }
+}

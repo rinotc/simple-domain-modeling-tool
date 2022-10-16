@@ -1,6 +1,6 @@
 package interfaces.api.auth.signIn
 
-import cats.data.{NonEmptyList, Validated}
+import cats.data.ValidatedNel
 import dev.tchiba.auth.core.password.Password
 import dev.tchiba.auth.usecase.signIn.SignInInput
 import dev.tchiba.sub.email.EmailAddress
@@ -25,10 +25,10 @@ final case class SignInRequest(
 
   override type VM = ValidModel
 
-  override def validateParameters: Validated[NonEmptyList[(String, String)], ValidModel] =
+  override def validateParameters: ValidatedNel[(String, String), ValidModel] =
     (
-      EmailAddress.validate(email).toValidated.leftMap { e => NonEmptyList.of("email" -> e) },
-      Password.validate(password).toValidated.leftMap { e => NonEmptyList.of("password" -> e) }
+      EmailAddress.validate(email).toValidated("email"),
+      Password.validate(password).toValidated("password")
     ).mapN { (e, p) => ValidModel(e, p) }
 
   lazy val input: SignInInput = SignInInput(get.email, get.password)

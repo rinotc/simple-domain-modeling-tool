@@ -23,7 +23,10 @@ export class BoundedContextsService {
   fetchAll(): void {
     this.http
       .get<ApiCollectionResponse<BoundedContextResponse>>(
-        `${config.apiHost}/bounded-contexts`
+        `${config.apiHost}/bounded-contexts`,
+        {
+          withCredentials: true,
+        }
       )
       .subscribe((res) => {
         const contexts = res.data.map((p) => BoundedContextResponse.convert(p));
