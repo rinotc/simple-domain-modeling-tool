@@ -7,10 +7,11 @@ import dev.tchiba.sdmt.core.boundedContext.{
   BoundedContextOverview
 }
 import dev.tchiba.sdmt.usecase.boundedContext.create.{CreateBoundedContextOutput, CreateBoundedContextUseCase}
+import dev.tchiba.test.core.BaseFunTest
+import interfaces.security.StubUserAction
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import org.scalatestplus.play._
 import play.api.http.HeaderNames
 import play.api.mvc.{Request, Result, Results}
 import play.api.test.Helpers._
@@ -19,11 +20,13 @@ import play.api.test.{FakeHeaders, FakeRequest}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class CreateBoundedContextApiControllerTest extends PlaySpec with Results with MockitoSugar {
+class CreateBoundedContextApiControllerTest extends BaseFunTest with Results with MockitoSugar {
 
-  "action" when {
-    "successful request has been sent" should {
-      "returns new BoundedContext in json format and OK status" in {
+  val stubUserAction = new StubUserAction
+
+  describe("action") {
+    describe("successful request has been sent") {
+      it("returns new BoundedContext in json format and OK status") {
 
         val mockCreateBoundedContextUseCase = mock[CreateBoundedContextUseCase]
         val newBoundedContext = BoundedContext.create(
@@ -37,6 +40,7 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
 
         val controller = new CreateBoundedContextApiController(
           stubControllerComponents(),
+          stubUserAction,
           mockCreateBoundedContextUseCase
         )
 
@@ -53,12 +57,12 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
 
         val result: Future[Result] = controller.action().apply(request)
 
-        status(result) mustBe OK
+        assert(status(result) == OK)
       }
     }
 
-    "BoundedContextAlias already exists" should {
-      "return error response in json format and Conflict status" in {
+    describe("BoundedContextAlias already exists") {
+      it("return error response in json format and Conflict status") {
         val mockCreateBoundedContextUseCase = mock[CreateBoundedContextUseCase]
         val conflictBoundedContext = BoundedContext.create(
           BoundedContextAlias("CONFLICT"),
@@ -71,6 +75,7 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
 
         val controller = new CreateBoundedContextApiController(
           stubControllerComponents(),
+          stubUserAction,
           mockCreateBoundedContextUseCase
         )
         val request: FakeRequest[CreateBoundedContextRequest] = FakeRequest.apply(
@@ -86,7 +91,7 @@ class CreateBoundedContextApiControllerTest extends PlaySpec with Results with M
 
         val result = controller.action().apply(request)
 
-        status(result) mustBe CONFLICT
+        assert(status(result) == CONFLICT)
       }
     }
   }
