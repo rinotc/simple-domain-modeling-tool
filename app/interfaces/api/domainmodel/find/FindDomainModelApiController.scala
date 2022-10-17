@@ -5,12 +5,14 @@ import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextI
 import dev.tchiba.sdmt.core.domainmodel.{DomainModelId, DomainModelRepository, EnglishName}
 import interfaces.api.domainmodel.json.DomainModelResponse
 import interfaces.api.{QueryValidator, SdmtApiController}
+import interfaces.security.UserAction
 import play.api.mvc.{Action, AnyContent, ControllerComponents}
 
 import javax.inject.Inject
 
 final class FindDomainModelApiController @Inject() (
     cc: ControllerComponents,
+    userAction: UserAction,
     domainModelRepository: DomainModelRepository
 ) extends SdmtApiController(cc)
     with EitherExtensions {
@@ -22,7 +24,7 @@ final class FindDomainModelApiController @Inject() (
    * @param boundedContextIdOrAlias 境界づけられたコンテキストID
    * @return ドメインモデル
    */
-  def action(idOrEnglishName: String, boundedContextIdOrAlias: String): Action[AnyContent] = Action {
+  def action(idOrEnglishName: String, boundedContextIdOrAlias: String): Action[AnyContent] = userAction {
 
     val notFoundResponse = notFound(
       code = "sdmt.domainModel.find.notFound",

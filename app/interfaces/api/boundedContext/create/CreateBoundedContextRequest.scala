@@ -1,6 +1,6 @@
 package interfaces.api.boundedContext.create
 
-import cats.data.{NonEmptyList, ValidatedNel}
+import cats.data.ValidatedNel
 import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextName, BoundedContextOverview}
 import interfaces.json.request.play.{PlayJsonRequest, PlayJsonRequestCompanion}
 import play.api.libs.json.{Json, OFormat}

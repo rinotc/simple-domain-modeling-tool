@@ -2,6 +2,7 @@ package interfaces.api.boundedContext.find
 
 import dev.tchiba.sdmt.core.boundedContext._
 import interfaces.api.boundedContext.json.BoundedContextResponse
+import interfaces.security.StubUserAction
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
@@ -11,6 +12,8 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsJson, defaultAwaitTimeout, status, stubControllerComponents}
 
 class FindBoundedContextApiControllerTest extends PlaySpec with Results with MockitoSugar {
+
+  private val stubUserAction = new StubUserAction
 
   "action" when {
     "requested BoundedContextId is exist" should {
@@ -28,7 +31,7 @@ class FindBoundedContextApiControllerTest extends PlaySpec with Results with Moc
           .thenReturn(Some(existingProject))
 
         val controller =
-          new FindBoundedContextApiController(stubControllerComponents(), mockBoundedContextRepository)
+          new FindBoundedContextApiController(stubControllerComponents(), stubUserAction, mockBoundedContextRepository)
 
         val result = controller.action(boundedContextId.string).apply(FakeRequest())
         status(result) mustEqual OK
@@ -45,7 +48,7 @@ class FindBoundedContextApiControllerTest extends PlaySpec with Results with Moc
           .thenReturn(None)
 
         val controller =
-          new FindBoundedContextApiController(stubControllerComponents(), mockBoundedContextRepository)
+          new FindBoundedContextApiController(stubControllerComponents(), stubUserAction, mockBoundedContextRepository)
 
         val result = controller.action(boundedContextId.string).apply(FakeRequest())
         status(result) mustEqual NOT_FOUND

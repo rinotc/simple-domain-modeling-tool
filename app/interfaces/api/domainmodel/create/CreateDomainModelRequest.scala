@@ -1,8 +1,10 @@
 package interfaces.api.domainmodel.create
 
+import cats.data.ValidatedNel
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
-import dev.tchiba.sdmt.core.domainmodel.{EnglishName, UbiquitousName, Knowledge}
+import dev.tchiba.sdmt.core.domainmodel.{EnglishName, Knowledge, UbiquitousName}
 import dev.tchiba.sdmt.usecase.domainmodel.create.CreateDomainModelInput
+import interfaces.json.request.play.{PlayJsonRequest, PlayJsonRequestCompanion}
 import interfaces.json.{JsonRequest, JsonValidator}
 import play.api.libs.json.{Json, OFormat}
 import play.api.mvc.{BodyParser, PlayBodyParsers}
@@ -13,19 +15,18 @@ case class CreateDomainModelRequest(
     ubiquitousName: String,
     englishName: String,
     knowledge: String
-) extends JsonRequest {
+) extends PlayJsonRequest {
 
-  private val ubiName = UbiquitousName.validate(ubiquitousName).leftThrow
-  private val engName = EnglishName.validate(englishName).leftThrow
-  private val know    = Knowledge(knowledge)
-
-  val input: BoundedContextId => CreateDomainModelInput =
-    CreateDomainModelInput(_, ubiName, engName, know)
+  override type VM = BoundedContextId => CreateDomainModelInput
+  override def validateParameters: ValidatedNel[(String, String), VM] =
+    (
+      UbiquitousName.validate(ubiquitousName).toValidated("ubiquitousName"),
+      EnglishName.validate(englishName).toValidated("englishName")
+    ).mapN { (ubiName, engName) =>
+      CreateDomainModelInput(_, ubiquitousName = ubiName, englishName = engName, knowledge = Knowledge(knowledge))
+    }
 }
 
-object CreateDomainModelRequest {
+object CreateDomainModelRequest extends PlayJsonRequestCompanion[CreateDomainModelRequest] {
   implicit val jsonFormat: OFormat[CreateDomainModelRequest] = Json.format[CreateDomainModelRequest]
-
-  def validateJson(implicit parse: PlayBodyParsers, ec: ExecutionContext): BodyParser[CreateDomainModelRequest] =
-    JsonValidator.validate
 }

@@ -5,6 +5,7 @@ import dev.tchiba.sdmt.core.domainmodel.DomainModelId
 import dev.tchiba.sdmt.usecase.domainmodel.update.{UpdateDomainModelOutput, UpdateDomainModelUseCase}
 import interfaces.api.domainmodel.json.DomainModelResponse
 import interfaces.api.{QueryValidator, SdmtApiController}
+import interfaces.security.UserAction
 import play.api.mvc.{Action, ControllerComponents}
 
 import javax.inject.Inject
@@ -12,12 +13,13 @@ import scala.concurrent.ExecutionContext
 
 class UpdateDomainModelApiController @Inject() (
     cc: ControllerComponents,
+    userAction: UserAction,
     updateDomainModelUseCase: UpdateDomainModelUseCase
 )(implicit ec: ExecutionContext)
     extends SdmtApiController(cc) {
 
   def action(boundedContextId: String, domainModelId: String): Action[UpdateDomainModelRequest] =
-    Action(UpdateDomainModelRequest.validateJson) { implicit request =>
+    userAction(UpdateDomainModelRequest.validateJson) { implicit request =>
       QueryValidator.sync {
         for {
           bcId <- BoundedContextId.validate(boundedContextId)

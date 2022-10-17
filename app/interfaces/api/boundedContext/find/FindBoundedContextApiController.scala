@@ -3,12 +3,14 @@ package interfaces.api.boundedContext.find
 import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextId, BoundedContextRepository}
 import interfaces.api.boundedContext.json.BoundedContextResponse
 import interfaces.api.{QueryValidator, SdmtApiController}
+import interfaces.security.UserAction
 import play.api.mvc.{Action, AnyContent, ControllerComponents}
 
 import javax.inject.Inject
 
 class FindBoundedContextApiController @Inject() (
     cc: ControllerComponents,
+    userAction: UserAction,
     boundedContextRepository: BoundedContextRepository
 ) extends SdmtApiController(cc) {
 
@@ -18,7 +20,7 @@ class FindBoundedContextApiController @Inject() (
    * @param idOrAlias IDもしくはエイリアスの文字列
    * @return
    */
-  def action(idOrAlias: String): Action[AnyContent] = Action {
+  def action(idOrAlias: String): Action[AnyContent] = userAction {
     QueryValidator.sync {
       validateIdOrAlias(idOrAlias)
     } { validatedIdOrAlias =>
