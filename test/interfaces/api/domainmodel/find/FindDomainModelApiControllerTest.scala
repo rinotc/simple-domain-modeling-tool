@@ -4,6 +4,7 @@ import dev.tchiba.sdmt.core.boundedContext.{BoundedContextAlias, BoundedContextI
 import dev.tchiba.sdmt.core.domainmodel._
 import dev.tchiba.test.core.BaseFunTest
 import interfaces.api.domainmodel.json.DomainModelResponse
+import interfaces.security.StubUserAction
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.http.Status._
@@ -13,6 +14,8 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsJson, defaultAwaitTimeout, status, stubControllerComponents}
 
 class FindDomainModelApiControllerTest extends BaseFunTest with Results with MockitoSugar {
+
+  private val stubUserAction = new StubUserAction
 
   describe("action") {
     describe("リクエストされた英語名と境界づけられたコンテキストのエイリアスが正しく、対象のドメインモデルが存在する場合") {
@@ -30,7 +33,8 @@ class FindDomainModelApiControllerTest extends BaseFunTest with Results with Moc
       when(mockDomainModelRepository.findByEnglishName(EnglishName(englishName), BoundedContextAlias(alias)))
         .thenReturn(Some(domainModel))
 
-      val controller = new FindDomainModelApiController(stubControllerComponents(), mockDomainModelRepository)
+      val controller =
+        new FindDomainModelApiController(stubControllerComponents(), stubUserAction, mockDomainModelRepository)
 
       val result = controller.action(englishName, alias).apply(FakeRequest())
       it("OKを返す") {
@@ -59,8 +63,9 @@ class FindDomainModelApiControllerTest extends BaseFunTest with Results with Moc
           BoundedContextId.fromString(boundedContextIdStr)
         )
       ).thenReturn(Some(domainModel))
-      val controller = new FindDomainModelApiController(stubControllerComponents(), mockDomainModelRepository)
-      val result     = controller.action(englishNameStr, boundedContextIdStr).apply(FakeRequest())
+      val controller =
+        new FindDomainModelApiController(stubControllerComponents(), stubUserAction, mockDomainModelRepository)
+      val result = controller.action(englishNameStr, boundedContextIdStr).apply(FakeRequest())
 
       it("OKを返す") {
         status(result) shouldBe OK
@@ -75,8 +80,9 @@ class FindDomainModelApiControllerTest extends BaseFunTest with Results with Moc
       val englishNameStr                = "DomainModel"
       val badBoundedContextIdOrAliasStr = "アイウエオ"
       val mockDomainModelRepository     = mock[DomainModelRepository]
-      val controller                    = new FindDomainModelApiController(stubControllerComponents(), mockDomainModelRepository)
-      val result                        = controller.action(englishNameStr, badBoundedContextIdOrAliasStr).apply(FakeRequest())
+      val controller =
+        new FindDomainModelApiController(stubControllerComponents(), stubUserAction, mockDomainModelRepository)
+      val result = controller.action(englishNameStr, badBoundedContextIdOrAliasStr).apply(FakeRequest())
       it("BadRequestを返す") {
         status(result) shouldBe BAD_REQUEST
       }
@@ -88,7 +94,7 @@ class FindDomainModelApiControllerTest extends BaseFunTest with Results with Moc
       }
     }
 
-    describe("リクエストされたドメインモデルIDのドメインモデルが存在しする場合") {
+    describe("リクエストされたドメインモデルIDのドメインモデルが存在する場合") {
       val domainModelIdStr = DomainModelId.generate().value.toString
       val domainModel = DomainModel.reconstruct(
         id = DomainModelId.fromString(domainModelIdStr),
@@ -101,8 +107,9 @@ class FindDomainModelApiControllerTest extends BaseFunTest with Results with Moc
       when(mockDomainModelRepository.findById(DomainModelId.fromString(domainModelIdStr)))
         .thenReturn(Some(domainModel))
 
-      val controller = new FindDomainModelApiController(stubControllerComponents(), mockDomainModelRepository)
-      val result     = controller.action(domainModelIdStr, "").apply(FakeRequest())
+      val controller =
+        new FindDomainModelApiController(stubControllerComponents(), stubUserAction, mockDomainModelRepository)
+      val result = controller.action(domainModelIdStr, "").apply(FakeRequest())
       it("OKを返す") {
         status(result) shouldBe OK
       }
@@ -118,8 +125,9 @@ class FindDomainModelApiControllerTest extends BaseFunTest with Results with Moc
       when(mockDomainModelRepository.findById(DomainModelId.fromString(domainModelIdStr)))
         .thenReturn(None)
 
-      val controller = new FindDomainModelApiController(stubControllerComponents(), mockDomainModelRepository)
-      val result     = controller.action(domainModelIdStr, "").apply(FakeRequest())
+      val controller =
+        new FindDomainModelApiController(stubControllerComponents(), stubUserAction, mockDomainModelRepository)
+      val result = controller.action(domainModelIdStr, "").apply(FakeRequest())
 
       it("NotFoundを返す") {
         status(result) shouldBe NOT_FOUND

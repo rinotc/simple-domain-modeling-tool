@@ -4,6 +4,7 @@ import dev.tchiba.sdmt.core.boundedContext._
 import dev.tchiba.sdmt.core.domainmodel._
 import dev.tchiba.sdmt.usecase.domainmodel.update.{UpdateDomainModelOutput, UpdateDomainModelUseCase}
 import interfaces.api.domainmodel.json.DomainModelResponse
+import interfaces.security.StubUserAction
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
@@ -22,7 +23,7 @@ class UpdateDomainModelApiControllerTest extends PlaySpec with Results with Mock
     val cc: ControllerComponents                           = Helpers.stubControllerComponents()
     val updateDomainModelUseCase: UpdateDomainModelUseCase = mock[UpdateDomainModelUseCase]
 
-    val controller = new UpdateDomainModelApiController(cc, updateDomainModelUseCase)
+    val controller = new UpdateDomainModelApiController(cc, new StubUserAction, updateDomainModelUseCase)
   }
 
   "action" when {

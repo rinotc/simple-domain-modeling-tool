@@ -7,6 +7,7 @@ import dev.tchiba.sdmt.usecase.boundedContext.create.{
 }
 import interfaces.api.SdmtApiController
 import interfaces.api.boundedContext.json.BoundedContextResponse
+import interfaces.security.UserAction
 import play.api.mvc.{Action, ControllerComponents}
 
 import javax.inject.Inject
@@ -14,11 +15,12 @@ import scala.concurrent.ExecutionContext
 
 final class CreateBoundedContextApiController @Inject() (
     cc: ControllerComponents,
+    userAction: UserAction,
     createBoundedContextUseCase: CreateBoundedContextUseCase
 )(implicit ec: ExecutionContext)
     extends SdmtApiController(cc) {
 
-  def action(): Action[CreateBoundedContextRequest] = Action(CreateBoundedContextRequest.validateJson) {
+  def action(): Action[CreateBoundedContextRequest] = userAction(CreateBoundedContextRequest.validateJson) {
     implicit request =>
       val name     = request.body.get.name
       val alias    = request.body.get.alias

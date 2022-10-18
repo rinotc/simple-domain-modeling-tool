@@ -19,7 +19,10 @@ export class DefaultInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(
+    const withCredentialRequest = req.clone({
+      withCredentials: true,
+    });
+    return next.handle(withCredentialRequest).pipe(
       catchError((e) => {
         console.warn('😈HttpInterceptor😈', e);
         const errRes = e as HttpErrorResponse;

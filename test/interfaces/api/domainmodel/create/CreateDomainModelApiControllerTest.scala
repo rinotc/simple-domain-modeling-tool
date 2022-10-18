@@ -8,6 +8,7 @@ import dev.tchiba.sdmt.usecase.domainmodel.create.{
   CreateDomainModelUseCase
 }
 import interfaces.api.domainmodel.json.DomainModelResponse
+import interfaces.security.StubUserAction
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
@@ -27,7 +28,7 @@ class CreateDomainModelApiControllerTest extends PlaySpec with MockitoSugar {
     val cc: ControllerComponents                           = Helpers.stubControllerComponents()
     val createDomainModelUseCase: CreateDomainModelUseCase = mock[CreateDomainModelUseCase]
 
-    val controller = new CreateDomainModelApiController(cc, createDomainModelUseCase)
+    val controller = new CreateDomainModelApiController(cc, new StubUserAction, createDomainModelUseCase)
   }
 
   "action" when {

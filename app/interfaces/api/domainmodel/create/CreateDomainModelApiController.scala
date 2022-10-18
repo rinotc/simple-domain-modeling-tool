@@ -4,6 +4,7 @@ import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.usecase.domainmodel.create.{CreateDomainModelOutput, CreateDomainModelUseCase}
 import interfaces.api.domainmodel.json.DomainModelResponse
 import interfaces.api.{QueryValidator, SdmtApiController}
+import interfaces.security.UserAction
 import play.api.mvc.{Action, ControllerComponents}
 
 import javax.inject.Inject
@@ -11,16 +12,17 @@ import scala.concurrent.ExecutionContext
 
 final class CreateDomainModelApiController @Inject() (
     cc: ControllerComponents,
+    userAction: UserAction,
     createDomainModelUseCase: CreateDomainModelUseCase
 )(implicit ec: ExecutionContext)
     extends SdmtApiController(cc) {
 
-  def action(id: String): Action[CreateDomainModelRequest] = Action(CreateDomainModelRequest.validateJson) {
+  def action(id: String): Action[CreateDomainModelRequest] = userAction(CreateDomainModelRequest.validateJson) {
     implicit request =>
       QueryValidator.sync {
         BoundedContextId.validate(id)
       } { boundedContextId =>
-        val input = request.body.input(boundedContextId)
+        val input = request.body.get(boundedContextId)
         createDomainModelUseCase.handle(input) match {
           case CreateDomainModelOutput.NoSuchBoundedContext(id) =>
             notFound(
