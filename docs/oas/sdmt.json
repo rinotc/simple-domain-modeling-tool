@@ -344,6 +344,58 @@
           "DomainModel"
         ]
       }
+    },
+    "/sign-in": {
+      "post": {
+        "summary": "SignIn",
+        "tags": [
+          "auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "apiAccessToken"
+              }
+            }
+          }
+        },
+        "operationId": "post-api-sign-in",
+        "description": "サインインリクエスト",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "minLength": 8,
+                    "maxLength": 50
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              },
+              "examples": {}
+            }
+          },
+          "description": "サインインリクエスト"
+        }
+      },
+      "parameters": []
     }
   },
   "components": {
