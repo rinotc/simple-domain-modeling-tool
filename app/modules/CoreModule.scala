@@ -11,7 +11,7 @@ import dev.tchiba.sdmt.application.interactors.domainmodel.add.CreateDomainModel
 import dev.tchiba.sdmt.application.interactors.domainmodel.update.UpdateDomainModelInteractor
 import dev.tchiba.sdmt.core.boundedContext.BoundedContextRepository
 import dev.tchiba.sdmt.core.domainmodel.DomainModelRepository
-import dev.tchiba.sdmt.infra.boundedContext.JdbcBoundedContextRepository
+import dev.tchiba.sdmt.infra.boundedContext.repository.JdbcBoundedContextRepository
 import dev.tchiba.sdmt.infra.domainmodel.JdbcDomainModelRepository
 import dev.tchiba.sdmt.usecase.boundedContext.create.CreateBoundedContextUseCase
 import dev.tchiba.sdmt.usecase.boundedContext.delete.DeleteBoundedContextUseCase
