@@ -48,7 +48,7 @@ final class JdbcUserRepository extends UserRepository with UsersTranslator {
     }.update().apply()
   }
 
-  override def batchInset(users: Seq[User]): Unit = DB localTx { implicit session =>
+  override def batchInsert(users: Seq[User]): Unit = DB localTx { implicit session =>
     val entities = users.map(translate)
     Users.batchInsert(entities)
   }

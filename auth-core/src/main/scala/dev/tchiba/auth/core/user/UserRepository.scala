@@ -14,5 +14,5 @@ trait UserRepository extends Repository[User] {
 
   def delete(user: User): Unit
 
-  def batchInset(users: Seq[User]): Unit
+  def batchInsert(users: Seq[User]): Unit
 }
