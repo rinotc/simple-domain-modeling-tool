@@ -38,7 +38,7 @@ final class JdbcUserRepository extends UserRepository with UsersTranslator {
         )
         .where
         .eq(c.userId, user.id.string)
-    }
+    }.update().apply()
   }
 
   override def delete(user: User): Unit = DB localTx { implicit session =>
