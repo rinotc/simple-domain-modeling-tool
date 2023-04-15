@@ -8,6 +8,8 @@ POST        /api/sign-out                                                       
 GET         /api/users                                                                 interfaces.api.user.UserApiController.allUsers()
 GET         /api/users/:userId                                                         interfaces.api.user.UserApiController.findUser(userId: String)
 
+PUT         /api/users/self/edit-email                                                 interfaces.api.user.edit.email.EditUserEmailController.action()
+
 GET         /api/bounded-contexts                                                      interfaces.api.boundedContext.list.ListBoundedContextsApiController.action()
 POST        /api/bounded-contexts                                                      interfaces.api.boundedContext.create.CreateBoundedContextApiController.action()
 GET         /api/bounded-contexts/:idOrAlias                                           interfaces.api.boundedContext.find.FindBoundedContextApiController.action(idOrAlias: String)

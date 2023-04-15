@@ -5,11 +5,7 @@ import dev.tchiba.sdmt.core.boundedContext.BoundedContextId
 import dev.tchiba.sdmt.core.domainmodel.{EnglishName, Knowledge, UbiquitousName}
 import dev.tchiba.sdmt.usecase.domainmodel.create.CreateDomainModelInput
 import interfaces.json.request.play.{PlayJsonRequest, PlayJsonRequestCompanion}
-import interfaces.json.{JsonRequest, JsonValidator}
 import play.api.libs.json.{Json, OFormat}
-import play.api.mvc.{BodyParser, PlayBodyParsers}
-
-import scala.concurrent.ExecutionContext
 
 case class CreateDomainModelRequest(
     ubiquitousName: String,
